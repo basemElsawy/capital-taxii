@@ -4,6 +4,7 @@
       @for(driver of driverMarkers; track driver) {
       <div>
         <map-marker
+          #driver
           [position]="driver.coords"
           [icon]="driver.icon"
           (mapClick)="getInfoWindow(driver)"
@@ -11,7 +12,7 @@
       </div>
       }
       <map-info-window>
-        <div class=""></div>
+        <div class="">hello</div>
       </map-info-window>
     </google-map>
   </div>
