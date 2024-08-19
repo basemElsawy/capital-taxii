@@ -23,3 +23,15 @@ $primary-color: #0053c6;
 $secondary-color: #474749;
 $sub-text: #7f7e83;
 $accent-color: #f4f4f4;
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #71acff;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 3px !important;
+  background-color: $primary-color;
+  border-radius: 10px;
+}

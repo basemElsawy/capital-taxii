@@ -1,14 +1,22 @@
 <section class="map-container">
   <div class="map-wrapper mb-2 overflow-hidden rounded-4">
-    <google-map height="300px" width="100%"></google-map>
+    <google-map
+      [center]="center"
+      [zoom]="zoom"
+      height="300px"
+      width="100%"
+    ></google-map>
   </div>
 
-  <div class="table rounded-4 p-2 shadow-sm" style="height: 290px">
-    <table class="w-100">
+  <div
+    class="table-container bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
+    style="height: 290px"
+  >
+    <table class="w-100 table-content position-relative">
       <thead class="w-100">
         <tr class="py-2 px-4 w-100">
           <th class="first-heading">
-            <input type="checkbox" />
+            <input type="checkbox" (change)="checkboxEvent($event)" />
           </th>
           <th style="width: 150px; text-align: left; padding-left: 0px">
             User
@@ -25,7 +33,7 @@
         @for(item of products; track item) {
         <tr class="w-100">
           <td>
-            <input type="checkbox" />
+            <input type="checkbox" [checked]="item.isChecked" />
           </td>
           <td
             class="person-info d-flex align-items-center justify-content-start gap-2"
@@ -44,34 +52,40 @@
           <td style="width: 200px" class="text-start ps-3">
             {{ item.finishLocation }}
           </td>
-          <td>test</td>
-        </tr>
-        }
-        <tr class="w-100">
-          <td>
-            <input type="checkbox" />
-          </td>
-          <td
-            class="person-info d-flex align-items-center justify-content-start gap-2"
-          >
-            <img
-              src="../../../assets/profile_photo.png"
-              alt=""
-              height="40"
-              width="40"
-            />
-            <div class="text-container text-start">
-              <h6 class="m-0 p-0">linda ferguson</h6>
-              <p class="m-0 p-0">023924313</p>
+          <td class="d-flex align-items-center justify-content-center">
+            <div class="income-styling px-2 w-50 py-2 rounded-4">
+              {{ item.income }}EGP
             </div>
           </td>
-          <td>test</td>
-          <td>test</td>
-          <td>test</td>
-          <td>test</td>
-          <td>test</td>
         </tr>
+        }
       </tbody>
     </table>
+    <div
+      class="table-footer bg-white p-2 w-100 d-flex align-items-center justify-content-end"
+    >
+      <div class="w-auto d-flex align-items-center justify-content-center">
+        <div class="items-container">1 items of {{ testArray.length }}</div>
+        <div
+          class="pagination-container d-flex align-items-center justify-content-center gap-2 px-3"
+        >
+          <div class="box-style">
+            <i class="fa-solid fa-angle-left"></i>
+          </div>
+          <div class="d-flex align-items-center justify-content-center gap-2">
+            @for(item of testArray;track item ; let index = $index){
+
+            <div class="box-style" [ngClass]="{ 'active-page': index == 0 }">
+              <p>{{ item }}</p>
+            </div>
+
+            }
+          </div>
+          <div class="box-style">
+            <i class="fa-solid fa-angle-right"></i>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
