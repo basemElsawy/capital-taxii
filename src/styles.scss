@@ -35,3 +35,6 @@ $accent-color: #f4f4f4;
   background-color: $primary-color;
   border-radius: 10px;
 }
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

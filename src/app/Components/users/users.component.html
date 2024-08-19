@@ -1,0 +1,154 @@
+<div class="col-12 text-start my-4">
+  <button
+    class="btn btn-success add-new-user-button"
+    (click)="openAddModal(content)"
+  >
+    Add new
+  </button>
+</div>
+
+<div
+  class="table-container bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
+  style="max-height: 510px"
+>
+  <table class="w-100 table-content position-relative">
+    <thead class="w-100">
+      <tr class="py-2 px-4 w-100">
+        <th class="first-heading">
+          <input type="checkbox" (change)="checkboxEvent($event)" />
+        </th>
+        <th style="width: 150px; text-align: left; padding-left: 0px">User</th>
+        <th>E-mail</th>
+        <th>Phone number</th>
+
+        <th>Gender</th>
+        <th>BirthDay</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(user of users; track user) {
+      <tr>
+        <td>
+          <input type="checkbox" [checked]="user.isChecked" />
+        </td>
+        <td
+          class="person-info d-flex align-users-center justify-content-start gap-2"
+        >
+          <img
+            src="../../../assets/Rectangle 9.png"
+            alt=""
+            height="40"
+            width="40"
+          />
+          <div class="text-container text-start">
+            <h6 class="m-0 p-0">+20 101 0100101</h6>
+            <p class="m-0 p-0">{{ user.email }}</p>
+          </div>
+        </td>
+        <td>{{ user.email }}</td>
+        <td>+20 101 0100101</td>
+        <td>Male</td>
+        <td>{{ user.birthdate | date : "dd-MM-yyyy" }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4>Add new user</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="addUserForm">
+      <div class="row">
+        <div class="col-md-4">
+          <label> Email </label>
+          <input
+            class="form-group form-control"
+            type="text"
+            formControlName="email"
+          />
+        </div>
+        <div class="col-md-4">
+          <label> Phone </label>
+          <input
+            class="form-group form-control"
+            type="number"
+            formControlName="phone"
+          />
+        </div>
+        <div class="col-md-4">
+          <label> Gender </label>
+          <select formControlName="genderId" class="form-select form-control">
+            <option [value]="1">Male</option>
+            <option [value]="2">Female</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> Nationality </label>
+          <select
+            formControlName="nationalityId"
+            class="form-select form-control"
+          >
+            <option disabled selected value="null">
+              Please choose nationality
+            </option>
+            @for(nationality of nationalities; track nationality){
+            <option [value]="nationality.id">
+              {{ nationality.nameAr }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> Password </label>
+
+          <input
+            class="form-control"
+            type="password"
+            formControlName="password"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label> Confirm password </label>
+
+          <input
+            class="form-control"
+            type="password"
+            formControlName="confirmPassword"
+          />
+          <div
+            *ngIf="
+              addUserForm.errors?.['mismatch'] && addUserForm.get('confirmPassword')?.touched
+            "
+          >
+            <p class="fw-bold text-danger">
+              Password and confirm password do not match.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label> Birth date </label>
+          <input class="form-control" type="date" formControlName="birthDate" />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button
+      class="btn btn-success"
+      [disabled]="addUserForm.invalid"
+      (click)="addUser()"
+    >
+      Save
+    </button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
