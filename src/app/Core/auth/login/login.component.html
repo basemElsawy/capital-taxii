@@ -24,24 +24,35 @@
         <p>Log in to access your space</p>
       </div>
       <form
-        action=""
+        [formGroup]="loginForm"
         class="form-wrapper py-4 d-flex flex-column gap-4 px-4 w-100"
       >
         <div class="input-container">
-          <label for="username" class="mb-2">Username</label>
-          <input type="text" id="username" class="form-control" />
+          <label for="username" class="mb-2">Email</label>
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            formControlName="email"
+          />
         </div>
         <div class="input-container">
           <label for="password" class="mb-2">Password</label>
-          <input type="text" class="form-control" />
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+          />
         </div>
       </form>
-      <div
-        class="w-100"
-        [routerLink]="['/home']"
-        routerLinkActive="router-link-active"
-      >
-        <button class="btn py-2 px-5">Sign in</button>
+      <div class="w-100">
+        <button
+          class="btn py-2 px-5"
+          [disabled]="loginForm.invalid"
+          (click)="doLogin()"
+        >
+          Sign in
+        </button>
       </div>
     </div>
   </div>

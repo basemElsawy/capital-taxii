@@ -4,6 +4,8 @@ import { CanActivateFn, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 export const authguardGuard: CanActivateFn = (route, state) => {
+  debugger;
+  console.log('authGuard works !!!');
   const toaster: ToastrService = inject(ToastrService);
   const router: Router = inject(Router);
   const token = localStorage.getItem('token');
@@ -17,7 +19,7 @@ export const authguardGuard: CanActivateFn = (route, state) => {
     console.log('there is a token');
     return true;
   } else if (timeNow === timecompare) {
-    toaster.error('لا يمكن الاستمرار فى هذه الصفحة');
+    toaster.error('تم انتهاء الجلسة');
     localStorage.removeItem('expiry');
     localStorage.removeItem('token');
     return router.createUrlTree(['/auth/login']);
