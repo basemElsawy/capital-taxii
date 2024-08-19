@@ -1,11 +1,19 @@
 <section class="map-container">
   <div class="map-wrapper mb-2 overflow-hidden rounded-4">
-    <google-map
-      [center]="center"
-      [zoom]="zoom"
-      height="300px"
-      width="100%"
-    ></google-map>
+    <google-map [center]="center" [zoom]="zoom" height="300px" width="100%">
+      @for(driver of driverMarkers; track driver) {
+      <div>
+        <map-marker
+          [position]="driver.coords"
+          [icon]="driver.icon"
+          (mapClick)="getInfoWindow(driver)"
+        ></map-marker>
+      </div>
+      }
+      <map-info-window>
+        <div class=""></div>
+      </map-info-window>
+    </google-map>
   </div>
 
   <div

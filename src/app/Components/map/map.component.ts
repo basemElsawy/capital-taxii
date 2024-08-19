@@ -1,21 +1,36 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { GoogleMapsModule, MapGeocoder } from '@angular/google-maps';
+import { Component, signal, ViewChild } from '@angular/core';
+import {
+  GoogleMapsModule,
+  MapInfoWindow,
+  MapMarker,
+  MapAdvancedMarker,
+} from '@angular/google-maps';
 import { TableModule } from 'primeng/table';
-import { Drivers } from './IMap';
+import { DriverDetails, Drivers, DriversMarkers } from './IMap';
 import { MapServiceService } from './map-service.service';
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [GoogleMapsModule, CommonModule, TableModule],
+  imports: [
+    GoogleMapsModule,
+    CommonModule,
+    TableModule,
+    MapMarker,
+    MapInfoWindow,
+    MapAdvancedMarker,
+  ],
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss',
 })
 export class MapComponent {
+  @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
+
   center!: google.maps.LatLngLiteral;
   zoom = 12;
-
+  driverMarkers!: any[];
+  driverDetails = signal([]);
   testArray: string[] = ['1', '2', '3', '4'];
   products: Drivers[] = [
     {
@@ -94,6 +109,47 @@ export class MapComponent {
   constructor(private mapService: MapServiceService) {}
   ngOnInit(): void {
     this.getCurrentPosition();
+
+    this.getDriversOnMap();
+    // setInterval(() => {
+    // }, 1000);
+  }
+
+  getDriversOnMap() {
+    this.mapService.getDriversOnTheMap().subscribe({
+      next: <DriversMapMarkers>(
+        res: DriverDetails[] | DriversMapMarkers[] | any
+      ): void => {
+        let mappedResponse = res.map(
+          ({
+            id,
+            locationLongitude: lng,
+            locationLatitude: lat,
+            status,
+          }: DriverDetails): DriversMarkers => {
+            return {
+              id,
+              driverName: 'محمد صادق',
+              driverTitle: 'كابتن سائق',
+              driverImage: '../../../assets/unknown.png',
+              coords: { lat, lng },
+              icon: {
+                url: '../../../assets/locationIcon.png',
+                scaledSize: {
+                  width: 60,
+                  height: 60,
+                },
+              },
+            };
+          }
+        );
+        this.driverMarkers = mappedResponse;
+      },
+      complete: () => {},
+      error: (error: any) => {
+        console.log(error.message);
+      },
+    });
   }
 
   getCurrentPosition() {
@@ -117,6 +173,9 @@ export class MapComponent {
     this.products.forEach((item: Drivers) => {
       item.isChecked = false;
     });
+  }
+  getInfoWindow<Marker>(marker: any) {
+    this.infoWindow.open();
   }
   checkboxRowEvent(event: any, item: Drivers) {}
 }

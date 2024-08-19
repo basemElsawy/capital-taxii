@@ -14,3 +14,36 @@ export interface Drivers {
   income: string;
   isChecked?: boolean;
 }
+
+export interface DriverDetails {
+  id: number;
+  status: boolean;
+  locationLatitude: number;
+  locationLongitude: number;
+}
+
+export interface DriversMarkers {
+  id: number;
+  coords: {
+    lat: number;
+    lng: number;
+  };
+  driverName: string;
+  driverTitle: string;
+  driverImage: string;
+  icon?: {
+    url?: string;
+    scaledSize?: {
+      width: number;
+      height: number;
+    };
+  };
+}
+
+//  icon: {
+// url: '../../assets/blue.png',
+// scaledSize: {
+//   width: 50,
+//   height: 40,
+// },
+//   },

@@ -1,11 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { error } from 'console';
+import { MapApis } from './MapApis';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MapServiceService {
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
   getCurrentLocation() {
     let geolocation = navigator.geolocation;
@@ -19,5 +21,9 @@ export class MapServiceService {
         reject(new Error('Geolocation is not supported in this browser'));
       }
     });
+  }
+
+  getDriversOnTheMap() {
+    return this.httpClient.get(MapApis.getAllDriversEndPoint);
   }
 }
