@@ -1,29 +1,28 @@
-import { formatDate } from '@angular/common';
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 export const authguardGuard: CanActivateFn = (route, state) => {
-  debugger;
-  console.log('authGuard works !!!');
   const toaster: ToastrService = inject(ToastrService);
   const router: Router = inject(Router);
   const token = localStorage.getItem('token');
-  let timeExpiry = localStorage.getItem('expiryDate')
-    ? <string>localStorage.getItem('expiryDate')
-    : '00';
-  let timeNow = formatDate(Date.now(), 'dd', 'en-US');
-  let timecompare = formatDate(timeExpiry, 'dd', 'en-US');
+  const expiryTimestamp = localStorage.getItem('expiryDate')
+    ? parseInt(localStorage.getItem('expiryDate')!, 10)
+    : 0;
 
-  if (token) {
-    console.log('there is a token');
+  const currentTimestamp = Math.floor(Date.now() / 1000); // Get the current time in Unix timestamp format
+
+  if (token && currentTimestamp < expiryTimestamp) {
+    // Token is valid and not expired
     return true;
-  } else if (timeNow === timecompare) {
+  } else if (token && currentTimestamp >= expiryTimestamp) {
+    // Token has expired, log the user out
     toaster.error('تم انتهاء الجلسة');
-    localStorage.removeItem('expiry');
+    localStorage.removeItem('expiryDate');
     localStorage.removeItem('token');
     return router.createUrlTree(['/auth/login']);
   } else if (!token) {
+    // No token, redirect to login
     return router.createUrlTree(['/auth/login']);
   }
 
