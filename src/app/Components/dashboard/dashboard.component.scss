@@ -1,0 +1,32 @@
+.holder{
+    display: grid;
+    grid-template-columns: repeat(3 ,1fr);
+    gap :10px;
+}
+
+.card{
+    box-shadow: 1px 1px 4px 1px lightgray;
+    padding: 5px;
+    border-radius: 15px;
+    height: auto;
+}
+
+.color-section,.color-section1, .color-section2 {
+    background-color: #9288E0;
+    position: relative;
+    left: 7px;
+    width: 28px;
+    border-top-left-radius: 15px;
+    top: -5px;
+    height: 82px;
+    border-bottom-left-radius: 15px;
+}
+
+.color-section1{
+    background-color: #FFB572;
+} 
+
+.color-section2{
+    background-color: #65B0F6;
+}
+

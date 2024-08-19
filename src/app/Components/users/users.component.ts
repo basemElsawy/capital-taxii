@@ -25,11 +25,9 @@ export class UsersComponent implements OnInit {
   private userService = inject(UserService);
   private fb = inject(FormBuilder);
 
-  constructor() {
-    this.initialiseAddUserForm();
-  }
-
   ngOnInit() {
+    this.initialiseAddUserForm();
+
     this.getAllAddedUsers();
   }
 
