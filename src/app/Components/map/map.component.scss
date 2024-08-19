@@ -1,0 +1,79 @@
+@import "../../../styles.scss";
+* {
+  font-family: "montserrat";
+}
+.map-wrapper {
+  border: 1px solid $primary-color;
+  height: 300px;
+}
+.person-info {
+  width: 200px;
+}
+table {
+  border: none !important;
+}
+thead {
+  // display: block;
+  border-radius: 10px;
+  overflow: hidden;
+}
+thead th {
+  padding: 12px;
+}
+thead tr {
+  padding: 10px;
+  font-size: 14px !important;
+
+  background-color: $primary-color !important;
+}
+tbody tr {
+  border: none !important;
+}
+thead tr {
+  color: white;
+  text-align: center;
+}
+tbody tr td {
+  text-align: center;
+  padding-block: 10px;
+}
+.text-container {
+  & h6 {
+    font-size: 14px;
+    margin-bottom: 3px !important;
+  }
+  & p {
+    font-size: 12px;
+    color: #90a0b7;
+  }
+}
+.first-heading {
+  border-radius: 10px 0px 0px 10px !important;
+}
+
+.second-heading {
+  border-radius: 0px 10px 10px 0px;
+}
+::ng-deep .p-datatable-thead th {
+  color: white;
+  padding: 10px;
+  background-color: $primary-color;
+  font-size: 14px;
+}
+::ng-deep .p-hidden-accessible {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+::ng-deep .p-datatable-tbody tr .p-checkbox {
+  padding-left: 10px !important;
+}
+::ng-deep .p-datatable-tbody tr td {
+  padding-block: 12px;
+}
+tbody tr td {
+  font-size: 12px;
+}
+// ::ng-deep .p-checkbox {
+//   padding-left: 14px;
+// }

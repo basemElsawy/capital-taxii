@@ -1,0 +1,48 @@
+<section class="login-section d-flex align-items-center justify-content-center">
+  <div
+    class="login-container d-flex align-items-center justify-content-center image-section w-25"
+  >
+    <div
+      class="image-content d-flex align-items-center justify-content-center flex-column gap-3 m-0"
+    >
+      <div class="image-container">
+        <img src="../../../../assets/Logo.png" alt="" />
+      </div>
+      <div class="text-content text-white text-center">
+        <h1>خدمة التوصيل <br />الموثوقة في قلب العاصمة</h1>
+      </div>
+    </div>
+  </div>
+  <div
+    class="login-container form-section w-75 d-flex align-items-center justify-content-center"
+  >
+    <div
+      class="form-container text-center d-flex align-items-center justify-content-start gap-3 flex-column p-5"
+    >
+      <div>
+        <h2 class="mb-4">Log in</h2>
+        <p>Log in to access your space</p>
+      </div>
+      <form
+        action=""
+        class="form-wrapper py-4 d-flex flex-column gap-4 px-4 w-100"
+      >
+        <div class="input-container">
+          <label for="username" class="mb-2">Username</label>
+          <input type="text" id="username" class="form-control" />
+        </div>
+        <div class="input-container">
+          <label for="password" class="mb-2">Password</label>
+          <input type="text" class="form-control" />
+        </div>
+      </form>
+      <div
+        class="w-100"
+        [routerLink]="['/home']"
+        routerLinkActive="router-link-active"
+      >
+        <button class="btn py-2 px-5">Sign in</button>
+      </div>
+    </div>
+  </div>
+</section>

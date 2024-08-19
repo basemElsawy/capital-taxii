@@ -1,0 +1,15 @@
+@import "../../../styles.scss";
+.view-container {
+  height: 100vh;
+  background-color: $primary-color;
+}
+.side-nav {
+  background-color: $primary-color;
+  width: 20%;
+}
+
+.main-content {
+  height: calc(100vh - 25px);
+  width: 79% !important;
+  border-radius: 10px;
+}
