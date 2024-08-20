@@ -161,12 +161,16 @@
             <div class="col-md-4 orders-number">
               <h6>
                 Orders:
-                <span class="fw-bold">5</span>
+                <span class="fw-bold">{{ driver.totalCount }}</span>
               </h6>
               <hr />
               <h6 class="income">
                 Income:
-                <span class="fw-bold">50 $</span>
+                <span class="fw-bold">
+                  <span class="currency"
+                    >{{ driver.totalAmount }} LE</span
+                  ></span
+                >
               </h6>
             </div>
           </div>
