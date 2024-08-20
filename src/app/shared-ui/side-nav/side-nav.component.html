@@ -4,7 +4,7 @@
       <img src="../../../assets/Rectangle 9.png" alt="" />
     </div>
     <div class="sidenav-headline">
-      <h4>Fathy Tamer</h4>
+      <h4 class="m-0">Fathy Tamer</h4>
       <p>Admin</p>
     </div>
   </div>
@@ -246,6 +246,16 @@
               />
             </svg>
             <p>Moderators</p>
+          </div>
+        </li>
+        <li
+          class="list-item"
+          [routerLink]="['/home', 'vehicle']"
+          routerLinkActive="active-item"
+        >
+          <div class="d-flex align-items-center justify-content-start gap-2">
+            <i class="fa-solid fa-car"></i>
+            <p>Vehicles</p>
           </div>
         </li>
         <li class="list-item">

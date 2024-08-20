@@ -120,7 +120,8 @@ export class MapComponent {
       next: <DriversMapMarkers>(
         res: DriverDetails[] | DriversMapMarkers[] | any
       ): void => {
-        let mappedResponse = res.map(
+        console.log(res);
+        let mappedResponse = res.items.map(
           ({
             id,
             locationLongitude: lng,

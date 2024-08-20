@@ -15,10 +15,13 @@
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
   font-family: "almarai";
 }
 
+p {
+  margin: 0 !important;
+}
 $primary-color: #0053c6;
 $secondary-color: #474749;
 $sub-text: #7f7e83;
@@ -37,4 +40,4 @@ $accent-color: #f4f4f4;
 }
 
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
