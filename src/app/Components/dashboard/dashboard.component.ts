@@ -1,25 +1,107 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { DashboardService } from './services/dashboard.service';
+import { ArrivedTripsComponent } from './arrived-trips/arrived-trips.component';
+import { CancledTripsComponent } from './cancled-trips/cancled-trips.component';
+import { NewTripsComponent } from './new-trips/new-trips.component';
+import { ConfirmedTripsComponent } from './confirmed-trips/confirmed-trips.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [
+    ArrivedTripsComponent,
+    CancledTripsComponent,
+    NewTripsComponent,
+    ConfirmedTripsComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
   dashboardStatisticalData: any[] = [];
+  newRequestDetails: any[] = [];
+  confirmedRequestDetails: any[] = [];
+  arrivedRequestDetails: any[] = [];
+  cancledRequestDetails: any[] = [];
+  allDrivers: any[] = [];
+
+  IsNewRequests: boolean = false;
+  IsConfirmedRequests: boolean = false;
+  IsCancledRequests: boolean = false;
+  IsArrivedRequests: boolean = false;
+
+  dashboardData: any;
   private dashboardService = inject(DashboardService);
 
   ngOnInit(): void {
     this.getAllDashboardStatisticalData();
+    this.getAllDrivers();
   }
 
   getAllDashboardStatisticalData() {
+    this.newRequestDetails = [];
+    this.cancledRequestDetails = [];
+    this.confirmedRequestDetails = [];
+    this.arrivedRequestDetails = [];
     this.dashboardService.getAllDashboardData().subscribe({
-      next: (dashboardData) => {
-        debugger;
+      next: (res: any) => {
+        this.dashboardData = {
+          availableDrivers: res.availableDrivers,
+          totalDriver: res.totalDriver,
+          totalRevenue: res.totalRevenue,
+          totalTrips: res.totalTrips,
+          unavailableDrivers: res.unavailableDrivers,
+          totalrevenue: res.totalRevenue,
+        };
+
+        res.tripsDetails.forEach((element: any) => {
+          this.dashboardStatisticalData.push({
+            count: element.count,
+            statusName: element.requestStatusName,
+            requestStatusId: element.requestStatusId,
+            requestRoutes: element.requestRoutes,
+          });
+        });
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  getStatusDetails(choosedData: any) {
+    this.IsNewRequests = false;
+    this.IsConfirmedRequests = false;
+    this.IsCancledRequests = false;
+    this.IsArrivedRequests = false;
+    this.newRequestDetails = [];
+    this.confirmedRequestDetails = [];
+    this.cancledRequestDetails = [];
+    this.arrivedRequestDetails = [];
+    switch (choosedData.requestStatusId) {
+      case 1:
+        this.IsNewRequests = true;
+        this.newRequestDetails = choosedData.requestRoutes;
+        break;
+      case 2:
+        this.IsConfirmedRequests = true;
+        this.confirmedRequestDetails = choosedData.requestRoutes;
+        break;
+      case 5:
+        this.IsCancledRequests = true;
+        this.cancledRequestDetails = choosedData.requestRoutes;
+        break;
+      case 4:
+        this.IsArrivedRequests = true;
+        this.arrivedRequestDetails = choosedData.requestRoutes;
+        break;
+    }
+  }
+
+  getAllDrivers(): void {
+    this.dashboardService.getAllDrivers(1, 10).subscribe({
+      next: (drivers: any) => {
+        this.allDrivers = drivers.items;
       },
       error: (error) => {
         console.log(error);

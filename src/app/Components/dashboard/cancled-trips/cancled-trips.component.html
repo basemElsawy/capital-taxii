@@ -1,0 +1,74 @@
+<div
+  class="table-container bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
+  style="height: 290px"
+>
+  <table class="w-100 table-content position-relative">
+    <thead class="w-100">
+      <tr class="py-2 px-4 w-100">
+        <th>#</th>
+        <th>User</th>
+        <th>Email</th>
+        <th>Start Location</th>
+        <th>End Location</th>
+        <th>Trip distance</th>
+        <th>Trip time</th>
+        <th>Trip price</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(newTrip of cancledTrips; track newTrip; let i = $index){
+      <tr class="w-100">
+        <td>
+          {{ i + 1 }}
+        </td>
+        <td
+          class="person-info d-flex align-items-center justify-content-start gap-2"
+        >
+          <img
+            [src]="
+              newTrip.customer.picture
+                ? newTrip.customer.picture
+                : '../../../../assets/Rectangle 9.png'
+            "
+            alt=""
+            height="40"
+            width="40"
+          />
+          <div class="text-container text-start">
+            <h6 class="m-0 p-0">
+              {{ newTrip.customer.fullName ? newTrip.customer.fullName : "-" }}
+            </h6>
+            <p class="m-0 p-0">
+              {{
+                newTrip.customer.phoneNumber
+                  ? newTrip.customer.phoneNumber
+                  : "-"
+              }}
+            </p>
+          </div>
+        </td>
+
+        <td>
+          {{ newTrip.email ? newTrip.email : "-" }}
+        </td>
+
+        <td>{{ newTrip.fromLocationName }}</td>
+        <td>
+          {{ newTrip.toLocationName }}
+        </td>
+        <td>
+          {{ newTrip.tripDistance ? newTrip.tripDistance : "-" }}
+        </td>
+
+        <td>
+          {{ newTrip.tripTime ? newTrip.tripTime : "-" }}
+        </td>
+
+        <td>
+          {{ newTrip.price ? newTrip.price : "-" }}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

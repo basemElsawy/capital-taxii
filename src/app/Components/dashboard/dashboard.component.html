@@ -5,53 +5,214 @@
         <div class="card">
           <div class="card-body p-0">
             <div class="row">
-              <div class="col-3 color-section">kkf</div>
-              <div class="col-9">details</div>
+              <div class="col-3 color-section2"></div>
+              <div class="col-9">
+                <div class="icon-holder">
+                  <i class="user-icon user-icon-color-new pi pi-dollar"></i>
+                </div>
+                <div class="statistical-number">
+                  <p>
+                    {{ dashboardData?.totalrevenue }}
+                  </p>
+                </div>
+                <div class="statistical-text">
+                  <p>Total Revenue</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div class="card">
           <div class="card-body p-0">
             <div class="row">
-              <div class="col-3 color-section1">kkf</div>
-              <div class="col-9">details</div>
+              <div class="col-3 color-section"></div>
+              <div class="col-9">
+                <div class="icon-holder">
+                  <i class="pi pi-map"></i>
+                </div>
+                <div class="statistical-number">
+                  <p>
+                    {{ dashboardData.totalTrips }}
+                  </p>
+                </div>
+                <div class="statistical-text">
+                  <p>Total trips</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
         <div class="card">
           <div class="card-body p-0">
             <div class="row">
-              <div class="col-3 color-section2">kkf</div>
-              <div class="col-9">details</div>
+              <div class="col-3 color-section1"></div>
+              <div class="col-9">
+                <div class="icon-holder">
+                  <i class="user-icon user-icon-color pi pi-user"></i>
+                </div>
+                <div class="statistical-number">
+                  <p>
+                    {{ dashboardData.totalDriver }}
+                  </p>
+                </div>
+                <div class="statistical-text">
+                  <p>Total Drivers</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
         <div class="card">
           <div class="card-body p-0">
             <div class="row">
-              <div class="col-3 color-section">kkf</div>
-              <div class="col-9">details</div>
+              <div class="col-3 color-section2"></div>
+              <div class="col-9">
+                <div class="icon-holder">
+                  <i class="user-icon user-icon-color-new pi pi-user"></i>
+                </div>
+                <div class="statistical-number">
+                  <p>
+                    {{ dashboardData.availableDrivers }}
+                  </p>
+                </div>
+                <div class="statistical-text">
+                  <p>Total Available drivers</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
         <div class="card">
           <div class="card-body p-0">
             <div class="row">
-              <div class="col-3 color-section">kkf</div>
-              <div class="col-9">details</div>
+              <div class="col-3 color-section2"></div>
+              <div class="col-9">
+                <div class="icon-holder">
+                  <i class="user-icon user-icon-color-new pi pi-user"></i>
+                </div>
+                <div class="statistical-number">
+                  <p>
+                    {{ dashboardData.unavailableDrivers }}
+                  </p>
+                </div>
+                <div class="statistical-text">
+                  <p>Total unavailable drivers</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="card">
+
+        @for(data of dashboardStatisticalData; track data) {
+        <div class="card" (click)="getStatusDetails(data)">
           <div class="card-body p-0">
             <div class="row">
-              <div class="col-3 color-section">kkf</div>
-              <div class="col-9">details</div>
+              <div class="col-3 color-section2"></div>
+              <div class="col-9">
+                <div class="icon-holder">
+                  <i class="pi pi-car"></i>
+                </div>
+                <div class="statistical-number">
+                  <p>
+                    {{ data.count }}
+                  </p>
+                </div>
+                <div class="statistical-text">
+                  <p>
+                    {{ data.statusName }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    <div class="col-md-3 mt-3 top-drivers">
+      <span class="fw-bold">Top drivers</span>
+      @for(driver of allDrivers; track driver){
+      <div class="card top-drivers-details">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-2">
+              <img
+                class="driver-img"
+                [src]="
+                  driver.user.picture
+                    ? driver.user.picture
+                    : '../../../assets/Rectangle 28.png'
+                "
+                alt="driver-img"
+              />
+            </div>
+            <div class="col-md-6 text-details">
+              <h6 class="fw-bold m-0 p-0">
+                {{ driver.user.fullName }}
+              </h6>
+              <p class="phone-number m-0 p-0">
+                {{ driver.user.phoneNumber }}
+              </p>
+            </div>
+
+            <div class="col-md-4 orders-number">
+              <h6>
+                Orders:
+                <span class="fw-bold">5</span>
+              </h6>
+              <hr />
+              <h6 class="income">
+                Income:
+                <span class="fw-bold">50 $</span>
+              </h6>
             </div>
           </div>
         </div>
       </div>
+      }
     </div>
-    <div class="col-md-3 bg-info">skflkf</div>
   </div>
+  <!-- here is the table for new requests-->
+  @if(IsNewRequests) { @if(newRequestDetails.length){
+  <app-new-trips [newTrips]="newRequestDetails"></app-new-trips>
+  } @else{
+  <div class="alert alert-info">
+    <p class="text-center fw-bold">There is no new requests</p>
+  </div>
+  } }
+
+  <!-- here is the table for confirmed requests-->
+  @if (IsConfirmedRequests){ @if(confirmedRequestDetails.length) {
+  <app-confirmed-trips
+    [confirmedTripsDetails]="confirmedRequestDetails"
+  ></app-confirmed-trips>
+  } @else {
+  <div class="alert alert-info">
+    <p class="text-center fw-bold">There is no confirmed requests</p>
+  </div>
+  } }
+
+  <!-- here is the table for cancled requests-->
+  @if (IsCancledRequests){ @if(cancledRequestDetails.length){
+  <app-cancled-trips [cancledTrips]="cancledRequestDetails"></app-cancled-trips>
+  } @else {
+
+  <div class="alert alert-info">
+    <p class="text-center fw-bold">There is no cancled requests</p>
+  </div>
+  } }
+
+  <!-- here is the table for arrived requests-->
+  @if(IsArrivedRequests) { @if(arrivedRequestDetails.length) {
+  <app-arrived-trips
+    [arrivedTripDetails]="arrivedRequestDetails"
+  ></app-arrived-trips>
+  } @else {
+  <div class="alert alert-info">
+    <p class="text-center fw-bold">There is no arrived requests</p>
+  </div>
+  } }
 </div>

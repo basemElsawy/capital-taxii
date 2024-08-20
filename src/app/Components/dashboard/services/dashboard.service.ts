@@ -11,6 +11,13 @@ export class DashboardService {
   constructor(private http: HttpClient) {}
 
   getAllDashboardData() {
-    return this.http.get(this.baseUrl + '');
+    return this.http.get(this.baseUrl + 'RequestRoute/trips-details');
+  }
+
+  getAllDrivers(pageNumber: any, pageSize: any) {
+    return this.http.get(
+      this.baseUrl +
+        `Driver/get-all-drivers?pageNumber=${pageNumber}&pageSize=${pageSize}`
+    );
   }
 }
