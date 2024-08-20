@@ -4,6 +4,7 @@ import { MapComponent } from '../map/map.component';
 import { ViewsComponent } from './views.component';
 import { DriversComponent } from '../Drivers/Drivers.component';
 import { UsersComponent } from '../users/users.component';
+import { VehicleComponent } from '../vehicle/vehicle.component';
 export const routes: Routes = [
   {
     path: '',
@@ -24,6 +25,10 @@ export const routes: Routes = [
       {
         path: 'users',
         component: UsersComponent,
+      },
+      {
+        path: 'vehicle',
+        component: VehicleComponent,
       },
     ],
   },

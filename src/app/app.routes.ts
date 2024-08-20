@@ -10,6 +10,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./Core/auth/auth.routes').then((m) => m.routes),
+    canActivate: [authguardGuard],
   },
 
   {

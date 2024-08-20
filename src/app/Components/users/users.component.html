@@ -1,16 +1,15 @@
-<div class="col-12 text-start my-4">
-  <button
-    class="btn btn-success add-new-user-button"
-    (click)="openAddModal(content)"
-  >
-    Add new
-  </button>
-</div>
-
 <div
   class="table-container bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
   style="max-height: 510px"
 >
+  <div class="text-start my-2">
+    <button
+      class="btn btn-success px-2 d-flex align-items-center justify-content-center gap-2 w-auto py-2 add-new-user-button"
+    >
+      <span>Add new</span>
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </div>
   <table class="w-100 table-content position-relative">
     <thead class="w-100">
       <tr class="py-2 px-4 w-100">
@@ -22,7 +21,7 @@
         <th>Phone number</th>
 
         <th>Gender</th>
-        <th>BirthDay</th>
+        <th class="second-heading">BirthDay</th>
       </tr>
     </thead>
     <tbody>

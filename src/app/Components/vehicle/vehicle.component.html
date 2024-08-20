@@ -1,86 +1,66 @@
-<section class="drivers-section">
-  <div class="text-start my-2">
-    <button
-      (click)="openAddModal(content)"
-      class="btn btn-success px-2 d-flex align-items-center justify-content-center gap-2 w-auto py-2 add-new-user-button"
-    >
-      <span>Add new</span>
-      <i class="fa-solid fa-plus"></i>
-    </button>
-  </div>
+<section class="vehicles-section">
   <div
     class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative d-flex flex-column align-items-center justify-content-between"
   >
-    <table class="w-100 table-content position-relative">
-      <thead class="w-100">
-        <tr class="py-2 px-4 w-100">
-          <th class="first-heading">
-            <input type="checkbox" (change)="checkboxEvent($event)" />
-          </th>
-          <th style="width: 150px; text-align: left; padding-left: 0px">
-            User
-          </th>
-          <th>Driver Location</th>
-          <th>Car Comfort</th>
-          <th>email</th>
-          <th>gender</th>
-          <th class="second-heading pe-4">status</th>
+    <div
+      class="w-100 p-2 my-2 d-flex align-items-start flex-column justify-content-start gap-2"
+    >
+      <button
+        (click)="openAddModal(content)"
+        class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
+      >
+        <span> Add New </span>
 
-          <!-- <th >Income Location</th> -->
-        </tr>
-      </thead>
-      <tbody class="w-100">
-        @for(data of driversData.items; track data ;let idx= $index) {
-        <tr class="w-100">
-          <td>
-            <input type="checkbox" [checked]="data.isChecked" />
-          </td>
-          <td
-            class="person-info d-flex align-items-center justify-content-start gap-2"
-          >
-            <img
-              [src]="data.res.user.picture ?? '../../../assets/unknown.png'"
-              alt=""
-              height="40"
-              width="40"
-            />
-            <div class="text-container text-start">
-              <h6 class="m-0 p-0">{{ data.res.user.fullName }}</h6>
-              <p class="m-0 p-0">{{ data.res.user.phoneNumber }}</p>
-            </div>
-          </td>
-          <td style="width: 250px">{{ coordsCollection[idx] }}</td>
+        <i class="fa-solid fa-plus"></i>
+      </button>
+      <table class="w-100 table-content position-relative">
+        <thead class="w-100">
+          <tr class="py-2 px-4 w-100">
+            <th class="first-heading">
+              <input type="checkbox" (change)="checkboxEvent($event)" />
+            </th>
+            <th class="text-start">Car Name</th>
+            <th>Model Year</th>
+            <th>Fuel Type</th>
+            <th>Car Color</th>
 
-          <td style="width: 200px" class="text-center ps-1">
-            {{
-              data.res?.vehicle?.vehicleName
-                ? data.res?.vehicle.vehicleName
-                : "No vehicle assigned"
-            }}
-          </td>
-          <td>{{ data.res.user.email }}</td>
-          <td>{{ data.res.user.gender.nameEn }}</td>
-          <td class="d-flex align-items-center justify-content-center">
-            <div
-              class="income-styling px-2 w-50 py-2 rounded-4"
-              [ngClass]="{ 'not-available': !data.res.status }"
+            <th class="second-heading">Vehicle Status</th>
+          </tr>
+        </thead>
+        <tbody class="w-100">
+          @for(data of driversData; track data) {
+          <tr class="w-100">
+            <td>
+              <input type="checkbox" [checked]="data.isChecked" />
+            </td>
+            <td
+              class="person-info d-flex align-items-center justify-content-start gap-2"
             >
-              {{ data.res.status ? "available" : "N/A" }}
-            </div>
-          </td>
-
-          <!-- <td class="d-flex align-items-center justify-content-center">
-            <div
-              class="income-styling px-2 w-50 py-2 rounded-4"
-              [ngClass]="{ 'not-available': true }"
-            >
-              {{ "" }}{{ data.income ? "EGP" : "N/A" }}
-            </div>
-          </td> -->
-        </tr>
-        }
-      </tbody>
-    </table>
+              <img
+                src="../../../assets/carjpg.jpg"
+                class="rounded-circle"
+                alt=""
+                height="40"
+                width="40"
+              />
+              <div class="text-container text-start">
+                <h6 class="m-0 p-0 fw-bold">{{ data.res.vehicleName }}</h6>
+                <a href="#" class="click-show-image">Show Image</a>
+              </div>
+            </td>
+            <td>{{ data.res.year }}</td>
+            <td>{{ data.res.fuelType.nameEn }}</td>
+            <td style="width: 200px" class="text-center">
+              {{ data.res.vehicleColor }}
+            </td>
+            <td style="width: 200px" class="text-center">
+              {{ data.res.vehicleStatus.nameEn }}
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
 
     <div
       class="table-footer bg-white p-2 w-100 d-flex align-items-center justify-content-end"
@@ -94,7 +74,7 @@
             <i class="fa-solid fa-angle-left"></i>
           </div>
           <div class="d-flex align-items-center justify-content-center gap-2">
-            @for(item of driversData.items;track item ; let index = $index){
+            @for(item of driversData;track item ; let index = $index){
 
             <div class="box-style" [ngClass]="{ 'active-page': index == 0 }">
               <p>{{ index + 1 }}</p>
@@ -180,8 +160,8 @@
           />
           <div
             *ngIf="
-              addUserForm.errors?.['mismatch'] && addUserForm.get('confirmPassword')?.touched
-            "
+                addUserForm.errors?.['mismatch'] && addUserForm.get('confirmPassword')?.touched
+              "
           >
             <p class="fw-bold text-danger">
               Password and confirm password do not match.
@@ -201,7 +181,7 @@
     <button
       class="btn btn-success"
       [disabled]="addUserForm.invalid"
-      (click)="addDrivers()"
+      (click)="addVehicle()"
     >
       Save
     </button>
