@@ -3,74 +3,66 @@
     class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative d-flex flex-column align-items-center justify-content-between"
   >
     <div
-      class="w-100 p-2 my-2 d-flex align-items-center justify-content-start gap-2"
+      class="w-100 p-2 my-2 d-flex align-items-start flex-column justify-content-start gap-2"
     >
       <button
+        (click)="openAddModal(content)"
         class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
       >
         <span> Add New </span>
 
         <i class="fa-solid fa-plus"></i>
       </button>
-    </div>
-    <table class="w-100 table-content position-relative">
-      <thead class="w-100">
-        <tr class="py-2 px-4 w-100">
-          <th class="first-heading">
-            <input type="checkbox" (change)="checkboxEvent($event)" />
-          </th>
-          <th class="text-start">Car Name</th>
-          <th>Model Year</th>
-          <th>Fuel Type</th>
-          <th>Car Color</th>
+      <table class="w-100 table-content position-relative">
+        <thead class="w-100">
+          <tr class="py-2 px-4 w-100">
+            <th class="first-heading">
+              <input type="checkbox" (change)="checkboxEvent($event)" />
+            </th>
+            <th class="text-start">Car Name</th>
+            <th>Model Year</th>
+            <th>Fuel Type</th>
+            <th>Car Color</th>
 
-          <th>Finish Location</th>
-          <th class="second-heading">Income Location</th>
-        </tr>
-      </thead>
-      <tbody class="w-100">
-        @for(data of driversData; track data) {
-        <tr class="w-100">
-          <td>
-            <input type="checkbox" [checked]="data.isChecked" />
-          </td>
-          <td
-            class="person-info d-flex align-items-center justify-content-start gap-2"
-          >
-            <img
-              src="../../../assets/carjpg.jpg"
-              class="rounded-circle"
-              alt=""
-              height="40"
-              width="40"
-            />
-            <div class="text-container text-start">
-              <h6 class="m-0 p-0 fw-bold">{{ data.res.vehicleName }}</h6>
-              <a href="#" class="click-show-image">Show Image</a>
-            </div>
-          </td>
-          <td>{{ data.res.year }}</td>
-          <td>{{ data.res.fuelType.nameEn }}</td>
-          <td style="width: 200px" class="text-start ps-1">
-            {{ "" }}
-          </td>
-          <td style="width: 200px" class="text-start ps-3">
-            {{ "" }}
-          </td>
-          <td class="d-flex align-items-center justify-content-center">
-            <div
-              class="income-styling px-2 w-50 py-2 rounded-4"
-              [ngClass]="{ 'not-available': true }"
+            <th class="second-heading">Vehicle Status</th>
+          </tr>
+        </thead>
+        <tbody class="w-100">
+          @for(data of driversData; track data) {
+          <tr class="w-100">
+            <td>
+              <input type="checkbox" [checked]="data.isChecked" />
+            </td>
+            <td
+              class="person-info d-flex align-items-center justify-content-start gap-2"
             >
-              <!-- {{ "" }}{{ data.income ? "EGP" : "N/A" }} -->
-            </div>
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
+              <img
+                src="../../../assets/carjpg.jpg"
+                class="rounded-circle"
+                alt=""
+                height="40"
+                width="40"
+              />
+              <div class="text-container text-start">
+                <h6 class="m-0 p-0 fw-bold">{{ data.res.vehicleName }}</h6>
+                <a href="#" class="click-show-image">Show Image</a>
+              </div>
+            </td>
+            <td>{{ data.res.year }}</td>
+            <td>{{ data.res.fuelType.nameEn }}</td>
+            <td style="width: 200px" class="text-center">
+              {{ data.res.vehicleColor }}
+            </td>
+            <td style="width: 200px" class="text-center">
+              {{ data.res.vehicleStatus.nameEn }}
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
 
-    <!-- <div
+    <div
       class="table-footer bg-white p-2 w-100 d-flex align-items-center justify-content-end"
     >
       <div class="w-auto d-flex align-items-center justify-content-center">
@@ -95,6 +87,104 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </section>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4>Add new user</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="addUserForm">
+      <div class="row">
+        <div class="col-md-4">
+          <label> Email </label>
+          <input
+            class="form-group form-control"
+            type="text"
+            formControlName="email"
+          />
+        </div>
+        <div class="col-md-4">
+          <label> Phone </label>
+          <input
+            class="form-group form-control"
+            type="number"
+            formControlName="phone"
+          />
+        </div>
+        <div class="col-md-4">
+          <label> Gender </label>
+          <select formControlName="genderId" class="form-select form-control">
+            <option [value]="1">Male</option>
+            <option [value]="2">Female</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> Nationality </label>
+          <select
+            formControlName="nationalityId"
+            class="form-select form-control"
+          >
+            <option disabled selected value="null">
+              Please choose nationality
+            </option>
+            @for(nationality of nationalities; track nationality){
+            <option [value]="nationality.id">
+              {{ nationality.nameAr }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> Password </label>
+
+          <input
+            class="form-control"
+            type="password"
+            formControlName="password"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label> Confirm password </label>
+
+          <input
+            class="form-control"
+            type="password"
+            formControlName="confirmPassword"
+          />
+          <div
+            *ngIf="
+                addUserForm.errors?.['mismatch'] && addUserForm.get('confirmPassword')?.touched
+              "
+          >
+            <p class="fw-bold text-danger">
+              Password and confirm password do not match.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label> Birth date </label>
+          <input class="form-control" type="date" formControlName="birthDate" />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button
+      class="btn btn-success"
+      [disabled]="addUserForm.invalid"
+      (click)="addVehicle()"
+    >
+      Save
+    </button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>

@@ -5,4 +5,5 @@ export class DriversApiEndpoints {
 
   static getAllDriversEndpoint: string =
     this.baseUrl + 'Driver/get-all-drivers';
+  static nationalitiesEndpoint: string = this.baseUrl + 'Nationality';
 }

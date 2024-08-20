@@ -10,7 +10,9 @@ import { AutoFocusModule } from 'primeng/autofocus';
 })
 export class DriversService {
   constructor(private httpClient: HttpClient) {}
-
+  getAllNationalities() {
+    return this.httpClient.get(DriversApiEndpoints.nationalitiesEndpoint);
+  }
   gettingLocationAddress(coords: Coords, locationCollection: any[]) {
     const geoCoder = new google.maps.Geocoder();
 

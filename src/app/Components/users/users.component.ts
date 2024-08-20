@@ -21,10 +21,12 @@ export class UsersComponent implements OnInit {
   users: any[] = [];
   nationalities: any[] = [];
   addUserForm!: FormGroup;
-  private modalService = inject(NgbModal);
-  private userService = inject(UserService);
-  private fb = inject(FormBuilder);
 
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private modalService: NgbModal
+  ) {}
   ngOnInit() {
     this.initialiseAddUserForm();
 

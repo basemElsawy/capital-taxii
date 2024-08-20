@@ -8,6 +8,9 @@ import { map } from 'rxjs';
 })
 export class VehicleService {
   constructor(private httpClient: HttpClient) {}
+  getAllNationalities() {
+    return this.httpClient.get(VehiclesApiEndpoints.nationalitiesEndpoint);
+  }
   getAllDrivers() {
     return this.httpClient
       .get(VehiclesApiEndpoints.getAllVehiclesEndPoint)
