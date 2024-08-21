@@ -28,7 +28,7 @@ export class MapComponent {
   @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
 
   center!: google.maps.LatLngLiteral;
-  zoom = 12;
+  zoom = 8;
   driverMarkers!: any[];
   driverDetails = signal([]);
   testArray: string[] = ['1', '2', '3', '4'];
@@ -116,34 +116,28 @@ export class MapComponent {
   }
 
   getDriversOnMap() {
-    this.mapService.getDriversOnTheMap().subscribe({
-      next: <DriversMapMarkers>(
-        res: DriverDetails[] | DriversMapMarkers[] | any
-      ): void => {
-        console.log(res);
-        let mappedResponse = res.items.map(
-          ({
+    this.mapService.getDriversOnTheMap(2).subscribe({
+      next: (res: any): void => {
+        let mappedResponse = res.map((responseItem: any): DriversMarkers => {
+          const {
+            driver: { id, locationLongitude: lng, locationLatitude: lat, user },
+          } = responseItem;
+
+          return {
             id,
-            locationLongitude: lng,
-            locationLatitude: lat,
-            status,
-          }: DriverDetails): DriversMarkers => {
-            return {
-              id,
-              driverName: 'محمد صادق',
-              driverTitle: 'كابتن سائق',
-              driverImage: '../../../assets/unknown.png',
-              coords: { lat, lng },
-              icon: {
-                url: '../../../assets/locationIcon.png',
-                scaledSize: {
-                  width: 60,
-                  height: 60,
-                },
+            driverName: user.fullName || 'محمد صادق', // Use the name from the response or a fallback
+            driverTitle: 'كابتن سائق',
+            driverImage: user.picture || '../../../assets/unknown.png', // Use the picture from the response or a fallback
+            coords: { lat, lng },
+            icon: {
+              url: '../../../assets/locationIcon.png',
+              scaledSize: {
+                width: 60,
+                height: 60,
               },
-            };
-          }
-        );
+            },
+          };
+        });
         this.driverMarkers = mappedResponse;
       },
       complete: () => {},
@@ -175,8 +169,8 @@ export class MapComponent {
       item.isChecked = false;
     });
   }
-  getInfoWindow<Marker>(marker: any) {
-    this.infoWindow.open();
+  getInfoWindow(marker: any, driver: any) {
+    this.infoWindow.open(marker);
   }
   checkboxRowEvent(event: any, item: Drivers) {}
 }

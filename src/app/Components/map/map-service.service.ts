@@ -23,7 +23,7 @@ export class MapServiceService {
     });
   }
 
-  getDriversOnTheMap() {
-    return this.httpClient.get(MapApis.getAllDriversEndPoint);
+  getDriversOnTheMap(statusId: any) {
+    return this.httpClient.get(MapApis.getAllDriversEndPoint + `${statusId}`);
   }
 }

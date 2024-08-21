@@ -56,6 +56,16 @@
             <td style="width: 200px" class="text-center">
               {{ data.res.vehicleStatus.nameEn }}
             </td>
+            <td>
+              <button
+                (click)="openDriverModal(vehicleDriver, data)"
+                class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
+              >
+                <span> Add driver </span>
+
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </td>
           </tr>
           }
         </tbody>
@@ -93,85 +103,164 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4>Add new user</h4>
+    <h4>Add new vehicle</h4>
   </div>
 
   <div class="modal-body">
-    <form [formGroup]="addUserForm">
+    <form [formGroup]="addVehicleForm">
       <div class="row">
         <div class="col-md-4">
-          <label> Email </label>
+          <label> vehicle name </label>
           <input
+            class="text"
             class="form-group form-control"
-            type="text"
-            formControlName="email"
+            formControlName="vehicleName"
           />
-        </div>
-        <div class="col-md-4">
-          <label> Phone </label>
-          <input
-            class="form-group form-control"
-            type="number"
-            formControlName="phone"
-          />
-        </div>
-        <div class="col-md-4">
-          <label> Gender </label>
-          <select formControlName="genderId" class="form-select form-control">
-            <option [value]="1">Male</option>
-            <option [value]="2">Female</option>
-          </select>
         </div>
 
         <div class="col-md-4">
-          <label> Nationality </label>
+          <label> year </label>
+          <input
+            class="number"
+            class="form-group form-control"
+            formControlName="year"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label> color </label>
+          <input
+            class="number"
+            class="form-group form-control"
+            formControlName="vehicleColor"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label> vehicle specification </label>
           <select
-            formControlName="nationalityId"
-            class="form-select form-control"
+            formControlName="vehicleSpecificationId"
+            class="form-control form-select form-group"
           >
-            <option disabled selected value="null">
-              Please choose nationality
-            </option>
-            @for(nationality of nationalities; track nationality){
-            <option [value]="nationality.id">
-              {{ nationality.nameAr }}
+            @for(vehicleSpecification of vehicleSpecifications; track
+            vehicleSpecification){
+            <option [value]="vehicleSpecification.id">
+              {{ vehicleSpecification.engineSummary }}
             </option>
             }
           </select>
         </div>
 
         <div class="col-md-4">
-          <label> Password </label>
-
-          <input
-            class="form-control"
-            type="password"
-            formControlName="password"
-          />
-        </div>
-
-        <div class="col-md-4">
-          <label> Confirm password </label>
-
-          <input
-            class="form-control"
-            type="password"
-            formControlName="confirmPassword"
-          />
-          <div
-            *ngIf="
-                addUserForm.errors?.['mismatch'] && addUserForm.get('confirmPassword')?.touched
-              "
+          <label> vehicle type </label>
+          <select
+            formControlName="vehicleTypeId"
+            class="form-control form-select form-group"
           >
-            <p class="fw-bold text-danger">
-              Password and confirm password do not match.
-            </p>
-          </div>
+            @for(vehicleType of vehicleTypes; track vehicleType){
+            <option [value]="vehicleType.id">
+              {{ vehicleType.nameAr }}
+            </option>
+            }
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label> fuel type </label>
+          <select
+            formControlName="fuelTypeId"
+            class="form-control form-select form-group"
+          >
+            @for(fuelType of fuelTypes; track fuelType){
+            <option [value]="fuelType.id">
+              {{ fuelType.nameAr }}
+            </option>
+            }
+          </select>
         </div>
 
         <div class="col-md-4">
-          <label> Birth date </label>
-          <input class="form-control" type="date" formControlName="birthDate" />
+          <label> vehicle ownership </label>
+          <select
+            formControlName="vehicleOwnershipId"
+            class="form-control form-select form-group"
+          >
+            @for(ownerShip of vehicleOwnerShips; track ownerShip){
+            <option [value]="ownerShip.id">
+              {{ ownerShip.nameAr }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> vehicle lifecycle </label>
+          <select
+            formControlName="vehicleLifeCycleId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleLifeCycle of vehicleLifeCycles; track vehicleLifeCycle){
+            <option [value]="vehicleLifeCycle.id">
+              {{ vehicleLifeCycle.estimatedResaleValue }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> vehicle status </label>
+          <select
+            formControlName="vehicleStatusId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleStatus of vehicleStatus; track vehicleStatus){
+            <option [value]="vehicleStatus.id">
+              {{ vehicleStatus.nameAr }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> vehicle financial </label>
+          <select
+            formControlName="vehicleFinancialId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleFinancial of vehicleFianancials; track
+            vehicleFinancial){
+            <option [value]="vehicleFinancial.id">
+              {{ vehicleFinancial.odometerin }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> vehicle brand </label>
+          <select
+            formControlName="vehicleBrandId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleBrand of vehicleBrands; track vehicleBrand){
+            <option [value]="vehicleBrand.id">
+              {{ vehicleBrand.nameAr }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> vehicle body </label>
+          <select
+            formControlName="vehicleBodyTypeId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleBodyType of vehicleBody; track vehicleBodyType){
+            <option [value]="vehicleBodyType.id">
+              {{ vehicleBodyType.nameAr }}
+            </option>
+            }
+          </select>
         </div>
       </div>
     </form>
@@ -180,11 +269,49 @@
   <div class="modal-footer">
     <button
       class="btn btn-success"
-      [disabled]="addUserForm.invalid"
+      [disabled]="addVehicleForm.invalid"
       (click)="addVehicle()"
     >
       Save
     </button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+
+<!-- here is the modal needed to add a drive on a selected vehicle-->
+<ng-template #vehicleDriver let-modal>
+  <div class="modal-header">
+    <h4>Add driver for the selected vehicle</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="addDriverVehicleForm">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Driver</label>
+          <select class="form-select form-group" formControlName="driverId">
+            @for(driver of Drivers; track driver) {
+            <option [value]="driver.id">
+              {{ driver.user.fullName }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label>Expiration date</label>
+          <input
+            type="date"
+            class="form-group form-control"
+            formControlName="expiryDate"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="addDriver()">Save</button>
     <button class="btn btn-danger" (click)="closeModal()">Close</button>
   </div>
 </ng-template>

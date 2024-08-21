@@ -11,7 +11,7 @@ export class VehicleService {
   getAllNationalities() {
     return this.httpClient.get(VehiclesApiEndpoints.nationalitiesEndpoint);
   }
-  getAllDrivers() {
+  getAllVehicles() {
     return this.httpClient
       .get(VehiclesApiEndpoints.getAllVehiclesEndPoint)
       .pipe(
@@ -23,5 +23,58 @@ export class VehicleService {
           );
         })
       );
+  }
+
+  getAllVehicleSpecification() {
+    return this.httpClient.get(
+      VehiclesApiEndpoints.vehicleSpecificationEndPoint
+    );
+  }
+
+  getAllVehicleTypes() {
+    return this.httpClient.get(VehiclesApiEndpoints.vehicleTypesEndPoint);
+  }
+
+  getAllFuelTypes() {
+    return this.httpClient.get(VehiclesApiEndpoints.fuelTypesEndPoint);
+  }
+
+  addNewVehicle(body: any) {
+    return this.httpClient.post(
+      VehiclesApiEndpoints.getAllVehiclesEndPoint,
+      body
+    );
+  }
+
+  addNewDriverForVehicle(body: any) {
+    return this.httpClient.post(VehiclesApiEndpoints.driverVehicle, body);
+  }
+
+  getVehicleOwnerShips() {
+    return this.httpClient.get(VehiclesApiEndpoints.vehicleOwnerShip);
+  }
+
+  getVehicleLifeCycle() {
+    return this.httpClient.get(VehiclesApiEndpoints.vehicleLifeCycle);
+  }
+
+  getVehicleStatus() {
+    return this.httpClient.get(VehiclesApiEndpoints.vehicleStatus);
+  }
+
+  getVehicleFinancial() {
+    return this.httpClient.get(VehiclesApiEndpoints.vehicleFinancial);
+  }
+
+  getVehicleBrand() {
+    return this.httpClient.get(VehiclesApiEndpoints.vehicleBrand);
+  }
+
+  getVehicleBody() {
+    return this.httpClient.get(VehiclesApiEndpoints.vehicleBodyTypeId);
+  }
+
+  getAllDrivers() {
+    return this.httpClient.get(VehiclesApiEndpoints.drivers);
   }
 }

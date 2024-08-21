@@ -7,11 +7,11 @@
           #driver
           [position]="driver.coords"
           [icon]="driver.icon"
-          (mapClick)="getInfoWindow(driver)"
+          (mapClick)="getInfoWindow(infoWindow, driver)"
         ></map-marker>
       </div>
       }
-      <map-info-window>
+      <map-info-window #infoWindow>
         <div class="">hello</div>
       </map-info-window>
     </google-map>
