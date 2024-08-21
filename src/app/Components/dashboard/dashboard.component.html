@@ -32,7 +32,7 @@
                 </div>
                 <div class="statistical-number">
                   <p>
-                    {{ dashboardData.totalTrips }}
+                    {{ dashboardData?.totalTrips }}
                   </p>
                 </div>
                 <div class="statistical-text">
@@ -53,7 +53,7 @@
                 </div>
                 <div class="statistical-number">
                   <p>
-                    {{ dashboardData.totalDriver }}
+                    {{ dashboardData?.totalDriver }}
                   </p>
                 </div>
                 <div class="statistical-text">
@@ -120,10 +120,19 @@
                     {{ data.count }}
                   </p>
                 </div>
+
                 <div class="statistical-text">
-                  <p>
+                  <p
+                    [ngClass]="{
+                      'text-dark fw-bold':
+                        data.requestStatusId === selectedStatusId
+                    }"
+                  >
                     {{ data.statusName }}
                   </p>
+                  <!-- <p [class]="isChoosed ? 'text-dark fw-bold' : ''">
+                    {{ data.statusName }}
+                  </p> -->
                 </div>
               </div>
             </div>

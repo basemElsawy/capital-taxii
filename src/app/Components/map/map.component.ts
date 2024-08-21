@@ -9,6 +9,7 @@ import {
 import { TableModule } from 'primeng/table';
 import { DriverDetails, Drivers, DriversMarkers } from './IMap';
 import { MapServiceService } from './map-service.service';
+import { VehicleService } from '../vehicle/Services/vehicle.service';
 
 @Component({
   selector: 'app-map',
@@ -32,100 +33,60 @@ export class MapComponent {
   driverMarkers!: any[];
   driverDetails = signal([]);
   testArray: string[] = ['1', '2', '3', '4'];
-  products: Drivers[] = [
-    {
-      id: 1,
-      personInfo: {
-        img: '../../../assets/profile_photo.png',
-        name: 'linda ferguson',
-        number: 2132324913,
-      },
-      carType: 'BMW',
-      orderedTime: '04.12.2021 20:30',
-      startLocation: '9 Street Alma’adi , Metro , Cairo',
-      finishLocation: '120 Street Alma’adi , Metro , Cairo',
-      income: '500',
-      isChecked: false,
-    },
-    {
-      id: 1,
-      personInfo: {
-        img: '../../../assets/profile_photo.png',
-        name: 'linda ferguson',
-        number: 2132324913,
-      },
-      carType: 'BMW',
-      orderedTime: '04.12.2021 20:30',
-      startLocation: '9 Street Alma’adi , Metro , Cairo',
-      finishLocation: '120 Street Alma’adi , Metro , Cairo',
-      income: '500',
-      isChecked: false,
-    },
-    {
-      id: 1,
-      personInfo: {
-        img: '../../../assets/profile_photo.png',
-        name: 'linda ferguson',
-        number: 2132324913,
-      },
-      carType: 'BMW',
-      orderedTime: '04.12.2021 20:30',
-      startLocation: '9 Street Alma’adi , Metro , Cairo',
-      finishLocation: '120 Street Alma’adi , Metro , Cairo',
-      income: '500',
-      isChecked: false,
-    },
-    {
-      id: 1,
-      personInfo: {
-        img: '../../../assets/profile_photo.png',
-        name: 'linda ferguson',
-        number: 2132324913,
-      },
-      carType: 'BMW',
-      orderedTime: '04.12.2021 20:30',
-      startLocation: '9 Street Alma’adi , Metro , Cairo',
-      finishLocation: '120 Street Alma’adi , Metro , Cairo',
-      income: '500',
-      isChecked: false,
-    },
-    {
-      id: 1,
-      personInfo: {
-        img: '../../../assets/profile_photo.png',
-        name: 'linda ferguson',
-        number: 2132324913,
-      },
-      carType: 'BMW',
-      orderedTime: '04.12.2021 20:30',
-      startLocation: '9 Street Alma’adi , Metro , Cairo',
-      finishLocation: '120 Street Alma’adi , Metro , Cairo',
-      income: '500',
-      isChecked: false,
-    },
-  ];
-
+  allDrivers: any[] = [];
+  address: any;
   selectedProducts: any;
-  constructor(private mapService: MapServiceService) {}
+  constructor(
+    private vehicleServices: VehicleService,
+    private mapService: MapServiceService
+  ) {}
   ngOnInit(): void {
     this.getCurrentPosition();
-
+    this.getAllDrivers();
     this.getDriversOnMap();
     // setInterval(() => {
     // }, 1000);
   }
 
+  getAllDrivers() {
+    this.vehicleServices.getAllDrivers().subscribe({
+      next: (res: any) => {
+        this.allDrivers = res.items;
+        console.log(this.allDrivers);
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
+
+  // geocodingReverse() {
+  //   this.mapService.reverseGeoCoding()
+  // }
+
   getDriversOnMap() {
     this.mapService.getDriversOnTheMap(2).subscribe({
       next: (res: any): void => {
+        debugger;
+        this.allDrivers = res;
+        console.log(this.allDrivers);
         let mappedResponse = res.map((responseItem: any): DriversMarkers => {
           const {
-            driver: { id, locationLongitude: lng, locationLatitude: lat, user },
+            driver: {
+              id,
+              locationLongitude: lng,
+              locationLatitude: lat,
+              user,
+              fromLocation,
+              toLocation,
+            },
           } = responseItem;
 
           return {
             id,
             driverName: user.fullName || 'محمد صادق', // Use the name from the response or a fallback
+            fromLocation: fromLocation,
+            toLocation: toLocation,
             driverTitle: 'كابتن سائق',
             driverImage: user.picture || '../../../assets/unknown.png', // Use the picture from the response or a fallback
             coords: { lat, lng },
@@ -139,6 +100,7 @@ export class MapComponent {
           };
         });
         this.driverMarkers = mappedResponse;
+        console.log(this.driverMarkers);
       },
       complete: () => {},
       error: (error: any) => {
@@ -160,12 +122,12 @@ export class MapComponent {
   checkboxEvent(event: any) {
     let isAllChecked = event.target.checked;
     if (isAllChecked) {
-      this.products.forEach((item: Drivers) => {
+      this.allDrivers.forEach((item: Drivers) => {
         item.isChecked = true;
       });
       return;
     }
-    this.products.forEach((item: Drivers) => {
+    this.allDrivers.forEach((item: Drivers) => {
       item.isChecked = false;
     });
   }

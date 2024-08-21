@@ -30,16 +30,16 @@
           <th style="width: 150px; text-align: left; padding-left: 0px">
             User
           </th>
-          <th>Car Comfort</th>
-          <th>Ordered Time</th>
+          <th>Car type</th>
+          <th>Ordered date</th>
           <th>Start Location</th>
 
           <th>Finish Location</th>
-          <th class="second-heading">Income Location</th>
+          <th class="second-heading">Total amount</th>
         </tr>
       </thead>
       <tbody class="w-100">
-        @for(item of products; track item) {
+        @for(item of allDrivers; track item) {
         <tr class="w-100">
           <td>
             <input type="checkbox" [checked]="item.isChecked" />
@@ -47,23 +47,39 @@
           <td
             class="person-info d-flex align-items-center justify-content-start gap-2"
           >
-            <img [src]="item.personInfo.img" alt="" height="40" width="40" />
+            <img
+              [src]="
+                item?.user?.picture
+                  ? item?.user?.picture
+                  : '../../../assets/Rectangle 9.png'
+              "
+              alt=""
+              height="40"
+              width="40"
+            />
             <div class="text-container text-start">
-              <h6 class="m-0 p-0">{{ item.personInfo.name }}</h6>
-              <p class="m-0 p-0">{{ item.personInfo.number }}</p>
+              <h6 class="m-0 p-0">{{ item?.user?.fullName }}</h6>
+              <p class="m-0 p-0">{{ item?.user?.phoneNumber }}</p>
             </div>
           </td>
-          <td>{{ item.carType }}</td>
-          <td>{{ item.orderedTime }}</td>
+          <td>
+            {{
+              item?.currentVehicle?.vehicleName
+                ? item?.currentVehicle?.vehicleName
+                : "-"
+            }}
+          </td>
+          <td>{{ item?.driver?.createdAt | date : "dd-MM-yyyy" }}</td>
           <td style="width: 200px" class="text-start ps-1">
-            {{ item.startLocation }}
+            {{ item?.requestRoute?.fromLocationName }}
           </td>
           <td style="width: 200px" class="text-start ps-3">
-            {{ item.finishLocation }}
+            {{ item?.requestRoute?.toLocationName }}
           </td>
           <td class="d-flex align-items-center justify-content-center">
             <div class="income-styling px-2 w-50 py-2 rounded-4">
-              {{ item.income }}EGP
+              {{ item?.driver?.totalAmount ? item?.driver?.totalAmount : "-" }}
+              EGP
             </div>
           </td>
         </tr>

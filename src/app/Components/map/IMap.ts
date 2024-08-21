@@ -31,6 +31,8 @@ export interface DriversMarkers {
   driverName: string;
   driverTitle: string;
   driverImage: string;
+  fromLocation?: number | string;
+  toLocation?: number | string;
   icon?: {
     url?: string;
     scaledSize?: {
