@@ -74,7 +74,7 @@
                 </div>
                 <div class="statistical-number">
                   <p>
-                    {{ dashboardData.availableDrivers }}
+                    {{ dashboardData?.availableDrivers }}
                   </p>
                 </div>
                 <div class="statistical-text">
@@ -175,8 +175,8 @@
                 class="driver-img"
                 [src]="
                   driver.user.picture
-                    ? driver.user.picture
-                    : '../../../assets/Rectangle 28.png'
+                    ? imgUrl + driver.user.picture
+                    : '../../../assets/unknown.png'
                 "
                 alt="driver-img"
               />
