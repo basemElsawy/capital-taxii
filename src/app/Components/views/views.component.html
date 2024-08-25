@@ -1,7 +1,9 @@
 <section class="view-container d-flex align-items-center justify-content-start">
   <section class="side-nav"><app-side-nav></app-side-nav></section>
-  <section class="main-content p-2 bg-white">
-    <header><app-dashboard-header></app-dashboard-header></header>
+  <section class="main-content position-relative p-2 bg-white">
+    <header class="header-wrapper">
+      <app-dashboard-header></app-dashboard-header>
+    </header>
     <main>
       <router-outlet></router-outlet>
     </main>

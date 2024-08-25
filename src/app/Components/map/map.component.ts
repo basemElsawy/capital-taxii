@@ -66,8 +66,6 @@ export class MapComponent {
   //   this.mapService.reverseGeoCoding()
   // }
   addMarkerOnMap(driver: any, event: any) {
-    console.log(this.allDrivers);
-    console.log(this.driverMarkers);
     let driverMarker = {
       userInfo: {
         name: driver.user.fullName,
@@ -88,17 +86,11 @@ export class MapComponent {
     };
 
     if (event.target.checked) {
-      console.log(driver?.driver);
       this.driverMarkers.push(driverMarker);
-
       return;
     }
-    this.driverMarkers = this.driverMarkers.filter(
-      (marker: any) => marker.id != driver.id
-    );
+    this.driverMarkers.splice(driver.id, 1);
     return;
-
-    console.log(driver);
   }
 
   getDriversOnMap() {

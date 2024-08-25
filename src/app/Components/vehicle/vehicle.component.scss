@@ -88,6 +88,7 @@ tbody tr td {
 }
 tbody tr td {
   font-size: 12px;
+  padding-block: 15px;
 }
 // ::ng-deep .p-checkbox {
 //   padding-left: 14px;
@@ -147,4 +148,6 @@ thead {
 }
 .click-show-image {
   font-size: 10px !important;
+}
+.test {
 }

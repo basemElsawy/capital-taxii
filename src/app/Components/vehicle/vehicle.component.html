@@ -24,7 +24,8 @@
             <th>Fuel Type</th>
             <th>Car Color</th>
 
-            <th class="second-heading">Vehicle Status</th>
+            <th>Vehicle Status</th>
+            <th class="second-heading me-4">Vehicle Status</th>
           </tr>
         </thead>
         <tbody class="w-100">
@@ -56,10 +57,10 @@
             <td style="width: 200px" class="text-center">
               {{ data.res.vehicleStatus.nameEn }}
             </td>
-            <td>
+            <td class="d-flex align-items-start justify-content-center">
               <button
                 (click)="openDriverModal(vehicleDriver, data)"
-                class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
+                class="btn btn-success d-flex align-items-center justify-content-center gap-2"
               >
                 <span> Add driver </span>
 

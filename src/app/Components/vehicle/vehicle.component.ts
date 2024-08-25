@@ -95,7 +95,6 @@ export class VehicleComponent {
   getAllDrivers() {
     this.vehilcesService.getAllDrivers().subscribe({
       next: (res: any) => {
-        debugger;
         this.Drivers = res.items;
       },
       error: (error: any) => {
