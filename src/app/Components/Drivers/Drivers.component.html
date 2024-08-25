@@ -14,7 +14,10 @@
     <table class="w-100 table-content position-relative">
       <thead class="w-100">
         <tr class="py-2 px-4 w-100">
-          <th style="width: 150px; text-align: left; padding-left: 0px">
+          <th
+            class="first-heading"
+            style="width: 150px; text-align: left; padding-left: 20px"
+          >
             User
           </th>
           <th>Driver Location</th>
@@ -54,10 +57,12 @@
           <td>{{ data.res.user.gender.nameEn }}</td>
           <td class="d-flex align-items-center justify-content-center">
             <div
-              class="income-styling px-2 w-50 py-2 rounded-4"
+              class="income-styling py-2 rounded-4"
               [ngClass]="{ 'not-available': !data.res.status }"
             >
-              {{ data.res.status ? "available" : "N/A" }}
+              <p class="px-2">
+                {{ data.res.status ? "available" : "N/A" }}
+              </p>
             </div>
           </td>
         </tr>
@@ -122,7 +127,7 @@
           <label> Phone </label>
           <input
             class="form-group form-control"
-            type="number"
+            type="text"
             formControlName="phoneNumber"
           />
         </div>
@@ -188,7 +193,12 @@
         <div class="col-md-4">
           <div class="mb-3">
             <label for="formFile" class="form-label">Driver photo</label>
-            <input class="form-control" cha type="file" id="formFile" />
+            <input
+              class="form-control"
+              (change)="uploadPhoto($event)"
+              type="file"
+              id="formFile"
+            />
           </div>
         </div>
       </div>

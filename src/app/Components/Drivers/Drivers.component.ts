@@ -51,6 +51,7 @@ export class DriversComponent implements OnInit {
         password: [null, Validators.required],
         confirmPassword: [null, Validators.required],
         birthDate: [null, Validators.required],
+        picture: [null, Validators.required],
       },
       { validators: passwordMatchValidator() }
     );
@@ -109,15 +110,27 @@ export class DriversComponent implements OnInit {
 
   addDrivers() {
     let requestBody = this.addUserForm.value;
+
     this.driversService.addNewDriver(requestBody).subscribe({
       next: (res: any) => {
         this.getAllDrivers();
         this.addUserForm.reset();
       },
+      complete: () => {
+        this.modalService.dismissAll();
+      },
       error: (error: any) => {
         console.log(error);
       },
     });
+  }
+  uploadPhoto(event: any) {
+    this.driversService
+      .convertFileToBase64(event.target.files[0])
+      .then((res) => {
+        this.addUserForm.controls['picture'].setValue(res);
+      })
+      .finally(() => {});
   }
 
   checkboxEvent(event: any) {
