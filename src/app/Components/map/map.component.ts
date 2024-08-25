@@ -28,7 +28,7 @@ import { VehicleService } from '../vehicle/Services/vehicle.service';
 export class MapComponent {
   @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
 
-  center!: google.maps.LatLngLiteral;
+  center: google.maps.LatLngLiteral = { lat: 0, lng: 0 };
   zoom = 8;
   driverMarkers!: any[];
   driverDetails = signal([]);
@@ -41,7 +41,7 @@ export class MapComponent {
     private mapService: MapServiceService
   ) {}
   ngOnInit(): void {
-    this.getCurrentPosition();
+    this.getCurrentLocation();
     this.getAllDrivers();
     this.getDriversOnMap();
     // setInterval(() => {
@@ -106,16 +106,32 @@ export class MapComponent {
     });
   }
 
-  getCurrentPosition() {
-    this.mapService
-      .getCurrentLocation()
-      .then((res: any) => {
-        let latitude = res.coords.latitude;
-        let longitude = res.coords.longitude;
-        this.center = { lat: latitude, lng: longitude };
-      })
-      .catch((err) => console.log(err));
+  getCurrentLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log('Latitude: ' + position.coords.latitude);
+          console.log('Longitude: ' + position.coords.longitude);
+        },
+        (error) => {
+          console.error('Error Code = ' + error.code + ' - ' + error.message);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
   }
+
+  // getCurrentPosition() {
+  //   this.mapService
+  //     .getCurrentLocation()
+  //     .then((res: any) => {
+  //       let latitude = res.coords.latitude;
+  //       let longitude = res.coords.longitude;
+  //       this.center = { lat: latitude, lng: longitude };
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
   checkboxEvent(event: any) {
     debugger;
     let isAllChecked = event.target.checked;
