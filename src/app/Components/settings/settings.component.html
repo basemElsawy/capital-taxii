@@ -1,238 +1,236 @@
-<<<<<<< HEAD
 <section class="p-4">
-=======
-<div>
->>>>>>> origin/dashboard-data-integration
-  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
-    <li [ngbNavItem]="1">
-      <button ngbNavLink>KM price configuration</button>
-      <ng-template ngbNavContent>
-        <div class="card cardkm">
-          <div class="card-header">
-            <h4>KM update price</h4>
-          </div>
-          <div class="card-body">
-            <form [formGroup]="kmPriceForm">
-              <div class="row g-3 align-items-center">
-                <div class="col-auto">
-                  <label for="inputPassword6" class="col-form-label"
-                    >Km price</label
-                  >
-                </div>
-                <div class="col-auto">
-                  <input
-                    type="number"
-                    formControlName="price"
-                    id="inputPassword6"
-                    class="form-control"
-                  />
-                </div>
-                <div class="col-auto">
-                  <button class="btn btn-primary" (click)="updateKmPrice()">
-                    update
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <hr />
-        <div class="card">
-          <div class="card-header">
-            <h4>Minimum fares</h4>
-          </div>
-          <div class="card-body">
-            <form [formGroup]="minimumFaresForm">
-              <div class="row g-3 align-items-center">
-                <div class="col-auto">
-                  <label for="inputPassword6" class="col-form-label"
-                    >Minimum km</label
-                  >
-                </div>
-                <div class="col-auto">
-                  <input
-                    type="number"
-                    class="form-control form-group"
-                    formControlName="minimumKm"
-                  />
-                </div>
-                <div class="col-auto">
-                  <label for="inputPassword6" class="col-form-label"
-                    >Mnimum fare price</label
-                  >
-                </div>
-                <div class="col-auto">
-                  <input
-                    type="number"
-                    class="form-control"
-                    formControlName="minimumFarePrice"
-                  />
-                </div>
-                <div class="col-auto">
-                  <label class="col-form-label"
-                    >Is kilometric minimum fares</label
-                  >
-                </div>
-                <div class="col-auto">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckChecked"
-                      formControlName="isKilometericMinimumFare"
-                      [checked]="
-                        this.minimumFaresForm.controls[
-                          'isKilometericMinimumFare'
-                        ].value
-                      "
-                    />
-                  </div>
-                </div>
-                <div class="col-auto">
-                  <button class="btn btn-primary" (click)="updateMiniFares()">
-                    update
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <hr />
-        <div class="card">
-          <div class="card-header">
-            <h4>Deductions</h4>
-          </div>
-          <div class="card-body">
-            <form
-              [formGroup]="deductionsForm"
-              class="row g-3 align-items-center"
-            >
-              <div class="col-12" formArrayName="deductionsFormArray">
-                <!-- Use @for with the track keyword -->
-                @for(group of deductionsFormArray.controls; track group; let i =
-                $index) {
-                <div [formGroupName]="i" class="row g-3 align-items-center">
-                  <div class="text-start my-3">
-                    <h4 class="lead">Deduction #{{ i + 1 }}</h4>
-                  </div>
+  <div>
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <button ngbNavLink>KM price configuration</button>
+        <ng-template ngbNavContent>
+          <div class="card cardkm">
+            <div class="card-header">
+              <h4>KM update price</h4>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="kmPriceForm">
+                <div class="row g-3 align-items-center">
                   <div class="col-auto">
-                    <label class="col-form-label"
-                      >Deduction Name (Arabic)</label
+                    <label for="inputPassword6" class="col-form-label"
+                      >Km price</label
                     >
-                    <input
-                      type="text"
-                      class="form-control"
-                      formControlName="nameAr"
-                    />
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="col-form-label"
-                      >Deduction Name (English)</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      formControlName="nameEn"
-                    />
                   </div>
                   <div class="col-auto">
-                    <label class="col-form-label">Amount</label>
                     <input
                       type="number"
+                      formControlName="price"
+                      id="inputPassword6"
                       class="form-control"
-                      formControlName="amount"
-                    />
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="col-form-label">Percentage</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      formControlName="percentage"
                     />
                   </div>
                   <div class="col-auto">
-                    <label class="col-form-label">Is active?</label>
-                    <div class="form-check">
-                      <input
-                        formControlName="isActive"
-                        class="form-check-input"
-                        type="checkbox"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <label class="col-form-label">Is percentage?</label>
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        formControlName="isPercentage"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="col-auto">
-                    <button
-                      class="btn btn-primary"
-                      (click)="updateSelectedDeduction(i)"
-                    >
-                      Update
+                    <button class="btn btn-primary" (click)="updateKmPrice()">
+                      update
                     </button>
                   </div>
                 </div>
-                }
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
 
-        <hr />
-
-        <div class="card">
-          <div class="card-header">
-            <h4>Request distance limit</h4>
+          <hr />
+          <div class="card">
+            <div class="card-header">
+              <h4>Minimum fares</h4>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="minimumFaresForm">
+                <div class="row g-3 align-items-center">
+                  <div class="col-auto">
+                    <label for="inputPassword6" class="col-form-label"
+                      >Minimum km</label
+                    >
+                  </div>
+                  <div class="col-auto">
+                    <input
+                      type="number"
+                      class="form-control form-group"
+                      formControlName="minimumKm"
+                    />
+                  </div>
+                  <div class="col-auto">
+                    <label for="inputPassword6" class="col-form-label"
+                      >Mnimum fare price</label
+                    >
+                  </div>
+                  <div class="col-auto">
+                    <input
+                      type="number"
+                      class="form-control"
+                      formControlName="minimumFarePrice"
+                    />
+                  </div>
+                  <div class="col-auto">
+                    <label class="col-form-label"
+                      >Is kilometric minimum fares</label
+                    >
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckChecked"
+                        formControlName="isKilometericMinimumFare"
+                        [checked]="
+                          this.minimumFaresForm.controls[
+                            'isKilometericMinimumFare'
+                          ].value
+                        "
+                      />
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <button class="btn btn-primary" (click)="updateMiniFares()">
+                      update
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
-          <div class="card-body">
-            <form [formGroup]="requestDistanceLimit">
-              <div class="row g-3 align-items-center">
-                <div class="col-auto">
-                  <label class="col-form-label">Distance limit</label>
-                </div>
-                <div class="col-auto">
-                  <input
-                    type="number"
-                    formControlName="distanceLimit"
-                    class="form-control"
-                  />
-                </div>
-                <div class="col-auto">
-                  <button
-                    class="btn btn-primary"
-                    (click)="updateRequestDistanceLimit()"
-                  >
-                    update
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </ng-template>
-    </li>
-    <li [ngbNavItem]="2">
-      <button ngbNavLink>Deduction configuration</button>
-      <ng-template ngbNavContent>
-        <p>deduction config goes here</p>
-      </ng-template>
-    </li>
-  </ul>
 
-  <div [ngbNavOutlet]="nav" class="mt-2"></div>
-</div>
+          <hr />
+          <div class="card">
+            <div class="card-header">
+              <h4>Deductions</h4>
+            </div>
+            <div class="card-body">
+              <form
+                [formGroup]="deductionsForm"
+                class="row g-3 align-items-center"
+              >
+                <div class="col-12" formArrayName="deductionsFormArray">
+                  <!-- Use @for with the track keyword -->
+                  @for(group of deductionsFormArray.controls; track group; let i
+                  = $index) {
+                  <div [formGroupName]="i" class="row g-3 align-items-center">
+                    <div class="text-start my-3">
+                      <h4 class="lead">Deduction #{{ i + 1 }}</h4>
+                    </div>
+                    <div class="col-auto">
+                      <label class="col-form-label"
+                        >Deduction Name (Arabic)</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="nameAr"
+                      />
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="col-form-label"
+                        >Deduction Name (English)</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="nameEn"
+                      />
+                    </div>
+                    <div class="col-auto">
+                      <label class="col-form-label">Amount</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        formControlName="amount"
+                      />
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="col-form-label">Percentage</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="percentage"
+                      />
+                    </div>
+                    <div class="col-auto">
+                      <label class="col-form-label">Is active?</label>
+                      <div class="form-check">
+                        <input
+                          formControlName="isActive"
+                          class="form-check-input"
+                          type="checkbox"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="col-form-label">Is percentage?</label>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          formControlName="isPercentage"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-auto">
+                      <button
+                        class="btn btn-primary"
+                        (click)="updateSelectedDeduction(i)"
+                      >
+                        Update
+                      </button>
+                    </div>
+                  </div>
+                  }
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="card">
+            <div class="card-header">
+              <h4>Request distance limit</h4>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="requestDistanceLimit">
+                <div class="row g-3 align-items-center">
+                  <div class="col-auto">
+                    <label class="col-form-label">Distance limit</label>
+                  </div>
+                  <div class="col-auto">
+                    <input
+                      type="number"
+                      formControlName="distanceLimit"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-auto">
+                    <button
+                      class="btn btn-primary"
+                      (click)="updateRequestDistanceLimit()"
+                    >
+                      update
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <button ngbNavLink>Deduction configuration</button>
+        <ng-template ngbNavContent>
+          <p>deduction config goes here</p>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </div>
+</section>
