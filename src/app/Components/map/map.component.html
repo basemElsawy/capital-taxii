@@ -42,8 +42,13 @@
         @for(item of allDrivers; track item) {
         <tr class="w-100">
           <td>
-            <input type="checkbox" [checked]="item.isChecked" />
+            <input
+              type="checkbox"
+              [checked]="item.isChecked"
+              (change)="selectedItem(item)"
+            />
           </td>
+
           <td
             class="person-info d-flex align-items-center justify-content-start gap-2"
           >

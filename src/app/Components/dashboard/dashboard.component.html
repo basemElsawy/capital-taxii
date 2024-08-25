@@ -107,15 +107,38 @@
         </div>
 
         @for(data of dashboardStatisticalData; track data) {
-        <div class="card" (click)="getStatusDetails(data)">
+        <div
+          [class]="
+            data.requestStatusId === selectedStatusId ? 'selected-card' : 'card'
+          "
+          (click)="getStatusDetails(data)"
+        >
           <div class="card-body p-0">
             <div class="row">
-              <div class="col-3 color-section2"></div>
-              <div class="col-9">
+              <div
+                [class]="
+                  data.requestStatusId === selectedStatusId
+                    ? 'col-3'
+                    : 'col-3 color-section2'
+                "
+              ></div>
+              <div
+                [class]="
+                  data.requestStatusId === selectedStatusId
+                    ? 'col-12 text-center'
+                    : 'col-9'
+                "
+              >
                 <div class="icon-holder">
                   <i class="pi pi-car"></i>
                 </div>
-                <div class="statistical-number">
+                <div
+                  [class]="
+                    data.requestStatusId === selectedStatusId
+                      ? 'statistical-number-selected'
+                      : 'statistical-number'
+                  "
+                >
                   <p>
                     {{ data.count }}
                   </p>
@@ -124,7 +147,7 @@
                 <div class="statistical-text">
                   <p
                     [ngClass]="{
-                      'text-dark fw-bold':
+                      'text-white fw-bold':
                         data.requestStatusId === selectedStatusId
                     }"
                   >

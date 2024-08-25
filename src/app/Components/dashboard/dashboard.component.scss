@@ -5,12 +5,17 @@
     gap :10px;
 }
 
-.card{
+.card , .selected-card{
     box-shadow: 1px 1px 4px 1px lightgray;
     padding: 5px;
     border-radius: 15px;
     height: 97px;
-} 
+}  
+
+.selected-card{
+    color: white;
+    background-color: #0053c6 ;
+}
 
 .statistical-text , .statistical-text-new{
     color: #ABBBC2;
@@ -27,7 +32,12 @@
     font-size: 25px;
     color: #B68D46;
     padding-left: 4px;
-}
+} 
+
+.statistical-number-selected ,.text-white{
+    color: white;
+} 
+
 
 .color-section,.color-section1, .color-section2 {
     position: relative;

@@ -52,7 +52,6 @@ export class MapComponent {
     this.vehicleServices.getAllDrivers().subscribe({
       next: (res: any) => {
         this.allDrivers = res.items;
-        console.log(this.allDrivers);
       },
       error: (error: any) => {
         console.log(error);
@@ -67,9 +66,7 @@ export class MapComponent {
   getDriversOnMap() {
     this.mapService.getDriversOnTheMap(2).subscribe({
       next: (res: any): void => {
-        debugger;
         this.allDrivers = res;
-        console.log(this.allDrivers);
         let mappedResponse = res.map((responseItem: any): DriversMarkers => {
           const {
             driver: {
@@ -120,6 +117,7 @@ export class MapComponent {
       .catch((err) => console.log(err));
   }
   checkboxEvent(event: any) {
+    debugger;
     let isAllChecked = event.target.checked;
     if (isAllChecked) {
       this.allDrivers.forEach((item: Drivers) => {
@@ -129,6 +127,23 @@ export class MapComponent {
     }
     this.allDrivers.forEach((item: Drivers) => {
       item.isChecked = false;
+    });
+  }
+
+  selectedItem(item: any) {
+    this.driverMarkers = [];
+    this.driverMarkers.push({
+      coords: {
+        lat: item.driver.locationLatitude,
+        lng: item.driver.locationLongitude,
+      },
+      icon: {
+        url: '../../../assets/locationIcon.png',
+        scaledSize: {
+          width: 60,
+          height: 60,
+        },
+      },
     });
   }
   getInfoWindow(marker: any, driver: any) {

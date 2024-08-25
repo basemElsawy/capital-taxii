@@ -5,6 +5,7 @@ import { VehicleService } from './Services/vehicle.service';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -71,9 +72,11 @@ export class VehicleComponent {
       vehicleFinancialId: [null, Validators.required],
       vehicleBrandId: [null, Validators.required],
       vehicleBodyTypeId: [null, Validators.required],
+      vehicleServiceTypeId: [1],
     });
 
     this.addDriverVehicleForm = this.fb.group({
+      startDate: [null, Validators.required],
       expiryDate: [null, Validators.required],
       driverId: [null, Validators.required],
       vehicleId: [null, Validators.required],
@@ -95,7 +98,6 @@ export class VehicleComponent {
   getAllDrivers() {
     this.vehilcesService.getAllDrivers().subscribe({
       next: (res: any) => {
-        debugger;
         this.Drivers = res.items;
       },
       error: (error: any) => {

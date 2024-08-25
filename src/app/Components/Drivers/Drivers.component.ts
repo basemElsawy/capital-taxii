@@ -9,6 +9,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -35,6 +36,20 @@ export class DriversComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getAllDrivers();
+    this.initAddUserForm();
+  }
+
+  initAddUserForm(): void {
+    this.addUserForm = this.fb.group({
+      email: [null, Validators.required],
+      fullName: [null, Validators.required],
+      phoneNumber: [null, Validators.required],
+      genderId: [null, Validators.required],
+      nationalityId: [null, Validators.required],
+      password: [null, Validators.required],
+      confirmPassword: [null, Validators.required],
+      birthDate: [null, Validators.required],
+    });
   }
 
   getAllDrivers() {
@@ -87,7 +102,9 @@ export class DriversComponent implements OnInit {
   closeModal() {
     this.modalService.dismissAll();
   }
+
   addDrivers() {}
+
   checkboxEvent(event: any) {
     console.log(event.target.checked);
     if (this.driversData.items.length) {
