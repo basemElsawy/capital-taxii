@@ -42,4 +42,21 @@ export class DriversService {
       })
     );
   }
+
+  convertFileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        resolve(reader.result as string);
+      };
+      reader.onerror = (error) => {
+        reject('Error converting file to base64: ' + error);
+      };
+    });
+  }
+
+  addNewDriver(body: any) {
+    return this.httpClient.post(DriversApiEndpoints.addDriverUser, body);
+  }
 }

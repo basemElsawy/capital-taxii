@@ -151,6 +151,7 @@ export class MapComponent {
       .catch((err) => console.log(err));
   }
   checkboxEvent(event: any) {
+    debugger;
     let isAllChecked = event.target.checked;
     let driverMarker;
     if (isAllChecked) {
@@ -182,6 +183,23 @@ export class MapComponent {
     this.allDrivers_Data().forEach((item: Drivers) => {
       item.isChecked = false;
       this.driverMarkers = [];
+    });
+  }
+
+  selectedItem(item: any) {
+    this.driverMarkers = [];
+    this.driverMarkers.push({
+      coords: {
+        lat: item.driver.locationLatitude,
+        lng: item.driver.locationLongitude,
+      },
+      icon: {
+        url: '../../../assets/locationIcon.png',
+        scaledSize: {
+          width: 60,
+          height: 60,
+        },
+      },
     });
   }
   getInfoWindow(marker: any, driver: any) {

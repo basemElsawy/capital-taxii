@@ -9,8 +9,10 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { passwordMatchValidator } from '../classes/password-match.validators';
 
 @Component({
   selector: 'app-Drivers',
@@ -35,6 +37,23 @@ export class DriversComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getAllDrivers();
+    this.initAddUserForm();
+  }
+
+  initAddUserForm(): void {
+    this.addUserForm = this.fb.group(
+      {
+        email: [null, Validators.required],
+        fullName: [null, Validators.required],
+        phoneNumber: [null, Validators.required],
+        genderId: [null, Validators.required],
+        nationalityId: [null, Validators.required],
+        password: [null, Validators.required],
+        confirmPassword: [null, Validators.required],
+        birthDate: [null, Validators.required],
+      },
+      { validators: passwordMatchValidator() }
+    );
   }
 
   getAllDrivers() {
@@ -87,7 +106,20 @@ export class DriversComponent implements OnInit {
   closeModal() {
     this.modalService.dismissAll();
   }
-  addDrivers() {}
+
+  addDrivers() {
+    let requestBody = this.addUserForm.value;
+    this.driversService.addNewDriver(requestBody).subscribe({
+      next: (res: any) => {
+        this.getAllDrivers();
+        this.addUserForm.reset();
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
+
   checkboxEvent(event: any) {
     console.log(event.target.checked);
     if (this.driversData.items.length) {

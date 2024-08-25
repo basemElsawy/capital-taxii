@@ -14,9 +14,6 @@
     <table class="w-100 table-content position-relative">
       <thead class="w-100">
         <tr class="py-2 px-4 w-100">
-          <th class="first-heading">
-            <input type="checkbox" (change)="checkboxEvent($event)" />
-          </th>
           <th style="width: 150px; text-align: left; padding-left: 0px">
             User
           </th>
@@ -25,16 +22,11 @@
           <th>email</th>
           <th>gender</th>
           <th class="second-heading pe-4">status</th>
-
-          <!-- <th >Income Location</th> -->
         </tr>
       </thead>
       <tbody class="w-100">
         @for(data of driversData.items; track data ;let idx= $index) {
         <tr class="w-100">
-          <td>
-            <input type="checkbox" [checked]="data.isChecked" />
-          </td>
           <td
             class="person-info d-flex align-items-center justify-content-start gap-2"
           >
@@ -68,15 +60,6 @@
               {{ data.res.status ? "available" : "N/A" }}
             </div>
           </td>
-
-          <!-- <td class="d-flex align-items-center justify-content-center">
-            <div
-              class="income-styling px-2 w-50 py-2 rounded-4"
-              [ngClass]="{ 'not-available': true }"
-            >
-              {{ "" }}{{ data.income ? "EGP" : "N/A" }}
-            </div>
-          </td> -->
         </tr>
         }
       </tbody>
@@ -113,7 +96,7 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4>Add new user</h4>
+    <h4>Add new driver</h4>
   </div>
 
   <div class="modal-body">
@@ -128,11 +111,19 @@
           />
         </div>
         <div class="col-md-4">
+          <label> Fullname </label>
+          <input
+            class="form-group form-control"
+            type="text"
+            formControlName="fullName"
+          />
+        </div>
+        <div class="col-md-4">
           <label> Phone </label>
           <input
             class="form-group form-control"
             type="number"
-            formControlName="phone"
+            formControlName="phoneNumber"
           />
         </div>
         <div class="col-md-4">
@@ -192,6 +183,13 @@
         <div class="col-md-4">
           <label> Birth date </label>
           <input class="form-control" type="date" formControlName="birthDate" />
+        </div>
+
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Driver photo</label>
+            <input class="form-control" cha type="file" id="formFile" />
+          </div>
         </div>
       </div>
     </form>

@@ -46,7 +46,7 @@
               />
               <div class="text-container text-start">
                 <h6 class="m-0 p-0 fw-bold">{{ data.res.vehicleName }}</h6>
-                <a href="#" class="click-show-image">Show Image</a>
+                <!-- <a href="#" class="click-show-image">Show Image</a> -->
               </div>
             </td>
             <td>{{ data.res.year }}</td>
@@ -300,7 +300,16 @@
         </div>
 
         <div class="col-md-4">
-          <label>Expiration date</label>
+          <label>From date</label>
+          <input
+            type="date"
+            class="form-group form-control"
+            formControlName="startDate"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label>To date</label>
           <input
             type="date"
             class="form-group form-control"
