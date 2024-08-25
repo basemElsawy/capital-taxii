@@ -39,18 +39,22 @@
         </tr>
       </thead>
       <tbody class="w-100">
-        @for(item of allDrivers; track item) {
+        @for(driver of allDrivers; track driver) {
         <tr class="w-100">
           <td>
-            <input type="checkbox" [checked]="item.isChecked" />
+            <input
+              type="checkbox"
+              [checked]="driver.isChecked"
+              (change)="addMarkerOnMap(driver, $event)"
+            />
           </td>
           <td
             class="person-info d-flex align-items-center justify-content-start gap-2"
           >
             <img
               [src]="
-                item?.user?.picture
-                  ? item?.user?.picture
+                driver?.user?.picture
+                  ? driver?.user?.picture
                   : '../../../assets/Rectangle 9.png'
               "
               alt=""
@@ -58,27 +62,29 @@
               width="40"
             />
             <div class="text-container text-start">
-              <h6 class="m-0 p-0">{{ item?.user?.fullName }}</h6>
-              <p class="m-0 p-0">{{ item?.user?.phoneNumber }}</p>
+              <h6 class="m-0 p-0">{{ driver?.user?.fullName }}</h6>
+              <p class="m-0 p-0">{{ driver?.user?.phoneNumber }}</p>
             </div>
           </td>
           <td>
             {{
-              item?.currentVehicle?.vehicleName
-                ? item?.currentVehicle?.vehicleName
+              driver?.currentVehicle?.vehicleName
+                ? driver?.currentVehicle?.vehicleName
                 : "-"
             }}
           </td>
-          <td>{{ item?.driver?.createdAt | date : "dd-MM-yyyy" }}</td>
+          <td>{{ driver?.driver?.createdAt | date : "dd-MM-yyyy" }}</td>
           <td style="width: 200px" class="text-start ps-1">
-            {{ item?.requestRoute?.fromLocationName }}
+            {{ driver?.requestRoute?.fromLocationName }}
           </td>
           <td style="width: 200px" class="text-start ps-3">
-            {{ item?.requestRoute?.toLocationName }}
+            {{ driver?.requestRoute?.toLocationName }}
           </td>
           <td class="d-flex align-items-center justify-content-center">
             <div class="income-styling px-2 w-50 py-2 rounded-4">
-              {{ item?.driver?.totalAmount ? item?.driver?.totalAmount : "-" }}
+              {{
+                driver?.driver?.totalAmount ? driver?.driver?.totalAmount : "-"
+              }}
               EGP
             </div>
           </td>

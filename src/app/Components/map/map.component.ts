@@ -10,6 +10,7 @@ import { TableModule } from 'primeng/table';
 import { DriverDetails, Drivers, DriversMarkers } from './IMap';
 import { MapServiceService } from './map-service.service';
 import { VehicleService } from '../vehicle/Services/vehicle.service';
+import { userInfo } from 'os';
 
 @Component({
   selector: 'app-map',
@@ -30,10 +31,11 @@ export class MapComponent {
 
   center!: google.maps.LatLngLiteral;
   zoom = 8;
-  driverMarkers!: any[];
+  driverMarkers: any[] = [];
   driverDetails = signal([]);
   testArray: string[] = ['1', '2', '3', '4'];
-  allDrivers: any[] = [];
+  // allDrivers: any[] = [];
+  allDrivers_Data: any = signal([]);
   address: any;
   selectedProducts: any;
   constructor(
@@ -42,7 +44,7 @@ export class MapComponent {
   ) {}
   ngOnInit(): void {
     this.getCurrentPosition();
-    this.getAllDrivers();
+    // this.getAllDrivers();
     this.getDriversOnMap();
     // setInterval(() => {
     // }, 1000);
@@ -51,8 +53,8 @@ export class MapComponent {
   getAllDrivers() {
     this.vehicleServices.getAllDrivers().subscribe({
       next: (res: any) => {
-        this.allDrivers = res.items;
-        console.log(this.allDrivers);
+        // this.allDrivers = res.items;
+        // console.log(this.allDrivers);
       },
       error: (error: any) => {
         console.log(error);
@@ -63,13 +65,49 @@ export class MapComponent {
   // geocodingReverse() {
   //   this.mapService.reverseGeoCoding()
   // }
+  addMarkerOnMap(driver: any, event: any) {
+    console.log(this.allDrivers);
+    console.log(this.driverMarkers);
+    let driverMarker = {
+      userInfo: {
+        name: driver.user.fullName,
+        status: driver.status,
+        image: driver.user.picture,
+      },
+      coords: {
+        lat: driver.driver.locationLatitude,
+        lng: driver.driver.locationLongitude,
+      },
+      icon: {
+        url: '../../../assets/locationIcon.png',
+        scaledSize: {
+          width: 60,
+          height: 60,
+        },
+      },
+    };
+
+    if (event.target.checked) {
+      console.log(driver?.driver);
+      this.driverMarkers.push(driverMarker);
+
+      return;
+    }
+    this.driverMarkers = this.driverMarkers.filter(
+      (marker: any) => marker.id != driver.id
+    );
+    return;
+
+    console.log(driver);
+  }
 
   getDriversOnMap() {
     this.mapService.getDriversOnTheMap(2).subscribe({
       next: (res: any): void => {
-        debugger;
-        this.allDrivers = res;
-        console.log(this.allDrivers);
+        this.allDrivers_Data.set(
+          res.map((response: any) => ({ ...response, isChecked: false }))
+        );
+
         let mappedResponse = res.map((responseItem: any): DriversMarkers => {
           const {
             driver: {
@@ -99,7 +137,8 @@ export class MapComponent {
             },
           };
         });
-        this.driverMarkers = mappedResponse;
+
+        // this.driverMarkers = mappedResponse;
         console.log(this.driverMarkers);
       },
       complete: () => {},
@@ -121,18 +160,44 @@ export class MapComponent {
   }
   checkboxEvent(event: any) {
     let isAllChecked = event.target.checked;
+    let driverMarker;
     if (isAllChecked) {
-      this.allDrivers.forEach((item: Drivers) => {
+      this.allDrivers_Data().forEach((item: any) => {
         item.isChecked = true;
+        console.log(item);
+        driverMarker = {
+          userInfo: {
+            name: item?.user.fullName,
+            status: item.status,
+            image: item.user.picture,
+          },
+          coords: {
+            lat: item.driver.locationLatitude,
+            lng: item.driver.locationLongitude,
+          },
+          icon: {
+            url: '../../../assets/locationIcon.png',
+            scaledSize: {
+              width: 60,
+              height: 60,
+            },
+          },
+        };
+        this.driverMarkers.push(item);
       });
       return;
     }
-    this.allDrivers.forEach((item: Drivers) => {
+    this.allDrivers_Data().forEach((item: Drivers) => {
       item.isChecked = false;
+      this.driverMarkers = [];
     });
   }
   getInfoWindow(marker: any, driver: any) {
     this.infoWindow.open(marker);
   }
   checkboxRowEvent(event: any, item: Drivers) {}
+
+  get allDrivers() {
+    return this.allDrivers_Data();
+  }
 }
