@@ -77,4 +77,11 @@ export class VehicleService {
   getAllDrivers() {
     return this.httpClient.get(VehiclesApiEndpoints.drivers);
   }
+
+  getVehicleDetails(id: any) {
+    debugger;
+    return this.httpClient.get(
+      VehiclesApiEndpoints.vehicleDrivers + `vehicleId=${id}`
+    );
+  }
 }

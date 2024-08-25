@@ -69,6 +69,15 @@
 
                 <i class="fa-solid fa-plus"></i>
               </button>
+
+              <button
+                (click)="showVehicleDrivers(data, drivers)"
+                class="btn btn-success d-flex align-items-center mx-2 justify-content-center gap-2"
+              >
+                <span> show drivers </span>
+
+                <i class="fa-solid fa-eye"></i>
+              </button>
             </td>
           </tr>
           }
@@ -325,6 +334,91 @@
 
   <div class="modal-footer">
     <button class="btn btn-success" (click)="addDriver()">Save</button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+
+<!-- here is the modal needed to show all added drivers on the selected vehicles-->
+<ng-template #drivers let-modal>
+  <div class="modal-body">
+    <table class="w-100 table-content position-relative">
+      <thead class="w-100">
+        <tr class="py-2 px-4 w-100">
+          <th class="first-heading">#</th>
+          <th class="text-start">Name</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>Phone</th>
+          <th>Status</th>
+          <th>Total amount</th>
+          <th>Total count</th>
+          <th>Start date</th>
+          <th>End date</th>
+        </tr>
+      </thead>
+      <tbody class="w-100">
+        @for(data of vehicleDrivers; track data; let i = $index) {
+        <tr class="w-100">
+          <td>
+            {{ i + 1 }}
+          </td>
+          <td
+            class="person-info d-flex align-items-center justify-content-start gap-2"
+          >
+            <img
+              [src]="
+                data.driver.user.picture
+                  ? imgUrl + data.driver.user.picture
+                  : '../../../assets/unknown.png'
+              "
+              alt=""
+              height="40"
+              width="40"
+            />
+            <div class="text-container text-start">
+              <h6 class="m-0 p-0 fw-bold">{{ data.driver.user.fullName }}</h6>
+              <!-- <a href="#" class="click-show-image">Show Image</a> -->
+            </div>
+          </td>
+          <td>
+            {{ data.driver.user.email }}
+          </td>
+          <td>
+            {{ data.driver.user.genderId == 1 ? "Male" : "Female" }}
+          </td>
+          <td>
+            {{ data.driver.user.phoneNumber }}
+          </td>
+          <td>
+            @if(data.driver.status == false) {
+            <i class="fa-solid fa-circle-xmark close-icon"></i>
+            } @else {
+            <i class="fa-solid fa-check success-icon"></i>
+            }
+          </td>
+          <td>
+            {{ data.driver.totalAmount ? data.driver.totalAmount : "-" }}
+          </td>
+          <td>
+            {{ data.driver.totalCount ? data.driver.totalCount : "-" }}
+          </td>
+          <td>
+            {{ data.startDate | date : "dd-MM-yyyy" }}
+          </td>
+
+          <td>
+            {{ data.expiryDate | date : "dd-MM-yyyy" }}
+          </td>
+
+          <!-- <td style="width: 200px" class="text-center"></td>
+          <td style="width: 200px" class="text-center"></td> -->
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal-footer">
     <button class="btn btn-danger" (click)="closeModal()">Close</button>
   </div>
 </ng-template>

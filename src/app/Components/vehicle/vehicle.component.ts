@@ -37,6 +37,7 @@ export class VehicleComponent {
   vehicleBrands: any[] = [];
   vehicleBody: any[] = [];
   Drivers: any[] = [];
+  vehicleDrivers: any[] = [];
   choosedVehicle: any;
   constructor(
     private vehilcesService: VehicleService,
@@ -150,6 +151,21 @@ export class VehicleComponent {
     });
   }
 
+  //here is the function needed to get all added drivers on the selected vehicle
+  getAllVehicleDrivers(selectedVehicleId: any) {
+    this.vehilcesService.getVehicleDetails(selectedVehicleId).subscribe({
+      next: (res: any) => {
+        debugger;
+        this.vehicleDrivers = res.data.drivers;
+        console.log(this.vehicleDrivers);
+      },
+      error: (error: any) => {
+        debugger;
+        console.log(error);
+      },
+    });
+  }
+
   getVehicleFinancial() {
     this.vehilcesService.getVehicleFinancial().subscribe({
       next: (res: any) => {
@@ -236,6 +252,17 @@ export class VehicleComponent {
 
   closeModal() {
     this.modalService.dismissAll();
+  }
+
+  showVehicleDrivers(selectedVehicle: any, content: any) {
+    debugger;
+    this.getAllVehicleDrivers(selectedVehicle.res.id);
+    this.modalService.open(content, {
+      size: 'xl',
+      backdrop: 'static',
+      centered: true,
+      scrollable: true,
+    });
   }
   addVehicle() {
     let addNewVehicleBody = this.addVehicleForm.value;
