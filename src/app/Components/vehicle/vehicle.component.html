@@ -38,8 +38,11 @@
               class="person-info d-flex align-items-center justify-content-start gap-2"
             >
               <img
-                src="../../../assets/carjpg.jpg"
-                class="rounded-circle"
+                [src]="
+                  data.res.photo
+                    ? imgUrl + data.res.photo
+                    : '../../../assets/carjpg.jpg'
+                "
                 alt=""
                 height="40"
                 width="40"

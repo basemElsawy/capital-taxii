@@ -5,7 +5,7 @@ import { ArrivedTripsComponent } from './arrived-trips/arrived-trips.component';
 import { CancledTripsComponent } from './cancled-trips/cancled-trips.component';
 import { NewTripsComponent } from './new-trips/new-trips.component';
 import { ConfirmedTripsComponent } from './confirmed-trips/confirmed-trips.component';
-
+import { InProgressTripsComponent } from './in-progress-trips/in-progress-trips.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -15,6 +15,7 @@ import { ConfirmedTripsComponent } from './confirmed-trips/confirmed-trips.compo
     CancledTripsComponent,
     NewTripsComponent,
     ConfirmedTripsComponent,
+    InProgressTripsComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -27,12 +28,14 @@ export class DashboardComponent implements OnInit {
   confirmedRequestDetails: any[] = [];
   arrivedRequestDetails: any[] = [];
   cancledRequestDetails: any[] = [];
+  inProgressTrips: any[] = [];
   allDrivers: any[] = [];
 
   IsNewRequests: boolean = false;
   IsConfirmedRequests: boolean = false;
   IsCancledRequests: boolean = false;
   IsArrivedRequests: boolean = false;
+  IsInProgressTrips: boolean = false;
 
   dashboardData: any;
   private dashboardService = inject(DashboardService);
@@ -75,15 +78,18 @@ export class DashboardComponent implements OnInit {
 
   selectedStatusId: any;
   getStatusDetails(choosedData: any) {
+    debugger;
     this.IsNewRequests = false;
     this.isChoosed = false;
     this.IsConfirmedRequests = false;
     this.IsCancledRequests = false;
     this.IsArrivedRequests = false;
+    this.IsInProgressTrips = false;
     this.newRequestDetails = [];
     this.confirmedRequestDetails = [];
     this.cancledRequestDetails = [];
     this.arrivedRequestDetails = [];
+    this.inProgressTrips = [];
     this.selectedStatusId = choosedData.requestStatusId;
     switch (choosedData.requestStatusId) {
       case 1:
@@ -106,6 +112,10 @@ export class DashboardComponent implements OnInit {
         this.arrivedRequestDetails = choosedData.requestRoutes;
         this.isChoosed = true;
         break;
+      case 8:
+        this.IsInProgressTrips = true;
+        this.inProgressTrips = choosedData.requestRoutes;
+        this.isChoosed = true;
     }
   }
 

@@ -13,15 +13,23 @@ import {
 } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { passwordMatchValidator } from '../classes/password-match.validators';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-Drivers',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    NgbPaginationModule,
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   templateUrl: './Drivers.component.html',
   styleUrls: ['./Drivers.component.scss'],
 })
 export class DriversComponent implements OnInit {
+  public readonly imgUrl = environment.image;
   // driverMarkers: any;
   driversData: any = {};
   currentLocationAddress: string = '';
@@ -29,6 +37,11 @@ export class DriversComponent implements OnInit {
   isLoading: any = signal(true);
   addUserForm!: FormGroup;
   nationalities: any[] = [];
+
+  pageNumber: any = 1;
+  totalRecords = 0;
+
+  pageSize = 10;
 
   constructor(
     private driversService: DriversService,
@@ -58,22 +71,36 @@ export class DriversComponent implements OnInit {
   }
 
   getAllDrivers() {
-    this.driversService.getAllDrivers().subscribe({
-      next: (res: any) => {
-        this.driversData = res;
-        console.log(this.driversData);
-      },
-      complete: () => {
-        this.addressExtractor();
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this.driversService
+      .getAllDrivers(this.pageNumber, this.pageSize)
+      .subscribe({
+        next: (res: any) => {
+          debugger;
+          if (Array.isArray(res)) {
+            this.driversData = res;
+          } else {
+            this.driversData = res.items;
+            this.totalRecords = res.totalRecords;
+            // this.driversData = res;
+            // console.log(this.driversData);
+          }
+        },
+        complete: () => {
+          this.addressExtractor();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+
+  onPageChange(page: number) {
+    this.pageNumber = page;
+    this.getAllDrivers();
   }
   addressExtractor() {
-    if (this.driversData?.items.length) {
-      this.driversData.items.forEach((item: any) => {
+    if (this.driversData?.length) {
+      this.driversData.forEach((item: any) => {
         let coords: Coords = {
           lat: item.res.locationLatitude,
           lng: item.res.locationLongitude,
@@ -129,6 +156,13 @@ export class DriversComponent implements OnInit {
       .convertFileToBase64(event.target.files[0])
       .then((res) => {
         this.addUserForm.controls['picture'].setValue(res);
+        let cleanedBase64Image = this.driversService.processImage(
+          this.addUserForm.controls['picture'].value
+        );
+
+        console.log(cleanedBase64Image);
+
+        this.addUserForm.controls['picture'].setValue(cleanedBase64Image);
       })
       .finally(() => {});
   }

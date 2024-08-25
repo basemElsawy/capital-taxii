@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-vehicle',
@@ -21,6 +22,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './vehicle.component.scss',
 })
 export class VehicleComponent {
+  public readonly imgUrl = environment.image;
   driversData: any[] = [];
   addVehicleForm!: FormGroup;
   addDriverVehicleForm!: FormGroup;
@@ -86,6 +88,7 @@ export class VehicleComponent {
   getAllVehicles() {
     this.vehilcesService.getAllVehicles().subscribe({
       next: (res: any) => {
+        debugger;
         this.driversData = res;
       },
       complete: () => {},
