@@ -10,12 +10,10 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./Core/auth/auth.routes').then((m) => m.routes),
-    canActivate: [authguardGuard],
   },
 
   {
     path: 'home',
-    canActivate: [authguardGuard],
     loadChildren: () =>
       import('./Components/views/Views.routes').then((m) => m.routes),
   },
