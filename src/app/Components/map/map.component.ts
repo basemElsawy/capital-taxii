@@ -87,9 +87,14 @@ export class MapComponent {
 
     if (event.target.checked) {
       this.driverMarkers.push(driverMarker);
+      this.zoom = 12;
+      console.log(driverMarker);
+      this.center = driverMarker.coords;
       return;
     }
     this.driverMarkers.splice(driver.id, 1);
+    this.zoom = 8;
+
     return;
   }
 
@@ -151,13 +156,14 @@ export class MapComponent {
       .catch((err) => console.log(err));
   }
   checkboxEvent(event: any) {
-    debugger;
     let isAllChecked = event.target.checked;
     let driverMarker;
-    if (isAllChecked) {
+
+    if (event.target.checked) {
       this.allDrivers_Data().forEach((item: any) => {
         item.isChecked = true;
-        console.log(item);
+        // console.log(item);
+        this.zoom = 8;
         driverMarker = {
           userInfo: {
             name: item?.user.fullName,
@@ -176,7 +182,8 @@ export class MapComponent {
             },
           },
         };
-        this.driverMarkers.push(item);
+        this.driverMarkers.push(driverMarker);
+        console.log(this.driverMarkers);
       });
       return;
     }
