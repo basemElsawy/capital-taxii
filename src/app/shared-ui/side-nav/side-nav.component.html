@@ -1,10 +1,10 @@
 <section class="side-nav py-5">
   <div class="profile-image-container d-flex align-items-center gap-2 ms-2">
     <div class="profile-image">
-      <img src="../../../assets/Rectangle 9.png" alt="" />
+      <img [src]="getFullImageUrl()" alt="Profile Picture" />
     </div>
     <div class="sidenav-headline">
-      <h4 class="m-0">Fathy Tamer</h4>
+      <h4 class="m-0">{{ userData.fullName }}</h4>
       <p>Admin</p>
     </div>
   </div>

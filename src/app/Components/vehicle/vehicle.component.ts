@@ -89,7 +89,6 @@ export class VehicleComponent {
   getAllVehicles() {
     this.vehilcesService.getAllVehicles().subscribe({
       next: (res: any) => {
-        debugger;
         this.driversData = res;
       },
       complete: () => {},
@@ -155,12 +154,9 @@ export class VehicleComponent {
   getAllVehicleDrivers(selectedVehicleId: any) {
     this.vehilcesService.getVehicleDetails(selectedVehicleId).subscribe({
       next: (res: any) => {
-        debugger;
         this.vehicleDrivers = res.data.drivers;
-        console.log(this.vehicleDrivers);
       },
       error: (error: any) => {
-        debugger;
         console.log(error);
       },
     });
@@ -255,7 +251,6 @@ export class VehicleComponent {
   }
 
   showVehicleDrivers(selectedVehicle: any, content: any) {
-    debugger;
     this.getAllVehicleDrivers(selectedVehicle.res.id);
     this.modalService.open(content, {
       size: 'xl',

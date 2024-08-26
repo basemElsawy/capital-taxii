@@ -75,7 +75,6 @@ export class DriversComponent implements OnInit {
       .getAllDrivers(this.pageNumber, this.pageSize)
       .subscribe({
         next: (res: any) => {
-          debugger;
           if (Array.isArray(res)) {
             this.driversData = res;
           } else {

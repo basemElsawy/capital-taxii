@@ -151,7 +151,6 @@ export class MapComponent {
       .catch((err) => console.log(err));
   }
   checkboxEvent(event: any) {
-    debugger;
     let isAllChecked = event.target.checked;
     let driverMarker;
     if (isAllChecked) {

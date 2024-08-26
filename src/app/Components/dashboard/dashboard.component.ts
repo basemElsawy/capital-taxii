@@ -79,7 +79,6 @@ export class DashboardComponent implements OnInit {
 
   selectedStatusId: any;
   getStatusDetails(choosedData: any) {
-    debugger;
     this.IsNewRequests = false;
     this.isChoosed = false;
     this.IsConfirmedRequests = false;
@@ -123,7 +122,6 @@ export class DashboardComponent implements OnInit {
   getAllDrivers(): void {
     this.dashboardService.getAllDrivers(1, 10).subscribe({
       next: (drivers: any) => {
-        debugger;
         this.allDrivers = drivers.items;
       },
       error: (error) => {

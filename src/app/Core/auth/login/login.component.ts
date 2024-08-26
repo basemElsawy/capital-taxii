@@ -9,16 +9,26 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
+import { SpinnerComponent } from '../../../shared-ui/spinner/spinner.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SpinnerComponent,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  showPassword = false;
+  isLoading: boolean = false;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -37,19 +47,33 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin(): void {
+    this.isLoading = true;
     let loginBody = this.loginForm.value;
     this.authService.makeLogin(loginBody).subscribe({
       next: (res: any) => {
         let decodedToken = this.authService.tokenDecode(res.token);
         localStorage.setItem('expiryDate', decodedToken.exp);
         localStorage.setItem('token', res.token);
-        this.toastr.success('تم تسجيل الدخول بنجاح');
+        localStorage.setItem('user', JSON.stringify(res.user));
+        this.toastr.success(
+          `Welcome, ${res.user.fullName}!`,
+          'Login Successful'
+        );
+        this.isLoading = false;
         this.router.navigateByUrl('/home');
       },
       error: (error) => {
-        console.log(error?.error?.errors[0]?.errorAr);
-        this.toastr.error(error?.error?.errors[0]?.errorAr);
+        this.isLoading = false;
+        if (error?.error?.errors[0]?.errorEn) {
+          this.toastr.error(error?.error?.errors[0]?.errorEn);
+        } else {
+          this.toastr.error('Error, Please try again');
+        }
       },
     });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

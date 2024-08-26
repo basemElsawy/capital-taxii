@@ -1,3 +1,6 @@
+@if(isLoading){
+<app-spinner></app-spinner>
+}
 <section class="login-section d-flex align-items-center justify-content-center">
   <div
     class="login-container d-flex align-items-center justify-content-center image-section w-25"
@@ -28,7 +31,7 @@
         class="form-wrapper py-4 d-flex flex-column gap-4 px-4 w-100"
       >
         <div class="input-container">
-          <label for="username" class="mb-2">Email</label>
+          <label for="username" class="mb-2">Email or Username</label>
           <input
             type="text"
             id="username"
@@ -38,11 +41,23 @@
         </div>
         <div class="input-container">
           <label for="password" class="mb-2">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            formControlName="password"
-          />
+          <div class="input-group">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control password-input"
+              formControlName="password"
+            />
+            <span
+              class="input-group-text"
+              (click)="togglePasswordVisibility()"
+              style="cursor: pointer"
+            >
+              <i
+                class="fa-solid"
+                [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+              ></i>
+            </span>
+          </div>
         </div>
       </form>
       <div class="w-100">

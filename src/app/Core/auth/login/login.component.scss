@@ -54,13 +54,17 @@
     color: $sub-text;
   }
 }
-.input-container input {
+.input-container input,
+.input-group-text {
   box-shadow: none !important;
   background-color: $accent-color;
   padding: 8px 12px;
   border-radius: 15px;
+  border: none;
 }
-
+.input-group-text {
+  cursor: pointer;
+}
 .btn {
   background-color: $primary-color;
   color: white;
