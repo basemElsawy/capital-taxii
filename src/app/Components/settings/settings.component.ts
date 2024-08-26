@@ -10,10 +10,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [NgbNavModule, FormsModule, ReactiveFormsModule],
+  imports: [NgbNavModule, FormsModule, ReactiveFormsModule, SpinnerComponent],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
 })
@@ -29,6 +30,7 @@ export class SettingsComponent implements OnInit {
 
   kmPriceId: any;
   minimumKMId: any;
+  isLoading: boolean = false;
 
   constructor(private priceService: PriceService, private fb: FormBuilder) {}
 
@@ -82,6 +84,8 @@ export class SettingsComponent implements OnInit {
   }
 
   updateRequestDistanceLimit() {
+    this.isLoading = true;
+
     let requestId = this.requestDistanceLimitId;
     this.requestDistanceLimit.patchValue({
       id: requestId,
@@ -91,13 +95,17 @@ export class SettingsComponent implements OnInit {
     this.priceService.updateRequestLimitDistance(requestBody).subscribe({
       next: (res: any) => {
         this.getAllRequestDistanceLimits();
+        this.isLoading = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
         console.log(error);
       },
     });
   }
   updateSelectedrequestTimeLimit() {
+    this.isLoading = true;
+
     let requestId = this.requestTimeLimitId;
     this.requestTimeLimitForm.patchValue({
       id: requestId,
@@ -107,8 +115,11 @@ export class SettingsComponent implements OnInit {
     this.priceService.updateRequestTimeLimit(requestBody).subscribe({
       next: (res: any) => {
         this.getAllRequestTimeLimits();
+        this.isLoading = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
+
         console.log(error);
       },
     });
@@ -175,16 +186,19 @@ export class SettingsComponent implements OnInit {
 
   updateSelectedDeduction(index: any) {
     const selectedDeductionGroup = this.deductionsFormArray.at(index);
-
     if (selectedDeductionGroup) {
+      this.isLoading = true;
+
       const requestBody = selectedDeductionGroup.value;
 
       this.priceService.updateDeductions(requestBody).subscribe({
         next: (res: any) => {
           window.location.reload();
           this.getAllDeductions();
+          this.isLoading = false;
         },
         error: (error: any) => {
+          this.isLoading = false;
           console.error('Error updating deduction:', error);
         },
       });
@@ -194,6 +208,8 @@ export class SettingsComponent implements OnInit {
   }
 
   updateKmPrice() {
+    this.isLoading = true;
+
     let requestId = this.kmPriceId;
     this.kmPriceForm.patchValue({
       id: requestId,
@@ -203,9 +219,11 @@ export class SettingsComponent implements OnInit {
     this.priceService.updateKMPrice(requestBody).subscribe({
       next: (res: any) => {
         this.getAllRequestsKMPrice();
+        this.isLoading = false;
       },
 
       error: (error: any) => {
+        this.isLoading = false;
         console.log(error);
       },
     });
@@ -230,13 +248,15 @@ export class SettingsComponent implements OnInit {
   }
 
   updateMiniFares() {
+    this.isLoading = true;
     let requestBody = this.minimumFaresForm.value;
-
     this.priceService.updateMinimumFares(requestBody).subscribe({
       next: (res: any) => {
         this.getAllMinimumFares();
+        this.isLoading = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
         console.log(error);
       },
     });

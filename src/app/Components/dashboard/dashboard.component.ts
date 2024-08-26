@@ -7,6 +7,7 @@ import { NewTripsComponent } from './new-trips/new-trips.component';
 import { ConfirmedTripsComponent } from './confirmed-trips/confirmed-trips.component';
 import { InProgressTripsComponent } from './in-progress-trips/in-progress-trips.component';
 import { environment } from '../../../environments/environment.development';
+import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -17,6 +18,7 @@ import { environment } from '../../../environments/environment.development';
     NewTripsComponent,
     ConfirmedTripsComponent,
     InProgressTripsComponent,
+    SpinnerComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -31,6 +33,7 @@ export class DashboardComponent implements OnInit {
   cancledRequestDetails: any[] = [];
   inProgressTrips: any[] = [];
   allDrivers: any[] = [];
+  isLoading: boolean = false;
 
   IsNewRequests: boolean = false;
   IsConfirmedRequests: boolean = false;
@@ -47,6 +50,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllDashboardStatisticalData() {
+    this.isLoading = true;
     this.newRequestDetails = [];
     this.cancledRequestDetails = [];
     this.confirmedRequestDetails = [];
@@ -70,8 +74,10 @@ export class DashboardComponent implements OnInit {
             requestRoutes: element.requestRoutes,
           });
         });
+        this.isLoading = false;
       },
       error: (error) => {
+        this.isLoading = false;
         console.log(error);
       },
     });
@@ -120,11 +126,14 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllDrivers(): void {
+    this.isLoading = true;
     this.dashboardService.getAllDrivers(1, 10).subscribe({
       next: (drivers: any) => {
+        this.isLoading = false;
         this.allDrivers = drivers.items;
       },
       error: (error) => {
+        this.isLoading = false;
         console.log(error);
       },
     });

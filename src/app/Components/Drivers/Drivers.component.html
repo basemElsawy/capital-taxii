@@ -27,6 +27,10 @@
           <th class="second-heading pe-4">status</th>
         </tr>
       </thead>
+      @if(isLoading){
+      <app-spinner></app-spinner>
+      } @else {
+
       <tbody class="w-100">
         @for(data of driversData; track data ;let idx= $index) {
         <tr class="w-100">
@@ -72,6 +76,7 @@
         </tr>
         }
       </tbody>
+      }
     </table>
 
     <div

@@ -13,11 +13,12 @@ import {
 } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../environments/environment.development';
+import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 
 @Component({
   selector: 'app-vehicle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, SpinnerComponent],
   templateUrl: './vehicle.component.html',
   styleUrl: './vehicle.component.scss',
 })
@@ -39,6 +40,8 @@ export class VehicleComponent {
   Drivers: any[] = [];
   vehicleDrivers: any[] = [];
   choosedVehicle: any;
+  isLoading: boolean = false;
+
   constructor(
     private vehilcesService: VehicleService,
     private modalService: NgbModal,
@@ -87,54 +90,72 @@ export class VehicleComponent {
   }
 
   getAllVehicles() {
+    this.isLoading = true;
     this.vehilcesService.getAllVehicles().subscribe({
       next: (res: any) => {
         this.driversData = res;
+        this.isLoading = false;
       },
       complete: () => {},
       error: (err) => {
+        this.isLoading = false;
         console.log(err);
       },
     });
   }
 
   getAllDrivers() {
+    this.isLoading = true;
     this.vehilcesService.getAllDrivers().subscribe({
       next: (res: any) => {
+        this.isLoading = false;
         this.Drivers = res.items;
       },
       error: (error: any) => {
+        this.isLoading = false;
         console.log(error);
       },
     });
   }
   getAllVehicleBrand() {
+    this.isLoading = true;
     this.vehilcesService.getVehicleBrand().subscribe({
       next: (res: any) => {
         this.vehicleBrands = res;
+        this.isLoading = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
+
         console.log(error);
       },
     });
   }
 
   getAllVehicleBody() {
+    this.isLoading = true;
+
     this.vehilcesService.getVehicleBody().subscribe({
       next: (res: any) => {
         this.vehicleBody = res;
+        this.isLoading = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
+
         console.log(error);
       },
     });
   }
   getAllVehicleStatus() {
+    this.isLoading = true;
     this.vehilcesService.getVehicleStatus().subscribe({
       next: (res: any) => {
+        this.isLoading = false;
         this.vehicleStatus = res;
       },
       error: (error: any) => {
+        this.isLoading = false;
         console.log(error);
       },
     });
@@ -173,11 +194,15 @@ export class VehicleComponent {
     });
   }
   getAllVehiclesLifeCycle() {
+    this.isLoading = true;
     this.vehilcesService.getVehicleLifeCycle().subscribe({
       next: (res: any) => {
         this.vehicleLifeCycles = res;
+        this.isLoading = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
+
         console.log(error);
       },
     });
@@ -214,11 +239,15 @@ export class VehicleComponent {
   }
 
   getAllVehicleSpecifications() {
+    this.isLoading = true;
     this.vehilcesService.getAllVehicleSpecification().subscribe({
       next: (res: any) => {
         this.vehicleSpecifications = res;
+        this.isLoading = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
+
         console.log(error);
       },
     });

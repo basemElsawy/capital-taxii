@@ -15,6 +15,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { passwordMatchValidator } from '../classes/password-match.validators';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../environments/environment.development';
+import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 
 @Component({
   selector: 'app-Drivers',
@@ -24,6 +25,7 @@ import { environment } from '../../../environments/environment.development';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    SpinnerComponent,
   ],
   templateUrl: './Drivers.component.html',
   styleUrls: ['./Drivers.component.scss'],
@@ -71,6 +73,7 @@ export class DriversComponent implements OnInit {
   }
 
   getAllDrivers() {
+    this.isLoading = true;
     this.driversService
       .getAllDrivers(this.pageNumber, this.pageSize)
       .subscribe({
@@ -83,11 +86,14 @@ export class DriversComponent implements OnInit {
             // this.driversData = res;
             // console.log(this.driversData);
           }
+          this.isLoading = false;
         },
         complete: () => {
           this.addressExtractor();
+          this.isLoading = false;
         },
         error: (err) => {
+          this.isLoading = false;
           console.log(err);
         },
       });
@@ -121,11 +127,14 @@ export class DriversComponent implements OnInit {
     this.getAllNationalities();
   }
   getAllNationalities() {
+    this.isLoading = true;
     this.driversService.getAllNationalities().subscribe({
       next: (res: any) => {
         this.nationalities = res;
+        this.isLoading = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
         console.log(error);
       },
     });
@@ -135,17 +144,22 @@ export class DriversComponent implements OnInit {
   }
 
   addDrivers() {
+    this.isLoading = true;
     let requestBody = this.addUserForm.value;
-
     this.driversService.addNewDriver(requestBody).subscribe({
       next: (res: any) => {
         this.getAllDrivers();
         this.addUserForm.reset();
+        this.isLoading = false;
       },
       complete: () => {
+        this.isLoading = false;
+
         this.modalService.dismissAll();
       },
       error: (error: any) => {
+        this.isLoading = false;
+
         console.log(error);
       },
     });

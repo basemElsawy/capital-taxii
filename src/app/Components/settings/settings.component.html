@@ -1,3 +1,6 @@
+@if(isLoading){
+<app-spinner></app-spinner>
+}
 <section class="p-4">
   <div>
     <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
