@@ -19,4 +19,5 @@ export class VehiclesApiEndpoints {
   static driverVehicle: string = this.baseUrl + 'DriverVehicle';
   static drivers: string =
     this.baseUrl + 'Driver/get-all-drivers?pageNumber=1&pageSize=10';
+  static vehicleDrivers: string = this.baseUrl + 'Driver/get-vehicle-details?';
 }

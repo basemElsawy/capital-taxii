@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-vehicle',
@@ -21,6 +22,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './vehicle.component.scss',
 })
 export class VehicleComponent {
+  public readonly imgUrl = environment.image;
   driversData: any[] = [];
   addVehicleForm!: FormGroup;
   addDriverVehicleForm!: FormGroup;
@@ -35,6 +37,7 @@ export class VehicleComponent {
   vehicleBrands: any[] = [];
   vehicleBody: any[] = [];
   Drivers: any[] = [];
+  vehicleDrivers: any[] = [];
   choosedVehicle: any;
   constructor(
     private vehilcesService: VehicleService,
@@ -86,6 +89,7 @@ export class VehicleComponent {
   getAllVehicles() {
     this.vehilcesService.getAllVehicles().subscribe({
       next: (res: any) => {
+        debugger;
         this.driversData = res;
       },
       complete: () => {},
@@ -144,6 +148,21 @@ export class VehicleComponent {
       backdrop: 'static',
       centered: true,
       scrollable: true,
+    });
+  }
+
+  //here is the function needed to get all added drivers on the selected vehicle
+  getAllVehicleDrivers(selectedVehicleId: any) {
+    this.vehilcesService.getVehicleDetails(selectedVehicleId).subscribe({
+      next: (res: any) => {
+        debugger;
+        this.vehicleDrivers = res.data.drivers;
+        console.log(this.vehicleDrivers);
+      },
+      error: (error: any) => {
+        debugger;
+        console.log(error);
+      },
     });
   }
 
@@ -233,6 +252,17 @@ export class VehicleComponent {
 
   closeModal() {
     this.modalService.dismissAll();
+  }
+
+  showVehicleDrivers(selectedVehicle: any, content: any) {
+    debugger;
+    this.getAllVehicleDrivers(selectedVehicle.res.id);
+    this.modalService.open(content, {
+      size: 'xl',
+      backdrop: 'static',
+      centered: true,
+      scrollable: true,
+    });
   }
   addVehicle() {
     let addNewVehicleBody = this.addVehicleForm.value;

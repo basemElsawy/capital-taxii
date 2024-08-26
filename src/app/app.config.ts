@@ -4,7 +4,6 @@ import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import {
-  HTTP_INTERCEPTORS,
   provideHttpClient,
   withInterceptors,
   withInterceptorsFromDi,
@@ -15,7 +14,7 @@ import { tokenInterceptor } from '../app/Components/guard-interceptor/token.inte
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideToastr(),
+    provideToastr({ timeOut: 2000, positionClass: 'toast-top-right' }),
     provideAnimations(),
     provideRouter(routes, withHashLocation()),
     provideClientHydration(),

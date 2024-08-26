@@ -28,19 +28,27 @@ export class DriversService {
       }
     });
   }
-  getAllDrivers() {
-    return this.httpClient.get(DriversApiEndpoints.getAllDriversEndpoint).pipe(
-      map((data: any) => {
-        return Array.isArray(data)
-          ? data.map((res: any) => ({ res, isChecked: false }))
-          : {
-              items: data.items.map((res: any) => ({ res, isChecked: false })),
-              pageSize: data.pageSize,
-              pageNumber: data.pageNumber,
-              totalRecords: data.totalRecords,
-            };
-      })
-    );
+  getAllDrivers(pageNumber: any, pageSize: any) {
+    return this.httpClient
+      .get(
+        DriversApiEndpoints.getAllDriversEndpoint +
+          `?pageNumber=${pageNumber}&pageSize=${pageSize}`
+      )
+      .pipe(
+        map((data: any) => {
+          return Array.isArray(data)
+            ? data.map((res: any) => ({ res, isChecked: false }))
+            : {
+                items: data.items.map((res: any) => ({
+                  res,
+                  isChecked: false,
+                })),
+                pageSize: data.pageSize,
+                pageNumber: data.pageNumber,
+                totalRecords: data.totalRecords,
+              };
+        })
+      );
   }
 
   convertFileToBase64(file: File): Promise<string> {
@@ -54,6 +62,15 @@ export class DriversService {
         reject('Error converting file to base64: ' + error);
       };
     });
+  }
+
+  processImage(base64Image: string) {
+    const cleanBase64Image = base64Image.replace(
+      /^data:image\/[a-z]+;base64,/,
+      ''
+    );
+
+    return cleanBase64Image;
   }
 
   addNewDriver(body: any) {

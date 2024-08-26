@@ -74,7 +74,7 @@
                 </div>
                 <div class="statistical-number">
                   <p>
-                    {{ dashboardData.availableDrivers }}
+                    {{ dashboardData?.availableDrivers }}
                   </p>
                 </div>
                 <div class="statistical-text">
@@ -262,6 +262,14 @@
   } @else {
   <div class="alert alert-info">
     <p class="text-center fw-bold">There is no arrived requests</p>
+  </div>
+  } } @if(IsInProgressTrips) { @if(inProgressTrips.length) {
+  <app-in-progress-trips
+    [inProgressTrips]="inProgressTrips"
+  ></app-in-progress-trips>
+  } @else {
+  <div class="alert alert-info">
+    <p class="text-center fw-bold">There is no inprogress trips requests</p>
   </div>
   } }
 </div>
