@@ -8,6 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -20,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {}
   ngOnInit(): void {
     this.initialiseLoginForm();
@@ -40,10 +43,12 @@ export class LoginComponent implements OnInit {
         let decodedToken = this.authService.tokenDecode(res.token);
         localStorage.setItem('expiryDate', decodedToken.exp);
         localStorage.setItem('token', res.token);
+        this.toastr.success('تم تسجيل الدخول بنجاح');
         this.router.navigateByUrl('/home');
       },
       error: (error) => {
-        console.log(error);
+        console.log(error?.error?.errors[0]?.errorAr);
+        this.toastr.error(error?.error?.errors[0]?.errorAr);
       },
     });
   }
