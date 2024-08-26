@@ -1,41 +1,56 @@
 .table-container {
-    background-color: white !important;
-    overflow-y: scroll;
-  }
-  .table-content {
-    overflow-y: scroll;
-  }
-  table {
-    border: none !important;
-  }
-  thead {
-    // display: block;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  thead th {
-    padding: 12px;
-  }
-  thead tr {
-    padding: 10px;
-    font-size: 14px !important;
-  
-    background-color: #0053c6 !important;
-  }
-  tbody tr {
-    border: none !important;
-  }
-  thead tr {
-    color: white;
-    text-align: center;
-  }
-  tbody tr td {
-    text-align: center;
-    padding-block: 10px;
-  }
+  background-color: white !important;
+  overflow-y: scroll;
+}
+.table-content {
+  overflow-y: scroll;
+}
+table {
+  border: none !important;
+}
+thead {
+  // display: block;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.first-heading {
+  border-radius: 10px 0px 0px 10px !important;
+}
 
-  .rounded-4{
-    border-radius: 20px;
-  }
+.second-heading {
+  border-radius: 0px 10px 10px 0px;
+}
 
-  
+.table-header {
+  position: sticky;
+  top: -8px;
+  left: 0;
+  right: 0;
+}
+td {
+  font-size: 12px;
+}
+thead th {
+  padding: 12px;
+}
+thead tr {
+  padding: 10px;
+  font-size: 14px !important;
+
+  background-color: #0053c6 !important;
+}
+tbody tr {
+  border: none !important;
+}
+thead tr {
+  color: white;
+  text-align: center;
+}
+tbody tr td {
+  text-align: center;
+  padding-block: 10px;
+}
+
+.rounded-4 {
+  border-radius: 20px;
+}

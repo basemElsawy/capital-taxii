@@ -87,7 +87,7 @@ export class MapComponent {
 
     if (event.target.checked) {
       this.driverMarkers.push(driverMarker);
-      this.zoom = 12;
+      this.zoom = 16;
       console.log(driverMarker);
       this.center = driverMarker.coords;
       return;

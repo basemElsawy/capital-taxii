@@ -1,12 +1,12 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-9">
+  <div class="d-flex align-items-start justify-content-between">
+    <div class="w-75">
       <div class="holder p-4">
-        <div class="card">
+        <div class="card statistical-card">
           <div class="card-body p-0">
             <div class="row">
-              <div class="col-3 color-section2"></div>
-              <div class="col-9">
+              <div class="color-section"></div>
+              <div class="card-wrapper">
                 <div class="icon-holder">
                   <i class="user-icon user-icon-color-new pi pi-dollar"></i>
                 </div>
@@ -22,11 +22,11 @@
             </div>
           </div>
         </div>
-        <div class="card">
+        <div class="card statistical-card">
           <div class="card-body p-0">
             <div class="row">
-              <div class="col-3 color-section"></div>
-              <div class="col-9">
+              <div class="color-section"></div>
+              <div class="card-wrapper">
                 <div class="icon-holder">
                   <i class="pi pi-map"></i>
                 </div>
@@ -43,11 +43,11 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card statistical-card">
           <div class="card-body p-0">
-            <div class="row">
-              <div class="col-3 color-section1"></div>
-              <div class="col-9">
+            <div class="row gap-4">
+              <div class="color-section"></div>
+              <div class="card-wrapper">
                 <div class="icon-holder">
                   <i class="user-icon user-icon-color pi pi-user"></i>
                 </div>
@@ -64,11 +64,11 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card statistical-card">
           <div class="card-body p-0">
             <div class="row">
-              <div class="col-3 color-section2"></div>
-              <div class="col-9">
+              <div class="color-section"></div>
+              <div class="card-wrapper">
                 <div class="icon-holder">
                   <i class="user-icon user-icon-color-new pi pi-user"></i>
                 </div>
@@ -85,11 +85,11 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card statistical-card">
           <div class="card-body p-0">
             <div class="row">
-              <div class="col-3 color-section2"></div>
-              <div class="col-9">
+              <div class="color-section"></div>
+              <div class="card-wrapper">
                 <div class="icon-holder">
                   <i class="user-icon user-icon-color-new pi pi-user"></i>
                 </div>
@@ -109,7 +109,9 @@
         @for(data of dashboardStatisticalData; track data) {
         <div
           [class]="
-            data.requestStatusId === selectedStatusId ? 'selected-card' : 'card'
+            data.requestStatusId === selectedStatusId
+              ? 'selected-card'
+              : 'card statistical-card'
           "
           (click)="getStatusDetails(data)"
         >
@@ -119,14 +121,14 @@
                 [class]="
                   data.requestStatusId === selectedStatusId
                     ? 'col-3'
-                    : 'col-3 color-section2'
+                    : 'col-3 color-section'
                 "
               ></div>
               <div
                 [class]="
                   data.requestStatusId === selectedStatusId
-                    ? 'col-12 text-center'
-                    : 'col-9'
+                    ? 'card-wrapper active-wrapper text-center'
+                    : 'card-wrapper'
                 "
               >
                 <div class="icon-holder">
@@ -164,51 +166,62 @@
         }
       </div>
     </div>
-    <div class="col-md-3 mt-3 top-drivers">
+    <div class="col-md-4 top-drivers-container shadow-sm p-2 rounded-2">
       <span class="fw-bold">Top drivers</span>
-      @for(driver of allDrivers; track driver){
-      <div class="card top-drivers-details">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-2">
-              <img
-                class="driver-img"
-                [src]="
-                  driver.user.picture
-                    ? driver.user.picture
-                    : '../../../assets/Rectangle 28.png'
-                "
-                alt="driver-img"
-              />
-            </div>
-            <div class="col-md-6 text-details">
-              <h6 class="fw-bold m-0 p-0">
-                {{ driver.user.fullName }}
-              </h6>
-              <p class="phone-number m-0 p-0">
-                {{ driver.user.phoneNumber }}
-              </p>
-            </div>
-
-            <div class="col-md-4 orders-number">
-              <h6>
-                Orders:
-                <span class="fw-bold">{{ driver.totalCount }}</span>
-              </h6>
-              <hr />
-              <h6 class="income">
-                Income:
-                <span class="fw-bold">
-                  <span class="currency"
-                    >{{ driver.totalAmount }} LE</span
-                  ></span
+      <div class="top-drivers pe-3">
+        @for(driver of allDrivers; track driver){
+        <div class="card top-drivers-details">
+          <div class="card-body">
+            <div
+              class="d-flex align-items-center justify-content-between gap-2"
+            >
+              <div
+                class="d-flex align-items-start justify-content-between gap-2 h-100"
+              >
+                <div class="personal-image">
+                  <img
+                    class="driver-img"
+                    [src]="
+                      driver?.user?.picture
+                        ? imageUrl + driver.user.picture
+                        : ''
+                    "
+                    alt="driver-img"
+                  />
+                </div>
+                <div class="text-details">
+                  <h6 class="driver-name fw-bold m-0 p-0">
+                    {{ driver.user.fullName }}
+                  </h6>
+                  <p class="phone-number m-0 p-0">
+                    {{ driver.user.phoneNumber }}
+                  </p>
+                </div>
+              </div>
+              <div class="h-100">
+                <div
+                  class="orders-number d-flex align-items-start justify-content-between flex-column gap-2"
                 >
-              </h6>
+                  <h6 class="m-0 p-0">
+                    Orders:
+                    <span class="fw-bold">{{ driver.totalCount }}</span>
+                  </h6>
+                  <hr class="w-100" />
+                  <h6 class="income m-0 p-0">
+                    Income:
+                    <span class="fw-bold">
+                      <span class="currency"
+                        >{{ driver.totalAmount }} LE</span
+                      ></span
+                    >
+                  </h6>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        }
       </div>
-      }
     </div>
   </div>
   <!-- here is the table for new requests-->

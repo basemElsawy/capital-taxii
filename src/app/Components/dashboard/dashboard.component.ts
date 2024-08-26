@@ -5,7 +5,7 @@ import { ArrivedTripsComponent } from './arrived-trips/arrived-trips.component';
 import { CancledTripsComponent } from './cancled-trips/cancled-trips.component';
 import { NewTripsComponent } from './new-trips/new-trips.component';
 import { ConfirmedTripsComponent } from './confirmed-trips/confirmed-trips.component';
-
+import { environment } from '../../../environments/environment.development';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -21,7 +21,7 @@ import { ConfirmedTripsComponent } from './confirmed-trips/confirmed-trips.compo
 })
 export class DashboardComponent implements OnInit {
   isChoosed: boolean = false;
-
+  private imageBaseURL: string = environment.image;
   dashboardStatisticalData: any[] = [];
   newRequestDetails: any[] = [];
   confirmedRequestDetails: any[] = [];
@@ -113,10 +113,15 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getAllDrivers(1, 10).subscribe({
       next: (drivers: any) => {
         this.allDrivers = drivers.items;
+        console.log(this.allDrivers);
       },
       error: (error) => {
         console.log(error);
       },
     });
+  }
+
+  get imageUrl() {
+    return this.imageBaseURL;
   }
 }
