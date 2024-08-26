@@ -221,6 +221,53 @@
               </form>
             </div>
           </div>
+          <hr />
+
+          <div class="card">
+            <div class="card-header">
+              <h4>Request time limit</h4>
+            </div>
+            <div class="card-body">
+              <form
+                [formGroup]="requestTimeLimitForm"
+                class="row g-3 align-items-center"
+              >
+                <div class="col-12">
+                  <!-- Use @for with the track keyword -->
+
+                  <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                      <label class="col-form-label">Time</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        formControlName="time"
+                      />
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="col-form-label">Price</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="price"
+                      />
+                    </div>
+
+                    <div class="col-auto">
+                      <label class="col-form-label"> </label>
+                      <button
+                        class="btn btn-primary d-block mt-2"
+                        (click)="updateSelectedrequestTimeLimit()"
+                      >
+                        Update
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </ng-template>
       </li>
       <li [ngbNavItem]="2">

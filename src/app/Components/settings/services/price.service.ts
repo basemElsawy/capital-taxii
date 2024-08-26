@@ -12,11 +12,15 @@ export class PriceService {
   getRequestLimitDistance() {
     return this.http.get(this.baseUrl + 'RequestDistanceLimit');
   }
-
+  getRequestTimeLimit() {
+    return this.http.get(this.baseUrl + 'FinePhases');
+  }
   updateRequestLimitDistance(body: any) {
     return this.http.put(this.baseUrl + 'RequestDistanceLimit', body);
   }
-
+  updateRequestTimeLimit(body: any) {
+    return this.http.put(this.baseUrl + 'FinePhases', body);
+  }
   getKMPrice() {
     return this.http.get(this.baseUrl + 'KmPrice');
   }

@@ -23,7 +23,10 @@ export class SettingsComponent implements OnInit {
   minimumFaresForm!: FormGroup;
   requestDistanceLimit!: FormGroup;
   deductionsForm!: FormGroup;
+  requestTimeLimitForm!: FormGroup;
   requestDistanceLimitId: any;
+  requestTimeLimitId: any;
+
   kmPriceId: any;
   minimumKMId: any;
 
@@ -32,6 +35,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     this.initialiseForm();
     this.getAllRequestDistanceLimits();
+    this.getAllRequestTimeLimits();
     this.getAllRequestsKMPrice();
     this.getAllMinimumFares();
     this.getAllDeductions();
@@ -51,7 +55,19 @@ export class SettingsComponent implements OnInit {
       },
     });
   }
+  getAllRequestTimeLimits() {
+    this.priceService.getRequestTimeLimit().subscribe({
+      next: (res: any) => {
+        this.requestTimeLimitForm.controls['time'].setValue(res[0].time);
+        this.requestTimeLimitForm.controls['price'].setValue(res[0].price);
+        this.requestTimeLimitId = res[0].id;
+      },
 
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
   getAllRequestsKMPrice() {
     this.priceService.getKMPrice().subscribe({
       next: (res: any) => {
@@ -81,7 +97,22 @@ export class SettingsComponent implements OnInit {
       },
     });
   }
+  updateSelectedrequestTimeLimit() {
+    let requestId = this.requestTimeLimitId;
+    this.requestTimeLimitForm.patchValue({
+      id: requestId,
+    });
+    let requestBody = this.requestTimeLimitForm.value;
 
+    this.priceService.updateRequestTimeLimit(requestBody).subscribe({
+      next: (res: any) => {
+        this.getAllRequestTimeLimits();
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
   initialiseForm() {
     this.kmPriceForm = this.fb.group({
       id: [null],
@@ -96,6 +127,13 @@ export class SettingsComponent implements OnInit {
     this.requestDistanceLimit = this.fb.group({
       id: [null],
       distanceLimit: [null, Validators.required],
+    });
+    this.requestTimeLimitForm = this.fb.group({
+      id: [null],
+      time: [null, Validators.required],
+      price: [null, Validators.required],
+      nameAr: ['', Validators.required],
+      nameEn: ['', Validators.required],
     });
     this.deductionsForm = this.fb.group({
       deductionsFormArray: this.fb.array([]),
