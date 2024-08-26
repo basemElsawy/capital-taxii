@@ -23,7 +23,7 @@ import { environment } from '../../../environments/environment.development';
 })
 export class DashboardComponent implements OnInit {
   isChoosed: boolean = false;
-  public readonly imgUrl = environment.image;
+  private imageBaseURL: string = environment.image;
   dashboardStatisticalData: any[] = [];
   newRequestDetails: any[] = [];
   confirmedRequestDetails: any[] = [];
@@ -123,10 +123,15 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getAllDrivers(1, 10).subscribe({
       next: (drivers: any) => {
         this.allDrivers = drivers.items;
+        console.log(this.allDrivers);
       },
       error: (error) => {
         console.log(error);
       },
     });
+  }
+
+  get imageUrl() {
+    return this.imageBaseURL;
   }
 }

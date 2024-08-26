@@ -4,15 +4,15 @@
 >
   <table class="w-100 table-content position-relative">
     <thead class="w-100">
-      <tr class="py-2 px-4 w-100">
-        <th>#</th>
+      <tr class="table-header py-2 px-4 w-100">
+        <th class="first-heading">#</th>
         <th>User</th>
         <th>Email</th>
-        <th>Start Location</th>
-        <th>End Location</th>
+        <th style="width: 160px">Start Location</th>
+        <th style="width: 160px">End Location</th>
         <th>Trip distance</th>
         <th>Trip time</th>
-        <th>Trip price</th>
+        <th class="second-heading">Trip price</th>
       </tr>
     </thead>
     <tbody>
@@ -21,30 +21,34 @@
         <td>
           {{ i + 1 }}
         </td>
-        <td
-          class="person-info d-flex align-items-center justify-content-start gap-2"
-        >
-          <img
-            [src]="
-              newTrip.customer.picture
-                ? newTrip.customer.picture
-                : '../../../../assets/Rectangle 9.png'
-            "
-            alt=""
-            height="40"
-            width="40"
-          />
-          <div class="text-container text-start">
-            <h6 class="m-0 p-0">
-              {{ newTrip.customer.fullName ? newTrip.customer.fullName : "-" }}
-            </h6>
-            <p class="m-0 p-0">
-              {{
-                newTrip.customer.phoneNumber
-                  ? newTrip.customer.phoneNumber
-                  : "-"
-              }}
-            </p>
+        <td class="gap-2">
+          <div
+            class="person-info d-flex align-items-center justify-content-center"
+          >
+            <img
+              [src]="
+                newTrip.customer.picture
+                  ? newTrip.customer.picture
+                  : '../../../../assets/Rectangle 9.png'
+              "
+              alt=""
+              height="40"
+              width="40"
+            />
+            <div class="text-container text-start">
+              <h6 class="m-0 p-0">
+                {{
+                  newTrip.customer.fullName ? newTrip.customer.fullName : "-"
+                }}
+              </h6>
+              <p class="m-0 p-0">
+                {{
+                  newTrip.customer.phoneNumber
+                    ? newTrip.customer.phoneNumber
+                    : "-"
+                }}
+              </p>
+            </div>
           </div>
         </td>
 
@@ -52,9 +56,15 @@
           {{ newTrip.email ? newTrip.email : "-" }}
         </td>
 
-        <td>{{ newTrip.fromLocationName }}</td>
         <td>
-          {{ newTrip.toLocationName }}
+          <div class="p-2">
+            {{ newTrip.fromLocationName }}
+          </div>
+        </td>
+        <td>
+          <div class="p-2">
+            {{ newTrip.toLocationName }}
+          </div>
         </td>
         <td>
           {{ newTrip.tripDistance }}

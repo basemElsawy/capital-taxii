@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { User } from '../../Core/interfaces/user.model';
 
+import { jwtDecode } from 'jwt-decode';
 @Component({
   selector: 'app-side-nav',
   standalone: true,
