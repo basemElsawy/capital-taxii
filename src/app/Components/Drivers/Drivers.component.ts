@@ -159,15 +159,12 @@ export class DriversComponent implements OnInit {
           this.addUserForm.controls['picture'].value
         );
 
-        console.log(cleanedBase64Image);
-
         this.addUserForm.controls['picture'].setValue(cleanedBase64Image);
       })
       .finally(() => {});
   }
 
   checkboxEvent(event: any) {
-    console.log(event.target.checked);
     if (this.driversData.items.length) {
       this.driversData.items.forEach((item: any) => {
         item.isChecked = event.target.checked;

@@ -123,7 +123,6 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getAllDrivers(1, 10).subscribe({
       next: (drivers: any) => {
         this.allDrivers = drivers.items;
-        console.log(this.allDrivers);
       },
       error: (error) => {
         console.log(error);

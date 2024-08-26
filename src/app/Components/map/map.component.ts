@@ -10,7 +10,8 @@ import { TableModule } from 'primeng/table';
 import { DriverDetails, Drivers, DriversMarkers } from './IMap';
 import { MapServiceService } from './map-service.service';
 import { VehicleService } from '../vehicle/Services/vehicle.service';
-import { userInfo } from 'os';
+import { environment } from '../../../environments/environment.development';
+import { env } from 'process';
 
 @Component({
   selector: 'app-map',
@@ -28,7 +29,7 @@ import { userInfo } from 'os';
 })
 export class MapComponent {
   @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
-
+  private imgUrl: string = environment.image;
   center!: google.maps.LatLngLiteral;
   zoom = 8;
   driverMarkers: any[] = [];
@@ -213,7 +214,9 @@ export class MapComponent {
     this.infoWindow.open(marker);
   }
   checkboxRowEvent(event: any, item: Drivers) {}
-
+  get imageUrl() {
+    return this.imgUrl;
+  }
   get allDrivers() {
     return this.allDrivers_Data();
   }
