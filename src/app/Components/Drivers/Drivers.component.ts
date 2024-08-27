@@ -36,7 +36,7 @@ export class DriversComponent implements OnInit {
   driversData: any = {};
   currentLocationAddress: string = '';
   coordsCollection: any[] = [];
-  isLoading: any = signal(true);
+  isLoading: boolean = false;
   addUserForm!: FormGroup;
   nationalities: any[] = [];
 
@@ -115,7 +115,7 @@ export class DriversComponent implements OnInit {
           this.coordsCollection
         );
       });
-      this.isLoading.set(false);
+      // this.isLoading.set(false);
     }
   }
   openAddModal(content: any) {

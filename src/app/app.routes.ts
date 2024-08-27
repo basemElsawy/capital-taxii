@@ -14,6 +14,7 @@ export const routes: Routes = [
 
   {
     path: 'home',
+    canActivate: [authguardGuard],
     loadChildren: () =>
       import('./Components/views/Views.routes').then((m) => m.routes),
   },

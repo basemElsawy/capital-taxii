@@ -6,6 +6,7 @@ import { DriversComponent } from '../Drivers/Drivers.component';
 import { UsersComponent } from '../users/users.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
 import { SettingsComponent } from '../settings/settings.component';
+import { authguardGuard } from '../guard-interceptor/auth.guard';
 export const routes: Routes = [
   {
     path: '',
@@ -15,6 +16,7 @@ export const routes: Routes = [
 
   {
     path: '',
+    canActivate: [authguardGuard],
     component: ViewsComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
