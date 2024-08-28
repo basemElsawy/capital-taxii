@@ -1,0 +1,56 @@
+<div
+  class="table-container bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
+  style="max-height: 510px"
+>
+  <table class="w-100 table-content position-relative">
+    <thead class="w-100">
+      <tr class="py-2 px-4 w-100">
+        <th class="first-heading">
+          <input type="checkbox" (change)="checkboxEvent($event)" />
+        </th>
+        <th style="width: 150px; text-align: left; padding-left: 0px">
+          Clients
+        </th>
+        <th>E-mail or Username</th>
+        <th>Phone number</th>
+
+        <th>Gender</th>
+        <th>BirthDay</th>
+        <th>Credit</th>
+        <th class="second-heading">Credit details</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(client of clients; track client) {
+      <tr>
+        <td>
+          <input type="checkbox" [checked]="client.isChecked" />
+        </td>
+        <td
+          class="person-info d-flex align-users-center justify-content-start gap-2"
+        >
+          <img
+            [src]="
+              client.picture
+                ? imgUrl + client.picture
+                : '../../../assets/unknown.png'
+            "
+            alt=""
+            height="40"
+            width="40"
+          />
+          <div class="text-container text-start">
+            <h6 class="m-0 p-0">{{ client.phoneNumber }}</h6>
+            <p class="m-0 p-0">{{ client.email }}</p>
+          </div>
+        </td>
+        <td>{{ client.email }}</td>
+        <td>{{ client.phoneNumber }}</td>
+        <td>Male</td>
+        <td>{{ client.birthdate | date : "dd-MM-yyyy" }}</td>
+        <td>{{ client.credit }} LE</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

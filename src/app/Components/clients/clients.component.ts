@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { UserService } from './services/user.service';
+import { ClientsService } from './services/clients.service';
 import { CommonModule } from '@angular/common';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -15,44 +15,28 @@ import { environment } from '../../../environments/environment.development';
   selector: 'app-users',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
+  templateUrl: './clients.component.html',
+  styleUrls: ['./clients.component.scss'],
 })
-export class UsersComponent implements OnInit {
-  users: any[] = [];
+export class ClientsComponent implements OnInit {
+  clients: any[] = [];
   nationalities: any[] = [];
   addUserForm!: FormGroup;
   public readonly imgUrl = environment.image;
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
+    private clientsService: ClientsService,
     private modalService: NgbModal
   ) {}
   ngOnInit() {
-    this.initialiseAddUserForm();
-
-    this.getAllAddedUsers();
+    this.getAllClients();
   }
 
-  initialiseAddUserForm() {
-    this.addUserForm = this.fb.group(
-      {
-        email: [null, [Validators.required, Validators.email]],
-        password: [null, Validators.required],
-        confirmPassword: [null, Validators.required],
-        birthDate: [null, Validators.required],
-        genderId: [null, Validators.required],
-        nationalityId: [null, Validators.required],
-      },
-      { validators: passwordMatchValidator() }
-    );
-  }
-
-  getAllAddedUsers(): void {
-    this.userService.getAllUsers().subscribe({
+  getAllClients(): void {
+    this.clientsService.getAllClients().subscribe({
       next: (res: any) => {
-        this.users = res;
+        this.clients = res;
       },
       error: (error: any) => {
         console.log(error);
@@ -75,22 +59,8 @@ export class UsersComponent implements OnInit {
     this.getAllNationalities();
   }
 
-  addUser() {
-    let addUserBody = this.addUserForm.value;
-    this.userService.addUser(addUserBody).subscribe({
-      next: (res: any) => {
-        this.modalService.dismissAll();
-        this.getAllAddedUsers();
-        this.addUserForm.reset();
-      },
-      error: (error: any) => {
-        console.log(error);
-      },
-    });
-  }
-
   getAllNationalities() {
-    this.userService.getAllNationalities().subscribe({
+    this.clientsService.getAllNationalities().subscribe({
       next: (res: any) => {
         this.nationalities = res;
       },

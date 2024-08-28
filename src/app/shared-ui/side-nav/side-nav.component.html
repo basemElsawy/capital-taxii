@@ -66,7 +66,11 @@
             <p>Orders</p>
           </div>
         </li> -->
-        <!-- <li class="list-item">
+        <li
+          class="list-item"
+          [routerLink]="['/home', 'clients']"
+          routerLinkActive="active-item"
+        >
           <div class="d-flex align-items-center justify-content-start gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +105,7 @@
             </svg>
             <p>Clients</p>
           </div>
-        </li> -->
+        </li>
         <li
           class="list-item"
           [routerLink]="['/home', 'drivers']"
@@ -138,7 +142,7 @@
           </div>
         </li>
 
-        <!-- <li
+        <li
           class="list-item"
           [routerLink]="['/home', 'users']"
           routerLinkActive="active-item"
@@ -147,7 +151,7 @@
             <i class="fa-solid fa-user me-1"></i>
             <p>Users</p>
           </div>
-        </li> -->
+        </li>
 
         <li
           class="list-item"

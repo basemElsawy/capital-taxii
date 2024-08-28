@@ -7,6 +7,7 @@ import { UsersComponent } from '../users/users.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
 import { SettingsComponent } from '../settings/settings.component';
 import { authguardGuard } from '../guard-interceptor/auth.guard';
+import { ClientsComponent } from '../clients/clients.component';
 export const routes: Routes = [
   {
     path: '',
@@ -29,6 +30,11 @@ export const routes: Routes = [
         path: 'users',
         component: UsersComponent,
       },
+      {
+        path: 'clients',
+        component: ClientsComponent,
+      },
+
       {
         path: 'vehicle',
         component: VehicleComponent,
