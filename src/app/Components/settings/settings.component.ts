@@ -25,8 +25,10 @@ export class SettingsComponent implements OnInit {
   requestDistanceLimit!: FormGroup;
   deductionsForm!: FormGroup;
   requestTimeLimitForm!: FormGroup;
+  DriverArrivalMinDistanceForm!: FormGroup;
   requestDistanceLimitId: any;
   requestTimeLimitId: any;
+  DriverArrivalMinDistanceId: any;
 
   kmPriceId: any;
   minimumKMId: any;
@@ -41,6 +43,7 @@ export class SettingsComponent implements OnInit {
     this.getAllRequestsKMPrice();
     this.getAllMinimumFares();
     this.getAllDeductions();
+    this.getDriverArrivalMinDistance();
   }
 
   getAllRequestDistanceLimits() {
@@ -63,6 +66,20 @@ export class SettingsComponent implements OnInit {
         this.requestTimeLimitForm.controls['time'].setValue(res[0].time);
         this.requestTimeLimitForm.controls['price'].setValue(res[0].price);
         this.requestTimeLimitId = res[0].id;
+      },
+
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
+  getDriverArrivalMinDistance() {
+    this.priceService.getDriverArrivalMinDistance().subscribe({
+      next: (res: any) => {
+        this.DriverArrivalMinDistanceForm.controls['minDistance'].setValue(
+          res[0].minDistance
+        );
+        this.DriverArrivalMinDistanceId = res[0].id;
       },
 
       error: (error: any) => {
@@ -103,6 +120,7 @@ export class SettingsComponent implements OnInit {
       },
     });
   }
+
   updateSelectedrequestTimeLimit() {
     this.isLoading = true;
 
@@ -115,6 +133,26 @@ export class SettingsComponent implements OnInit {
     this.priceService.updateRequestTimeLimit(requestBody).subscribe({
       next: (res: any) => {
         this.getAllRequestTimeLimits();
+        this.isLoading = false;
+      },
+      error: (error: any) => {
+        this.isLoading = false;
+
+        console.log(error);
+      },
+    });
+  }
+  updateSelectedDriverArrivalMinDistance() {
+    this.isLoading = true;
+    let requestId = this.DriverArrivalMinDistanceId;
+    this.DriverArrivalMinDistanceForm.patchValue({
+      id: requestId,
+    });
+    let requestBody = this.DriverArrivalMinDistanceForm.value;
+
+    this.priceService.updateDriverArrivalMinDistance(requestBody).subscribe({
+      next: (res: any) => {
+        this.getDriverArrivalMinDistance();
         this.isLoading = false;
       },
       error: (error: any) => {
@@ -138,6 +176,10 @@ export class SettingsComponent implements OnInit {
     this.requestDistanceLimit = this.fb.group({
       id: [null],
       distanceLimit: [null, Validators.required],
+    });
+    this.DriverArrivalMinDistanceForm = this.fb.group({
+      id: [null],
+      minDistance: [null, Validators.required],
     });
     this.requestTimeLimitForm = this.fb.group({
       id: [null],

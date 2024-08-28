@@ -71,11 +71,46 @@ tbody tr td {
   color: $primary-color !important;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2) !important;
 }
+.route-details {
+  .btn {
+    font-size: 12px;
+    background-color: white !important;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.15);
+    color: $primary-color;
+    opacity: 0.8;
+    font-weight: 600;
 
+    & :active {
+      border-color: $primary-color !important ;
+    }
+  }
+}
 .first-heading {
   border-radius: 10px 0px 0px 10px !important;
 }
 
 .second-heading {
   border-radius: 0px 10px 10px 0px;
+}
+.credit-details {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 10px !important;
+  padding: 10px;
+}
+
+.credit-details td,
+.credit-details th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.credit-details tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.table-header {
+  background-color: #0053c6;
+  color: #fff;
 }

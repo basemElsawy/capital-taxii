@@ -225,7 +225,36 @@
             </div>
           </div>
           <hr />
-
+          <div class="card">
+            <div class="card-header">
+              <h4>Driver Arrival Min Distance</h4>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="DriverArrivalMinDistanceForm">
+                <div class="row g-3 align-items-center">
+                  <div class="col-auto">
+                    <label class="col-form-label">Min distance</label>
+                  </div>
+                  <div class="col-auto">
+                    <input
+                      type="number"
+                      formControlName="minDistance"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-auto">
+                    <button
+                      class="btn btn-primary"
+                      (click)="updateSelectedDriverArrivalMinDistance()"
+                    >
+                      update
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <hr />
           <div class="card">
             <div class="card-header">
               <h4>Request time limit</h4>

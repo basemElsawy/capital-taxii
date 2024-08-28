@@ -18,7 +18,7 @@ export class UserService {
   }
 
   getAllUsers() {
-    return this.http.get(this.baseUrl + 'User');
+    return this.http.get(this.baseUrl + 'User/admins');
   }
 
   getAllNationalities() {

@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { passwordMatchValidator } from '../classes/password-match.validators';
 import { environment } from '../../../environments/environment.development';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -23,11 +24,13 @@ export class ClientsComponent implements OnInit {
   nationalities: any[] = [];
   addUserForm!: FormGroup;
   public readonly imgUrl = environment.image;
+  singleCredit!: any;
 
   constructor(
     private fb: FormBuilder,
     private clientsService: ClientsService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastr: ToastrService
   ) {}
   ngOnInit() {
     this.getAllClients();
@@ -50,15 +53,34 @@ export class ClientsComponent implements OnInit {
 
   checkboxEvent(ev: any) {}
 
-  openAddModal(content: any) {
-    this.modalService.open(content, {
-      size: 'xl',
-      backdrop: 'static',
-      centered: true,
-    });
-    this.getAllNationalities();
+  // openAddModal(content: any) {
+  //   this.modalService.open(content, {
+  //     size: 'xl',
+  //     backdrop: 'static',
+  //     centered: true,
+  //   });
+  //   this.getAllNationalities();
+  // }
+  openAddModal(content: any, userId: number) {
+    this.getCreditDetailsByUserId(content, userId);
   }
 
+  getCreditDetailsByUserId(content: any, userId: number) {
+    this.clientsService
+      .getCreditDetailsByUserId(userId)
+      .subscribe((creditData: any) => {
+        this.singleCredit = creditData.groupCreditTransactions;
+        if (creditData.groupCreditTransactions.length) {
+          this.modalService.open(content, {
+            size: 'xl',
+            backdrop: 'static',
+            centered: true,
+          });
+        } else {
+          this.toastr.info('There is no credit details');
+        }
+      });
+  }
   getAllNationalities() {
     this.clientsService.getAllNationalities().subscribe({
       next: (res: any) => {

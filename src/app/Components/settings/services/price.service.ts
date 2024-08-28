@@ -12,11 +12,17 @@ export class PriceService {
   getRequestLimitDistance() {
     return this.http.get(this.baseUrl + 'RequestDistanceLimit');
   }
+  getDriverArrivalMinDistance() {
+    return this.http.get(this.baseUrl + 'DriverArrivalMinDistance');
+  }
   getRequestTimeLimit() {
     return this.http.get(this.baseUrl + 'FinePhases');
   }
   updateRequestLimitDistance(body: any) {
     return this.http.put(this.baseUrl + 'RequestDistanceLimit', body);
+  }
+  updateDriverArrivalMinDistance(body: any) {
+    return this.http.put(this.baseUrl + 'DriverArrivalMinDistance', body);
   }
   updateRequestTimeLimit(body: any) {
     return this.http.put(this.baseUrl + 'FinePhases', body);

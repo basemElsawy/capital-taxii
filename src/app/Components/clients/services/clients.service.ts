@@ -12,7 +12,9 @@ export class ClientsService {
   getAllClients() {
     return this.http.get(this.baseUrl + 'User/Customers');
   }
-
+  getCreditDetailsByUserId(userId: number) {
+    return this.http.get(this.baseUrl + `Credit/user-credit-details/${userId}`);
+  }
   getAllNationalities() {
     return this.http.get(this.baseUrl + 'Nationality');
   }

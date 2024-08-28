@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -11,6 +12,8 @@ import {
 } from '@angular/forms';
 import { passwordMatchValidator } from '../classes/password-match.validators';
 import { environment } from '../../../environments/environment.development';
+import { IDrivers } from '../Drivers/IDrivers';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -23,6 +26,7 @@ export class UsersComponent implements OnInit {
   nationalities: any[] = [];
   addUserForm!: FormGroup;
   public readonly imgUrl = environment.image;
+  dateRangeForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -31,10 +35,16 @@ export class UsersComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.initialiseAddUserForm();
+    // this.dateFormInitializer();
 
     this.getAllAddedUsers();
   }
-
+  dateFormInitializer() {
+    this.dateRangeForm = new FormGroup({
+      fromDateRange: new FormControl('', Validators.required),
+      toDateRange: new FormControl('', Validators.required),
+    });
+  }
   initialiseAddUserForm() {
     this.addUserForm = this.fb.group(
       {
@@ -66,15 +76,6 @@ export class UsersComponent implements OnInit {
 
   checkboxEvent(ev: any) {}
 
-  openAddModal(content: any) {
-    this.modalService.open(content, {
-      size: 'xl',
-      backdrop: 'static',
-      centered: true,
-    });
-    this.getAllNationalities();
-  }
-
   addUser() {
     let addUserBody = this.addUserForm.value;
     this.userService.addUser(addUserBody).subscribe({
@@ -99,4 +100,10 @@ export class UsersComponent implements OnInit {
       },
     });
   }
+  // sendDateRange() {
+  //   let requestBody = {
+  //     id: this.singleCredit.userId,
+  //     ...this.dateRangeForm.value,
+  //   };
+  // }
 }
