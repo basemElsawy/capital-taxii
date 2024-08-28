@@ -265,7 +265,7 @@
             <div class="driver-image-container">
               <img
                 [src]="
-                  !singleDriver.user.picture.length
+                  !singleDriver.user?.picture?.length
                     ? '../../../assets/unknown.png'
                     : userImage
                 "
@@ -276,10 +276,10 @@
               class="driver-name-container d-flex align-items-start justify-content-center flex-column"
             >
               <h6 class="m-0 p-0 text-primary fw-bold">
-                {{ singleDriver.user.fullName }}
+                {{ singleDriver.user?.fullName }}
               </h6>
               <p class="m-0 p-0 text-muted">
-                {{ singleDriver.user.phoneNumber }}
+                {{ singleDriver.user?.phoneNumber }}
               </p>
             </div>
           </div>
@@ -288,7 +288,7 @@
           >
             <h6 class="m-0 p-0 text-primary fw-bold">Email</h6>
             <p class="m-0 p-0 text-muted">
-              {{ singleDriver.user.email }}
+              {{ singleDriver.user?.email }}
             </p>
           </div>
           <div
@@ -296,7 +296,7 @@
           >
             <h6 class="m-0 p-0 text-primary fw-bold">Gender</h6>
             <p class="m-0 p-0 text-muted">
-              {{ singleDriver.user.gender.nameEn }}
+              {{ singleDriver.user?.gender?.nameEn }}
             </p>
           </div>
           <div
@@ -333,13 +333,13 @@
             class="date-input-container px-3 py-1 rounded-pill d-flex align-items-center justify-content-start gap-2"
           >
             <p class="text-muted">From</p>
-            <p-calendar formControlName="fromDateRange" />
+            <p-calendar formControlName="startDate" />
           </div>
           <div
             class="date-input-container px-3 py-1 rounded-pill d-flex align-items-center justify-content-start gap-2"
           >
             <p class="text-muted">To</p>
-            <p-calendar formControlName="toDateRange" />
+            <p-calendar formControlName="endDate" />
           </div>
           <div class="form-btn-container">
             <button
@@ -353,13 +353,38 @@
       </div>
     </div>
     <div class="section-body w-100">
-      @if(true){
+      @if(!getTripDataToDisplay.length){
       <div class="empty-message shadow-sm p-5 w-100 rounded-5 text-center">
-        Choose a date range to show trips
+        {{
+          !tripDataToDisplay().length
+            ? "Choose a date range to show trips"
+            : "No Data Found to Display"
+        }}
       </div>
 
       }@else {
-      <div class="modal-sectionBody-content"></div>
+      <div class="modal-sectionBody-content gap-3 px-2 py-3">
+        @for( item of getTripDataToDisplay; track item ) {
+        <div class="trip-content w-100">
+          <div
+            class="trip-content-header w-100 d-flex align-items-center justtify-content-center gap-2"
+          >
+            <div
+              class="destination-container d-flex align-items-center justify-content-center gap-2"
+            >
+              <p>From</p>
+              <p>{{ item.fromLocationName }}</p>
+            </div>
+            <div
+              class="destination-container d-flex align-items-center justify-content-center gap-2"
+            >
+              <p>To</p>
+              <p>{{ item.toLocationName }}</p>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
       }
     </div>
     <div class="section-footer"></div>

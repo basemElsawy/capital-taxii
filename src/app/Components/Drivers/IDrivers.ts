@@ -12,11 +12,11 @@ export interface IDrivers {
   modifiedAt: number;
   rateCount: number;
   status: boolean;
-  totalAmount: number;
-  totalCount: number;
-  user: IUser;
+  totalAmount: number | null;
+  totalCount: number | null;
+  user: IUser | null;
   userId: number;
-  vehicle: IVehicle;
+  vehicle: IVehicle | null;
 }
 
 export interface IUser {
@@ -56,4 +56,47 @@ export interface IVehicle {
   vehicleStatus: boolean | string | null;
   vehicleType: number | string | null;
   year: number;
+}
+
+export interface AllTripRequestData {
+  acceptedRequests: number;
+  canceledRequests: number;
+
+  driver: IDrivers;
+  requestRoutes: IRequestRoutes[];
+
+  totalRequests: number;
+  totalRevenue: number;
+}
+export interface IRequestRoutes {
+  acceptanceDateTime: string;
+  cancelUserType: string | number | null;
+  createdAt: string;
+  customer: string | null | number;
+  customerFromLocationLatitude: number;
+  customerFromLocationLongitude: number;
+  customerId: number;
+  customerLocationLatitude: number;
+  customerLocationLongitude: number;
+  customerRate: number | string | null;
+  customerToLocationLatitude: number;
+  customerToLocationLongitude: number;
+  distance: number | string | null;
+  driver: number | string | null;
+  driverId: number;
+  driverRate: number | string | null;
+  duration: number | string | null;
+  finePrice: number;
+  fromLocationName: number | string | null;
+  id: number;
+  modifiedAt: string;
+  paymentDetails: number | string | null;
+  price: number;
+  requestRouteLogs: number | string | null;
+  requestStatus: number | string | null;
+  requestStatusId: number;
+  timeToArriveToCustomer: number | string | null;
+  toLocationName: string;
+  tripDistance: number | string | null;
+  tripTime: number | string | null;
 }

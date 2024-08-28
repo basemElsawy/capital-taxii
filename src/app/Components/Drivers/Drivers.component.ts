@@ -2,7 +2,12 @@ import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { DriverDetails, Drivers, DriversMarkers } from '../map/IMap';
 import { CommonModule } from '@angular/common';
 import { DriversService } from './Services/drivers.service';
-import { Coords, IDrivers } from './IDrivers';
+import {
+  AllTripRequestData,
+  Coords,
+  IDrivers,
+  IRequestRoutes,
+} from './IDrivers';
 import { firstValueFrom } from 'rxjs';
 import {
   FormBuilder,
@@ -51,7 +56,8 @@ export class DriversComponent implements OnInit {
   totalRecords = 0;
   singleDriver!: IDrivers;
   pageSize = 10;
-
+  totalRouteTrips: AllTripRequestData[] = [];
+  tripDataToDisplay: any = signal([]);
   constructor(
     private driversService: DriversService,
     private fb: FormBuilder,
@@ -65,8 +71,8 @@ export class DriversComponent implements OnInit {
 
   dateFormInitializer() {
     this.dateRangeForm = new FormGroup({
-      fromDateRange: new FormControl('', Validators.required),
-      toDateRange: new FormControl('', Validators.required),
+      startDate: new FormControl('', Validators.required),
+      endDate: new FormControl('', Validators.required),
     });
   }
 
@@ -209,13 +215,49 @@ export class DriversComponent implements OnInit {
   }
 
   sendDateRange() {
-    let requestBody = {
-      id: this.singleDriver.userId,
-      ...this.dateRangeForm.value,
-    };
+    this.driversService
+      .getAllDriverTripsWithinDateRange(
+        this.singleDriver.userId,
+        this.dateRangeForm.value
+      )
+      .subscribe({
+        next: (res: any) => {
+          this.tripDataToDisplay.set(
+            (res.data.requestRoutes as IRequestRoutes[]).map(
+              ({
+                toLocationName,
+                fromLocationName,
+                createdAt,
+                acceptanceDateTime,
+                price,
+                distance,
+                tripTime,
+              }) => ({
+                toLocationName,
+                fromLocationName,
+                createdAt,
+                acceptanceDateTime,
+                price,
+                distance,
+                tripTime,
+              })
+            )
+          );
+          console.log(this.tripDataToDisplay());
+        },
+        complete: () => {},
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
+
+  get getTripDataToDisplay() {
+    return this.tripDataToDisplay();
+  }
+
   getFullImageUrl(): string {
-    if (this.singleDriver?.user.picture) {
+    if (this.singleDriver?.user?.picture) {
       return `${this.imgUrl}${this.singleDriver.user.picture}`;
     }
     return '../../../assets/unknown.png'; // Return an empty string or a default image URL if picture is not available

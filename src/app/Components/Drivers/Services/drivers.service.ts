@@ -4,6 +4,7 @@ import { DriversApiEndpoints } from '../DriversApiEndPoints';
 import { map, Observable } from 'rxjs';
 import { Coords } from '../IDrivers';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { UrlSegment } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -28,11 +29,25 @@ export class DriversService {
     //   }
     // });
   }
-  getAllDriverTripsWithinDateRange(
-    driverId: number,
-    dateRange: { fromDate: string | Date; toDate: string | Date }
-  ) {}
+  getAllDriverTripsWithinDateRange(id: number, dateObject: any) {
+    dateObject = {
+      startDate: this.formatDate(dateObject.startDate),
+      endDate: this.formatDate(dateObject.endDate),
+    };
+    let newRequestUrl = new URLSearchParams(dateObject);
+    let requestUrl: string = `${DriversApiEndpoints.getTripDetails}${id}?`;
+    requestUrl = requestUrl + newRequestUrl;
 
+    return this.httpClient.get(requestUrl);
+  }
+
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
   getAllDrivers(pageNumber: any, pageSize: any) {
     return this.httpClient
       .get(
