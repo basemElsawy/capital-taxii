@@ -141,3 +141,51 @@ thead {
   color: $primary-color !important;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2) !important;
 }
+
+.route-details {
+  .btn {
+    font-size: 12px;
+    background-color: white !important;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.15);
+    color: $primary-color;
+    opacity: 0.8;
+    font-weight: 600;
+
+    & :active {
+      border-color: $primary-color !important ;
+    }
+  }
+}
+
+.empty-message {
+  text-transform: capitalize;
+  font-size: 14px;
+}
+.driver-name-container {
+  & h6 {
+    font-size: 16px !important;
+  }
+  & p {
+    font-size: 14px !important;
+  }
+}
+.driver-image-container {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 50%;
+  & img {
+    width: 100%;
+    aspect-ratio: 1;
+  }
+}
+.text-primary {
+  margin-bottom: 5px !important;
+}
+.date-input-container {
+  border: 1px solid rgba(128, 128, 128, 0.161);
+}
+::ng-deep .p-inputtext {
+  border: none;
+  box-shadow: none;
+}

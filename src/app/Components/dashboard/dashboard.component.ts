@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { DashboardService } from './services/dashboard.service';
 import { ArrivedTripsComponent } from './arrived-trips/arrived-trips.component';
 import { CancledTripsComponent } from './cancled-trips/cancled-trips.component';
@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
   cancledRequestDetails: any[] = [];
   inProgressTrips: any[] = [];
   allDrivers: any[] = [];
-  isLoading: boolean = false;
+  setIsLoading: any = signal(true);
 
   IsNewRequests: boolean = false;
   IsConfirmedRequests: boolean = false;
@@ -50,7 +50,6 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllDashboardStatisticalData() {
-    this.isLoading = true;
     this.newRequestDetails = [];
     this.cancledRequestDetails = [];
     this.confirmedRequestDetails = [];
@@ -74,10 +73,10 @@ export class DashboardComponent implements OnInit {
             requestRoutes: element.requestRoutes,
           });
         });
-        this.isLoading = false;
+        this.setIsLoading.set(false);
       },
       error: (error) => {
-        this.isLoading = false;
+        this.setIsLoading.set(false);
         console.log(error);
       },
     });
@@ -126,14 +125,14 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllDrivers(): void {
-    this.isLoading = true;
+    this.setIsLoading = true;
     this.dashboardService.getAllDrivers(1, 10).subscribe({
       next: (drivers: any) => {
-        this.isLoading = false;
+        this.setIsLoading = false;
         this.allDrivers = drivers.items;
       },
       error: (error) => {
-        this.isLoading = false;
+        this.setIsLoading = false;
         console.log(error);
       },
     });

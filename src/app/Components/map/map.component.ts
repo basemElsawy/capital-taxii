@@ -100,11 +100,13 @@ export class MapComponent {
   }
 
   getDriversOnMap() {
-    this.mapService.getDriversOnTheMap(2).subscribe({
+    this.mapService.getDriversOnTheMap(8).subscribe({
       next: (res: any): void => {
         this.allDrivers_Data.set(
           res.map((response: any) => ({ ...response, isChecked: false }))
         );
+
+        console.log(res);
 
         let mappedResponse = res.map((responseItem: any): DriversMarkers => {
           const {
@@ -137,7 +139,6 @@ export class MapComponent {
         });
 
         // this.driverMarkers = mappedResponse;
-        console.log(this.driverMarkers);
       },
       complete: () => {},
       error: (error: any) => {

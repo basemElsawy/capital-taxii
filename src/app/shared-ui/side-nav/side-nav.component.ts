@@ -32,6 +32,9 @@ export class SideNavComponent implements OnInit {
     if (this.userData?.picture) {
       return `${this.baseUrl}${this.userData.picture}`;
     }
-    return ''; // Return an empty string or a default image URL if picture is not available
+    return '../../../assets/unknown.png'; // Return an empty string or a default image URL if picture is not available
+  }
+  get userImage() {
+    return this.getFullImageUrl();
   }
 }

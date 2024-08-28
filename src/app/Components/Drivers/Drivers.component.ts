@@ -2,10 +2,11 @@ import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { DriverDetails, Drivers, DriversMarkers } from '../map/IMap';
 import { CommonModule } from '@angular/common';
 import { DriversService } from './Services/drivers.service';
-import { Coords } from './IDrivers';
+import { Coords, IDrivers } from './IDrivers';
 import { firstValueFrom } from 'rxjs';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -16,6 +17,7 @@ import { passwordMatchValidator } from '../classes/password-match.validators';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../environments/environment.development';
 import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-Drivers',
@@ -26,13 +28,18 @@ import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
     ReactiveFormsModule,
     FormsModule,
     SpinnerComponent,
+    CalendarModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './Drivers.component.html',
   styleUrls: ['./Drivers.component.scss'],
 })
 export class DriversComponent implements OnInit {
   public readonly imgUrl = environment.image;
-  // driverMarkers: any;
+
+  dateRangeForm!: FormGroup;
+
   driversData: any = {};
   currentLocationAddress: string = '';
   coordsCollection: any[] = [];
@@ -42,7 +49,7 @@ export class DriversComponent implements OnInit {
 
   pageNumber: any = 1;
   totalRecords = 0;
-
+  singleDriver!: IDrivers;
   pageSize = 10;
 
   constructor(
@@ -53,6 +60,14 @@ export class DriversComponent implements OnInit {
   ngOnInit(): void {
     this.getAllDrivers();
     this.initAddUserForm();
+    this.dateFormInitializer();
+  }
+
+  dateFormInitializer() {
+    this.dateRangeForm = new FormGroup({
+      fromDateRange: new FormControl('', Validators.required),
+      toDateRange: new FormControl('', Validators.required),
+    });
   }
 
   initAddUserForm(): void {
@@ -118,12 +133,18 @@ export class DriversComponent implements OnInit {
       // this.isLoading.set(false);
     }
   }
-  openAddModal(content: any) {
+  openAddModal(content: any, driver?: IDrivers) {
     this.modalService.open(content, {
       size: 'xl',
       backdrop: 'static',
       centered: true,
     });
+
+    if (driver) {
+      this.singleDriver = driver;
+
+      return;
+    }
     this.getAllNationalities();
   }
   getAllNationalities() {
@@ -164,6 +185,7 @@ export class DriversComponent implements OnInit {
       },
     });
   }
+
   uploadPhoto(event: any) {
     this.driversService
       .convertFileToBase64(event.target.files[0])
@@ -184,5 +206,21 @@ export class DriversComponent implements OnInit {
         item.isChecked = event.target.checked;
       });
     }
+  }
+
+  sendDateRange() {
+    let requestBody = {
+      id: this.singleDriver.userId,
+      ...this.dateRangeForm.value,
+    };
+  }
+  getFullImageUrl(): string {
+    if (this.singleDriver?.user.picture) {
+      return `${this.imgUrl}${this.singleDriver.user.picture}`;
+    }
+    return '../../../assets/unknown.png'; // Return an empty string or a default image URL if picture is not available
+  }
+  get userImage() {
+    return this.getFullImageUrl();
   }
 }

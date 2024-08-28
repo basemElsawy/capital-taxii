@@ -1,10 +1,12 @@
-@if(isLoading){
+@if(setIsLoading){
 <app-spinner></app-spinner>
 } @else {
-<div class="container">
-  <div class="d-flex align-items-start justify-content-between">
+<div
+  class="container d-flex align-items-center justify-content-center flex-column gap-3 w-100"
+>
+  <div class="d-flex align-items-start justify-content-between gap-4 w-100">
     <div class="w-75">
-      <div class="holder p-4">
+      <div class="holder">
         <div class="card statistical-card">
           <div class="card-body p-0">
             <div class="row">
@@ -98,7 +100,7 @@
                 </div>
                 <div class="statistical-number">
                   <p>
-                    {{ dashboardData.unavailableDrivers }}
+                    {{ dashboardData?.unavailableDrivers }}
                   </p>
                 </div>
                 <div class="statistical-text">
@@ -229,7 +231,9 @@
   </div>
   <!-- here is the table for new requests-->
   @if(IsNewRequests) { @if(newRequestDetails.length){
-  <app-new-trips [newTrips]="newRequestDetails"></app-new-trips>
+  <div class="w-100">
+    <app-new-trips [newTrips]="newRequestDetails"></app-new-trips>
+  </div>
   } @else{
   <div class="alert alert-info">
     <p class="text-center fw-bold">There is no new requests</p>
@@ -238,9 +242,11 @@
 
   <!-- here is the table for confirmed requests-->
   @if (IsConfirmedRequests){ @if(confirmedRequestDetails.length) {
-  <app-confirmed-trips
-    [confirmedTripsDetails]="confirmedRequestDetails"
-  ></app-confirmed-trips>
+  <div class="w-100">
+    <app-confirmed-trips
+      [confirmedTripsDetails]="confirmedRequestDetails"
+    ></app-confirmed-trips>
+  </div>
   } @else {
   <div class="alert alert-info">
     <p class="text-center fw-bold">There is no confirmed requests</p>
@@ -249,7 +255,11 @@
 
   <!-- here is the table for cancled requests-->
   @if (IsCancledRequests){ @if(cancledRequestDetails.length){
-  <app-cancled-trips [cancledTrips]="cancledRequestDetails"></app-cancled-trips>
+  <div class="w-100">
+    <app-cancled-trips
+      [cancledTrips]="cancledRequestDetails"
+    ></app-cancled-trips>
+  </div>
   } @else {
 
   <div class="alert alert-info">
@@ -259,17 +269,21 @@
 
   <!-- here is the table for arrived requests-->
   @if(IsArrivedRequests) { @if(arrivedRequestDetails.length) {
-  <app-arrived-trips
-    [arrivedTripDetails]="arrivedRequestDetails"
-  ></app-arrived-trips>
+  <div class="w-100">
+    <app-arrived-trips
+      [arrivedTripDetails]="arrivedRequestDetails"
+    ></app-arrived-trips>
+  </div>
   } @else {
   <div class="alert alert-info">
     <p class="text-center fw-bold">There is no arrived requests</p>
   </div>
   } } @if(IsInProgressTrips) { @if(inProgressTrips.length) {
-  <app-in-progress-trips
-    [inProgressTrips]="inProgressTrips"
-  ></app-in-progress-trips>
+  <div class="w-100">
+    <app-in-progress-trips
+      [inProgressTrips]="inProgressTrips"
+    ></app-in-progress-trips>
+  </div>
   } @else {
   <div class="alert alert-info">
     <p class="text-center fw-bold">There is no inprogress trips requests</p>
