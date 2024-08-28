@@ -9,12 +9,12 @@
 }
 .vehicles-section {
   height: 80vh;
-} 
+}
 
-.close-icon{
+.close-icon {
   font-size: 20px;
   color: darkred;
-} 
+}
 
 .success-icon {
   font-size: 20px;
@@ -160,4 +160,13 @@ thead {
   font-size: 10px !important;
 }
 .test {
+}
+
+.form-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  & div {
+    width: 100%;
+  }
 }

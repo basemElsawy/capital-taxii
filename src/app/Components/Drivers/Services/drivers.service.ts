@@ -14,20 +14,25 @@ export class DriversService {
     return this.httpClient.get(DriversApiEndpoints.nationalitiesEndpoint);
   }
   gettingLocationAddress(coords: Coords, locationCollection: any[]) {
-    const geoCoder = new google.maps.Geocoder();
-
-    geoCoder.geocode({ location: coords }, (results: any, status: any) => {
-      if (status === google.maps.GeocoderStatus.OK) {
-        if (results[0]) {
-          locationCollection.push(results[0].formatted_address);
-        } else {
-          console.log('No results found');
-        }
-      } else {
-        console.error('Geocoder failed due to:', status);
-      }
-    });
+    // const geoCoder = new google.maps.Geocoder();
+    // geoCoder.geocode({ location: coords }, (results: any, status: any) => {
+    //   console.log(location);
+    //   if (status === google.maps.GeocoderStatus.OK) {
+    //     if (results[0]) {
+    //       locationCollection.push(results[0].formatted_address);
+    //     } else {
+    //       console.log('No results found');
+    //     }
+    //   } else {
+    //     console.error('Geocoder failed due to:', status);
+    //   }
+    // });
   }
+  getAllDriverTripsWithinDateRange(
+    driverId: number,
+    dateRange: { fromDate: string | Date; toDate: string | Date }
+  ) {}
+
   getAllDrivers(pageNumber: any, pageSize: any) {
     return this.httpClient
       .get(
