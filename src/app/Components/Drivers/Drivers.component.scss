@@ -189,3 +189,7 @@ thead {
   border: none;
   box-shadow: none;
 }
+.modal-sectionBody-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
