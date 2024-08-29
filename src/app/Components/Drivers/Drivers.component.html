@@ -304,17 +304,18 @@
           >
             <h6 class="m-0 p-0 text-primary fw-bold">Car Comfort</h6>
             <p class="m-0 p-0 text-muted">
-              {{ singleDriver.vehicle?.vehicleName }}
+              {{
+                singleDriver.vehicle?.vehicleName
+                  ? singleDriver.vehicle?.vehicleName
+                  : "Not Assigned"
+              }}
             </p>
           </div>
           <div
             class="driver-name-container d-flex align-items-start justify-content-center flex-column"
           >
             <h6 class="m-0 p-0 text-primary fw-bold">Status</h6>
-            <div
-              class="income-styling-single rounded-4"
-              [ngClass]="{ 'not-available': !singleDriver.status }"
-            >
+            <div class="income-styling-single rounded-4">
               <p>
                 {{ singleDriver.status ? "available" : "N/A" }}
               </p>
@@ -364,22 +365,85 @@
 
       }@else {
       <div class="modal-sectionBody-content gap-3 px-2 py-3">
-        @for( item of getTripDataToDisplay; track item ) {
-        <div class="trip-content w-100">
+        @for( tripData of getTripDataToDisplay; track tripData ) {
+        <div class="trip-content shadow-sm rounded-3 p-2 w-100">
           <div
-            class="trip-content-header w-100 d-flex align-items-center justtify-content-center gap-2"
+            class="trip-content-header w-100 d-flex align-items-start justtify-content-center gap-2"
           >
             <div
-              class="destination-container d-flex align-items-center justify-content-center gap-2"
+              class="destination-container d-flex align-items-start flex-column justify-content-center"
             >
-              <p>From</p>
-              <p>{{ item.fromLocationName }}</p>
+              <p class="define-text px-3 m-0 py-0">From</p>
+              <p class="location p-2 rounded-4">
+                {{ tripData.fromLocationName }}
+              </p>
             </div>
             <div
-              class="destination-container d-flex align-items-center justify-content-center gap-2"
+              class="destination-container d-flex align-items-start flex-column justify-content-center"
             >
-              <p>To</p>
-              <p>{{ item.toLocationName }}</p>
+              <p class="define-text px-3 m-0 py-0">To</p>
+              <p class="location p-2 rounded-4">
+                {{ tripData.toLocationName }}
+              </p>
+            </div>
+          </div>
+          <div
+            class="trip-content-body gap-2 py-2 d-flex align-items-center justify-content-center w-100 flex-column w-100"
+          >
+            <div
+              class="trip-content-data createdAt d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Trip Created At</p>
+              <p class="m-0 p-0">{{ dateFormatter(tripData.createdAt) }}</p>
+            </div>
+            <div
+              class="trip-content-data acceptanceDate d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Accepted At</p>
+              <p class="m-0 p-0">
+                {{ dateFormatter(tripData.acceptanceDateTime) }}
+              </p>
+            </div>
+            <div
+              class="trip-content-data d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Distance</p>
+              <p class="m-0 p-0">
+                {{ tripData.tripDistance / 1000 + " KM" }}
+              </p>
+            </div>
+            <div
+              class="trip-content-data d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Time</p>
+              <p class="m-0 p-0">
+                {{ tripData.tripTime }}
+              </p>
+            </div>
+            <div
+              class="trip-content-data pricing-container d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Fine</p>
+              <p class="m-0 p-0">
+                {{ tripData.finePrice }}
+              </p>
+            </div>
+
+            <div
+              class="trip-content-data d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Price</p>
+              <p class="m-0 p-0">
+                {{ tripData.price }}
+              </p>
+            </div>
+            <div
+              class="trip-content-data d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Total</p>
+              <p class="m-0 p-0">
+                {{ tripData.price + tripData.finePrice }}
+              </p>
             </div>
           </div>
         </div>

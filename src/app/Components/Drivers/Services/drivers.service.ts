@@ -43,7 +43,7 @@ export class DriversService {
 
   formatDate(date: Date): string {
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
 
     return `${year}-${month}-${day}`;
@@ -91,6 +91,28 @@ export class DriversService {
     );
 
     return cleanBase64Image;
+  }
+
+  getOrdinalSuffix(day: number) {
+    if (day > 3 && day < 21) return 'th';
+    switch (day % 10) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  }
+
+  verbalDateFormatter(dateToFormat: string | Date) {
+    let date = new Date(dateToFormat);
+    let month = date.toLocaleString('en-US', { month: 'short' });
+    let day = date.toLocaleString('en-US', { day: 'numeric' });
+    let numericDate = date.getDate();
+    return `${month} ${day}${this.getOrdinalSuffix(numericDate)}`;
   }
 
   addNewDriver(body: any) {

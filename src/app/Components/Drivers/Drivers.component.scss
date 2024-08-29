@@ -104,6 +104,7 @@ thead {
   top: -8px;
   left: 0;
   right: 0;
+  z-index: 1;
 }
 .table-footer {
   justify-self: end;
@@ -192,4 +193,44 @@ thead {
 .modal-sectionBody-content {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  row-gap: 20px !important;
+}
+.destination-container {
+  // flex-direction: column;
+  flex: 1;
+  & p {
+    font-size: 12px;
+    text-align: center;
+  }
+}
+.location {
+  width: 100% !important;
+}
+
+.define-text {
+  color: $primary-color;
+  font-weight: bold;
+  font-size: 10px;
+}
+.trip-content {
+  border: 1px solid rgb(205, 243, 255);
+}
+.trip-content-header {
+  border-bottom: 1px solid lightblue;
+}
+.trip-content-data {
+  font-size: 12px;
+  * {
+    font-size: 1em;
+  }
+}
+.pricing-container {
+  padding-top: 10px;
+  border-top: 1px solid rgb(205, 243, 255);
+}
+
+.section-body {
+  min-height: fit-content;
+  max-height: 50vh;
+  overflow-y: scroll;
 }
