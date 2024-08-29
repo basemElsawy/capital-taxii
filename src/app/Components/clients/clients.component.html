@@ -77,13 +77,14 @@
       <!-- <div class="section-header w-100 p-2 shadow-sm rounded-5 p-4"> -->
       <table class="credit-details">
         <tr class="table-header">
-          <th>Name</th>
+          <th class="first-heading">Name</th>
           <th>Date</th>
           <th>Amount</th>
-          <th>Receipt Number</th>
+          <th class="second-heading">Receipt Number</th>
         </tr>
         @for(groupCreditTransactions of singleCredit; track
         groupCreditTransactions.id){
+
         <tr>
           <td>
             {{ groupCreditTransactions.creditTransactionStatus.nameAr }}
@@ -102,6 +103,7 @@
             }}
           </td>
         </tr>
+
         }
       </table>
       <!-- </div> -->

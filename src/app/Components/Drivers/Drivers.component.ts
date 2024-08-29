@@ -69,6 +69,10 @@ export class DriversComponent implements OnInit {
     this.dateFormInitializer();
   }
 
+  dateFormatter(dateToFormat: string | Date) {
+    return this.driversService.verbalDateFormatter(dateToFormat);
+  }
+
   dateFormInitializer() {
     this.dateRangeForm = new FormGroup({
       startDate: new FormControl('', Validators.required),
@@ -168,6 +172,7 @@ export class DriversComponent implements OnInit {
   }
   closeModal() {
     this.modalService.dismissAll();
+    this.tripDataToDisplay.set([]);
   }
 
   addDrivers() {
@@ -230,15 +235,17 @@ export class DriversComponent implements OnInit {
                 createdAt,
                 acceptanceDateTime,
                 price,
-                distance,
+                tripDistance,
                 tripTime,
+                finePrice,
               }) => ({
                 toLocationName,
                 fromLocationName,
                 createdAt,
                 acceptanceDateTime,
                 price,
-                distance,
+                finePrice,
+                tripDistance,
                 tripTime,
               })
             )
