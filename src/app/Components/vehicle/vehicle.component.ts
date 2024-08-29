@@ -14,11 +14,17 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../environments/environment.development';
 import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
-
+import { TooltipModule } from 'primeng/tooltip';
 @Component({
   selector: 'app-vehicle',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, SpinnerComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    SpinnerComponent,
+    TooltipModule,
+  ],
   templateUrl: './vehicle.component.html',
   styleUrl: './vehicle.component.scss',
 })
@@ -26,21 +32,22 @@ export class VehicleComponent {
   public readonly imgUrl = environment.image;
   driversData: any[] = [];
   addVehicleForm!: FormGroup;
+  updateVehicleForm!: FormGroup;
   addDriverVehicleForm!: FormGroup;
   nationalities: any[] = [];
   vehicleSpecifications: any[] = [];
   vehicleTypes: any[] = [];
   fuelTypes: any[] = [];
   vehicleOwnerShips: any[] = [];
-  vehicleLifeCycles: any[] = [];
   vehicleStatus: any[] = [];
-  vehicleFianancials: any[] = [];
   vehicleBrands: any[] = [];
   vehicleBody: any[] = [];
   Drivers: any[] = [];
   vehicleDrivers: any[] = [];
+  vehicleServiceTypes: any[] = [];
   choosedVehicle: any;
   isLoading: boolean = false;
+  base64Image: string | undefined;
 
   constructor(
     private vehilcesService: VehicleService,
@@ -55,32 +62,46 @@ export class VehicleComponent {
     this.getAllVehiclesTypes();
     this.getAllFuelTypes();
     this.getAllVehiclesOwner();
-    this.getAllVehiclesLifeCycle();
     this.getAllVehicleStatus();
-    this.getVehicleFinancial();
     this.getAllVehicleBrand();
     this.getAllVehicleBody();
     this.getAllDrivers();
+    this.getAllVehicleServiceType();
   }
 
   initialiseVehicleForm() {
     this.addVehicleForm = this.fb.group({
       vehicleName: [null, Validators.required],
       year: [null, Validators.required],
-      photo: [''],
-      vehicleColor: [null, Validators.required],
+      photo: ['', Validators.required],
+      vehicleColor: ['#FF7B00', Validators.required],
+      vehicleTypeId: [null, Validators.required],
+      fuelTypeId: [null, Validators.required],
+      vehicleOwnershipId: [null, Validators.required],
+      // vehicleLifeCycleId: [null, Validators.required],
+      vehicleStatusId: [null, Validators.required],
+      // vehicleFinancialId: [null, Validators.required],
+      vehicleBrandId: [null, Validators.required],
+      vehicleBodyTypeId: [null, Validators.required],
+      vehicleServiceTypeId: [null, Validators.required],
+    });
+    this.updateVehicleForm = this.fb.group({
+      id: [null, Validators.required],
+      vehicleName: [null, Validators.required],
+      year: [null, Validators.required],
+      photo: ['', Validators.required],
+      vehicleColor: ['#FF7B00', Validators.required],
       vehicleSpecificationId: [null, Validators.required],
       vehicleTypeId: [null, Validators.required],
       fuelTypeId: [null, Validators.required],
       vehicleOwnershipId: [null, Validators.required],
-      vehicleLifeCycleId: [null, Validators.required],
+      // vehicleLifeCycleId: [null, Validators.required],
       vehicleStatusId: [null, Validators.required],
-      vehicleFinancialId: [null, Validators.required],
+      // vehicleFinancialId: [null, Validators.required],
       vehicleBrandId: [null, Validators.required],
       vehicleBodyTypeId: [null, Validators.required],
-      vehicleServiceTypeId: [1],
+      vehicleServiceTypeId: [null, Validators.required],
     });
-
     this.addDriverVehicleForm = this.fb.group({
       startDate: [null, Validators.required],
       expiryDate: [null, Validators.required],
@@ -131,7 +152,20 @@ export class VehicleComponent {
       },
     });
   }
+  getAllVehicleServiceType() {
+    this.isLoading = true;
+    this.vehilcesService.getVehicleServiceType().subscribe({
+      next: (res: any) => {
+        this.vehicleServiceTypes = res;
+        this.isLoading = false;
+      },
+      error: (error: any) => {
+        this.isLoading = false;
 
+        console.log(error);
+      },
+    });
+  }
   getAllVehicleBody() {
     this.isLoading = true;
 
@@ -170,7 +204,49 @@ export class VehicleComponent {
       scrollable: true,
     });
   }
-
+  openUpdateVehcleModal(content: any, selectedVehicle: any) {
+    this.choosedVehicle = selectedVehicle;
+    this.setVehcleDataInUpdateForm(selectedVehicle.res);
+    this.modalService.open(content, {
+      size: 'xl',
+      backdrop: 'static',
+      centered: true,
+      scrollable: true,
+    });
+  }
+  setVehcleDataInUpdateForm(selectedVehicle: any) {
+    this.updateVehicleForm.patchValue({
+      id: selectedVehicle.id,
+      vehicleName: selectedVehicle.vehicleName,
+      year: selectedVehicle.year,
+      photo: this.updateVehicleForm.controls['photo'].value
+        ? this.updateVehicleForm.controls['photo'].value
+        : '',
+      vehicleColor: selectedVehicle.vehicleColor,
+      vehicleSpecificationId: selectedVehicle.vehicleSpecification?.id,
+      vehicleTypeId: selectedVehicle.vehicleType?.id,
+      fuelTypeId: selectedVehicle.fuelType?.id,
+      vehicleOwnershipId: selectedVehicle.vehicleOwnership?.id,
+      // vehicleLifeCycleId: selectedVehicle.vehicleLifeCycle?.id,
+      vehicleStatusId: selectedVehicle.vehicleStatus?.id,
+      // vehicleFinancialId: selectedVehicle.vehicleFinancial?.id,
+      vehicleBrandId: selectedVehicle.vehicleBrand?.id,
+      vehicleBodyTypeId: selectedVehicle.vehicleBodyType?.id,
+      vehicleServiceTypeId: selectedVehicle.vehicleServiceType?.id || 1,
+    });
+  }
+  convertImageToBase64(imageUrl: string): void {
+    this.vehilcesService
+      .getImageAsBase64(imageUrl)
+      .then((base64) => {
+        this.base64Image = base64; // Store base64 image
+        console.log(this.base64Image); // For debugging
+        // Now you can send `this.base64Image` to your backend
+      })
+      .catch((error) =>
+        console.error('Error converting image to base64:', error)
+      );
+  }
   //here is the function needed to get all added drivers on the selected vehicle
   getAllVehicleDrivers(selectedVehicleId: any) {
     this.vehilcesService.getVehicleDetails(selectedVehicleId).subscribe({
@@ -183,30 +259,6 @@ export class VehicleComponent {
     });
   }
 
-  getVehicleFinancial() {
-    this.vehilcesService.getVehicleFinancial().subscribe({
-      next: (res: any) => {
-        this.vehicleFianancials = res;
-      },
-      error: (error: any) => {
-        console.log(error);
-      },
-    });
-  }
-  getAllVehiclesLifeCycle() {
-    this.isLoading = true;
-    this.vehilcesService.getVehicleLifeCycle().subscribe({
-      next: (res: any) => {
-        this.vehicleLifeCycles = res;
-        this.isLoading = false;
-      },
-      error: (error: any) => {
-        this.isLoading = false;
-
-        console.log(error);
-      },
-    });
-  }
   getAllVehiclesOwner() {
     this.vehilcesService.getVehicleOwnerShips().subscribe({
       next: (res: any) => {
@@ -288,6 +340,32 @@ export class VehicleComponent {
       scrollable: true,
     });
   }
+  uploadPhoto(event: any) {
+    this.vehilcesService
+      .convertFileToBase64(event.target.files[0])
+      .then((res) => {
+        this.addVehicleForm.controls['photo'].setValue(res);
+        let cleanedBase64Image = this.vehilcesService.processImage(
+          this.addVehicleForm.controls['photo'].value
+        );
+
+        this.addVehicleForm.controls['photo'].setValue(cleanedBase64Image);
+      })
+      .finally(() => {});
+  }
+  uploadPhotoOnUpdate(event: any) {
+    this.vehilcesService
+      .convertFileToBase64(event.target.files[0])
+      .then((res) => {
+        this.updateVehicleForm.controls['photo'].setValue(res);
+        let cleanedBase64Image = this.vehilcesService.processImage(
+          this.updateVehicleForm.controls['photo'].value
+        );
+
+        this.updateVehicleForm.controls['photo'].setValue(cleanedBase64Image);
+      })
+      .finally(() => {});
+  }
   addVehicle() {
     let addNewVehicleBody = this.addVehicleForm.value;
     this.vehilcesService.addNewVehicle(addNewVehicleBody).subscribe({
@@ -301,7 +379,19 @@ export class VehicleComponent {
       },
     });
   }
-
+  updateVehicle() {
+    let updateVehicleBody = this.updateVehicleForm.value;
+    this.vehilcesService.updateVehicle(updateVehicleBody).subscribe({
+      next: (res: any) => {
+        this.getAllVehicles();
+        this.modalService.dismissAll();
+        this.updateVehicleForm.reset();
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
   addDriver() {
     this.addDriverVehicleForm.patchValue({
       vehicleId: this.choosedVehicle.res.id,

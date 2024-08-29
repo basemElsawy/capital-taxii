@@ -159,8 +159,6 @@ thead {
 .click-show-image {
   font-size: 10px !important;
 }
-.test {
-}
 
 .form-wrapper {
   display: grid;
@@ -169,4 +167,10 @@ thead {
   & div {
     width: 100%;
   }
+}
+/* Add this to your component's CSS file or global stylesheet */
+::ng-deep .custom-tooltip ::ng-deep .p-tooltip {
+  background-color: #ffcc00 !important; /* Change to your desired color */
+  color: #000; /* Optional: Change text color */
+  padding: 2px 6px !important;
 }

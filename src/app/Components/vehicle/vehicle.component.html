@@ -65,21 +65,38 @@
             </td>
             <td class="d-flex align-items-start justify-content-center">
               <button
+                pTooltip="Add driver"
+                tooltipPosition="top"
+                tooltipClass="custom-tooltip"
                 (click)="openDriverModal(vehicleDriver, data)"
                 class="btn btn-success d-flex align-items-center justify-content-center gap-2"
               >
-                <span> Add driver </span>
+                <!-- <span> Add driver </span> -->
 
                 <i class="fa-solid fa-plus"></i>
               </button>
 
               <button
+                pTooltip="Show drivers"
+                tooltipPosition="top"
+                tooltipClass="custom-tooltip"
                 (click)="showVehicleDrivers(data, drivers)"
                 class="btn btn-success d-flex align-items-center mx-2 justify-content-center gap-2"
               >
-                <span> show drivers </span>
+                <!-- <span> show drivers </span> -->
 
                 <i class="fa-solid fa-eye"></i>
+              </button>
+              <button
+                pTooltip="Update vehicle"
+                tooltipPosition="top"
+                tooltipClass="custom-tooltip"
+                (click)="openUpdateVehcleModal(content1, data)"
+                class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+              >
+                <!-- <span> Update vehicle </span> -->
+
+                <i class="fas fa-edit"></i>
               </button>
             </td>
           </tr>
@@ -89,7 +106,7 @@
       </table>
     </div>
 
-    <div
+    <!-- <div
       class="table-footer bg-white p-2 w-100 d-flex align-items-center justify-content-end"
     >
       <div class="w-auto d-flex align-items-center justify-content-center">
@@ -114,7 +131,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </section>
 
@@ -145,10 +162,11 @@
         </div>
 
         <div class="col-md-4">
-          <label> color </label>
+          <label>Color</label>
           <input
-            class="number"
-            class="form-group form-control"
+            type="color"
+            id="colorCodeSelection"
+            class="form-control"
             formControlName="vehicleColor"
           />
         </div>
@@ -176,7 +194,7 @@
           >
             @for(vehicleType of vehicleTypes; track vehicleType){
             <option [value]="vehicleType.id">
-              {{ vehicleType.nameAr }}
+              {{ vehicleType.nameEn }}
             </option>
             }
           </select>
@@ -189,7 +207,7 @@
           >
             @for(fuelType of fuelTypes; track fuelType){
             <option [value]="fuelType.id">
-              {{ fuelType.nameAr }}
+              {{ fuelType.nameEn }}
             </option>
             }
           </select>
@@ -203,13 +221,13 @@
           >
             @for(ownerShip of vehicleOwnerShips; track ownerShip){
             <option [value]="ownerShip.id">
-              {{ ownerShip.nameAr }}
+              {{ ownerShip.nameEn }}
             </option>
             }
           </select>
         </div>
 
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
           <label> vehicle lifecycle </label>
           <select
             formControlName="vehicleLifeCycleId"
@@ -221,7 +239,7 @@
             </option>
             }
           </select>
-        </div>
+        </div> -->
 
         <div class="col-md-4">
           <label> vehicle status </label>
@@ -231,13 +249,13 @@
           >
             @for(vehicleStatus of vehicleStatus; track vehicleStatus){
             <option [value]="vehicleStatus.id">
-              {{ vehicleStatus.nameAr }}
+              {{ vehicleStatus.nameEn }}
             </option>
             }
           </select>
         </div>
 
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
           <label> vehicle financial </label>
           <select
             formControlName="vehicleFinancialId"
@@ -250,7 +268,7 @@
             </option>
             }
           </select>
-        </div>
+        </div> -->
 
         <div class="col-md-4">
           <label> vehicle brand </label>
@@ -260,7 +278,7 @@
           >
             @for(vehicleBrand of vehicleBrands; track vehicleBrand){
             <option [value]="vehicleBrand.id">
-              {{ vehicleBrand.nameAr }}
+              {{ vehicleBrand.nameEn }}
             </option>
             }
           </select>
@@ -274,10 +292,35 @@
           >
             @for(vehicleBodyType of vehicleBody; track vehicleBodyType){
             <option [value]="vehicleBodyType.id">
-              {{ vehicleBodyType.nameAr }}
+              {{ vehicleBodyType.nameEn }}
             </option>
             }
           </select>
+        </div>
+        <div class="col-md-4">
+          <label> Vehicle Service Type </label>
+          <select
+            formControlName="vehicleServiceTypeId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleServiceType of vehicleServiceTypes; track
+            vehicleServiceType){
+            <option [value]="vehicleServiceType.id">
+              {{ vehicleServiceType.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Driver photo</label>
+            <input
+              class="form-control"
+              (change)="uploadPhoto($event)"
+              type="file"
+              id="formFile"
+            />
+          </div>
         </div>
       </div>
     </form>
@@ -294,7 +337,210 @@
     <button class="btn btn-danger" (click)="closeModal()">Close</button>
   </div>
 </ng-template>
+<!-- update vehicle -->
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4>Update vehicle</h4>
+  </div>
 
+  <div class="modal-body">
+    <form [formGroup]="updateVehicleForm" class="">
+      <div class="form-wrapper">
+        <div class="col-md-4">
+          <label> vehicle name </label>
+          <input
+            class="text"
+            class="form-group form-control"
+            formControlName="vehicleName"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label> year </label>
+          <input
+            class="number"
+            class="form-group form-control"
+            formControlName="year"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <div class="col-md-4">
+            <label>Color</label>
+            <input
+              type="color"
+              id="colorCodeSelection"
+              class="form-control"
+              formControlName="vehicleColor"
+            />
+          </div>
+          <!-- <input
+            class="number"
+            class="form-group form-control"
+            formControlName="vehicleColor"
+          /> -->
+        </div>
+
+        <div class="col-md-4">
+          <label> vehicle specification </label>
+          <select
+            formControlName="vehicleSpecificationId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleSpecification of vehicleSpecifications; track
+            vehicleSpecification){
+            <option [value]="vehicleSpecification.id">
+              {{ vehicleSpecification.engineSummary }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> vehicle type </label>
+          <select
+            formControlName="vehicleTypeId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleType of vehicleTypes; track vehicleType){
+            <option [value]="vehicleType.id">
+              {{ vehicleType.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label> fuel type </label>
+          <select
+            formControlName="fuelTypeId"
+            class="form-control form-select form-group"
+          >
+            @for(fuelType of fuelTypes; track fuelType){
+            <option [value]="fuelType.id">
+              {{ fuelType.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> vehicle ownership </label>
+          <select
+            formControlName="vehicleOwnershipId"
+            class="form-control form-select form-group"
+          >
+            @for(ownerShip of vehicleOwnerShips; track ownerShip){
+            <option [value]="ownerShip.id">
+              {{ ownerShip.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <!-- <div class="col-md-4">
+          <label> vehicle lifecycle </label>
+          <select
+            formControlName="vehicleLifeCycleId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleLifeCycle of vehicleLifeCycles; track vehicleLifeCycle){
+            <option [value]="vehicleLifeCycle.id">
+              {{ vehicleLifeCycle.estimatedResaleValue }}
+            </option>
+            }
+          </select>
+        </div> -->
+
+        <div class="col-md-4">
+          <label> vehicle status </label>
+          <select
+            formControlName="vehicleStatusId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleStatus of vehicleStatus; track vehicleStatus){
+            <option [value]="vehicleStatus.id">
+              {{ vehicleStatus.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <!-- <div class="col-md-4">
+          <label> vehicle financial </label>
+          <select
+            formControlName="vehicleFinancialId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleFinancial of vehicleFianancials; track
+            vehicleFinancial){
+            <option [value]="vehicleFinancial.id">
+              {{ vehicleFinancial.odometerin }}
+            </option>
+            }
+          </select>
+        </div> -->
+
+        <div class="col-md-4">
+          <label> vehicle brand </label>
+          <select
+            formControlName="vehicleBrandId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleBrand of vehicleBrands; track vehicleBrand){
+            <option [value]="vehicleBrand.id">
+              {{ vehicleBrand.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> vehicle body </label>
+          <select
+            formControlName="vehicleBodyTypeId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleBodyType of vehicleBody; track vehicleBodyType){
+            <option [value]="vehicleBodyType.id">
+              {{ vehicleBodyType.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label> Vehicle Service Type </label>
+          <select
+            formControlName="vehicleBodyTypeId"
+            class="form-control form-select form-group"
+          >
+            @for(vehicleServiceType of vehicleServiceTypes; track
+            vehicleServiceType){
+            <option [value]="vehicleServiceType.id">
+              {{ vehicleServiceType.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Vehicle photo</label>
+            <input
+              class="form-control"
+              (change)="uploadPhotoOnUpdate($event)"
+              type="file"
+              id="formFile"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="updateVehicle()">Save</button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
 <!-- here is the modal needed to add a drive on a selected vehicle-->
 <ng-template #vehicleDriver let-modal>
   <div class="modal-header">
