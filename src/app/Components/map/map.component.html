@@ -27,9 +27,8 @@
           <th class="first-heading">
             <input type="checkbox" (change)="checkboxEvent($event)" />
           </th>
-          <th style="width: 90px; text-align: center; padding-left: 0px">
-            User
-          </th>
+          <th style="text-align: left; padding-left: 0px">driver</th>
+          <th style="text-align: left; padding-left: 0px">User</th>
           <th>Car type</th>
           <th>Ordered date</th>
           <th>Start Location</th>
@@ -50,30 +49,57 @@
             />
           </td>
 
-          <td
-            class="person-info d-flex align-items-center justify-content-start gap-2"
-          >
-            <img
-              [src]="
-                driver?.user?.picture
-                  ? imageUrl + driver?.user?.picture
-                  : '../../../assets/Rectangle 9.png'
-              "
-              alt=""
-              height="40"
-              width="40"
-            />
-            <div class="text-container text-start">
-              <h6 class="m-0 p-0">{{ driver?.user?.fullName }}</h6>
-              <p class="m-0 p-0">{{ driver?.user?.phoneNumber }}</p>
+          <td class="person-info">
+            <div class="d-flex align-items-center justify-content-start gap-2">
+              <img
+                [src]="
+                  driver?.driver.driver?.picture
+                    ? imageUrl + driver?.driver.user?.picture
+                    : '../../../assets/Rectangle 9.png'
+                "
+                alt=""
+                height="35"
+                width="35"
+              />
+              <div class="text-container text-start">
+                <h6 class="m-0 p-0">{{ driver?.driver.user?.fullName }}</h6>
+                <p class="m-0 p-0">{{ driver?.driver.user?.phoneNumber }}</p>
+              </div>
+            </div>
+          </td>
+          <td class="person-info">
+            <div class="d-flex align-items-center justify-content-start gap-2">
+              <img
+                [src]="
+                  driver?.user?.picture
+                    ? imageUrl + driver?.user?.picture
+                    : '../../../assets/Rectangle 9.png'
+                "
+                alt=""
+                height="40"
+                width="40"
+              />
+              <div class="text-container text-start">
+                <h6 class="m-0 p-0">{{ driver?.user?.fullName }}</h6>
+                <p class="m-0 p-0">{{ driver?.user?.phoneNumber }}</p>
+              </div>
             </div>
           </td>
           <td>
-            {{
-              driver?.currentVehicle?.vehicleName
-                ? driver?.currentVehicle?.vehicleName
-                : "-"
-            }}
+            <div class="d-flex align-items-center justify-content-center gap-2">
+              <div class="vehicle-image">
+                <img [src]="imageUrl + driver.currentVehicle?.photo" alt="" />
+              </div>
+              <div>
+                <p>
+                  {{
+                    driver?.currentVehicle?.vehicleName
+                      ? driver?.currentVehicle?.vehicleName
+                      : "-"
+                  }}
+                </p>
+              </div>
+            </div>
           </td>
           <td>{{ driver?.driver?.createdAt | date : "dd-MM-yyyy" }}</td>
           <td style="width: 200px" class="text-start ps-1">
@@ -83,12 +109,10 @@
             {{ driver?.requestRoute?.toLocationName }}
           </td>
           <td>
-            <div class="income-styling px-2 w-50 m-auto py-2 rounded-4">
+            <div class="income-styling px-3 w-75 m-auto py-2 rounded-4">
               <div>
                 {{
-                  driver?.driver?.totalAmount
-                    ? driver?.driver?.totalAmount
-                    : "-"
+                  driver?.requestRoute.price ? driver?.requestRoute.price : "-"
                 }}
                 EGP
               </div>
@@ -96,7 +120,7 @@
           </td>
           <td class="">
             <div
-              class="income-styling px-2 w-75 m-auto py-2 rounded-4"
+              class="income-styling px-2 w-100 m-auto py-2 rounded-4"
               [ngClass]="{ 'driver-na': !driver?.driver?.status }"
             >
               {{ driver?.driver?.status ? "available" : "N/A" }}

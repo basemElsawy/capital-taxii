@@ -12,7 +12,7 @@
   height: 300px;
 }
 .person-info {
-  width: 200px;
+  width: 130px;
 }
 .table-container {
   background-color: white !important;
@@ -37,6 +37,9 @@ thead tr {
   font-size: 14px !important;
 
   background-color: $primary-color !important;
+}
+.person-info img {
+  border-radius: 50%;
 }
 tbody tr {
   border: none !important;
@@ -93,6 +96,9 @@ tbody tr td {
   background-color: #24c18f2e;
   color: #24c18f;
   font-weight: bold;
+  * {
+    text-wrap: nowrap;
+  }
 }
 
 thead {
@@ -103,6 +109,15 @@ thead {
 }
 .table-footer {
   margin-top: 10px;
+}
+
+.vehicle-image {
+  width: 30px;
+
+  & img {
+    width: 100%;
+    aspect-ratio: 1;
+  }
 }
 .box-style {
   @include displayAlignment();

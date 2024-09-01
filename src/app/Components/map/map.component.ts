@@ -100,45 +100,46 @@ export class MapComponent {
   }
 
   getDriversOnMap() {
-    this.mapService.getDriversOnTheMap(8).subscribe({
+    this.mapService.getDriversOnTheMap().subscribe({
       next: (res: any): void => {
         this.allDrivers_Data.set(
-          res.map((response: any) => ({ ...response, isChecked: false }))
+          res.data.map((response: any) => ({ ...response, isChecked: false }))
         );
 
         console.log(res);
 
-        let mappedResponse = res.map((responseItem: any): DriversMarkers => {
-          const {
-            driver: {
-              id,
-              locationLongitude: lng,
-              locationLatitude: lat,
-              user,
-              fromLocation,
-              toLocation,
-            },
-          } = responseItem;
-
-          return {
-            id,
-            driverName: user.fullName || 'محمد صادق', // Use the name from the response or a fallback
-            fromLocation: fromLocation,
-            toLocation: toLocation,
-            driverTitle: 'كابتن سائق',
-            driverImage: user.picture || '../../../assets/unknown.png', // Use the picture from the response or a fallback
-            coords: { lat, lng },
-            icon: {
-              url: '../../../assets/locationIcon.png',
-              scaledSize: {
-                width: 60,
-                height: 60,
+        let mappedResponse = res.data.map(
+          (responseItem: any): DriversMarkers => {
+            const {
+              driver: {
+                id,
+                locationLongitude: lng,
+                locationLatitude: lat,
+                user,
+                fromLocation,
+                toLocation,
               },
-            },
-          };
-        });
+            } = responseItem;
 
-        // this.driverMarkers = mappedResponse;
+            return {
+              id,
+              driverName: user.fullName || 'محمد صادق', // Use the name from the response or a fallback
+              fromLocation: fromLocation,
+              toLocation: toLocation,
+
+              driverTitle: 'كابتن سائق',
+              driverImage: user.picture || '../../../assets/unknown.png', // Use the picture from the response or a fallback
+              coords: { lat, lng },
+              icon: {
+                url: '../../../assets/locationIcon.png',
+                scaledSize: {
+                  width: 60,
+                  height: 60,
+                },
+              },
+            };
+          }
+        );
       },
       complete: () => {},
       error: (error: any) => {
