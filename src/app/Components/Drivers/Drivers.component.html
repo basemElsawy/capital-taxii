@@ -43,7 +43,7 @@
             >
               <img
                 [src]="
-                  data.res.user.picture
+                  data.res.user
                     ? imgUrl + data.res.user.picture
                     : '../../../assets/unknown.png'
                 "
@@ -52,8 +52,16 @@
                 width="40"
               />
               <div class="text-container text-start">
-                <h6 class="m-0 p-0">{{ data.res.user.fullName }}</h6>
-                <p class="m-0 p-0">{{ data.res.user.phoneNumber }}</p>
+                <h6 class="m-0 p-0">
+                  {{ data.res?.user?.fullName ? data.res.user.fullName : "-" }}
+                </h6>
+                <p class="m-0 p-0">
+                  {{
+                    data.res?.user?.phoneNumber
+                      ? data.res.user.phoneNumber
+                      : "-"
+                  }}
+                </p>
               </div>
             </div>
           </td>
@@ -68,8 +76,14 @@
                 : "No vehicle assigned"
             }}
           </td>
-          <td>{{ data.res.user.email }}</td>
-          <td>{{ data.res.user.gender.nameEn }}</td>
+          <td>{{ data.res?.user?.email ? data.res?.user?.email : "-" }}</td>
+          <td>
+            {{
+              data.res.user?.gender?.nameEn
+                ? data.res.user?.gender?.nameEn
+                : "-"
+            }}
+          </td>
           <td>
             <div
               class="income-styling py-2 rounded-4"
@@ -343,13 +357,21 @@
             class="date-input-container px-3 py-1 rounded-pill d-flex align-items-center justify-content-start gap-2"
           >
             <p class="text-muted">From</p>
-            <p-calendar formControlName="startDate" />
+            <p-calendar
+              [showOnFocus]="false"
+              [showIcon]="true"
+              formControlName="startDate"
+            />
           </div>
           <div
             class="date-input-container px-3 py-1 rounded-pill d-flex align-items-center justify-content-start gap-2"
           >
             <p class="text-muted">To</p>
-            <p-calendar formControlName="endDate" />
+            <p-calendar
+              [showOnFocus]="false"
+              [showIcon]="true"
+              formControlName="endDate"
+            />
           </div>
           <div class="form-btn-container">
             <button
@@ -384,7 +406,7 @@
             >
               <p class="define-text px-3 m-0 py-0">From</p>
               <p class="location p-2 rounded-4">
-                {{ tripData.fromLocationName }}
+                {{ tripData.request.fromLocationName }}
               </p>
             </div>
             <div
@@ -392,7 +414,46 @@
             >
               <p class="define-text px-3 m-0 py-0">To</p>
               <p class="location p-2 rounded-4">
-                {{ tripData.toLocationName }}
+                {{ tripData.request.toLocationName }}
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="ps-3 d-flex align-items-center justify-content-start gap-2"
+          >
+            <img
+              [src]="
+                tripData?.request?.customer?.picture
+                  ? imgUrl + tripData.request.customer.picture
+                  : '../../../assets/unknown.png'
+              "
+              alt=""
+              height="40"
+              width="40"
+            />
+            <div class="text-container text-start">
+              <h6 class="m-0 p-0">
+                {{
+                  tripData?.request.customer?.fullName
+                    ? tripData?.request.customer?.fullName
+                    : "-"
+                }}
+              </h6>
+              <p class="m-0 p-0">
+                {{
+                  tripData?.request.customer?.phoneNumber
+                    ? tripData?.request.customer?.phoneNumber
+                    : "-"
+                }}
+              </p>
+
+              <p class="m-0 p-0">
+                <p-rating
+                  [(ngModel)]="tripData.request.customerRate"
+                  [cancel]="false"
+                  [readonly]="true"
+                />
               </p>
             </div>
           </div>
@@ -418,7 +479,7 @@
             >
               <p class="m-0 p-0">Distance</p>
               <p class="m-0 p-0">
-                {{ tripData.tripDistance / 1000 + " KM" }}
+                {{ tripData.request.tripDistance / 1000 + " KM" }}
               </p>
             </div>
             <div
@@ -426,15 +487,51 @@
             >
               <p class="m-0 p-0">Time</p>
               <p class="m-0 p-0">
-                {{ tripData.tripTime }}
+                {{ getTripTimeFormate(tripData.request.tripTime) }}
               </p>
             </div>
             <div
               class="trip-content-data pricing-container d-flex align-items-center justify-content-between px-3 w-100"
             >
+              <p class="m-0 p-0">Distance price</p>
+              <p class="m-0 p-0">
+                {{ tripData.request.paymentDetails.distancePrice }}
+              </p>
+            </div>
+
+            <div
+              class="trip-content-data pricing-container d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Gates count</p>
+              <p class="m-0 p-0">
+                {{ tripData.request.paymentDetails.gatesCount }}
+              </p>
+            </div>
+
+            <div
+              class="trip-content-data pricing-container d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Gates fees</p>
+              <p class="m-0 p-0">
+                {{ tripData.request.paymentDetails.gatesFees }}
+              </p>
+            </div>
+
+            <div
+              class="trip-content-data pricing-container d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Tax</p>
+              <p class="m-0 p-0">
+                {{ tripData.request.paymentDetails.tax }}
+              </p>
+            </div>
+
+            <div
+              class="trip-content-data pricing-container d-flex align-items-center justify-content-between px-3 w-100"
+            >
               <p class="m-0 p-0">Fine</p>
               <p class="m-0 p-0">
-                {{ tripData.finePrice }}
+                {{ tripData.request.paymentDetails.negativeCredit }}
               </p>
             </div>
 
@@ -443,15 +540,7 @@
             >
               <p class="m-0 p-0">Price</p>
               <p class="m-0 p-0">
-                {{ tripData.price }}
-              </p>
-            </div>
-            <div
-              class="trip-content-data d-flex align-items-center justify-content-between px-3 w-100"
-            >
-              <p class="m-0 p-0">Total</p>
-              <p class="m-0 p-0">
-                {{ tripData.price + tripData.finePrice }}
+                {{ tripData.request.paymentDetails.totalPrice }}
               </p>
             </div>
           </div>

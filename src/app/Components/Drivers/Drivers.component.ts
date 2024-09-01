@@ -17,6 +17,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { RatingModule } from 'primeng/rating';
+
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { passwordMatchValidator } from '../classes/password-match.validators';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
@@ -36,6 +38,7 @@ import { CalendarModule } from 'primeng/calendar';
     CalendarModule,
     FormsModule,
     ReactiveFormsModule,
+    RatingModule,
   ],
   templateUrl: './Drivers.component.html',
   styleUrls: ['./Drivers.component.scss'],
@@ -162,6 +165,7 @@ export class DriversComponent implements OnInit {
     this.isLoading = true;
     this.driversService.getAllNationalities().subscribe({
       next: (res: any) => {
+        debugger;
         this.nationalities = res;
         this.isLoading = false;
       },
@@ -174,6 +178,7 @@ export class DriversComponent implements OnInit {
   closeModal() {
     this.modalService.dismissAll();
     this.tripDataToDisplay.set([]);
+    this.dateRangeForm.reset();
   }
 
   addDrivers() {
@@ -228,26 +233,57 @@ export class DriversComponent implements OnInit {
       )
       .subscribe({
         next: (res: any) => {
+          debugger;
+          console.log(res.data.requestRoutes);
           this.tripDataToDisplay.set(
-            (res.data.requestRoutes as IRequestRoutes[]).map(
+            (res.data.requestRoutes as any[]).map(
               ({
-                toLocationName,
-                fromLocationName,
-                createdAt,
-                acceptanceDateTime,
-                price,
-                tripDistance,
-                tripTime,
-                finePrice,
+                request: {
+                  toLocationName,
+                  fromLocationName,
+                  createdAt,
+                  acceptanceDateTime,
+                  price,
+                  tripDistance,
+                  customerRate,
+                  tripTime,
+                  finePrice,
+                  paymentDetails: {
+                    distancePrice,
+                    gatesCount,
+                    gatesFees,
+                    tax,
+                    totalPrice,
+                    negativeCredit,
+                  },
+                  customer: { fullName, phoneNumber, genderId, picture },
+                },
               }) => ({
-                toLocationName,
-                fromLocationName,
-                createdAt,
-                acceptanceDateTime,
-                price,
-                finePrice,
-                tripDistance,
-                tripTime,
+                request: {
+                  toLocationName,
+                  fromLocationName,
+                  createdAt,
+                  acceptanceDateTime,
+                  price,
+                  finePrice,
+                  tripDistance,
+                  customerRate,
+                  tripTime,
+                  paymentDetails: {
+                    distancePrice,
+                    gatesCount,
+                    gatesFees,
+                    tax,
+                    totalPrice,
+                    negativeCredit,
+                  },
+                  customer: {
+                    fullName,
+                    phoneNumber,
+                    genderId,
+                    picture,
+                  },
+                },
               })
             )
           );
@@ -262,6 +298,18 @@ export class DriversComponent implements OnInit {
 
   get getTripDataToDisplay() {
     return this.tripDataToDisplay();
+  }
+
+  getTripTimeFormate(tripTime: number): string {
+    if (tripTime < 60) {
+      return `${tripTime} Min`;
+    } else if (tripTime % 60 === 0) {
+      return `${tripTime / 60} Hr`;
+    } else {
+      const hours = Math.floor(tripTime / 60);
+      const minutes = tripTime % 60;
+      return `${hours} Hr  ${minutes} Min`;
+    }
   }
 
   getFullImageUrl(): string {
