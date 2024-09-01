@@ -138,15 +138,24 @@
   <div class="modal-body">
     <form [formGroup]="addUserForm">
       <div class="row">
-        <div class="col-md-4">
-          <label> Email or Username </label>
+        <div class="col-md-4 mb-3">
+          <label> Username </label>
+          <input
+            class="form-group form-control"
+            type="text"
+            formControlName="username"
+          />
+        </div>
+        <div class="col-md-4 mb-3">
+          <label> Email </label>
           <input
             class="form-group form-control"
             type="text"
             formControlName="email"
           />
         </div>
-        <div class="col-md-4">
+
+        <div class="col-md-4 mb-3">
           <label> Fullname </label>
           <input
             class="form-group form-control"
@@ -154,7 +163,7 @@
             formControlName="fullName"
           />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
           <label> Phone </label>
           <input
             class="form-group form-control"
@@ -162,7 +171,7 @@
             formControlName="phoneNumber"
           />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
           <label> Gender </label>
           <select formControlName="genderId" class="form-select form-control">
             <option [value]="1">Male</option>
@@ -170,7 +179,7 @@
           </select>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
           <label> Nationality </label>
           <select
             formControlName="nationalityId"
@@ -187,7 +196,7 @@
           </select>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
           <label> Password </label>
 
           <input
@@ -197,7 +206,7 @@
           />
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
           <label> Confirm password </label>
 
           <input
@@ -216,7 +225,7 @@
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
           <label> Birth date </label>
           <input class="form-control" type="date" formControlName="birthDate" />
         </div>

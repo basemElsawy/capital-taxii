@@ -84,6 +84,7 @@ export class DriversComponent implements OnInit {
     this.addUserForm = this.fb.group(
       {
         email: [null, Validators.required],
+        username: [null, Validators.required],
         fullName: [null, Validators.required],
         phoneNumber: [null, Validators.required],
         genderId: [null, Validators.required],
