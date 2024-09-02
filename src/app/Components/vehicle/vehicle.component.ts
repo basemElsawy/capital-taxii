@@ -130,7 +130,9 @@ export class VehicleComponent {
     this.vehilcesService.getAllDrivers().subscribe({
       next: (res: any) => {
         this.isLoading = false;
-        this.Drivers = res.items;
+        this.Drivers = res.items.filter((driver: any) => {
+          return driver.user !== null;
+        });
       },
       error: (error: any) => {
         this.isLoading = false;
