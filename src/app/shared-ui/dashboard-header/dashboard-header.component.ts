@@ -31,4 +31,5 @@ export class DashboardHeaderComponent implements OnInit {
   doLogOut() {
     this.authService.makeLogout();
   }
+  
 }

@@ -28,13 +28,15 @@
             <input type="checkbox" (change)="checkboxEvent($event)" />
           </th>
           <th style="text-align: left; padding-left: 0px">driver</th>
-          <th style="text-align: left; padding-left: 0px">User</th>
-          <th>Car type</th>
+          <th style="width: 150px; text-align: left; padding-left: 0">
+            Vehicle
+          </th>
+          <th style="text-align: left; padding-left: 0px">Client</th>
           <th>Ordered date</th>
           <th>Start Location</th>
 
           <th>Finish Location</th>
-          <th>Total amount</th>
+          <th style="width: 150px">Total amount</th>
           <th class="second-heading">Status</th>
         </tr>
       </thead>
@@ -67,6 +69,22 @@
               </div>
             </div>
           </td>
+          <td>
+            <div class="d-flex align-items-center justify-content-start gap-2">
+              <div class="vehicle-image">
+                <img [src]="imageUrl + driver.currentVehicle?.photo" alt="" />
+              </div>
+              <div>
+                <p>
+                  {{
+                    driver?.currentVehicle?.vehicleName
+                      ? driver?.currentVehicle?.vehicleName
+                      : "-"
+                  }}
+                </p>
+              </div>
+            </div>
+          </td>
           <td class="person-info">
             <div class="d-flex align-items-center justify-content-start gap-2">
               <img
@@ -85,34 +103,29 @@
               </div>
             </div>
           </td>
-          <td>
-            <div class="d-flex align-items-center justify-content-center gap-2">
-              <div class="vehicle-image">
-                <img [src]="imageUrl + driver.currentVehicle?.photo" alt="" />
-              </div>
-              <div>
-                <p>
-                  {{
-                    driver?.currentVehicle?.vehicleName
-                      ? driver?.currentVehicle?.vehicleName
-                      : "-"
-                  }}
-                </p>
-              </div>
-            </div>
+
+          <td>{{ driver?.driver?.createdAt }}</td>
+          <td style="width: 200px" class="text-center ps-1">
+            {{
+              driver?.requestRoute?.fromLocationName
+                ? driver?.requestRoute?.fromLocationName
+                : "--"
+            }}
           </td>
-          <td>{{ driver?.driver?.createdAt | date : "dd-MM-yyyy" }}</td>
-          <td style="width: 200px" class="text-start ps-1">
-            {{ driver?.requestRoute?.fromLocationName }}
-          </td>
-          <td style="width: 200px" class="text-start ps-3">
-            {{ driver?.requestRoute?.toLocationName }}
+          <td style="width: 200px" class="text-center ps-3">
+            {{
+              driver?.requestRoute?.toLocationName
+                ? driver?.requestRoute?.toLocationName
+                : "--"
+            }}
           </td>
           <td>
             <div class="income-styling px-3 w-75 m-auto py-2 rounded-4">
               <div>
                 {{
-                  driver?.requestRoute.price ? driver?.requestRoute.price : "-"
+                  driver?.requestRoute?.price
+                    ? driver?.requestRoute?.price
+                    : "-"
                 }}
                 EGP
               </div>
