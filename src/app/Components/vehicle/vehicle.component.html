@@ -553,9 +553,9 @@
         <div class="col-md-4">
           <label>Driver</label>
           <select class="form-select form-group" formControlName="driverId">
-            @for(driver of Drivers; track driver) {
-            <option [value]="driver.id">
-              {{ driver.user.fullName }}
+            @for(driver of Drivers; track driver.id) {
+            <option [value]="driver?.id">
+              {{ driver?.user?.fullName }}
             </option>
             }
           </select>
