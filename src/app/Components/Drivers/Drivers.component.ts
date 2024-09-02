@@ -233,8 +233,6 @@ export class DriversComponent implements OnInit {
       )
       .subscribe({
         next: (res: any) => {
-          debugger;
-          console.log(res.data.requestRoutes);
           this.tripDataToDisplay.set(
             (res.data.requestRoutes as any[]).map(
               ({
