@@ -125,14 +125,14 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllDrivers(): void {
-    this.setIsLoading = true;
+    this.setIsLoading.set(true);
     this.dashboardService.getAllDrivers(1, 10).subscribe({
       next: (drivers: any) => {
-        this.setIsLoading = false;
+        this.setIsLoading.set(false);
         this.allDrivers = drivers.items;
       },
       error: (error) => {
-        this.setIsLoading = false;
+        this.setIsLoading.set(false);
         console.log(error);
       },
     });
