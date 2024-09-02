@@ -14,10 +14,19 @@ import { passwordMatchValidator } from '../classes/password-match.validators';
 import { environment } from '../../../environments/environment.development';
 import { IDrivers } from '../Drivers/IDrivers';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../../Core/interfaces/user.model';
+import { RatingModule } from 'primeng/rating';
+import { CalendarModule } from 'primeng/calendar';
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RatingModule,
+    CalendarModule,
+  ],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
@@ -45,6 +54,7 @@ export class UsersComponent implements OnInit {
       toDateRange: new FormControl('', Validators.required),
     });
   }
+
   initialiseAddUserForm() {
     this.addUserForm = this.fb.group(
       {
@@ -100,6 +110,7 @@ export class UsersComponent implements OnInit {
       },
     });
   }
+
   // sendDateRange() {
   //   let requestBody = {
   //     id: this.singleCredit.userId,

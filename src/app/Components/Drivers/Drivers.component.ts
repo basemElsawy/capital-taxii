@@ -32,7 +32,6 @@ import { CalendarModule } from 'primeng/calendar';
   imports: [
     NgbPaginationModule,
     CommonModule,
-    ReactiveFormsModule,
     FormsModule,
     SpinnerComponent,
     CalendarModule,

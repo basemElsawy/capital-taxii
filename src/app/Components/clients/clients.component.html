@@ -17,7 +17,8 @@
         <th>Gender</th>
         <th>BirthDay</th>
         <th>Credit</th>
-        <th class="second-heading">Credit details</th>
+        <th>Credit details</th>
+        <th class="second-heading">Options</th>
       </tr>
     </thead>
     <tbody>
@@ -55,6 +56,18 @@
           >
             <button class="btn" (click)="openAddModal(tripData, client?.id)">
               Credit details
+            </button>
+          </div>
+        </td>
+        <td>
+          <div
+            class="route-details rounded-4 d-flex align-items-center justify-content-center"
+          >
+            <button
+              class="btn"
+              (click)="openTripsModal(clientTripData, client)"
+            >
+              All Trips
             </button>
           </div>
         </td>
@@ -147,6 +160,291 @@
       <div class="modal-sectionBody-content"></div>
       }
     </div> -->
+    <div class="section-footer"></div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+<ng-template #clientTripData let-modal>
+  <div class="modal-header">
+    <h6>Showing All Clients Trips</h6>
+  </div>
+
+  <div
+    class="modal-body d-flex align-items-center justify-content-center flex-column gap-3"
+  >
+    <div
+      class="modal-header-wrapper w-100 d-flex align-items-start justify-content-center gap-3 flex-column"
+    >
+      <div class="section-header w-100 p-2 shadow-sm rounded-5 pe-5">
+        <div class="d-flex align-items-center justify-content-between gap-3">
+          <div class="d-flex align-items-center justify-content-start gap-3">
+            <div class="driver-image-container">
+              <img
+                [src]="
+                  singleClient.picture
+                    ? imgUrl + singleClient.picture
+                    : '../../../assets/unknown.png'
+                "
+                alt=""
+              />
+            </div>
+            <div
+              class="driver-name-container d-flex align-items-start justify-content-center flex-column"
+            >
+              <h6 class="m-0 p-0 text-primary fw-bold">
+                {{ singleClient.fullName }}
+              </h6>
+              <p class="m-0 p-0 text-muted">
+                {{ singleClient.phoneNumber }}
+              </p>
+            </div>
+          </div>
+          <div
+            class="driver-name-container d-flex align-items-start justify-content-center flex-column"
+          >
+            <h6 class="m-0 p-0 text-primary fw-bold">Email</h6>
+            <p class="m-0 p-0 text-muted">
+              {{ singleClient.email }}
+            </p>
+          </div>
+          <div
+            class="driver-name-container d-flex align-items-start justify-content-center flex-column"
+          >
+            <h6 class="m-0 p-0 text-primary fw-bold">Gender</h6>
+            <p class="m-0 p-0 text-muted">
+              {{ singleClient.gender?.nameEn }}
+            </p>
+          </div>
+          <!-- <div
+            class="driver-name-container d-flex align-items-start justify-content-center flex-column"
+          >
+            <h6 class="m-0 p-0 text-primary fw-bold">Car Comfort</h6>
+            <p class="m-0 p-0 text-muted">
+              {{
+                singleUser.vehicle?.vehicleName
+                  ? singleUser.vehicle?.vehicleName
+                  : "Not Assigned"
+              }}
+            </p>
+          </div> -->
+          <!-- <div
+            class="driver-name-container d-flex align-items-start justify-content-center flex-column"
+          >
+            <h6 class="m-0 p-0 text-primary fw-bold">Status</h6>
+            <div class="income-styling-single rounded-4">
+              <p>
+                {{ singleUser.status ? "available" : "N/A" }}
+              </p>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <div
+        class="date-form-container rounded-pill shadow-sm bg-white px-3 py-2"
+      >
+        <form
+          [formGroup]="dateRangeForm"
+          class="form-wrapper d-flex align-items-center justify-content-start gap-2"
+        >
+          <div
+            class="date-input-container px-3 py-1 rounded-pill d-flex align-items-center justify-content-start gap-2"
+          >
+            <p class="text-muted">From</p>
+            <p-calendar
+              [showOnFocus]="false"
+              [showIcon]="true"
+              formControlName="startDate"
+            />
+          </div>
+          <div
+            class="date-input-container px-3 py-1 rounded-pill d-flex align-items-center justify-content-start gap-2"
+          >
+            <p class="text-muted">To</p>
+            <p-calendar
+              [showOnFocus]="false"
+              [showIcon]="true"
+              formControlName="endDate"
+            />
+          </div>
+          <div class="form-btn-container">
+            <button
+              (click)="sendDateRange()"
+              class="btn btn-primary rounded-pill px-3 py-1 fs-6"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="section-body w-100">
+      @if(!getTripDataToDisplay.length){
+      <div class="empty-message shadow-sm p-5 w-100 rounded-5 text-center">
+        {{
+          !tripDataToDisplay().length
+            ? "Choose a date range to show trips"
+            : "No Data Found to Display"
+        }}
+      </div>
+
+      }@else {
+      <div class="modal-sectionBody-content gap-3 px-2 py-3">
+        @for( tripData of getTripDataToDisplay; track tripData ) {
+        <div class="trip-content shadow-sm rounded-3 p-2 w-100">
+          <div
+            class="trip-content-header w-100 d-flex align-items-start justtify-content-center gap-2"
+          >
+            <div
+              class="destination-container d-flex align-items-start flex-column justify-content-center"
+            >
+              <p class="define-text px-3 m-0 py-0">From</p>
+              <p class="location p-2 rounded-4">
+                {{ tripData.request.fromLocationName }}
+              </p>
+            </div>
+            <div
+              class="destination-container d-flex align-items-start flex-column justify-content-center"
+            >
+              <p class="define-text px-3 m-0 py-0">To</p>
+              <p class="location p-2 rounded-4">
+                {{ tripData.request.toLocationName }}
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="ps-3 d-flex align-items-center justify-content-start gap-2"
+          >
+            <img
+              [src]="
+                tripData?.request?.customer?.picture
+                  ? imgUrl + tripData.request.customer.picture
+                  : '../../../assets/unknown.png'
+              "
+              alt=""
+              height="40"
+              width="40"
+            />
+            <div class="text-container text-start">
+              <h6 class="m-0 p-0">
+                {{
+                  tripData?.request.customer?.fullName
+                    ? tripData?.request.customer?.fullName
+                    : "-"
+                }}
+              </h6>
+              <p class="m-0 p-0">
+                {{
+                  tripData?.request.customer?.phoneNumber
+                    ? tripData?.request.customer?.phoneNumber
+                    : "-"
+                }}
+              </p>
+
+              <p class="m-0 p-0">
+                <p-rating
+                  [(ngModel)]="tripData.request.customerRate"
+                  [cancel]="false"
+                  [readonly]="true"
+                />
+              </p>
+            </div>
+          </div>
+          <div
+            class="trip-content-body gap-2 py-2 d-flex align-items-center justify-content-center w-100 flex-column w-100"
+          >
+            <div
+              class="trip-content-data createdAt d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Trip Created At</p>
+              <p class="m-0 p-0">{{ dateFormatter(tripData.createdAt) }}</p>
+            </div>
+            <div
+              class="trip-content-data acceptanceDate d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Accepted At</p>
+              <p class="m-0 p-0">
+                {{ dateFormatter(tripData.acceptanceDateTime) }}
+              </p>
+            </div>
+            <div
+              class="trip-content-data d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Distance</p>
+              <p class="m-0 p-0">
+                {{ tripData.request.tripDistance / 1000 + " KM" }}
+              </p>
+            </div>
+            <div
+              class="trip-content-data d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Time</p>
+              <p class="m-0 p-0">
+                {{ getTripTimeFormate(tripData.request.tripTime) }}
+              </p>
+            </div>
+            <div
+              class="trip-content-data pricing-container d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Distance price</p>
+              <p class="m-0 p-0">
+                {{ tripData.request.paymentDetails.distancePrice }}
+              </p>
+            </div>
+
+            <div
+              class="trip-content-data pricing-container d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Gates count</p>
+              <p class="m-0 p-0">
+                {{ tripData.request.paymentDetails.gatesCount }}
+              </p>
+            </div>
+
+            <div
+              class="trip-content-data pricing-container d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Gates fees</p>
+              <p class="m-0 p-0">
+                {{ tripData.request.paymentDetails.gatesFees }}
+              </p>
+            </div>
+
+            <div
+              class="trip-content-data pricing-container d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Tax</p>
+              <p class="m-0 p-0">
+                {{ tripData.request.paymentDetails.tax }}
+              </p>
+            </div>
+
+            <div
+              class="trip-content-data pricing-container d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Fine</p>
+              <p class="m-0 p-0">
+                {{ tripData.request.paymentDetails.negativeCredit }}
+              </p>
+            </div>
+
+            <div
+              class="trip-content-data d-flex align-items-center justify-content-between px-3 w-100"
+            >
+              <p class="m-0 p-0">Price</p>
+              <p class="m-0 p-0">
+                {{ tripData.request.paymentDetails.totalPrice }}
+              </p>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+      }
+    </div>
     <div class="section-footer"></div>
   </div>
 
