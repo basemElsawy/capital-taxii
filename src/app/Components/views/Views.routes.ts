@@ -8,8 +8,8 @@ import { VehicleComponent } from '../vehicle/vehicle.component';
 import { SettingsComponent } from '../settings/settings.component';
 import { authguardGuard } from '../guard-interceptor/auth.guard';
 import { ClientsComponent } from '../clients/clients.component';
-import { StationsComponent } from '../StationsComponent/stations.component';
-import { StationsPricesComponent } from '../StationsComponent - Copy/stations-prices.component';
+import { StationsPricesComponent } from '../stations-prices/stations-prices.component';
+import { StationsComponent } from '../stations/stations.component';
 export const routes: Routes = [
   {
     path: '',
