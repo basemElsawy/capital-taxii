@@ -239,6 +239,26 @@
         </li>
         <li
           class="list-item"
+          [routerLink]="['/home', 'stations']"
+          routerLinkActive="active-item"
+        >
+          <div class="d-flex align-items-center justify-content-start gap-2">
+            <i class="fa-solid fa-building"></i>
+            <p>Stations</p>
+          </div>
+        </li>
+        <li
+          class="list-item"
+          [routerLink]="['/home', 'stationsPrices']"
+          routerLinkActive="active-item"
+        >
+          <div class="d-flex align-items-center justify-content-start gap-2">
+            <i class="fa-solid fa-money-check-dollar"></i>
+            <p>Stations prices</p>
+          </div>
+        </li>
+        <li
+          class="list-item"
           [routerLink]="['/home', 'settings']"
           routerLinkActive="active-item"
         >

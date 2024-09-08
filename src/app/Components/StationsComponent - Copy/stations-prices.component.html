@@ -1,0 +1,168 @@
+<section class="vehicles-section">
+  <div
+    class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative d-flex flex-column align-items-center justify-content-between"
+  >
+    <div
+      class="w-100 p-2 my-2 d-flex align-items-start flex-column justify-content-start gap-2"
+    >
+      <button
+        (click)="openAddModal(content)"
+        class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
+      >
+        <span> Add New </span>
+
+        <i class="fa-solid fa-plus"></i>
+      </button>
+      <table class="w-100 table-content position-relative">
+        <thead class="w-100">
+          <tr class="py-2 px-4 w-100">
+            <th class="first-heading">
+              <input type="checkbox" (change)="checkboxEvent($event)" />
+            </th>
+            <th>From Station</th>
+            <th>To Station</th>
+            <th>Price</th>
+            <th class="second-heading me-4">Options</th>
+          </tr>
+        </thead>
+        @if(isLoading){
+        <app-spinner></app-spinner>
+        } @else {
+        <tbody class="w-100">
+          @for(station of stationsPrices; track station) {
+          <tr class="w-100">
+            <td>
+              <input type="checkbox" [checked]="station.isChecked" />
+            </td>
+
+            <td>{{ station.fromStation }}</td>
+            <td>{{ station.toStation }}</td>
+            <td>{{ station.price }}</td>
+
+            <td class="d-flex align-items-start justify-content-center">
+              <button
+                pTooltip="Update station prices"
+                tooltipPosition="top"
+                tooltipClass="custom-tooltip"
+                (click)="openUpdateStationPriceModal(content1, station)"
+                class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+              >
+                <!-- <span> Update vehicle </span> -->
+
+                <i class="fas fa-edit"></i>
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+        }
+      </table>
+    </div>
+  </div>
+</section>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4>Add new station price</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="addStationPriceForm" class="">
+      <div class="form-wrapper">
+        <div class="col-md-4">
+          <label> From Station </label>
+          <select
+            formControlName="fromStationId"
+            class="form-control form-select form-group"
+          >
+            @for(station of stations; track station){
+            <option [value]="station.id">
+              {{ station.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label> To Station </label>
+          <select
+            formControlName="toStationId"
+            class="form-control form-select form-group"
+          >
+            @for(station of stations; track station){
+            <option [value]="station.id">
+              {{ station.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> Price </label>
+          <input
+            class="number"
+            class="form-group form-control"
+            formControlName="price"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="addStationPrice()">Save</button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+<!-- update vehicle -->
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4>Update station price</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="updateStationPriceForm" class="">
+      <div class="form-wrapper">
+        <div class="col-md-4">
+          <label> From Station </label>
+          <select
+            formControlName="fromStationId"
+            class="form-control form-select form-group"
+          >
+            @for(station of stations; track station){
+            <option [value]="station.id">
+              {{ station.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label> To Station </label>
+          <select
+            formControlName="toStationId"
+            class="form-control form-select form-group"
+          >
+            @for(station of stations; track station){
+            <option [value]="station.id">
+              {{ station.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label> Price </label>
+          <input
+            class="number"
+            class="form-group form-control"
+            formControlName="price"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="updateStationPrice()">Save</button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>

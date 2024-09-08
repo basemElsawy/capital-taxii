@@ -8,6 +8,8 @@ import { VehicleComponent } from '../vehicle/vehicle.component';
 import { SettingsComponent } from '../settings/settings.component';
 import { authguardGuard } from '../guard-interceptor/auth.guard';
 import { ClientsComponent } from '../clients/clients.component';
+import { StationsComponent } from '../StationsComponent/stations.component';
+import { StationsPricesComponent } from '../StationsComponent - Copy/stations-prices.component';
 export const routes: Routes = [
   {
     path: '',
@@ -38,6 +40,14 @@ export const routes: Routes = [
       {
         path: 'vehicle',
         component: VehicleComponent,
+      },
+      {
+        path: 'stations',
+        component: StationsComponent,
+      },
+      {
+        path: 'stationsPrices',
+        component: StationsPricesComponent,
       },
       {
         path: 'settings',

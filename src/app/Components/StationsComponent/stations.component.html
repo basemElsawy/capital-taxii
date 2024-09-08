@@ -1,0 +1,169 @@
+<section class="vehicles-section">
+  <div
+    class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative d-flex flex-column align-items-center justify-content-between"
+  >
+    <div
+      class="w-100 p-2 my-2 d-flex align-items-start flex-column justify-content-start gap-2"
+    >
+      <button
+        (click)="openAddModal(content)"
+        class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
+      >
+        <span> Add New </span>
+
+        <i class="fa-solid fa-plus"></i>
+      </button>
+      <table class="w-100 table-content position-relative">
+        <thead class="w-100">
+          <tr class="py-2 px-4 w-100">
+            <th class="first-heading">
+              <input type="checkbox" (change)="checkboxEvent($event)" />
+            </th>
+            <th>Station Name En</th>
+            <th>Station Name Ar</th>
+            <th>Location Latitude</th>
+            <th>Location Longitude</th>
+            <th class="second-heading me-4">Options</th>
+          </tr>
+        </thead>
+        @if(isLoading){
+        <app-spinner></app-spinner>
+        } @else {
+        <tbody class="w-100">
+          @for(station of stations; track station) {
+          <tr class="w-100">
+            <td>
+              <input type="checkbox" [checked]="station.isChecked" />
+            </td>
+
+            <td>{{ station.nameEn }}</td>
+            <td>{{ station.nameAr }}</td>
+
+            <td>{{ station.locationLatitude }}</td>
+            <td style="width: 200px" class="text-center">
+              {{ station.locationLongitude }}
+            </td>
+            <td class="d-flex align-items-start justify-content-center">
+              <button
+                pTooltip="Update station"
+                tooltipPosition="top"
+                tooltipClass="custom-tooltip"
+                (click)="openUpdateStationModal(content1, station)"
+                class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+              >
+                <!-- <span> Update vehicle </span> -->
+
+                <i class="fas fa-edit"></i>
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+        }
+      </table>
+    </div>
+  </div>
+</section>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4>Add new station</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="addStationForm" class="">
+      <div class="form-wrapper">
+        <div class="col-md-4">
+          <label> Station Name Ar </label>
+          <input
+            class="text"
+            class="form-group form-control"
+            formControlName="nameAr"
+          />
+        </div>
+        <div class="col-md-4">
+          <label> Station Name En</label>
+          <input
+            class="text"
+            class="form-group form-control"
+            formControlName="nameEn"
+          />
+        </div>
+        <div class="col-md-4">
+          <label> Location Latitude </label>
+          <input
+            class="text"
+            class="form-group form-control"
+            formControlName="locationLatitude"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label>Location Longitude</label>
+          <input
+            class="text"
+            class="form-group form-control"
+            formControlName="locationLongitude"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="addStation()">Save</button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+<!-- update vehicle -->
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4>Update station</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="updateStationForm" class="">
+      <div class="form-wrapper">
+        <div class="col-md-4">
+          <label> Station Name Ar </label>
+          <input
+            class="text"
+            class="form-group form-control"
+            formControlName="nameAr"
+          />
+        </div>
+        <div class="col-md-4">
+          <label> Station Name En</label>
+          <input
+            class="text"
+            class="form-group form-control"
+            formControlName="nameEn"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label> Location Latitude </label>
+          <input
+            class="text"
+            class="form-group form-control"
+            formControlName="locationLatitude"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label>Location Longitude</label>
+          <input
+            class="text"
+            class="form-group form-control"
+            formControlName="locationLongitude"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="updateStation()">Save</button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
