@@ -231,8 +231,38 @@
       </div>
     </div>
   </div>
+  <div class="table-container w-100">
+    @if( choosenCardData().length ) {
+
+    <dashboard-shared-table [tableRow]="choosenCardData()">
+    </dashboard-shared-table>
+
+    }@else{
+
+    <div
+      class="table-empty-container h-100 d-flex align-items-center justify-content-center"
+    >
+      <div class="d-flex justify-content-center align-items-center flex-column">
+        <div class="position-relative">
+          <div class="small-lines position-absolute">
+            <div class="line top-line position-absolute"></div>
+            <div class="line big-line mid-line position-absolute"></div>
+            <div class="line bottom-line position-absolute"></div>
+          </div>
+          <div
+            class="icon-shape d-flex justify-content-start position-relative align-items-center rounded-1 overflow-hidden my-2"
+          >
+            <div class="icon-bar"></div>
+          </div>
+        </div>
+        <div>Choose a table to show</div>
+      </div>
+    </div>
+    }
+  </div>
+
   <!-- here is the table for new requests-->
-  @if(IsNewRequests) { @if(newRequestDetails.length){
+  <!-- @if(IsNewRequests) { @if(newRequestDetails.length){
   <div class="w-100">
     <app-new-trips [newTrips]="newRequestDetails"></app-new-trips>
   </div>
@@ -240,10 +270,10 @@
   <div class="alert alert-info">
     <p class="text-center fw-bold">There is no new requests</p>
   </div>
-  } }
+  } } -->
 
   <!-- here is the table for confirmed requests-->
-  @if (IsConfirmedRequests){ @if(confirmedRequestDetails.length) {
+  <!-- @if (IsConfirmedRequests){ @if(confirmedRequestDetails.length) {
   <div class="w-100">
     <app-confirmed-trips
       [confirmedTripsDetails]="confirmedRequestDetails"
@@ -253,10 +283,10 @@
   <div class="alert alert-info">
     <p class="text-center fw-bold">There is no confirmed requests</p>
   </div>
-  } }
+  } } -->
 
   <!-- here is the table for cancled requests-->
-  @if (IsCancledRequests){ @if(cancledRequestDetails.length){
+  <!-- @if (IsCancledRequests){ @if(cancledRequestDetails.length){
   <div class="w-100">
     <app-cancled-trips
       [cancledTrips]="cancledRequestDetails"
@@ -267,10 +297,11 @@
   <div class="alert alert-info">
     <p class="text-center fw-bold">There is no cancled requests</p>
   </div>
-  } }
+  } } -->
 
   <!-- here is the table for arrived requests-->
-  @if(IsArrivedRequests) { @if(arrivedRequestDetails.length) {
+  <!-- @if(IsArrivedRequests) {
+    @if(arrivedRequestDetails.length) {
   <div class="w-100">
     <app-arrived-trips
       [arrivedTripDetails]="arrivedRequestDetails"
@@ -290,6 +321,6 @@
   <div class="alert alert-info">
     <p class="text-center fw-bold">There is no inprogress trips requests</p>
   </div>
-  } }
+  } } -->
 </div>
 }

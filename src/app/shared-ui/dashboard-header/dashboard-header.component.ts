@@ -1,18 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../Core/auth/services/auth.service';
 import { User } from '../../Core/interfaces/user.model';
+import { CommonModule } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../../Core/Services/translation.service';
+import { LocaleSettings } from 'primeng/calendar';
 
 @Component({
   selector: 'app-dashboard-header',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './dashboard-header.component.html',
   styleUrl: './dashboard-header.component.scss',
 })
 export class DashboardHeaderComponent implements OnInit {
   userData!: User;
+  isLangOpen: boolean = false;
+  selectedLang!: string;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private translate: TranslateService,
+    private translationService: TranslationService
+  ) {
+    this.selectedLang = translate.currentLang as string;
+  }
+
   ngOnInit(): void {
     const userJson = localStorage.getItem('user');
     if (userJson) {
@@ -31,5 +44,16 @@ export class DashboardHeaderComponent implements OnInit {
   doLogOut() {
     this.authService.makeLogout();
   }
-  
+
+  changeLangHandler(event: any) {
+    debugger;
+    this.selectedLang = event.target.value;
+    console.log(this.selectedLang);
+    this.translationService.setLanguage(this.selectedLang);
+    this.translate.use(this.selectedLang);
+  }
+
+  openLangMenu() {
+    this.isLangOpen = !this.isLangOpen;
+  }
 }

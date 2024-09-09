@@ -1,15 +1,66 @@
 <section
+  [dir]="selectedLang == 'Ar' ? 'rtl' : 'ltr'"
   class="header-container d-flex align-items-center justify-content-between p-2"
 >
   <div
     class="d-header good-morning d-flex align-items-center justify-content-center gap-3"
   >
-    <i class="fa-solid fa-bars fs-5"></i>
-    <p class="m-0 fs-5">Welcome Mr {{ userData.fullName }}</p>
+    <div class="language-container position-relative">
+      <div class="position-relative px-2 py-2" (click)="openLangMenu()">
+        <i
+          class="fa-solid fa-bars fs-5 hamburger-icon"
+          [ngClass]="{ 'active-icon': !isLangOpen }"
+        ></i>
+        <i
+          class="fa-solid fa-close fs-5 hamburger-icon"
+          [ngClass]="{ 'active-icon': isLangOpen }"
+        ></i>
+      </div>
+      <div
+        class="language-choice-wrapper bg-white rounded-2 overflow-hidden position-absolute"
+      >
+        <div
+          class="overflow-container overflow-hidden w-100"
+          [ngClass]="{ 'lang-menu-active p-2': isLangOpen }"
+        >
+          <!-- [ngStyle.right]="" -->
+          <div
+            class="lang-buttons overflow-hidden d-flex align-items-center flex-column justify-content-between"
+          >
+            <button
+              (click)="changeLangHandler($event)"
+              class="lang-btn px-2 d-flex align-items-center justify-content-between btn py-1 w-100"
+              value="En"
+              [ngClass]="{ 'active-lang': selectedLang == 'En' }"
+            >
+              <div class="btn-image-container">
+                <img src="../../../assets/americanFlag.png" alt="" />
+              </div>
+              <span class=""> En </span>
+            </button>
+            <button
+              (click)="changeLangHandler($event)"
+              class="lang-btn px-2 d-flex align-items-center justify-content-between btn py-1 w-100"
+              value="Ar"
+              [ngClass]="{ 'active-lang': selectedLang == 'Ar' }"
+            >
+              <div class="btn-image-container">
+                <img src="../../../assets/Flag_of_Egypt.svg.png" alt="" />
+              </div>
+              <span class=""> Ar </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="m-0 fs-5">
+      {{ "dashboardHeader.welcomeText" | translate
+      }}{{ " " + userData.fullName }}
+    </p>
   </div>
   <div class="d-header logout">
     <button class="btn btn-danger px-4 text-white" (click)="doLogOut()">
-      Logout
+      {{ "dashboardHeader.headerButton" | translate }}
     </button>
   </div>
 </section>
