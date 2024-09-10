@@ -12,7 +12,7 @@ body {
 
 .side-nav {
   position: fixed;
-  left: 0;
+  // left: 0;
   top: 0;
   bottom: 0;
   width: 20%;
@@ -82,7 +82,7 @@ body {
 .active-item::before {
   top: auto;
   bottom: -50px;
-  border-radius: 0 50px 0 0;
+  border-radius: 0px 50px 0 0;
   box-shadow: 0px -25px 0 0 white;
 }
 .list-item p {
@@ -122,4 +122,25 @@ svg path {
 
 .active-item svg path {
   fill: $primary-color;
+}
+.list-container-ar {
+  padding: 0 !important;
+  .active-item {
+    border-radius: 0px 50px 50px 0px !important;
+  }
+  .active-item::before,
+  .active-item::after {
+    left: 0 !important;
+    right: unset;
+  }
+  .active-item::after {
+    border-radius: 0 0 0px 50px !important;
+  }
+  .active-item::before {
+    border-radius: 50px 0 0 0 !important;
+  }
+}
+.side-nav-ar {
+  padding-left: 0px !important ;
+  padding-right: 30px !important;
 }

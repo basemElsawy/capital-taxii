@@ -9,9 +9,7 @@ export class TranslationService {
   private language: Subject<string> = new Subject();
   languageChangeDetector: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private translate: TranslateService) {
-    this.setLanguage('Ar');
-  }
+  constructor(private translate: TranslateService) {}
 
   setLanguage(newLang: string) {
     localStorage.setItem('language', newLang);

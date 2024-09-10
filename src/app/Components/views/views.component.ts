@@ -4,11 +4,17 @@ import { DashboardHeaderComponent } from '../../shared-ui/dashboard-header/dashb
 import { RouterModule } from '@angular/router';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { TranslateService } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-views',
   standalone: true,
-  imports: [SideNavComponent, DashboardHeaderComponent, RouterModule],
+  imports: [
+    SideNavComponent,
+    DashboardHeaderComponent,
+    RouterModule,
+    CommonModule,
+  ],
   templateUrl: './views.component.html',
   styleUrl: './views.component.scss',
 })

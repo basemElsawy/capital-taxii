@@ -21,4 +21,7 @@ export class AppComponent {
     translation.use(startingLang);
     translationService.setLanguage('Ar');
   }
+  ngOnInit() {
+    this.translationService.setLanguage(this.translation.currentLang);
+  }
 }

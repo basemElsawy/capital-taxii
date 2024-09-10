@@ -4,21 +4,32 @@
 >
   <table class="w-100 table-content position-relative">
     <thead class="w-100">
-      <tr class="py-2 px-4 w-100">
-        <th class="first-heading">
+      <tr class="py-2 px-4 w-100" [ngClass]="{ 'ar-row': lang == 'Ar' }">
+        <th
+          class="first-heading"
+          [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
+        >
           <input type="checkbox" (change)="checkboxEvent($event)" />
         </th>
-        <th style="width: 150px; text-align: left; padding-left: 0px">
-          Clients
+        <th
+          style="width: 150px; padding-left: 0px"
+          [ngStyle]="{ 'text-align': lang == 'Ar' ? 'right' : 'left' }"
+        >
+          {{ "tables.clientsTable.client" | translate }}
         </th>
-        <th>E-mail or Username</th>
-        <th>Phone number</th>
+        <th>{{ "tables.clientsTable.emailOrUsername" | translate }}</th>
+        <th>{{ "tables.clientsTable.phoneNumber" | translate }}</th>
 
-        <th>Gender</th>
-        <th>BirthDay</th>
-        <th>Credit</th>
-        <th>Credit details</th>
-        <th class="second-heading">Options</th>
+        <th>{{ "tables.clientsTable.gender" | translate }}</th>
+        <th>{{ "tables.clientsTable.birthday" | translate }}</th>
+        <th>{{ "tables.clientsTable.credit" | translate }}</th>
+        <th>{{ "tables.clientsTable.creditDetails" | translate }}</th>
+        <th
+          class="second-heading"
+          [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
+        >
+          {{ "tables.clientsTable.options" | translate }}
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -67,7 +78,7 @@
               class="btn"
               (click)="openTripsModal(clientTripData, client)"
             >
-              All Trips
+              {{ "tables.clientsTable.tableMeta.optionsText" | translate }}
             </button>
           </div>
         </td>

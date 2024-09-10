@@ -45,10 +45,8 @@ export class DashboardHeaderComponent implements OnInit {
     this.authService.makeLogout();
   }
 
-  changeLangHandler(event: any) {
-    debugger;
-    this.selectedLang = event.target.value;
-    console.log(this.selectedLang);
+  changeLangHandler(lang: any) {
+    this.selectedLang = lang;
     this.translationService.setLanguage(this.selectedLang);
     this.translate.use(this.selectedLang);
   }

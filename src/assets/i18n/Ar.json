@@ -2,5 +2,49 @@
   "dashboardHeader": {
     "welcomeText": "مرحبا بك يا",
     "headerButton": "تسجيل خروج"
+  },
+
+  "sideNav": {
+    "mainMenu": "القائمة الرئيسية",
+    "headlineRole": "مدير النظام",
+    "listItems": {
+      "dashboard": "اللوحة الرئيسية",
+      "clients": "العملاء",
+      "drivers": "السائقين",
+      "users": "المستخدمين",
+      "liveMap": "الخريطة",
+      "vehicles": "العربات",
+      "stations": "المحطات",
+      "stationPrices": "تسعيرة المحطات",
+      "settings": "الاعدادات"
+    }
+  },
+  "tables": {
+    "clientsTable": {
+      "client": "العميل",
+      "emailOrUsername": "اسم المستخدم او البريد",
+      "phoneNumber": "رقم التليفون",
+      "gender": "النوع",
+      "birthday": "الميلاد",
+      "credit": "الأئتمان",
+      "creditDetails": "تفاصيل الكارت",
+      "options": "خيارات",
+      "tableMeta": {
+        "optionsText": "جميع الرحلات"
+      }
+    },
+    "driversTable": {
+      "user": "المستخدم",
+      "email": "البريد",
+      "driverLocation": "مكان السائق",
+      "phoneNumber": "رقم التليفون",
+      "gender": "النوع",
+      "options": "خيارات",
+      "carComfort": "نوعية السيارة",
+      "status": "الحالة",
+      "tableMeta": {
+        "optionsText": "جميع الرحلات"
+      }
+    }
   }
 }

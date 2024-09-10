@@ -2,5 +2,48 @@
   "dashboardHeader": {
     "welcomeText": "Welcome Mr",
     "headerButton": "logout"
+  },
+  "sideNav": {
+    "mainMenu": "Main Menu",
+    "headlineRole": "Admin",
+    "listItems": {
+      "dashboard": "Dashboard",
+      "clients": "Clients",
+      "drivers": "Drivers",
+      "users": "Users",
+      "liveMap": "Live Map",
+      "vehicles": "Vehicles",
+      "stations": "Stations",
+      "stationPrices": "Station Prices",
+      "settings": "Settings"
+    }
+  },
+  "tables": {
+    "clientsTable": {
+      "client": "clients",
+      "emailOrUsername": "E-mail or username",
+      "phoneNumber": "Phone number",
+      "gender": "Gender",
+      "birthday": "Birthday",
+      "credit": "Credit",
+      "creditDetails": "Credit Details",
+      "options": "Options",
+      "tableMeta": {
+        "optionsText": "All Trips"
+      }
+    },
+    "driversTable": {
+      "user": "User",
+      "email": "Email",
+      "driverLocation": "Driver Location",
+      "phoneNumber": "Phone number",
+      "gender": "Gender",
+      "options": "Status",
+      "carComfort": "Car Comfort",
+      "status": "Status",
+      "tableMeta": {
+        "optionsText": "All Trips"
+      }
+    }
   }
 }

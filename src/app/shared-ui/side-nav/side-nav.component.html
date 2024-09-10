@@ -1,17 +1,20 @@
-<section class="side-nav py-5">
+<section class="side-nav py-5" [ngClass]="{ 'side-nav-ar': lang == 'Ar' }">
   <div class="profile-image-container d-flex align-items-center gap-2 ms-2">
     <div class="profile-image">
       <img [src]="userImage" alt="Profile Picture" />
     </div>
     <div class="sidenav-headline">
       <h4 class="m-0">{{ userData.fullName }}</h4>
-      <p>Admin</p>
+      <p>{{ "sideNav.headlineRole" | translate }}</p>
     </div>
   </div>
   <div class="w-100">
-    <p class="mb-3 px-3 menu-header">Main Menu</p>
+    <p class="mb-3 px-3 menu-header">{{ "sideNav.mainMenu" | translate }}</p>
     <nav class="nav-wrapper">
-      <ul class="list-container">
+      <ul
+        class="list-container"
+        [ngClass]="{ 'list-container-ar': lang == 'Ar' }"
+      >
         <li
           class="list-item"
           [routerLink]="['/home', 'dashboard']"
@@ -30,7 +33,7 @@
                 fill="#0053C6"
               />
             </svg>
-            <p>Dashboard</p>
+            <p>{{ "sideNav.listItems.dashboard" | translate }}</p>
           </div>
         </li>
         <!-- <li class="list-item">
@@ -103,7 +106,7 @@
                 fill="white"
               />
             </svg>
-            <p>Clients</p>
+            <p>{{ "sideNav.listItems.clients" | translate }}</p>
           </div>
         </li>
         <li
@@ -138,7 +141,7 @@
                 fill="white"
               />
             </svg>
-            <p>Drivers</p>
+            <p>{{ "sideNav.listItems.drivers" | translate }}</p>
           </div>
         </li>
 
@@ -149,7 +152,7 @@
         >
           <div class="d-flex align-items-center justify-content-start gap-2">
             <i class="fa-solid fa-user me-1"></i>
-            <p>Users</p>
+            <p>{{ "sideNav.listItems.users" | translate }}</p>
           </div>
         </li>
 
@@ -183,7 +186,7 @@
                 </clipPath>
               </defs>
             </svg>
-            <p>Live Map</p>
+            <p>{{ "sideNav.listItems.liveMap" | translate }}</p>
           </div>
         </li>
         <!-- <li class="list-item">
@@ -234,7 +237,7 @@
         >
           <div class="d-flex align-items-center justify-content-start gap-2">
             <i class="fa-solid fa-car"></i>
-            <p>Vehicles</p>
+            <p>{{ "sideNav.listItems.vehicles" | translate }}</p>
           </div>
         </li>
         <li
@@ -244,7 +247,7 @@
         >
           <div class="d-flex align-items-center justify-content-start gap-2">
             <i class="fa-solid fa-building"></i>
-            <p>Stations</p>
+            <p>{{ "sideNav.listItems.stations" | translate }}</p>
           </div>
         </li>
         <li
@@ -254,7 +257,7 @@
         >
           <div class="d-flex align-items-center justify-content-start gap-2">
             <i class="fa-solid fa-money-check-dollar"></i>
-            <p>Stations prices</p>
+            <p>{{ "sideNav.listItems.stationPrices" | translate }}</p>
           </div>
         </li>
         <li
@@ -264,7 +267,7 @@
         >
           <div class="d-flex align-items-center justify-content-start gap-2">
             <i class="fa-solid fa-gear"></i>
-            <p>Settings</p>
+            <p>{{ "sideNav.listItems.settings" | translate }}</p>
           </div>
         </li>
       </ul>

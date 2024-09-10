@@ -15,6 +15,8 @@ import { environment } from '../../../environments/environment.development';
 import { ToastrService } from 'ngx-toastr';
 import { CalendarModule } from 'primeng/calendar';
 import { RatingModule } from 'primeng/rating';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../../Core/Services/translation.service';
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -24,6 +26,7 @@ import { RatingModule } from 'primeng/rating';
     CalendarModule,
     FormsModule,
     ReactiveFormsModule,
+    TranslateModule,
   ],
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss'],
@@ -33,6 +36,7 @@ export class ClientsComponent implements OnInit {
   nationalities: any[] = [];
   addUserForm!: FormGroup;
   singleClient: any;
+  lang!: string;
   public readonly imgUrl = environment.image;
   singleCredit!: any;
   dateRangeForm!: FormGroup;
@@ -42,13 +46,23 @@ export class ClientsComponent implements OnInit {
     private fb: FormBuilder,
     private clientsService: ClientsService,
     private modalService: NgbModal,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private translationService: TranslationService,
+    private translate: TranslateService
   ) {}
   ngOnInit() {
     this.getAllClients();
     this.dateFormInitializer();
+    this.languageSetter();
   }
-
+  languageSetter() {
+    if (!this.lang) {
+      this.lang = this.translate.currentLang;
+    }
+    this.translationService.getLanguage.subscribe((val: string) => {
+      this.lang = val;
+    });
+  }
   getAllClients(): void {
     this.clientsService.getAllClients().subscribe({
       next: (res: any) => {
