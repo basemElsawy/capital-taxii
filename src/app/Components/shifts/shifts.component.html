@@ -108,8 +108,8 @@
                       <div>
                         <p>
                           {{
-                            shift?.driver?.vehicle?.vehicleName
-                              ? shift?.driver?.vehicle?.vehicleName
+                            shift?.vehicle?.vehicleName
+                              ? shift?.vehicle?.vehicleName
                               : "-"
                           }}
                         </p>
@@ -118,7 +118,7 @@
                   </td>
 
                   <td>
-                    {{ shift?.driver?.createdAt | date : "dd-MM-yyyy h:mm" }}
+                    {{ shift?.shiftOpenDate | date : "dd-MM-yyyy h:mm" }}
                   </td>
                   <!-- <td>{{ shift?.driver?.createdAt }}</td> -->
 
@@ -231,16 +231,13 @@
                       class="d-flex align-items-center justify-content-start gap-2"
                     >
                       <div class="vehicle-image">
-                        <img
-                          [src]="imageUrl + shift.driver.vehicle?.photo"
-                          alt=""
-                        />
+                        <img [src]="imageUrl + shift.vehicle?.photo" alt="" />
                       </div>
                       <div>
                         <p>
                           {{
-                            shift?.driver?.vehicle?.vehicleName
-                              ? shift?.driver?.vehicle?.vehicleName
+                            shift?.vehicle?.vehicleName
+                              ? shift?.vehicle?.vehicleName
                               : "-"
                           }}
                         </p>
@@ -249,10 +246,10 @@
                   </td>
 
                   <td>
-                    {{ shift?.driver?.createdAt | date : "dd-MM-yyyy h:mm" }}
+                    {{ shift?.shiftOpenDate | date : "dd-MM-yyyy h:mm" }}
                   </td>
                   <td>
-                    {{ shift?.driver?.createdAt | date : "dd-MM-yyyy h:mm" }}
+                    {{ shift?.shiftCloseDate | date : "dd-MM-yyyy h:mm" }}
                   </td>
                   <!-- <td>{{ shift?.driver?.createdAt }}</td> -->
 
@@ -314,13 +311,13 @@
       <tr>
         <th>Shift open date</th>
         <td>
-          {{ singleShift?.driver?.createdAt | date : "dd-MM-yyyy h:mm" }}
+          {{ singleShift?.shiftOpenDate | date : "dd-MM-yyyy h:mm" }}
         </td>
       </tr>
       <tr>
         <th>Shift close date</th>
         <td>
-          {{ singleShift?.driver?.createdAt | date : "dd-MM-yyyy h:mm" }}
+          {{ singleShift?.shiftCloseDate | date : "dd-MM-yyyy h:mm" }}
 
           <!-- {{shiftDetails.shift_details[0].shift_id.shift_close_date | date:'HH:mm' }} -->
         </td>
@@ -335,28 +332,25 @@
         <th>Vehicle Name</th>
         <th>Model</th>
         <th>Vehicle Type</th>
-        <th>Fuel Type</th>
+        <!-- <th>Fuel Type</th>
         <th>Vehicle Ownership</th>
         <th>Vehicle Brand</th>
-        <th>Vehicle Status</th>
+        <th>Vehicle Status</th> -->
       </tr>
-      <!-- @for(shift of shiftDetails.shift_details; track shift;let i = $index){ -->
+      @for(vehicleData of singleShift?.vehicle; track vehicleData){
       <tr>
-        <!-- <td>{{ i + 1 }}</td> -->
-        <td>{{ singleShift?.driver.vehicle?.vehicleName }}</td>
-        <!-- @if(shiftDetails.shift_details){ -->
+        <td>{{ vehicleData?.vehicleName }}</td>
         <td>
-          {{ singleShift?.driver.vehicle?.year }}
+          {{ vehicleData?.year }}
         </td>
-        <!-- } -->
-        <td>{{ singleShift?.driver.vehicle?.vehicleType?.nameEn }}</td>
-        <td>{{ singleShift?.driver.vehicle?.fuelType?.nameEn }}</td>
-        <td>{{ singleShift?.driver.vehicle?.vehicleOwnership?.nameEn }}</td>
+        <td>{{ vehicleData?.vehicleType?.nameEn }}</td>
+        <!-- <td>{{ vehicleData?.fuelType?.nameEn }}</td> -->
+        <!-- <td>{{ vehicleData?.vehicleOwnership?.nameEn }}</td> -->
 
-        <td>{{ singleShift?.driver.vehicle?.vehicleBrand?.nameEn }}</td>
-        <td>{{ singleShift?.driver.vehicle?.vehicleStatus?.nameEn }}</td>
+        <!-- <td>{{ vehicleData?.vehicleBrand?.nameEn }}</td> -->
+        <!-- <td>{{ vehicleData?.vehicleStatus?.nameEn }}</td> -->
       </tr>
-      <!-- } -->
+      }
     </table>
 
     <h5 class="mb-2 mt-4">Payment Method</h5>
@@ -376,6 +370,18 @@
       </tr>
       }
     </table>
+    <h5 class="mb-2 mt-4">Payment Details</h5>
+    <table class="shift-report-table">
+      <tr>
+        <th class="custom-th">Total Gates Fees</th>
+        <td>{{ singleShift?.paymentDetails?.totalGatesFees }}</td>
+      </tr>
+      <tr>
+        <th class="custom-th">Total Gates Count</th>
+        <td>{{ singleShift?.paymentDetails?.totalGatesCount }}</td>
+      </tr>
+    </table>
+
     <h5 class="mb-2 mt-4">Total</h5>
 
     <table class="shift-report-table">
