@@ -12,6 +12,8 @@ import { MapServiceService } from './map-service.service';
 import { VehicleService } from '../vehicle/Services/vehicle.service';
 import { environment } from '../../../environments/environment.development';
 import { env } from 'process';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../../Core/Services/translation.service';
 
 @Component({
   selector: 'app-map',
@@ -33,6 +35,7 @@ export class MapComponent {
   center!: google.maps.LatLngLiteral;
   zoom = 8;
   driverMarkers: any[] = [];
+  lang!: string;
   driverDetails = signal([]);
   testArray: string[] = ['1', '2', '3', '4'];
   // allDrivers: any[] = [];
@@ -41,12 +44,15 @@ export class MapComponent {
   selectedProducts: any;
   constructor(
     private vehicleServices: VehicleService,
-    private mapService: MapServiceService
+    private mapService: MapServiceService,
+    private translate: TranslateService,
+    private translationService: TranslationService
   ) {}
   ngOnInit(): void {
     this.getCurrentPosition();
     // this.getAllDrivers();
     this.getDriversOnMap();
+    this.languageSetter();
     // setInterval(() => {
     // }, 1000);
   }
@@ -63,6 +69,14 @@ export class MapComponent {
     });
   }
 
+  languageSetter() {
+    if (!this.lang) {
+      this.lang = this.translate.currentLang;
+    }
+    this.translationService.getLanguage.subscribe((val: string) => {
+      this.lang = val;
+    });
+  }
   // geocodingReverse() {
   //   this.mapService.reverseGeoCoding()
   // }

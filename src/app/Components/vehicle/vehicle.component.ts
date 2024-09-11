@@ -15,6 +15,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../environments/environment.development';
 import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../../Core/Services/translation.service';
 @Component({
   selector: 'app-vehicle',
   standalone: true,
@@ -24,6 +26,7 @@ import { TooltipModule } from 'primeng/tooltip';
     FormsModule,
     SpinnerComponent,
     TooltipModule,
+    TranslateModule,
   ],
   templateUrl: './vehicle.component.html',
   styleUrl: './vehicle.component.scss',
@@ -48,11 +51,13 @@ export class VehicleComponent {
   choosedVehicle: any;
   isLoading: boolean = false;
   base64Image: string | undefined;
-
+  lang!: string;
   constructor(
     private vehilcesService: VehicleService,
     private modalService: NgbModal,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private translate: TranslateService,
+    private translation: TranslationService
   ) {}
 
   ngOnInit(): void {
@@ -67,6 +72,16 @@ export class VehicleComponent {
     this.getAllVehicleBody();
     this.getAllDrivers();
     this.getAllVehicleServiceType();
+    this.languageSetter();
+  }
+
+  languageSetter() {
+    if (!this.lang) {
+      this.lang = this.translate.currentLang;
+    }
+    this.translation.getLanguage.subscribe((val: string) => {
+      this.lang = val;
+    });
   }
 
   initialiseVehicleForm() {

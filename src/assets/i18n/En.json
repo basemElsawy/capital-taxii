@@ -38,11 +38,58 @@
       "driverLocation": "Driver Location",
       "phoneNumber": "Phone number",
       "gender": "Gender",
-      "options": "Status",
+      "options": "Options",
       "carComfort": "Car Comfort",
       "status": "Status",
       "tableMeta": {
         "optionsText": "All Trips"
+      },
+      "tableForm": {
+        "addnew": "Add New Driver",
+        "userName": "Username",
+        "email": "Email",
+        "fullname": "Fullname",
+        "phone": "Phone Number",
+        "gender": "Gender",
+        "nationality": "Nationality",
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "birthDate": "Birth Date",
+        "driverPhoto": "Driver Photo"
+      },
+      "allTripsDetails": {
+        "allTripsHeadline": "Showing All Driver Trips",
+        "from": "From",
+        "to": "To",
+        "email": "Email",
+        "gender": "Gender",
+        "carComfort": "Car Comfort",
+        "status": "Status"
+      }
+    },
+    "vehiclesTable": {
+      "carName": "Car Name",
+      "modelYear": "Model Year",
+      "fuelType": "Fuel Type",
+      "carColor": "Car Color",
+      "vehicleStatus": "Vehicle Status",
+      "options": "Options",
+      "status": "Status",
+      "actionsButton": "Add New",
+      "tableForm": {
+        "formHeadline": "Add new Vehicle",
+        "vehicleName": "Vehicle Name",
+        "year": "Year",
+        "color": "Color",
+        "vehicleType": "Vehicle Type",
+        "vehicleSpecification": "Vehicle Specification",
+        "fuelType": "Fuel Type",
+        "vehicleStatus": "Vehicle Status",
+        "vehicleOwnership": "Vehicle Ownership",
+        "vehicleBrand": "Vehicle brand",
+        "vehicleBody": "Vehicle Body",
+        "vehicleServiceType": "Vehicle Service Type",
+        "driverPhoto": "Driver photo"
       }
     }
   }
