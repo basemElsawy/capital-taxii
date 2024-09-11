@@ -9,21 +9,29 @@
         (click)="openAddModal(content)"
         class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
       >
-        <span> Add New </span>
+        <span> {{ "tables.stationsTable.actionsButton" | translate }} </span>
 
         <i class="fa-solid fa-plus"></i>
       </button>
       <table class="w-100 table-content position-relative">
         <thead class="w-100">
           <tr class="py-2 px-4 w-100">
-            <th class="first-heading">
+            <th
+              class="first-heading"
+              [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
+            >
               <input type="checkbox" (change)="checkboxEvent($event)" />
             </th>
-            <th>Station Name En</th>
-            <th>Station Name Ar</th>
-            <th>Location Latitude</th>
-            <th>Location Longitude</th>
-            <th class="second-heading me-4">Options</th>
+            <th>{{ "tables.stationsTable.stationNameEn" | translate }}</th>
+            <th>{{ "tables.stationsTable.stationNameAr" | translate }}</th>
+            <th>{{ "tables.stationsTable.locationLatitude" | translate }}</th>
+            <th>{{ "tables.stationsTable.locationLongitude" | translate }}</th>
+            <th
+              class="second-heading me-4"
+              [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
+            >
+              {{ "tables.stationsTable.options" | translate }}
+            </th>
           </tr>
         </thead>
         @if(isLoading){
@@ -71,10 +79,13 @@
   </div>
 
   <div class="modal-body">
-    <form [formGroup]="addStationForm" class="">
+    <form
+      [formGroup]="addStationForm"
+      [ngClass]="{ 'arabic-modal-form': lang == 'Ar' }"
+    >
       <div class="form-wrapper">
         <div class="col-md-4">
-          <label> Station Name Ar </label>
+          <label> {{ "tables.stationsTable.stationNameEn" | translate }}</label>
           <input
             class="text"
             class="form-group form-control"
@@ -82,7 +93,7 @@
           />
         </div>
         <div class="col-md-4">
-          <label> Station Name En</label>
+          <label>{{ "tables.stationsTable.stationNameAr" | translate }}</label>
           <input
             class="text"
             class="form-group form-control"
@@ -90,7 +101,9 @@
           />
         </div>
         <div class="col-md-4">
-          <label> Location Latitude </label>
+          <label>
+            {{ "tables.stationsTable.locationLatitude" | translate }}
+          </label>
           <input
             class="text"
             class="form-group form-control"
@@ -99,7 +112,9 @@
         </div>
 
         <div class="col-md-4">
-          <label>Location Longitude</label>
+          <label>{{
+            "tables.stationsTable.locationLongitude" | translate
+          }}</label>
           <input
             class="text"
             class="form-group form-control"
@@ -125,7 +140,9 @@
     <form [formGroup]="updateStationForm" class="">
       <div class="form-wrapper">
         <div class="col-md-4">
-          <label> Station Name Ar </label>
+          <label>
+            {{ "tables.stationsTable.stationNameEn" | translate }}
+          </label>
           <input
             class="text"
             class="form-group form-control"
@@ -133,7 +150,7 @@
           />
         </div>
         <div class="col-md-4">
-          <label> Station Name En</label>
+          <label> {{ "tables.stationsTable.stationNameAr" | translate }}</label>
           <input
             class="text"
             class="form-group form-control"
@@ -142,7 +159,9 @@
         </div>
 
         <div class="col-md-4">
-          <label> Location Latitude </label>
+          <label>
+            {{ "tables.stationsTable.locationLatitude" | translate }}
+          </label>
           <input
             class="text"
             class="form-group form-control"
@@ -151,7 +170,9 @@
         </div>
 
         <div class="col-md-4">
-          <label>Location Longitude</label>
+          <label>{{
+            "tables.stationsTable.locationLongitude" | translate
+          }}</label>
           <input
             class="text"
             class="form-group form-control"

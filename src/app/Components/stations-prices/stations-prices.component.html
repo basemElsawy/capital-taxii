@@ -16,13 +16,21 @@
       <table class="w-100 table-content position-relative">
         <thead class="w-100">
           <tr class="py-2 px-4 w-100">
-            <th class="first-heading">
+            <th
+              class="first-heading"
+              [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
+            >
               <input type="checkbox" (change)="checkboxEvent($event)" />
             </th>
-            <th>From Station</th>
-            <th>To Station</th>
-            <th>Price</th>
-            <th class="second-heading me-4">Options</th>
+            <th>{{ "tables.stationPricesTable.fromStation" | translate }}</th>
+            <th>{{ "tables.stationPricesTable.toStation" | translate }}</th>
+            <th>{{ "tables.stationPricesTable.price" | translate }}</th>
+            <th
+              class="second-heading me-4"
+              [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
+            >
+              {{ "tables.stationPricesTable.price" | translate }}
+            </th>
           </tr>
         </thead>
         @if(isLoading){
@@ -35,8 +43,20 @@
               <input type="checkbox" [checked]="station.isChecked" />
             </td>
 
-            <td>{{ station.fromStation }}</td>
-            <td>{{ station.toStation }}</td>
+            <td>
+              {{
+                lang == "En"
+                  ? station.fromStation.nameEn
+                  : station.fromStation.nameAr
+              }}
+            </td>
+            <td>
+              {{
+                lang == "En"
+                  ? station.toStation.nameEn
+                  : station.toStation.nameAr
+              }}
+            </td>
             <td>{{ station.price }}</td>
 
             <td class="d-flex align-items-start justify-content-center">
@@ -63,14 +83,21 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4>Add new station price</h4>
+    <h4 [ngClass]="{ 'text-end w-100': lang == 'Ar' }">
+      {{ "tables.stationPricesTable.metaText.addHeadline" | translate }}
+    </h4>
   </div>
 
   <div class="modal-body">
-    <form [formGroup]="addStationPriceForm" class="">
+    <form
+      [formGroup]="addStationPriceForm"
+      [ngClass]="{ 'ar-form': lang == 'Ar' }"
+    >
       <div class="form-wrapper">
         <div class="col-md-4">
-          <label> From Station </label>
+          <label>
+            {{ "tables.stationPricesTable.fromStation" | translate }}
+          </label>
           <select
             formControlName="fromStationId"
             class="form-control form-select form-group"
@@ -83,7 +110,9 @@
           </select>
         </div>
         <div class="col-md-4">
-          <label> To Station </label>
+          <label>
+            {{ "tables.stationPricesTable.toStation" | translate }}
+          </label>
           <select
             formControlName="toStationId"
             class="form-control form-select form-group"
@@ -97,7 +126,7 @@
         </div>
 
         <div class="col-md-4">
-          <label> Price </label>
+          <label> {{ "tables.stationPricesTable.price" | translate }} </label>
           <input
             class="number"
             class="form-group form-control"
@@ -116,14 +145,22 @@
 <!-- update vehicle -->
 <ng-template #content1 let-modal>
   <div class="modal-header">
-    <h4>Update station price</h4>
+    <h4 [ngClass]="{ 'text-end w-100': lang == 'Ar' }">
+      {{ "tables.stationPricesTable.metaText.updateHeadline" | translate }}
+    </h4>
   </div>
 
   <div class="modal-body">
-    <form [formGroup]="updateStationPriceForm" class="">
+    <form
+      [formGroup]="updateStationPriceForm"
+      class=""
+      [ngClass]="{ 'ar-form': lang == 'Ar' }"
+    >
       <div class="form-wrapper">
         <div class="col-md-4">
-          <label> From Station </label>
+          <label>
+            {{ "tables.stationPricesTable.fromStation" | translate }}</label
+          >
           <select
             formControlName="fromStationId"
             class="form-control form-select form-group"
@@ -136,7 +173,7 @@
           </select>
         </div>
         <div class="col-md-4">
-          <label> To Station </label>
+          <label>{{ "tables.stationPricesTable.toStation" | translate }}</label>
           <select
             formControlName="toStationId"
             class="form-control form-select form-group"
@@ -150,7 +187,7 @@
         </div>
 
         <div class="col-md-4">
-          <label> Price </label>
+          <label> {{ "tables.stationPricesTable.price" | translate }} </label>
           <input
             class="number"
             class="form-group form-control"

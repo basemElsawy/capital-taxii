@@ -244,3 +244,14 @@ thead {
   text-align: right;
   direction: rtl;
 }
+.driver-form-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  & div {
+    width: 100%;
+  }
+}
+.driver-form-wrapper label {
+  margin-bottom: 5px !important;
+}

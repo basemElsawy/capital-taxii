@@ -168,9 +168,11 @@
 
   <div class="modal-body">
     <form [formGroup]="addUserForm">
-      <div class="row">
+      <div class="driver-form-wrapper">
         <div class="col-md-4 mb-3">
           <label
+            class="w-100"
+            [ngClass]="{ 'text-start': lang == 'En', 'text-end': lang == 'Ar' }"
             >{{ "tables.driversTable.tableForm.userName" | translate }}
           </label>
           <input
@@ -180,7 +182,10 @@
           />
         </div>
         <div class="col-md-4 mb-3">
-          <label>
+          <label
+            class="w-100"
+            [ngClass]="{ 'text-start': lang == 'En', 'text-end': lang == 'Ar' }"
+          >
             {{ "tables.driversTable.tableForm.email" | translate }}
           </label>
           <input
@@ -191,7 +196,10 @@
         </div>
 
         <div class="col-md-4 mb-3">
-          <label>
+          <label
+            class="w-100"
+            [ngClass]="{ 'text-start': lang == 'En', 'text-end': lang == 'Ar' }"
+          >
             {{ "tables.driversTable.tableForm.fullname" | translate }}
           </label>
           <input
@@ -201,7 +209,10 @@
           />
         </div>
         <div class="col-md-4 mb-3">
-          <label>
+          <label
+            class="w-100"
+            [ngClass]="{ 'text-start': lang == 'En', 'text-end': lang == 'Ar' }"
+          >
             {{ "tables.driversTable.tableForm.phone" | translate }}
           </label>
           <input
@@ -211,7 +222,10 @@
           />
         </div>
         <div class="col-md-4 mb-3">
-          <label>
+          <label
+            class="w-100"
+            [ngClass]="{ 'text-start': lang == 'En', 'text-end': lang == 'Ar' }"
+          >
             {{ "tables.driversTable.tableForm.gender" | translate }}
           </label>
           <select formControlName="genderId" class="form-select form-control">
@@ -221,7 +235,10 @@
         </div>
 
         <div class="col-md-4 mb-3">
-          <label>
+          <label
+            class="w-100"
+            [ngClass]="{ 'text-start': lang == 'En', 'text-end': lang == 'Ar' }"
+          >
             {{ "tables.driversTable.tableForm.nationality" | translate }}
           </label>
           <select
@@ -241,6 +258,8 @@
 
         <div class="col-md-4 mb-3">
           <label
+            class="w-100"
+            [ngClass]="{ 'text-start': lang == 'En', 'text-end': lang == 'Ar' }"
             >{{ "tables.driversTable.tableForm.password" | translate }}
           </label>
 
@@ -252,7 +271,10 @@
         </div>
 
         <div class="col-md-4 mb-3">
-          <label>
+          <label
+            class="w-100"
+            [ngClass]="{ 'text-start': lang == 'En', 'text-end': lang == 'Ar' }"
+          >
             {{ "tables.driversTable.tableForm.confirmPassword" | translate }}
           </label>
 
@@ -277,7 +299,10 @@
         </div>
 
         <div class="col-md-4 mb-3">
-          <label>
+          <label
+            class="w-100"
+            [ngClass]="{ 'text-start': lang == 'En', 'text-end': lang == 'Ar' }"
+          >
             {{ "tables.driversTable.tableForm.birthDate" | translate }}
           </label>
           <input class="form-control" type="date" formControlName="birthDate" />
@@ -285,9 +310,18 @@
 
         <div class="col-md-4">
           <div class="mb-3">
-            <label for="formFile" class="form-label w-100">{{
-              "tables.driversTable.tableForm.driverPhoto" | translate
-            }}</label>
+            <label
+              class="w-100"
+              [ngClass]="{
+                'text-start': lang == 'En',
+                'text-end': lang == 'Ar'
+              }"
+              for="formFile"
+              class="form-label m-0 w-100"
+              >{{
+                "tables.driversTable.tableForm.driverPhoto" | translate
+              }}</label
+            >
             <input
               class="form-control"
               (change)="uploadPhoto($event)"
@@ -323,7 +357,11 @@
     class="modal-body d-flex align-items-center justify-content-center flex-column gap-3"
   >
     <div
-      class="modal-header-wrapper w-100 d-flex align-items-start justify-content-center gap-3 flex-column"
+      class="modal-header-wrapper w-100 d-flex justify-content-center gap-3 flex-column"
+      [ngClass]="{
+        'align-items-start': lang == 'En',
+        'align-items-end': lang == 'Ar'
+      }"
     >
       <div
         class="section-header w-100 p-2 shadow-sm rounded-5"
@@ -408,12 +446,19 @@
       >
         <form
           [formGroup]="dateRangeForm"
-          class="form-wrapper d-flex align-items-center justify-content-start gap-2"
+          [dir]="lang == 'En' ? 'ltr' : 'rtl'"
+          [ngClass]="{
+            'justify-content-start': lang == 'En',
+            'justify-content-end': lang == 'Ar'
+          }"
+          class="form-wrapper d-flex align-items-center gap-2"
         >
           <div
             class="date-input-container px-3 py-1 rounded-pill d-flex align-items-center justify-content-start gap-2"
           >
-            <p class="text-muted">From</p>
+            <p class="text-muted">
+              {{ "tables.driversTable.allTripsDetails.from" | translate }}
+            </p>
             <p-calendar
               [showOnFocus]="false"
               [showIcon]="true"
@@ -423,7 +468,9 @@
           <div
             class="date-input-container px-3 py-1 rounded-pill d-flex align-items-center justify-content-start gap-2"
           >
-            <p class="text-muted">To</p>
+            <p class="text-muted">
+              {{ "tables.driversTable.allTripsDetails.to" | translate }}
+            </p>
             <p-calendar
               [showOnFocus]="false"
               [showIcon]="true"
@@ -435,14 +482,15 @@
               (click)="sendDateRange()"
               class="btn btn-primary rounded-pill px-3 py-1 fs-6"
             >
-              Search
+              {{ "tables.driversTable.allTripsDetails.search" | translate }}
             </button>
           </div>
         </form>
       </div>
     </div>
     <div class="section-body w-100">
-      @if(!getTripDataToDisplay.length){
+      @if(!getTripDataToDisplay.length){ @if(lang=='En'){
+
       <div class="empty-message shadow-sm p-5 w-100 rounded-5 text-center">
         {{
           !tripDataToDisplay().length
@@ -450,8 +498,15 @@
             : "No Data Found to Display"
         }}
       </div>
-
       }@else {
+      <div class="empty-message shadow-sm p-5 w-100 rounded-5 text-center">
+        {{
+          !tripDataToDisplay().length
+            ? "اختر فترة تاريخ لاظهار البيانات"
+            : "لا يوجد بيانات للفترة المدخلة"
+        }}
+      </div>
+      } }@else {
       <div class="modal-sectionBody-content gap-3 px-2 py-3">
         @for( tripData of getTripDataToDisplay; track tripData ) {
         <div class="trip-content shadow-sm rounded-3 p-2 w-100">
@@ -477,42 +532,45 @@
           </div>
 
           <div
-            class="ps-3 d-flex align-items-center justify-content-start gap-2"
+            class="ps-3 d-flex align-items-start justify-content-start flex-column gap-2"
           >
-            <img
-              [src]="
-                tripData?.request?.customer?.picture
-                  ? imgUrl + tripData.request.customer.picture
-                  : '../../../assets/unknown.png'
-              "
-              alt=""
-              height="40"
-              width="40"
-            />
-            <div class="text-container text-start">
-              <h6 class="m-0 p-0">
-                {{
-                  tripData?.request.customer?.fullName
-                    ? tripData?.request.customer?.fullName
-                    : "-"
-                }}
-              </h6>
-              <p class="m-0 p-0">
-                {{
-                  tripData?.request.customer?.phoneNumber
-                    ? tripData?.request.customer?.phoneNumber
-                    : "-"
-                }}
-              </p>
-
-              <p class="m-0 p-0">
-                <p-rating
-                  [(ngModel)]="tripData.request.customerRate"
-                  [cancel]="false"
-                  [readonly]="true"
-                />
-              </p>
+            <div
+              class="d-flex align-items-center justify-items-start gap-2 mt-2"
+            >
+              <img
+                [src]="
+                  tripData?.request?.customer?.picture
+                    ? imgUrl + tripData.request.customer.picture
+                    : '../../../assets/unknown.png'
+                "
+                alt=""
+                height="40"
+                width="40"
+              />
+              <div class="text-container text-start">
+                <h6 class="m-0 p-0">
+                  {{
+                    tripData?.request.customer?.fullName
+                      ? tripData?.request.customer?.fullName
+                      : "-"
+                  }}
+                </h6>
+                <p class="m-0 p-0">
+                  {{
+                    tripData?.request.customer?.phoneNumber
+                      ? tripData?.request.customer?.phoneNumber
+                      : "-"
+                  }}
+                </p>
+              </div>
             </div>
+            <p class="m-0 p-0">
+              <p-rating
+                [(ngModel)]="tripData.request.customerRate"
+                [cancel]="false"
+                [readonly]="true"
+              />
+            </p>
           </div>
           <div
             class="trip-content-body gap-2 py-2 d-flex align-items-center justify-content-center w-100 flex-column w-100"

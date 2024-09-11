@@ -91,6 +91,66 @@
         "vehicleServiceType": "Vehicle Service Type",
         "driverPhoto": "Driver photo"
       }
+    },
+    "stationsTable": {
+      "stationNameEn": "Station Name En",
+      "stationNameAr": "Station Name Ar",
+      "locationLatitude": "Location Latitude",
+      "locationLongitude": "Location Longitude",
+      "options": "Options",
+      "actionsButton": "Add New",
+      "tableForm": {
+        "stationNamEn": "Station Name En",
+        "stationNameAr": "Station Name Ar",
+        "locationLatitude": "Location Latitude",
+        "locationLongitude": "Location Longitude"
+      }
+    },
+    "liveMap": {
+      "driver": "Driver",
+      "vehicle": "Vehicle",
+      "client": "Client",
+      "orderedDate": "Ordered Date",
+      "startLocation": "Start Location",
+      "finishLocation": "Finish Location",
+      "totalAmount": "Total Amount",
+      "status": "Status"
+    },
+    "stationPrices": {
+      "fromStation": "From Station",
+      "toStation": "To Station",
+      "price": "price",
+      "options": "Options",
+      "metaText": {
+        "updateHeadline": "Update station price",
+        "addHeadline": "Add new station price"
+      }
     }
+  },
+  "settings": {
+    "kmUpdatePrice": {
+      "headline": "Km Update Price",
+      "kmPrice": "Km Price"
+    },
+    "minimumFares": {
+      "headline": "Minimum Fares",
+      "update": "update",
+      "kmPrice": "Minimum Km"
+    },
+    "deductions": {
+      "headline": "Deductions"
+    },
+    "requestDistance": {
+      "headline": "Request Distance Limit"
+    },
+    "driverArrivalMinDistance": {
+      "headline": "Driver Arrival Min Distance"
+    },
+    "requestTimesLimit": {
+      "headline": "Request time limit",
+      "price": "price",
+      "time": "Time"
+    },
+    "update": "update"
   }
 }

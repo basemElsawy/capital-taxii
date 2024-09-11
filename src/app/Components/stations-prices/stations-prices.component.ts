@@ -11,6 +11,8 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../../Core/Services/translation.service';
 @Component({
   selector: 'app-vehicle',
   standalone: true,
@@ -20,6 +22,7 @@ import { TooltipModule } from 'primeng/tooltip';
     FormsModule,
     SpinnerComponent,
     TooltipModule,
+    TranslateModule,
   ],
   templateUrl: './stations-prices.component.html',
   styleUrl: './stations-prices.component.scss',
@@ -32,17 +35,28 @@ export class StationsPricesComponent {
   choosedStation: any;
   stations: any;
   isLoading: boolean = false;
-
+  lang!: string;
   constructor(
     private stationsService: StationsService,
     private modalService: NgbModal,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private translate: TranslateService,
+    private translationService: TranslationService
   ) {}
 
   ngOnInit(): void {
     this.getStationsPrices();
     this.getStations();
     this.initializeStationsPricesForm();
+    this.languageSetter();
+  }
+  languageSetter() {
+    if (!this.lang) {
+      this.lang = this.translate.currentLang;
+    }
+    this.translationService.getLanguage.subscribe((val: string) => {
+      this.lang = val;
+    });
   }
 
   initializeStationsPricesForm() {

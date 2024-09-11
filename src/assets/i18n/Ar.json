@@ -65,7 +65,8 @@
         "email": "البريد الاكتروني",
         "gender": "النوع",
         "carComfort": "نوع السيارة",
-        "status": "الحالة"
+        "status": "الحالة",
+        "search": "بحث"
       }
     },
     "vehiclesTable": {
@@ -92,6 +93,65 @@
         "vehicleServiceType": "نوع خدمة السيارة",
         "driverPhoto": "صورة السائق"
       }
+    },
+    "stationsTable": {
+      "stationNameEn": "En اسم المحطة",
+      "stationNameAr": "Ar اسم المحطة ",
+      "locationLatitude": "دوائر عرض المحطة",
+      "locationLongitude": "خطوط طول المحطة",
+      "options": "خيارات",
+      "actionsButton": "اضافة محطة",
+      "tableForm": {
+        "stationNamEn": "En اسم المحطة",
+        "stationNameAr": "Ar اسم المحطة ",
+        "locationLatitude": "دوائر عرض المحطة",
+        "locationLongitude": "خطوط طول المحطة"
+      }
+    },
+    "liveMap": {
+      "driver": "السائق",
+      "vehicle": "العربة",
+      "client": "العميل",
+      "orderedDate": "تاريخ الرحلة",
+      "startLocation": "مكان البدء",
+      "finishLocation": "مكان الوصول ",
+      "totalAmount": "سعر الرحلة",
+      "status": "الحالة"
+    },
+    "stationPricesTable": {
+      "fromStation": "محطة البدء",
+      "toStation": "محطة الوصول",
+      "price": "السعر",
+      "options": "الخيارات",
+      "metaText": {
+        "updateHeadline": "تعديل علي سعر محطة",
+        "addHeadline": "اضافة سعر لمحطة"
+      }
     }
+  },
+  "settings": {
+    "kmUpdatePrice": {
+      "headline": "سعر التجديث الكيلومتري",
+      "kmPrice": "الكيلومتري"
+    },
+    "minimumFares": {
+      "headline": "الحد الأدنى للأسعار",
+      "kmPrice": "الحد الادني الكيلومتري"
+    },
+    "deductions": {
+      "headline": "الخصومات"
+    },
+    "requestDistance": {
+      "headline": "طلب حد المسافة"
+    },
+    "driverArrivalMinDistance": {
+      "headline": "المسافة الدقيقة لوصول السائق"
+    },
+    "requestTimesLimit": {
+      "headline": "طلب الحد الزمني",
+      "price": "السغر",
+      "time": "الوقت"
+    },
+    "update": "تحديث"
   }
 }

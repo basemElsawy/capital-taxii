@@ -24,18 +24,46 @@
     <table class="w-100 table-content position-relative">
       <thead class="w-100">
         <tr class="py-2 px-4 w-100">
-          <th class="first-heading">
+          <th
+            class="first-heading"
+            [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
+          >
             <input type="checkbox" (change)="checkboxEvent($event)" />
           </th>
-          <th style="text-align: left; padding-left: 0px">driver</th>
-          <th style="width: 150px; padding-left: 0">Vehicle</th>
-          <th style="text-align: left; padding-left: 0px">Client</th>
-          <th>Ordered date</th>
-          <th>Start Location</th>
+          <th
+            style="padding-left: 0px"
+            [ngStyle]="{ 'text-align': lang === 'En' ? 'left' : 'right' }"
+          >
+            {{ "tables.liveMap.driver" | translate }}
+          </th>
+          <th style="width: 150px; padding-left: 0">
+            {{ "tables.liveMap.vehicle" | translate }}
+          </th>
+          <th
+            style="padding-left: 0px"
+            [ngStyle]="{ 'text-align': lang === 'En' ? 'left' : 'right' }"
+          >
+            {{ "tables.liveMap.client" | translate }}
+          </th>
+          <th>
+            {{ "tables.liveMap.orderedDate" | translate }}
+          </th>
+          <th>
+            {{ "tables.liveMap.startLocation" | translate }}
+          </th>
 
-          <th>Finish Location</th>
-          <th style="width: 150px">Total amount</th>
-          <th class="second-heading">Status</th>
+          <th>
+            {{ "tables.liveMap.finishLocation" | translate }}
+          </th>
+          <th style="width: 150px">
+            {{ "tables.liveMap.totalAmount" | translate }}
+          </th>
+          <th
+            class="second-heading"
+            [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
+          >
+            {{ "tables.liveMap.status" | translate }}
+          </th>
         </tr>
       </thead>
       <tbody class="w-100">
@@ -49,7 +77,11 @@
             />
           </td>
 
-          <td class="person-info">
+          <td lass="person-info">
+            <!-- [ngClass]="{
+                'justify-content-start': lang == 'En',
+                'justify-content': lang == 'Ar'
+              }" -->
             <div class="d-flex align-items-center justify-content-start gap-2">
               <img
                 [src]="
@@ -61,7 +93,13 @@
                 height="35"
                 width="35"
               />
-              <div class="text-container text-start">
+              <div
+                [ngClass]="{
+                  'text-end': lang == 'Ar',
+                  'text-start': lang == 'En'
+                }"
+                class="text-container"
+              >
                 <h6 class="m-0 p-0">{{ driver?.driver.user?.fullName }}</h6>
                 <p class="m-0 p-0">{{ driver?.driver.user?.phoneNumber }}</p>
               </div>
@@ -95,7 +133,13 @@
                 height="40"
                 width="40"
               />
-              <div class="text-container text-start">
+              <div
+                class="text-container"
+                [ngClass]="{
+                  'text-end': lang == 'Ar',
+                  'text-start': lang == 'En'
+                }"
+              >
                 <h6 class="m-0 p-0">{{ driver?.user?.fullName }}</h6>
                 <p class="m-0 p-0">{{ driver?.user?.phoneNumber }}</p>
               </div>
