@@ -20,7 +20,12 @@ thead {
 .second-heading {
   border-radius: 0px 10px 10px 0px;
 }
-
+thead {
+  position: sticky;
+  top: -10px;
+  left: 0;
+  right: 0;
+}
 .table-header {
   position: sticky;
   top: -8px;

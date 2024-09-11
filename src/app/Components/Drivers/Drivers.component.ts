@@ -25,6 +25,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../environments/environment.development';
 import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 import { CalendarModule } from 'primeng/calendar';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../../Core/Services/translation.service';
 
 @Component({
   selector: 'app-Drivers',
@@ -38,6 +40,7 @@ import { CalendarModule } from 'primeng/calendar';
     FormsModule,
     ReactiveFormsModule,
     RatingModule,
+    TranslateModule,
   ],
   templateUrl: './Drivers.component.html',
   styleUrls: ['./Drivers.component.scss'],
@@ -53,7 +56,7 @@ export class DriversComponent implements OnInit {
   isLoading: boolean = false;
   addUserForm!: FormGroup;
   nationalities: any[] = [];
-
+  lang!: string;
   pageNumber: any = 1;
   totalRecords = 0;
   singleDriver!: IDrivers;
@@ -63,12 +66,15 @@ export class DriversComponent implements OnInit {
   constructor(
     private driversService: DriversService,
     private fb: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private translate: TranslateService,
+    private trannslation: TranslationService
   ) {}
   ngOnInit(): void {
     this.getAllDrivers();
     this.initAddUserForm();
     this.dateFormInitializer();
+    this.langSetterHandler();
   }
 
   dateFormatter(dateToFormat: string | Date) {
@@ -98,6 +104,15 @@ export class DriversComponent implements OnInit {
       },
       { validators: passwordMatchValidator() }
     );
+  }
+
+  langSetterHandler() {
+    if (!this.lang) {
+      this.lang = this.translate.currentLang;
+    }
+    this.trannslation.getLanguage.subscribe((val) => {
+      this.lang = val;
+    });
   }
 
   getAllDrivers() {

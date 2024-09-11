@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslationService } from './Core/Services/translation.service';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +11,17 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'capital-taxi';
+  constructor(
+    protected translation: TranslateService,
+    private translationService: TranslationService
+  ) {
+    translation.addLangs(['En', 'Ar']);
+    translation.setDefaultLang('Ar');
+    let startingLang = translationService.startingLanguage();
+    translation.use(startingLang);
+    translationService.setLanguage('Ar');
+  }
+  ngOnInit() {
+    this.translationService.setLanguage(this.translation.currentLang);
+  }
 }

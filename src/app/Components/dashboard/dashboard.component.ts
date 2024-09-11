@@ -8,6 +8,7 @@ import { ConfirmedTripsComponent } from './confirmed-trips/confirmed-trips.compo
 import { InProgressTripsComponent } from './in-progress-trips/in-progress-trips.component';
 import { environment } from '../../../environments/environment.development';
 import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
+import { SharedTableComponent } from './shared-table/shared-table.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -19,6 +20,7 @@ import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
     ConfirmedTripsComponent,
     InProgressTripsComponent,
     SpinnerComponent,
+    SharedTableComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -33,6 +35,8 @@ export class DashboardComponent implements OnInit {
   cancledRequestDetails: any[] = [];
   inProgressTrips: any[] = [];
   allDrivers: any[] = [];
+
+  choosenCardData: any = signal([]);
   setIsLoading: any = signal(true);
 
   IsNewRequests: boolean = false;
@@ -84,44 +88,48 @@ export class DashboardComponent implements OnInit {
 
   selectedStatusId: any;
   getStatusDetails(choosedData: any) {
-    this.IsNewRequests = false;
-    this.isChoosed = false;
-    this.IsConfirmedRequests = false;
-    this.IsCancledRequests = false;
-    this.IsArrivedRequests = false;
-    this.IsInProgressTrips = false;
-    this.newRequestDetails = [];
-    this.confirmedRequestDetails = [];
-    this.cancledRequestDetails = [];
-    this.arrivedRequestDetails = [];
-    this.inProgressTrips = [];
-    this.selectedStatusId = choosedData.requestStatusId;
-    switch (choosedData.requestStatusId) {
-      case 1:
-        this.IsNewRequests = true;
-        this.newRequestDetails = choosedData.requestRoutes;
-        this.isChoosed = true;
-        break;
-      case 2:
-        this.IsConfirmedRequests = true;
-        this.confirmedRequestDetails = choosedData.requestRoutes;
-        this.isChoosed = true;
-        break;
-      case 5:
-        this.IsCancledRequests = true;
-        this.cancledRequestDetails = choosedData.requestRoutes;
-        this.isChoosed = true;
-        break;
-      case 4:
-        this.IsArrivedRequests = true;
-        this.arrivedRequestDetails = choosedData.requestRoutes;
-        this.isChoosed = true;
-        break;
-      case 8:
-        this.IsInProgressTrips = true;
-        this.inProgressTrips = choosedData.requestRoutes;
-        this.isChoosed = true;
-    }
+    this.choosenCardData.set(choosedData.requestRoutes);
+    console.log(this.choosenCardData());
+
+    // this.IsNewRequests = false;
+    // this.isChoosed = false;
+    // this.IsConfirmedRequests = false;
+    // this.IsCancledRequests = false;
+    // this.IsArrivedRequests = false;
+    // this.IsInProgressTrips = false;
+    // this.newRequestDetails = [];
+    // this.confirmedRequestDetails = [];
+    // this.cancledRequestDetails = [];
+    // this.arrivedRequestDetails = [];
+    // this.inProgressTrips = [];
+    // this.selectedStatusId = choosedData.requestStatusId;
+    // switch (choosedData.requestStatusId) {
+    //   case 1:
+    //     this.IsNewRequests = true;
+    //     this.newRequestDetails = choosedData.requestRoutes;
+    //     this.isChoosed = true;
+    //     break;
+    //   case 2:
+    //     this.IsCancledRequests = true;
+    //     this.cancledRequestDetails = choosedData.requestRoutes;
+    //     this.isChoosed = true;
+    //     break;
+    //   // this.IsConfirmedRequests = true;
+    //   // this.confirmedRequestDetails = choosedData.requestRoutes;
+    //   // this.isChoosed = true;
+    //   // break;
+    //   // case 5:
+    //   // case 4:
+    //   //   this.IsArrivedRequests = true;
+    //   //   this.arrivedRequestDetails = choosedData.requestRoutes;
+    //   //   this.isChoosed = true;
+    //   //   break;
+    //   // case 8:
+    //   //   this.IsInProgressTrips = true;
+    //   //   this.inProgressTrips = choosedData.requestRoutes;
+    //   //   this.isChoosed = true;
+    //   //   break;
+    // }
   }
 
   getAllDrivers(): void {

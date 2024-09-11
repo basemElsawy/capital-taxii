@@ -1,15 +1,46 @@
 <section
+  [dir]="selectedLang == 'Ar' ? 'rtl' : 'ltr'"
   class="header-container d-flex align-items-center justify-content-between p-2"
 >
   <div
     class="d-header good-morning d-flex align-items-center justify-content-center gap-3"
   >
-    <i class="fa-solid fa-bars fs-5"></i>
-    <p class="m-0 fs-5">Welcome Mr {{ userData.fullName }}</p>
+    <div class="language-container position-relative">
+      <div class="position-relative px-2 py-2" (click)="openLangMenu()">
+        <i
+          class="fa-solid fa-bars fs-5 hamburger-icon"
+          [ngClass]="{ 'active-icon': !isLangOpen }"
+        ></i>
+      </div>
+    </div>
+    <p class="m-0 fs-5">
+      {{ "dashboardHeader.welcomeText" | translate
+      }}{{ " " + userData.fullName }}
+    </p>
   </div>
-  <div class="d-header logout">
+  <div
+    class="d-header d-flex align-items-center justify-content-center logout gap-2"
+  >
+    <div
+      class="lang-btns d-flex align-items-center justify-content-center gap-1"
+    >
+      <button
+        (click)="changeLangHandler('En')"
+        [ngClass]="{ 'active-lang': selectedLang == 'En' }"
+        class="btn px-3 text-white"
+      >
+        En
+      </button>
+      <button
+        (click)="changeLangHandler('Ar')"
+        [ngClass]="{ 'active-lang': selectedLang == 'Ar' }"
+        class="btn px-3 text-white"
+      >
+        Ar
+      </button>
+    </div>
     <button class="btn btn-danger px-4 text-white" (click)="doLogOut()">
-      Logout
+      {{ "dashboardHeader.headerButton" | translate }}
     </button>
   </div>
 </section>

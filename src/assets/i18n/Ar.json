@@ -1,0 +1,97 @@
+{
+  "dashboardHeader": {
+    "welcomeText": "مرحبا بك يا",
+    "headerButton": "تسجيل خروج"
+  },
+
+  "sideNav": {
+    "mainMenu": "القائمة الرئيسية",
+    "headlineRole": "مدير النظام",
+    "listItems": {
+      "dashboard": "اللوحة الرئيسية",
+      "clients": "العملاء",
+      "drivers": "السائقين",
+      "users": "المستخدمين",
+      "liveMap": "الخريطة",
+      "vehicles": "العربات",
+      "stations": "المحطات",
+      "stationPrices": "تسعيرة المحطات",
+      "settings": "الاعدادات"
+    }
+  },
+  "tables": {
+    "clientsTable": {
+      "client": "العميل",
+      "emailOrUsername": "اسم المستخدم او البريد",
+      "phoneNumber": "رقم التليفون",
+      "gender": "النوع",
+      "birthday": "الميلاد",
+      "credit": "الأئتمان",
+      "creditDetails": "تفاصيل الكارت",
+      "options": "خيارات",
+      "tableMeta": {
+        "optionsText": "جميع الرحلات"
+      }
+    },
+    "driversTable": {
+      "user": "المستخدم",
+      "email": "البريد",
+      "driverLocation": "مكان السائق",
+      "phoneNumber": "رقم التليفون",
+      "gender": "النوع",
+      "options": "خيارات",
+      "carComfort": "نوعية السيارة",
+      "status": "الحالة",
+      "tableMeta": {
+        "optionsText": "جميع الرحلات"
+      },
+      "tableForm": {
+        "addnew": "اضافة سائق",
+        "userName": "اسم المستخدم",
+        "email": "البريد الالكتروني",
+        "fullname": "الاسم الثلاثي",
+        "phone": "رقم التليفون",
+        "gender": "النوع",
+        "nationality": "الجنسية",
+        "password": "كلمة السر",
+        "confirmPassword": "تاكيد كلمة المرور",
+        "birthDate": "يوم الميلاد",
+        "driverPhoto": "صورة السائق"
+      },
+      "allTripsDetails": {
+        "allTripsHeadline": "عرض جميع الرحلات",
+        "from": "من",
+        "to": "الي",
+        "email": "البريد الاكتروني",
+        "gender": "النوع",
+        "carComfort": "نوع السيارة",
+        "status": "الحالة"
+      }
+    },
+    "vehiclesTable": {
+      "carName": "اسم العربة",
+      "modelYear": "موديل سنة",
+      "fuelType": "نوع الوقود",
+      "carColor": "لون العربة",
+      "vehicleStatus": "حالة العربة",
+      "options": "خيارات",
+      "status": "الحالة",
+      "actionsButton": "اضافة عربة",
+      "tableForm": {
+        "formHeadline": "اضافة عربة جديدة",
+        "vehicleName": "اسم العربة",
+        "year": "السنة",
+        "color": "اللون",
+        "vehicleType": "نوع العربة",
+        "vehicleSpecification": "مواصفات السيارة",
+        "fuelType": "نوع الوقود",
+        "vehicleStatus": "حالة العربة",
+        "vehicleOwnership": "ملكية السيارة",
+        "vehicleBrand": "ماركة العربة",
+        "vehicleBody": "نوع هيكل العربة",
+        "vehicleServiceType": "نوع خدمة السيارة",
+        "driverPhoto": "صورة السائق"
+      }
+    }
+  }
+}

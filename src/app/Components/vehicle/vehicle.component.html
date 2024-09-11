@@ -3,29 +3,40 @@
     class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative d-flex flex-column align-items-center justify-content-between"
   >
     <div
+      [dir]="lang == 'Ar' ? 'rtl' : 'ltr'"
       class="w-100 p-2 my-2 d-flex align-items-start flex-column justify-content-start gap-2"
     >
       <button
         (click)="openAddModal(content)"
         class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
       >
-        <span> Add New </span>
+        <span> {{ "tables.vehiclesTable.actionsButton" | translate }} </span>
 
         <i class="fa-solid fa-plus"></i>
       </button>
       <table class="w-100 table-content position-relative">
         <thead class="w-100">
-          <tr class="py-2 px-4 w-100">
-            <th class="first-heading">
+          <tr class="py-2 px-4 w-100" [ngClass]="{ 'ar-row': lang == 'Ar' }">
+            <th
+              class="first-heading"
+              [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
+            >
               <input type="checkbox" (change)="checkboxEvent($event)" />
             </th>
-            <th class="text-start">Car Name</th>
-            <th>Model Year</th>
-            <th>Fuel Type</th>
-            <th>Car Color</th>
+            <th [ngStyle]="{ 'text-align': lang == 'Ar' ? 'right' : 'left' }">
+              {{ "tables.vehiclesTable.carName" | translate }}
+            </th>
+            <th>{{ "tables.vehiclesTable.modelYear" | translate }}</th>
+            <th>{{ "tables.vehiclesTable.fuelType" | translate }}</th>
+            <th>{{ "tables.vehiclesTable.carColor" | translate }}</th>
 
-            <th>Vehicle Status</th>
-            <th class="second-heading me-4">Options</th>
+            <th>{{ "tables.vehiclesTable.vehicleStatus" | translate }}</th>
+            <th
+              class="second-heading me-4"
+              [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
+            >
+              {{ "tables.vehiclesTable.options" | translate }}
+            </th>
           </tr>
         </thead>
         @if(isLoading){
@@ -136,15 +147,17 @@
 </section>
 
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4>Add new vehicle</h4>
+  <div [dir]="lang == 'Ar' ? 'rtl' : 'ltr'" class="modal-header">
+    <h4>{{ "tables.vehiclesTable.tableForm.formHeadline" | translate }}</h4>
   </div>
 
   <div class="modal-body">
     <form [formGroup]="addVehicleForm" class="">
       <div class="form-wrapper">
         <div class="col-md-4">
-          <label> vehicle name </label>
+          <label>
+            {{ "tables.vehiclesTable.tableForm.vehicleName" | translate }}
+          </label>
           <input
             class="text"
             class="form-group form-control"
@@ -153,7 +166,9 @@
         </div>
 
         <div class="col-md-4">
-          <label> year </label>
+          <label>
+            {{ "tables.vehiclesTable.tableForm.year" | translate }}
+          </label>
           <input
             class="number"
             class="form-group form-control"
@@ -162,7 +177,9 @@
         </div>
 
         <div class="col-md-4">
-          <label>Color</label>
+          <label>
+            {{ "tables.vehiclesTable.tableForm.color" | translate }}
+          </label>
           <input
             type="color"
             id="colorCodeSelection"
@@ -172,7 +189,11 @@
         </div>
 
         <div class="col-md-4">
-          <label> vehicle specification </label>
+          <label>
+            {{
+              "tables.vehiclesTable.tableForm.vehicleSpecification" | translate
+            }}
+          </label>
           <select
             formControlName="vehicleSpecificationId"
             class="form-control form-select form-group"
@@ -187,7 +208,9 @@
         </div>
 
         <div class="col-md-4">
-          <label> vehicle type </label>
+          <label>
+            {{ "tables.vehiclesTable.tableForm.vehicleType" | translate }}
+          </label>
           <select
             formControlName="vehicleTypeId"
             class="form-control form-select form-group"
@@ -200,7 +223,9 @@
           </select>
         </div>
         <div class="col-md-4">
-          <label> fuel type </label>
+          <label>
+            {{ "tables.vehiclesTable.tableForm.fuelType" | translate }}
+          </label>
           <select
             formControlName="fuelTypeId"
             class="form-control form-select form-group"
@@ -214,7 +239,9 @@
         </div>
 
         <div class="col-md-4">
-          <label> vehicle ownership </label>
+          <label>
+            {{ "tables.vehiclesTable.tableForm.vehicleOwnership" | translate }}
+          </label>
           <select
             formControlName="vehicleOwnershipId"
             class="form-control form-select form-group"
@@ -242,7 +269,9 @@
         </div> -->
 
         <div class="col-md-4">
-          <label> vehicle status </label>
+          <label>
+            {{ "tables.vehiclesTable.tableForm.vehicleStatus" | translate }}
+          </label>
           <select
             formControlName="vehicleStatusId"
             class="form-control form-select form-group"
@@ -271,7 +300,9 @@
         </div> -->
 
         <div class="col-md-4">
-          <label> vehicle brand </label>
+          <label>
+            {{ "tables.vehiclesTable.tableForm.vehicleBrand" | translate }}
+          </label>
           <select
             formControlName="vehicleBrandId"
             class="form-control form-select form-group"
@@ -285,7 +316,9 @@
         </div>
 
         <div class="col-md-4">
-          <label> vehicle body </label>
+          <label>
+            {{ "tables.vehiclesTable.tableForm.vehicleBody" | translate }}
+          </label>
           <select
             formControlName="vehicleBodyTypeId"
             class="form-control form-select form-group"
@@ -298,7 +331,11 @@
           </select>
         </div>
         <div class="col-md-4">
-          <label> Vehicle Service Type </label>
+          <label>
+            {{
+              "tables.vehiclesTable.tableForm.vehicleServiceType" | translate
+            }}
+          </label>
           <select
             formControlName="vehicleServiceTypeId"
             class="form-control form-select form-group"
@@ -313,7 +350,9 @@
         </div>
         <div class="col-md-4">
           <div class="mb-3">
-            <label for="formFile" class="form-label">Driver photo</label>
+            <label for="formFile" class="form-label">
+              {{ "tables.vehiclesTable.tableForm.driverPhoto" | translate }}
+            </label>
             <input
               class="form-control"
               (change)="uploadPhoto($event)"
