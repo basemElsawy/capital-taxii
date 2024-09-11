@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CalendarModule } from 'primeng/calendar';
 import { RatingModule } from 'primeng/rating';
 @Component({
-  selector: 'app-users',
+  selector: 'app-clients',
   standalone: true,
   imports: [
     CommonModule,

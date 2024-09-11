@@ -259,6 +259,16 @@
         </li>
         <li
           class="list-item"
+          [routerLink]="['/home', 'shifts']"
+          routerLinkActive="active-item"
+        >
+          <div class="d-flex align-items-center justify-content-start gap-2">
+            <i class="fa-solid fa-clipboard"></i>
+            <p>Shifts</p>
+          </div>
+        </li>
+        <li
+          class="list-item"
           [routerLink]="['/home', 'settings']"
           routerLinkActive="active-item"
         >

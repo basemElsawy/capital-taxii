@@ -12,7 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 import { TooltipModule } from 'primeng/tooltip';
 @Component({
-  selector: 'app-vehicle',
+  selector: 'app-stations',
   standalone: true,
   imports: [
     CommonModule,
