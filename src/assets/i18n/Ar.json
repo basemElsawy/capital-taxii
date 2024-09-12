@@ -130,6 +130,19 @@
       "totalAmount": "سعر الرحلة",
       "status": "الحالة"
     },
+
+    "shiftTable": {
+      "driver": "السائق",
+      "status": "الحالة",
+      "totalAmount": "سعر الرحلة",
+      "vehicle": "العربة",
+      "closedDate": "تاريخ الانتهاء",
+      "openDate": "تاريخ البدء",
+      "fromDate": "من تاريخ",
+      "toDate": "الي تاريخ",
+      "shiftDetails": "تفاصيل الوردية",
+      "search": "بحث"
+    },
     "stationPricesTable": {
       "fromStation": "محطة البدء",
       "toStation": "محطة الوصول",

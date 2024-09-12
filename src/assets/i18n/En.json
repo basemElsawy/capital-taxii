@@ -91,6 +91,17 @@
         "status": "Status"
       }
     },
+    "shiftTable": {
+      "driver": "Driver",
+      "status": "Status",
+      "vehicle": "Vehicle",
+      "totalAmount": "Total Amount",
+      "closedDate": "Closed Date",
+      "openDate": "Open Date",
+      "fromDate": "From Date",
+      "toDate": "To Date",
+      "search": "Search"
+    },
     "vehiclesTable": {
       "carName": "Car Name",
       "modelYear": "Model Year",
@@ -181,5 +192,8 @@
       "time": "Time"
     },
     "update": "update"
+  },
+  "dashboard": {
+    "topDrivers": "Top Drivers"
   }
 }

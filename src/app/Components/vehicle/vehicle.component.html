@@ -20,10 +20,8 @@
             <th
               class="first-heading"
               [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
+              [ngStyle]="{ 'text-align': lang == 'Ar' ? 'right' : 'left' }"
             >
-              <input type="checkbox" (change)="checkboxEvent($event)" />
-            </th>
-            <th [ngStyle]="{ 'text-align': lang == 'Ar' ? 'right' : 'left' }">
               {{ "tables.vehiclesTable.carName" | translate }}
             </th>
             <th>{{ "tables.vehiclesTable.modelYear" | translate }}</th>
@@ -45,9 +43,6 @@
         <tbody class="w-100">
           @for(data of driversData; track data) {
           <tr class="w-100">
-            <td>
-              <input type="checkbox" [checked]="data.isChecked" />
-            </td>
             <td
               class="person-info d-flex align-items-center justify-content-start gap-2"
             >

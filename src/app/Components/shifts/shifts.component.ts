@@ -11,6 +11,8 @@ import {
 import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../../Core/Services/translation.service';
 @Component({
   selector: 'app-shifts',
   standalone: true,
@@ -20,6 +22,7 @@ import { environment } from '../../../environments/environment.development';
     FormsModule,
     ReactiveFormsModule,
     SpinnerComponent,
+    TranslateModule,
   ],
   templateUrl: './shifts.component.html',
   styleUrls: ['./shifts.component.scss'],
@@ -32,11 +35,14 @@ export class ShiftsComponent implements OnInit {
   openShifts: any;
   closedShifts: any;
   singleShift: any;
+  lang!: string;
   public readonly imageUrl = environment.image;
 
   constructor(
     private shiftsService: ShiftsService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private translation: TranslationService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -47,6 +53,15 @@ export class ShiftsComponent implements OnInit {
     this.searchForClosedShifysForm = new FormGroup({
       fromDate: new FormControl(null, Validators.required),
       toDate: new FormControl(null, Validators.required),
+    });
+    this.languageSetter();
+  }
+  languageSetter() {
+    if (!this.lang) {
+      this.lang = this.translate.currentLang;
+    }
+    this.translation.getLanguage.subscribe((val: string) => {
+      this.lang = val;
     });
   }
   searchForOpenShifts() {

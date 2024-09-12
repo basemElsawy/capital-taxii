@@ -49,8 +49,8 @@
         >
           <img
             [src]="
-              user.picture
-                ? imgUrl + user.picture
+              user?.picture
+                ? imgUrl + user?.picture
                 : '../../../assets/unknown.png'
             "
             alt=""
@@ -58,14 +58,14 @@
             width="40"
           />
           <div class="text-container text-start">
-            <h6 class="m-0 p-0">{{ user.phoneNumber }}</h6>
-            <p class="m-0 p-0">{{ user.email }}</p>
+            <h6 class="m-0 p-0">{{ user?.phoneNumber }}</h6>
+            <p class="m-0 p-0">{{ user?.email }}</p>
           </div>
         </td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.phoneNumber }}</td>
+        <td>{{ user?.email }}</td>
+        <td>{{ user?.phoneNumber }}</td>
         <td>Male</td>
-        <td>{{ user.birthdate | date : "dd-MM-yyyy" }}</td>
+        <td>{{ user?.birthdate | date : "dd-MM-yyyy" }}</td>
       </tr>
       }
     </tbody>

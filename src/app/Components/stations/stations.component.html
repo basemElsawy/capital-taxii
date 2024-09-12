@@ -20,9 +20,8 @@
               class="first-heading"
               [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
             >
-              <input type="checkbox" (change)="checkboxEvent($event)" />
+              {{ "tables.stationsTable.stationNameEn" | translate }}
             </th>
-            <th>{{ "tables.stationsTable.stationNameEn" | translate }}</th>
             <th>{{ "tables.stationsTable.stationNameAr" | translate }}</th>
             <th>{{ "tables.stationsTable.locationLatitude" | translate }}</th>
             <th>{{ "tables.stationsTable.locationLongitude" | translate }}</th>
@@ -40,10 +39,6 @@
         <tbody class="w-100">
           @for(station of stations; track station) {
           <tr class="w-100">
-            <td>
-              <input type="checkbox" [checked]="station.isChecked" />
-            </td>
-
             <td>{{ station.nameEn }}</td>
             <td>{{ station.nameAr }}</td>
 

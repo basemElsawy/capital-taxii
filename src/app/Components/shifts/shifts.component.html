@@ -11,9 +11,9 @@
           <form [formGroup]="searchForOpenShifysForm">
             <div class="row g-3 align-items-center">
               <div class="col-auto">
-                <label for="inputPassword6" class="col-form-label"
-                  >From date</label
-                >
+                <label for="inputPassword6" class="col-form-label">{{
+                  "tables.shiftTable.fromDate" | translate
+                }}</label>
               </div>
               <div class="col-auto">
                 <input
@@ -23,9 +23,9 @@
                 />
               </div>
               <div class="col-auto">
-                <label for="inputPassword6" class="col-form-label"
-                  >To date</label
-                >
+                <label for="inputPassword6" class="col-form-label">{{
+                  "tables.shiftTable.toDate" | translate
+                }}</label>
               </div>
               <div class="col-auto">
                 <input
@@ -36,7 +36,7 @@
               </div>
               <div class="col-auto">
                 <button class="btn btn-primary" (click)="searchForOpenShifts()">
-                  Search
+                  {{ "tables.shiftTable.search" | translate }}
                 </button>
               </div>
             </div>
@@ -49,28 +49,42 @@
             <table class="w-100 table-content position-relative">
               <thead class="w-100">
                 <tr class="py-2 px-4 w-100">
-                  <th class="first-heading">
-                    <input type="checkbox" (change)="checkboxEvent($event)" />
+                  <th
+                    [ngStyle]="{
+                      'text-align': lang == 'Ar' ? 'right' : 'left'
+                    }"
+                    class="first-heading"
+                    [ngClass]="{
+                      'first-heading-Ar pe-2': lang == 'Ar'
+                    }"
+                  >
+                    {{ "tables.shiftTable.driver" | translate }}
                   </th>
-                  <th style="text-align: left; padding-left: 0px">Driver</th>
-                  <th style="width: 150px; text-align: left; padding-left: 0">
-                    Vehicle
+                  <th
+                    [ngStyle]="{
+                      'text-align': lang == 'Ar' ? 'right' : 'left'
+                    }"
+                    style="width: 150px; padding-left: 0"
+                  >
+                    {{ "tables.shiftTable.vehicle" | translate }}
                   </th>
-                  <th>Open date</th>
+                  <th>{{ "tables.shiftTable.openDate" | translate }}</th>
                   <!-- <th>Closed date</th> -->
 
-                  <th style="width: 150px" class="second-heading">
-                    Total amount
+                  <th
+                    style="width: 150px"
+                    class="second-heading"
+                    [ngClass]="{
+                      'second-heading-Ar': lang == 'Ar'
+                    }"
+                  >
+                    {{ "tables.shiftTable.totalAmount" | translate }}
                   </th>
                 </tr>
               </thead>
               <tbody class="w-100">
                 @for(shift of openShifts; track shift) {
                 <tr class="w-100">
-                  <td>
-                    <input type="checkbox" [checked]="shift.isChecked" />
-                  </td>
-
                   <td class="person-info">
                     <div
                       class="d-flex align-items-center justify-content-start gap-2"
@@ -140,9 +154,9 @@
           <form [formGroup]="searchForClosedShifysForm">
             <div class="row g-3 align-items-center">
               <div class="col-auto">
-                <label for="inputPassword6" class="col-form-label"
-                  >From date</label
-                >
+                <label for="inputPassword6" class="col-form-label">{{
+                  "tables.shiftTable.fromDate" | translate
+                }}</label>
               </div>
               <div class="col-auto">
                 <input
@@ -152,9 +166,9 @@
                 />
               </div>
               <div class="col-auto">
-                <label for="inputPassword6" class="col-form-label"
-                  >To date</label
-                >
+                <label for="inputPassword6" class="col-form-label">{{
+                  "tables.shiftTable.toDate" | translate
+                }}</label>
               </div>
               <div class="col-auto">
                 <input
@@ -168,7 +182,7 @@
                   class="btn btn-primary"
                   (click)="searchForClosedShifts()"
                 >
-                  Search
+                  {{ "tables.shiftTable.search" | translate }}
                 </button>
               </div>
             </div>
@@ -181,34 +195,52 @@
             <table class="w-100 table-content position-relative">
               <thead class="w-100">
                 <tr class="py-2 px-4 w-100">
-                  <th class="first-heading">
-                    <input type="checkbox" (change)="checkboxEvent($event)" />
+                  <th
+                    [ngStyle]="{
+                      'text-align': lang == 'Ar' ? 'right' : 'left'
+                    }"
+                    [ngClass]="{
+                      'first-heading pe-3': lang == 'En',
+                      'first-heading-Ar ps-3': lang == 'Ar'
+                    }"
+                  >
+                    <!-- style="text-align: left" -->
+                    {{ "tables.shiftTable.driver" | translate }}
                   </th>
-                  <th style="text-align: left; padding-left: 0px">Driver</th>
-                  <th style="width: 150px; text-align: left; padding-left: 0">
-                    Vehicle
+                  <th
+                    [ngStyle]="{
+                      'text-align': lang == 'Ar' ? 'right' : 'left'
+                    }"
+                    style="width: 150px; padding-left: 0"
+                  >
+                    {{ "tables.shiftTable.vehicle" | translate }}
                   </th>
-                  <th>Open date</th>
-                  <th>Closed date</th>
+                  <th>{{ "tables.shiftTable.openDate" | translate }}</th>
+                  <th>{{ "tables.shiftTable.closedDate" | translate }}</th>
 
-                  <th style="width: 150px">Total amount</th>
-                  <th class="second-heading">Status</th>
+                  <th style="width: 150px">
+                    {{ "tables.shiftTable.totalAmount" | translate }}
+                  </th>
+                  <th
+                    [ngClass]="{
+                      'second-heading': lang == 'En',
+                      'second-heading-Ar': lang == 'Ar'
+                    }"
+                  >
+                    {{ "tables.shiftTable.status" | translate }}
+                  </th>
                 </tr>
               </thead>
               <tbody class="w-100">
                 @for(shift of closedShifts; track shift) {
                 <tr class="w-100">
-                  <td>
-                    <input type="checkbox" [checked]="shift.isChecked" />
-                  </td>
-
                   <td class="person-info">
                     <div
                       class="d-flex align-items-center justify-content-start gap-2"
                     >
                       <img
                         [src]="
-                          shift?.driver.user?.picture
+                          shift?.driver?.user?.picture
                             ? imageUrl + shift?.driver.user?.picture
                             : '../../../assets/Rectangle 28.png'
                         "
@@ -217,11 +249,21 @@
                         width="35"
                       />
                       <div class="text-container text-start">
-                        <h6 class="m-0 p-0">
-                          {{ shift?.driver.user?.fullName }}
+                        <h6
+                          [ngStyle]="{
+                            'text-align': lang == 'Ar' ? 'right' : 'left'
+                          }"
+                          class="m-0 p-0"
+                        >
+                          {{ shift?.driver?.user?.fullName }}
                         </h6>
-                        <p class="m-0 p-0">
-                          {{ shift?.driver.user?.phoneNumber }}
+                        <p
+                          [ngStyle]="{
+                            'text-align': lang == 'Ar' ? 'right' : 'left'
+                          }"
+                          class="m-0 p-0"
+                        >
+                          {{ shift?.driver?.user?.phoneNumber }}
                         </p>
                       </div>
                     </div>
@@ -231,7 +273,14 @@
                       class="d-flex align-items-center justify-content-start gap-2"
                     >
                       <div class="vehicle-image">
-                        <img [src]="imageUrl + shift.vehicle?.photo" alt="" />
+                        <img
+                          [src]="
+                            shift?.vehicle?.photo
+                              ? imageUrl + shift?.vehicle?.photo
+                              : '../../../assets/carPlaceholder.webp'
+                          "
+                          alt=""
+                        />
                       </div>
                       <div>
                         <p>
