@@ -194,6 +194,7 @@
     "update": "update"
   },
   "dashboard": {
-    "topDrivers": "Top Drivers"
+    "topDrivers": "Top Drivers",
+    "dashboardTable": {}
   }
 }
