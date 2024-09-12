@@ -9,7 +9,9 @@
         (click)="openAddModal(content)"
         class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
       >
-        <span> Add New </span>
+        <span>
+          {{ "tables.stationPricesTable.metaText.addHeadline" | translate }}
+        </span>
 
         <i class="fa-solid fa-plus"></i>
       </button>
@@ -20,9 +22,8 @@
               class="first-heading"
               [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
             >
-              <input type="checkbox" (change)="checkboxEvent($event)" />
+              {{ "tables.stationPricesTable.fromStation" | translate }}
             </th>
-            <th>{{ "tables.stationPricesTable.fromStation" | translate }}</th>
             <th>{{ "tables.stationPricesTable.toStation" | translate }}</th>
             <th>{{ "tables.stationPricesTable.price" | translate }}</th>
             <th
@@ -39,10 +40,6 @@
         <tbody class="w-100">
           @for(station of stationsPrices; track station) {
           <tr class="w-100">
-            <td>
-              <input type="checkbox" [checked]="station.isChecked" />
-            </td>
-
             <td>
               {{
                 lang == "En"

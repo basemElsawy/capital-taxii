@@ -13,23 +13,37 @@
   <table class="w-100 table-content position-relative">
     <thead class="w-100">
       <tr class="py-2 px-4 w-100">
-        <th class="first-heading">
-          <input type="checkbox" (change)="checkboxEvent($event)" />
+        <th
+          [ngClass]="{
+            'first-heading': lang == 'En',
+            'first-heading-Ar': lang == 'Ar'
+          }"
+          style="width: 150px"
+          [ngStyle]="{
+            'text-align': lang == 'En' ? 'left' : 'right',
+            'padding-left': lang == 'En' ? ' 30px' : '0px',
+            'padding-right': lang == 'En' ? ' 0px' : '30px'
+          }"
+        >
+          {{ "tables.usersTable.user" | translate }}
         </th>
-        <th style="width: 150px; text-align: left; padding-left: 0px">User</th>
-        <th>E-mail or Username</th>
-        <th>Phone number</th>
+        <th>{{ "tables.usersTable.emailOrUsername" | translate }}</th>
+        <th>{{ "tables.usersTable.phoneNumber" | translate }}</th>
 
-        <th>Gender</th>
-        <th>BirthDay</th>
+        <th>{{ "tables.usersTable.gender" | translate }}</th>
+        <th
+          [ngClass]="{
+            'second-heading': lang == 'En',
+            'second-heading-Ar': lang == 'Ar'
+          }"
+        >
+          {{ "tables.usersTable.birthday" | translate }}
+        </th>
       </tr>
     </thead>
     <tbody>
       @for(user of users; track user) {
       <tr>
-        <td>
-          <input type="checkbox" [checked]="user.isChecked" />
-        </td>
         <td
           class="person-info d-flex align-users-center justify-content-start gap-2"
         >
@@ -67,7 +81,7 @@
     <form [formGroup]="addUserForm">
       <div class="row">
         <div class="col-md-4">
-          <label> Email </label>
+          <label> {{ "tables.usersTable.emailOrUsername" | translate }} </label>
           <input
             class="form-group form-control"
             type="text"
@@ -75,7 +89,7 @@
           />
         </div>
         <div class="col-md-4">
-          <label> Phone </label>
+          <label> {{ "tables.usersTable.phoneNumber" | translate }} </label>
           <input
             class="form-group form-control"
             type="number"
@@ -83,7 +97,7 @@
           />
         </div>
         <div class="col-md-4">
-          <label> Gender </label>
+          <label> {{ "tables.usersTable.gender" | translate }} </label>
           <select formControlName="genderId" class="form-select form-control">
             <option [value]="1">Male</option>
             <option [value]="2">Female</option>
@@ -91,13 +105,13 @@
         </div>
 
         <div class="col-md-4">
-          <label> Nationality </label>
+          <label> {{ "tables.usersTable.nationality" | translate }} </label>
           <select
             formControlName="nationalityId"
             class="form-select form-control"
           >
             <option disabled selected value="null">
-              Please choose nationality
+              {{ "tables.usersTable.selectNationality" | translate }}
             </option>
             @for(nationality of nationalities; track nationality){
             <option [value]="nationality.id">
@@ -108,7 +122,7 @@
         </div>
 
         <div class="col-md-4">
-          <label> Password </label>
+          <label> {{ "tables.usersTable.password" | translate }} </label>
 
           <input
             class="form-control"
@@ -118,7 +132,7 @@
         </div>
 
         <div class="col-md-4">
-          <label> Confirm password </label>
+          <label> {{ "tables.usersTable.confirmPassword" | translate }} </label>
 
           <input
             class="form-control"
@@ -131,13 +145,15 @@
             "
           >
             <p class="fw-bold text-danger">
-              Password and confirm password do not match.
+              {{ "tables.usersTable.PasswordDoesNotMatch" | translate }}
             </p>
           </div>
         </div>
 
         <div class="col-md-4">
-          <label> Birth date </label>
+          <label>
+            {{ "tables.usersTable.birthday" | translate }}
+          </label>
           <input class="form-control" type="date" formControlName="birthDate" />
         </div>
       </div>

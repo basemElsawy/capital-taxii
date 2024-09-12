@@ -11,10 +11,18 @@ import {
   Validators,
 } from '@angular/forms';
 import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../../Core/Services/translation.service';
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [NgbNavModule, FormsModule, ReactiveFormsModule, SpinnerComponent],
+  imports: [
+    NgbNavModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SpinnerComponent,
+    TranslateModule,
+  ],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
 })
@@ -29,12 +37,17 @@ export class SettingsComponent implements OnInit {
   requestDistanceLimitId: any;
   requestTimeLimitId: any;
   DriverArrivalMinDistanceId: any;
-
+  lang!: string;
   kmPriceId: any;
   minimumKMId: any;
   isLoading: boolean = false;
 
-  constructor(private priceService: PriceService, private fb: FormBuilder) {}
+  constructor(
+    private priceService: PriceService,
+    private fb: FormBuilder,
+    private translate: TranslateService,
+    private translation: TranslationService
+  ) {}
 
   ngOnInit() {
     this.initialiseForm();
@@ -44,6 +57,17 @@ export class SettingsComponent implements OnInit {
     this.getAllMinimumFares();
     this.getAllDeductions();
     this.getDriverArrivalMinDistance();
+    this.setLanguage();
+  }
+
+  setLanguage() {
+    if (!this.lang) {
+      this.lang = this.translate.currentLang;
+    }
+
+    this.translation.getLanguage.subscribe((val: string) => {
+      this.lang = val;
+    });
   }
 
   getAllRequestDistanceLimits() {

@@ -5,19 +5,21 @@
   <div>
     <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
       <li [ngbNavItem]="1">
-        <button ngbNavLink>KM price configuration</button>
+        <button ngbNavLink>
+          {{ "settings.kmPriceConfiguation" | translate }}
+        </button>
         <ng-template ngbNavContent>
           <div class="card cardkm">
             <div class="card-header">
-              <h4>KM update price</h4>
+              <h4>{{ "settings.kmUpdatePrice.headline" | translate }}</h4>
             </div>
             <div class="card-body">
               <form [formGroup]="kmPriceForm">
                 <div class="row g-3 align-items-center">
                   <div class="col-auto">
-                    <label for="inputPassword6" class="col-form-label"
-                      >Km price</label
-                    >
+                    <label for="inputPassword6" class="col-form-label">{{
+                      "settings.kmUpdatePrice.kmPrice" | translate
+                    }}</label>
                   </div>
                   <div class="col-auto">
                     <input
@@ -29,7 +31,7 @@
                   </div>
                   <div class="col-auto">
                     <button class="btn btn-primary" (click)="updateKmPrice()">
-                      update
+                      {{ "settings.update" | translate }}
                     </button>
                   </div>
                 </div>
@@ -40,15 +42,15 @@
           <hr />
           <div class="card">
             <div class="card-header">
-              <h4>Minimum fares</h4>
+              <h4>{{ "settings.minimumFares.headline" | translate }}</h4>
             </div>
             <div class="card-body">
               <form [formGroup]="minimumFaresForm">
                 <div class="row g-3 align-items-center">
                   <div class="col-auto">
-                    <label for="inputPassword6" class="col-form-label"
-                      >Minimum km</label
-                    >
+                    <label for="inputPassword6" class="col-form-label">{{
+                      "settings.minimumFares.kmPrice" | translate
+                    }}</label>
                   </div>
                   <div class="col-auto">
                     <input
@@ -58,9 +60,9 @@
                     />
                   </div>
                   <div class="col-auto">
-                    <label for="inputPassword6" class="col-form-label"
-                      >Mnimum fare price</label
-                    >
+                    <label for="inputPassword6" class="col-form-label">
+                      {{ "settings.minimumFares.minimumFarePrice" | translate }}
+                    </label>
                   </div>
                   <div class="col-auto">
                     <input
@@ -70,9 +72,9 @@
                     />
                   </div>
                   <div class="col-auto">
-                    <label class="col-form-label"
-                      >Is kilometric minimum fares</label
-                    >
+                    <label class="col-form-label">{{
+                      "settings.minimumFares.isKilometric" | translate
+                    }}</label>
                   </div>
                   <div class="col-auto">
                     <div class="form-check">
@@ -92,7 +94,7 @@
                   </div>
                   <div class="col-auto">
                     <button class="btn btn-primary" (click)="updateMiniFares()">
-                      update
+                      {{ "settings.update" | translate }}
                     </button>
                   </div>
                 </div>
@@ -103,7 +105,9 @@
           <hr />
           <div class="card">
             <div class="card-header">
-              <h4>Deductions</h4>
+              <h4>
+                {{ "settings.deductions.headline" | translate }}
+              </h4>
             </div>
             <div class="card-body">
               <form
@@ -197,13 +201,15 @@
 
           <div class="card">
             <div class="card-header">
-              <h4>Request distance limit</h4>
+              <h4>{{ "settings.requestDistance.headline" | translate }}</h4>
             </div>
             <div class="card-body">
               <form [formGroup]="requestDistanceLimit">
                 <div class="row g-3 align-items-center">
                   <div class="col-auto">
-                    <label class="col-form-label">Distance limit</label>
+                    <label class="col-form-label">
+                      {{ "settings.requestDistance.distanceLimit" | translate }}
+                    </label>
                   </div>
                   <div class="col-auto">
                     <input
@@ -217,7 +223,7 @@
                       class="btn btn-primary"
                       (click)="updateRequestDistanceLimit()"
                     >
-                      update
+                      {{ "settings.update" | translate }}
                     </button>
                   </div>
                 </div>
@@ -227,13 +233,18 @@
           <hr />
           <div class="card">
             <div class="card-header">
-              <h4>Driver Arrival Min Distance</h4>
+              <h4>
+                {{ "settings.driverArrivalMinDistance.headline" | translate }}
+              </h4>
             </div>
             <div class="card-body">
               <form [formGroup]="DriverArrivalMinDistanceForm">
                 <div class="row g-3 align-items-center">
                   <div class="col-auto">
-                    <label class="col-form-label">Min distance</label>
+                    <label class="col-form-label">{{
+                      "settings.driverArrivalMinDistance.minDistance"
+                        | translate
+                    }}</label>
                   </div>
                   <div class="col-auto">
                     <input
@@ -247,7 +258,7 @@
                       class="btn btn-primary"
                       (click)="updateSelectedDriverArrivalMinDistance()"
                     >
-                      update
+                      {{ "settings.update" | translate }}
                     </button>
                   </div>
                 </div>
@@ -257,7 +268,7 @@
           <hr />
           <div class="card">
             <div class="card-header">
-              <h4>Request time limit</h4>
+              <h4>{{ "settings.requestTimesLimit.headline" | translate }}</h4>
             </div>
             <div class="card-body">
               <form
@@ -269,7 +280,9 @@
 
                   <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                      <label class="col-form-label">Time</label>
+                      <label class="col-form-label">{{
+                        "settings.requestTimesLimit.time" | translate
+                      }}</label>
                       <input
                         type="number"
                         class="form-control"
@@ -278,7 +291,9 @@
                     </div>
 
                     <div class="col-auto">
-                      <label class="col-form-label">Price</label>
+                      <label class="col-form-label">{{
+                        "settings.requestTimesLimit.price" | translate
+                      }}</label>
                       <input
                         type="text"
                         class="form-control"
@@ -292,7 +307,7 @@
                         class="btn btn-primary d-block mt-2"
                         (click)="updateSelectedrequestTimeLimit()"
                       >
-                        Update
+                        {{ "settings.update" | translate }}
                       </button>
                     </div>
                   </div>
@@ -303,7 +318,9 @@
         </ng-template>
       </li>
       <li [ngbNavItem]="2">
-        <button ngbNavLink>Deduction configuration</button>
+        <button ngbNavLink>
+          {{ "settings.deductionConfiguration" | translate }}
+        </button>
         <ng-template ngbNavContent>
           <p>deduction config goes here</p>
         </ng-template>

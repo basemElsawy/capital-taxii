@@ -15,9 +15,11 @@
       "vehicles": "Vehicles",
       "stations": "Stations",
       "stationPrices": "Station Prices",
-      "settings": "Settings"
+      "settings": "Settings",
+      "shifts": "Shifts"
     }
   },
+
   "tables": {
     "clientsTable": {
       "client": "clients",
@@ -32,6 +34,28 @@
         "optionsText": "All Trips"
       }
     },
+    "usersTable": {
+      "user": "User",
+      "emailOrUsername": "E-mail or username",
+      "phoneNumber": "Phone number",
+      "gender": "Gender",
+      "birthday": "Birthday",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "selectNationality": "Please choose nationality",
+      "PasswordDoesNotMatch": "Password does not match."
+    },
+    "stationPricesTable": {
+      "fromStation": "From Station",
+      "toStation": "To Station",
+      "price": "Price",
+      "options": "options",
+      "metaText": {
+        "updateHeadline": "Update station Price",
+        "addHeadline": "Add  New Price"
+      }
+    },
+
     "driversTable": {
       "user": "User",
       "email": "Email",
@@ -128,23 +152,28 @@
     }
   },
   "settings": {
+    "kmPriceConfiguation": "Km Price Configuration",
+    "deductionConfiguration": "Deduction Configuration",
     "kmUpdatePrice": {
       "headline": "Km Update Price",
       "kmPrice": "Km Price"
     },
     "minimumFares": {
       "headline": "Minimum Fares",
-      "update": "update",
-      "kmPrice": "Minimum Km"
+      "minimumFarePrice": "Minimum Fare Price",
+      "kmPrice": "Minimum Km",
+      "isKilometric": "Kilometric minimum fares"
     },
     "deductions": {
       "headline": "Deductions"
     },
     "requestDistance": {
-      "headline": "Request Distance Limit"
+      "headline": "Request Distance Limit",
+      "distanceLimit": "Distance Limit"
     },
     "driverArrivalMinDistance": {
-      "headline": "Driver Arrival Min Distance"
+      "headline": "Driver Arrival Min Distance",
+      "minDistance": "Min Distance"
     },
     "requestTimesLimit": {
       "headline": "Request time limit",

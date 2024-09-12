@@ -16,7 +16,8 @@
       "vehicles": "العربات",
       "stations": "المحطات",
       "stationPrices": "تسعيرة المحطات",
-      "settings": "الاعدادات"
+      "settings": "الاعدادات",
+      "shifts": "ورديات"
     }
   },
   "tables": {
@@ -32,6 +33,17 @@
       "tableMeta": {
         "optionsText": "جميع الرحلات"
       }
+    },
+    "usersTable": {
+      "user": "المستخدم",
+      "emailOrUsername": "اسم المستخدم او البريد",
+      "phoneNumber": "رقم التليفون",
+      "gender": "النوع",
+      "birthday": "يوم الميلاد",
+      "password": "كلمة السر",
+      "confirmPassword": "تاكيد كلمة المرور",
+      "selectNationality": "برجاء اختيار الجنسية",
+      "PasswordDoesNotMatch": "عدم تطابق كلمة المرور"
     },
     "driversTable": {
       "user": "المستخدم",
@@ -130,26 +142,32 @@
     }
   },
   "settings": {
+    "kmPriceConfiguation": "اعدادات الاسعار الكيلومتريه",
+    "deductionConfiguration": "اعدادات الخصومات",
     "kmUpdatePrice": {
       "headline": "سعر التجديث الكيلومتري",
       "kmPrice": "الكيلومتري"
     },
     "minimumFares": {
       "headline": "الحد الأدنى للأسعار",
-      "kmPrice": "الحد الادني الكيلومتري"
+      "kmPrice": "الحد الادني الكيلومتري",
+      "minimumFarePrice": "الحد الادني لسعر الاجرة",
+      "isKilometric": "الحد الأدنى لأسعار الكيلومترية"
     },
     "deductions": {
       "headline": "الخصومات"
     },
     "requestDistance": {
-      "headline": "طلب حد المسافة"
+      "headline": "طلب حد المسافة",
+      "distanceLimit": "حد المسافة"
     },
     "driverArrivalMinDistance": {
-      "headline": "المسافة الدقيقة لوصول السائق"
+      "headline": "المسافة الدقيقة لوصول السائق",
+      "minDistance": "مسافة دقيقة"
     },
     "requestTimesLimit": {
       "headline": "طلب الحد الزمني",
-      "price": "السغر",
+      "price": "السعر",
       "time": "الوقت"
     },
     "update": "تحديث"
