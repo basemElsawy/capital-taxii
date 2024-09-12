@@ -15,7 +15,8 @@
       "vehicles": "Vehicles",
       "stations": "Stations",
       "stationPrices": "Station Prices",
-      "settings": "Settings"
+      "settings": "Settings",
+      "zones": "Zones"
     }
   },
   "tables": {
@@ -76,6 +77,8 @@
       "options": "Options",
       "status": "Status",
       "actionsButton": "Add New",
+      "zone": "Zone",
+
       "tableForm": {
         "formHeadline": "Add new Vehicle",
         "vehicleName": "Vehicle Name",

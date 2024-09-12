@@ -11,6 +11,7 @@ import { ClientsComponent } from '../clients/clients.component';
 import { StationsPricesComponent } from '../stations-prices/stations-prices.component';
 import { StationsComponent } from '../stations/stations.component';
 import { ShiftsComponent } from '../shifts/shifts.component';
+import { ZonesComponent } from '../zones/zones.component';
 export const routes: Routes = [
   {
     path: '',
@@ -57,6 +58,10 @@ export const routes: Routes = [
       {
         path: 'shifts',
         component: ShiftsComponent,
+      },
+      {
+        path: 'zones',
+        component: ZonesComponent,
       },
     ],
   },

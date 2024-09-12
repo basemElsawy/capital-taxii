@@ -31,6 +31,8 @@
             <th>{{ "tables.vehiclesTable.carColor" | translate }}</th>
 
             <th>{{ "tables.vehiclesTable.vehicleStatus" | translate }}</th>
+            <th>{{ "tables.vehiclesTable.zone" | translate }}</th>
+
             <th
               class="second-heading me-4"
               [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
@@ -53,8 +55,8 @@
             >
               <img
                 [src]="
-                  data.res.photo
-                    ? imgUrl + data.res.photo
+                  data?.res?.photo
+                    ? imgUrl + data?.res?.photo
                     : '../../../assets/carjpg.jpg'
                 "
                 alt=""
@@ -62,17 +64,20 @@
                 width="40"
               />
               <div class="text-container text-start">
-                <h6 class="m-0 p-0 fw-bold">{{ data.res.vehicleName }}</h6>
+                <h6 class="m-0 p-0 fw-bold">{{ data?.res?.vehicleName }}</h6>
                 <!-- <a href="#" class="click-show-image">Show Image</a> -->
               </div>
             </td>
-            <td>{{ data.res.year }}</td>
-            <td>{{ data.res.fuelType.nameEn }}</td>
+            <td>{{ data?.res?.year }}</td>
+            <td>{{ data?.res?.fuelType?.nameEn }}</td>
             <td style="width: 200px" class="text-center">
-              {{ data.res.vehicleColor }}
+              {{ data?.res?.vehicleColor }}
             </td>
             <td style="width: 200px" class="text-center">
-              {{ data.res.vehicleStatus.nameEn }}
+              {{ data?.res?.vehicleStatus?.nameEn }}
+            </td>
+            <td style="width: 200px" class="text-center">
+              {{ data?.res?.zone?.nameEn }}
             </td>
             <td class="d-flex align-items-start justify-content-center">
               <button
@@ -253,7 +258,19 @@
             }
           </select>
         </div>
-
+        <div class="col-md-4">
+          <label> Zone </label>
+          <select
+            formControlName="zoneId"
+            class="form-control form-select form-group"
+          >
+            @for(zone of zones; track zone){
+            <option [value]="zone.id">
+              {{ zone.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
         <!-- <div class="col-md-4">
           <label> vehicle lifecycle </label>
           <select
@@ -475,7 +492,19 @@
             }
           </select>
         </div>
-
+        <div class="col-md-4">
+          <label> Zone </label>
+          <select
+            formControlName="zoneId"
+            class="form-control form-select form-group"
+          >
+            @for(zone of zones; track zone){
+            <option [value]="zone.id">
+              {{ zone.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
         <!-- <div class="col-md-4">
           <label> vehicle lifecycle </label>
           <select

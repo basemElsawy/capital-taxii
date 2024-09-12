@@ -23,6 +23,8 @@
             <th>Station Name Ar</th>
             <th>Location Latitude</th>
             <th>Location Longitude</th>
+            <th>Zone</th>
+
             <th class="second-heading me-4">Options</th>
           </tr>
         </thead>
@@ -42,6 +44,9 @@
             <td>{{ station.locationLatitude }}</td>
             <td style="width: 200px" class="text-center">
               {{ station.locationLongitude }}
+            </td>
+            <td style="width: 200px" class="text-center">
+              {{ station.zone.nameEn ? station.zone.nameEn : "--" }}
             </td>
             <td class="d-flex align-items-start justify-content-center">
               <button
@@ -106,6 +111,19 @@
             formControlName="locationLongitude"
           />
         </div>
+        <div class="col-md-4">
+          <label> Zone </label>
+          <select
+            formControlName="zoneId"
+            class="form-control form-select form-group"
+          >
+            @for(zone of zones; track zone){
+            <option [value]="zone.id">
+              {{ zone.nameEn }}
+            </option>
+            }
+          </select>
+        </div>
       </div>
     </form>
   </div>
@@ -157,6 +175,19 @@
             class="form-group form-control"
             formControlName="locationLongitude"
           />
+        </div>
+        <div class="col-md-4">
+          <label> Zone </label>
+          <select
+            formControlName="zoneId"
+            class="form-control form-select form-group"
+          >
+            @for(zone of zones; track zone){
+            <option [value]="zone.id">
+              {{ zone.nameEn }}
+            </option>
+            }
+          </select>
         </div>
       </div>
     </form>

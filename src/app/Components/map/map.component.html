@@ -1,18 +1,43 @@
 <section class="map-container">
   <div class="map-wrapper mb-2 overflow-hidden rounded-4">
     <google-map [center]="center" [zoom]="zoom" height="300px" width="100%">
-      @for(driver of driverMarkers; track driver) {
-      <div>
+      <ng-container
+        *ngFor="let driver of driverMarkers; trackBy: trackByDriverId"
+      >
         <map-marker
-          #driver
+          #driverMarker="mapMarker"
           [position]="driver.coords"
           [icon]="driver.icon"
-          (mapClick)="getInfoWindow(infoWindow, driver)"
+          (mapMouseover)="showDriverInfo(infoWindow, driverMarker, driver)"
+          (mapMouseout)="hideDriverInfo(infoWindow)"
         ></map-marker>
-      </div>
-      }
-      <map-info-window #infoWindow>
-        <div class="">hello</div>
+      </ng-container>
+      <map-info-window #infoWindow="mapInfoWindow">
+        <div class="info-window-content">
+          <img
+            [src]="
+              selectedDriver?.userInfo.image
+                ? imgUrl + selectedDriver?.userInfo.image
+                : '../../../assets/carjpg.jpg'
+            "
+            alt="Driver Image"
+            width="50"
+            height="50"
+          />
+          <div class="text">
+            <p class="mt-2">
+              <strong>Driver Name:</strong> {{ selectedDriver?.userInfo.name }}
+            </p>
+            <p class="mt-2">
+              <strong>Phone Number</strong>
+              {{ selectedDriver?.userInfo.phoneNumber }}
+            </p>
+            <p class="mt-2">
+              <strong>Vehicle Name:</strong>
+              {{ selectedDriver?.currentVehicle.vehicleName }}
+            </p>
+          </div>
+        </div>
       </map-info-window>
     </google-map>
   </div>

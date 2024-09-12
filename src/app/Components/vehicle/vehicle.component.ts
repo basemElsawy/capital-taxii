@@ -52,6 +52,8 @@ export class VehicleComponent {
   isLoading: boolean = false;
   base64Image: string | undefined;
   lang!: string;
+  zones: any[] = [];
+
   constructor(
     private vehilcesService: VehicleService,
     private modalService: NgbModal,
@@ -73,6 +75,7 @@ export class VehicleComponent {
     this.getAllDrivers();
     this.getAllVehicleServiceType();
     this.languageSetter();
+    this.getAllZones();
   }
 
   languageSetter() {
@@ -99,6 +102,7 @@ export class VehicleComponent {
       vehicleBrandId: [null, Validators.required],
       vehicleBodyTypeId: [null, Validators.required],
       vehicleServiceTypeId: [null, Validators.required],
+      zoneId: [null, Validators.required],
     });
     this.updateVehicleForm = this.fb.group({
       id: [null, Validators.required],
@@ -116,6 +120,7 @@ export class VehicleComponent {
       vehicleBrandId: [null, Validators.required],
       vehicleBodyTypeId: [null, Validators.required],
       vehicleServiceTypeId: [null, Validators.required],
+      zoneId: [null, Validators.required],
     });
     this.addDriverVehicleForm = this.fb.group({
       startDate: [null, Validators.required],
@@ -250,6 +255,7 @@ export class VehicleComponent {
       vehicleBrandId: selectedVehicle.vehicleBrand?.id,
       vehicleBodyTypeId: selectedVehicle.vehicleBodyType?.id,
       vehicleServiceTypeId: selectedVehicle.vehicleServiceType?.id || 1,
+      zoneId: selectedVehicle.zone.id,
     });
   }
   convertImageToBase64(imageUrl: string): void {
@@ -425,6 +431,10 @@ export class VehicleComponent {
       },
     });
   }
-
+  getAllZones() {
+    this.vehilcesService.getAllZones().subscribe((res: any) => {
+      this.zones = res;
+    });
+  }
   checkboxEvent(event: any) {}
 }

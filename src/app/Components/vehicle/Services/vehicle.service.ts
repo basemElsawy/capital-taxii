@@ -2,11 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { VehiclesApiEndpoints } from '../VehicleApiEndPoints';
 import { map } from 'rxjs';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VehicleService {
+  base_url = environment.base_url;
+
   constructor(private httpClient: HttpClient) {}
   getAllNationalities() {
     return this.httpClient.get(VehiclesApiEndpoints.nationalitiesEndpoint);
@@ -127,5 +130,8 @@ export class VehicleService {
           reader.readAsDataURL(blob); // Start reading the image blob
         });
       });
+  }
+  getAllZones() {
+    return this.httpClient.get(`${this.base_url}Zone/get-all-zones`);
   }
 }

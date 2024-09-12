@@ -16,7 +16,8 @@
       "vehicles": "العربات",
       "stations": "المحطات",
       "stationPrices": "تسعيرة المحطات",
-      "settings": "الاعدادات"
+      "settings": "الاعدادات",
+      "zones": "النطاقات"
     }
   },
   "tables": {
@@ -77,6 +78,7 @@
       "options": "خيارات",
       "status": "الحالة",
       "actionsButton": "اضافة عربة",
+      "zone": "النطاق",
       "tableForm": {
         "formHeadline": "اضافة عربة جديدة",
         "vehicleName": "اسم العربة",
