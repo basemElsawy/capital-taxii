@@ -26,6 +26,9 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "src/styles.scss",
+              "src/assets/fontawesome-free-6.5.1-web/css/fontawesome.css",
+              "src/assets/fontawesome-free-6.5.1-web/css/brands.css",
+              "src/assets/fontawesome-free-6.5.1-web/css/solid.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",

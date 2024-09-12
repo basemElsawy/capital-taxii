@@ -32,7 +32,6 @@ import { TranslationService } from '../../Core/Services/translation.service';
 })
 export class MapComponent {
   @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
-  private imgUrl: string = environment.image;
   center!: google.maps.LatLngLiteral;
   zoom = 8;
   driverMarkers: any[] = [];
@@ -43,6 +42,9 @@ export class MapComponent {
   allDrivers_Data: any = signal([]);
   address: any;
   selectedProducts: any;
+  selectedDriver: any = null; // To hold the selected driver data
+  public readonly imgUrl = environment.image;
+
   constructor(
     private vehicleServices: VehicleService,
     private mapService: MapServiceService,
@@ -57,7 +59,23 @@ export class MapComponent {
     // setInterval(() => {
     // }, 1000);
   }
+  // Function to handle mouseover event
+  showDriverInfo(infoWindow: MapInfoWindow, marker: MapMarker, driver: any) {
+    this.selectedDriver = driver;
+    console.log(driver);
+    infoWindow.open(marker); // Open the info window associated with the marker
+  }
 
+  // Function to handle mouseout event
+  hideDriverInfo(infoWindow: MapInfoWindow) {
+    this.selectedDriver = null;
+    infoWindow.close(); // Close the info window
+  }
+
+  // Function to track drivers by their IDs
+  trackByDriverId(index: number, driver: any) {
+    return driver.id;
+  }
   getAllDrivers() {
     this.vehicleServices.getAllDrivers().subscribe({
       next: (res: any) => {
@@ -85,15 +103,21 @@ export class MapComponent {
     let driverMarker = {
       userInfo: {
         name: driver.user.fullName,
-        status: driver.status,
+        status: driver.driver.status,
         image: driver.user.picture,
+        phoneNumber: driver.user.phoneNumber,
+      },
+      currentVehicle: {
+        vehicleName: driver.currentVehicle.vehicleName,
       },
       coords: {
         lat: driver.driver.locationLatitude,
         lng: driver.driver.locationLongitude,
       },
       icon: {
-        url: '../../../assets/locationIcon.png',
+        url: driver.driver.status
+          ? '../../../assets/locationIcon.png'
+          : '../../../assets/Artboard.png',
         scaledSize: {
           width: 60,
           height: 60,
@@ -104,7 +128,6 @@ export class MapComponent {
     if (event.target.checked) {
       this.driverMarkers.push(driverMarker);
       this.zoom = 16;
-      console.log(driverMarker);
       this.center = driverMarker.coords;
       return;
     }
@@ -120,8 +143,6 @@ export class MapComponent {
         this.allDrivers_Data.set(
           res.data.map((response: any) => ({ ...response, isChecked: false }))
         );
-
-        console.log(res);
 
         let mappedResponse = res.data.map(
           (responseItem: any): DriversMarkers => {
@@ -176,6 +197,7 @@ export class MapComponent {
   checkboxEvent(event: any) {
     let isAllChecked = event.target.checked;
     let driverMarker;
+    debugger;
 
     if (event.target.checked) {
       this.allDrivers_Data().forEach((item: any) => {
@@ -185,7 +207,7 @@ export class MapComponent {
         driverMarker = {
           userInfo: {
             name: item?.user.fullName,
-            status: item.status,
+            status: item.driver.status,
             image: item.user.picture,
           },
           coords: {
@@ -193,7 +215,9 @@ export class MapComponent {
             lng: item.driver.locationLongitude,
           },
           icon: {
-            url: '../../../assets/locationIcon.png',
+            url: item.driver.status
+              ? '../../../assets/locationIcon.png'
+              : '../../../assets/Artboard.png',
             scaledSize: {
               width: 60,
               height: 60,
@@ -211,22 +235,22 @@ export class MapComponent {
     });
   }
 
-  selectedItem(item: any) {
-    this.driverMarkers = [];
-    this.driverMarkers.push({
-      coords: {
-        lat: item.driver.locationLatitude,
-        lng: item.driver.locationLongitude,
-      },
-      icon: {
-        url: '../../../assets/locationIcon.png',
-        scaledSize: {
-          width: 60,
-          height: 60,
-        },
-      },
-    });
-  }
+  // selectedItem(item: any) {
+  //   this.driverMarkers = [];
+  //   this.driverMarkers.push({
+  //     coords: {
+  //       lat: item.driver.locationLatitude,
+  //       lng: item.driver.locationLongitude,
+  //     },
+  //     icon: {
+  //       url: '../../../assets/locationIcon.png',
+  //       scaledSize: {
+  //         width: 60,
+  //         height: 60,
+  //       },
+  //     },
+  //   });
+  // }
   getInfoWindow(marker: any, driver: any) {
     this.infoWindow.open(marker);
   }

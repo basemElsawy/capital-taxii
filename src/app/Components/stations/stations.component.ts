@@ -34,6 +34,7 @@ export class StationsComponent {
   addDriverVehicleForm!: FormGroup;
   choosedStation: any;
   isLoading: boolean = false;
+  zones: any[] = [];
   lang!: string;
   constructor(
     private stationsService: StationsService,
@@ -46,6 +47,7 @@ export class StationsComponent {
   ngOnInit(): void {
     this.getStations();
     this.initializeStationsForm();
+    this.getAllZones();
     this.languageSetter();
   }
 
@@ -64,14 +66,15 @@ export class StationsComponent {
       nameAr: [null, Validators.required],
       locationLatitude: [null, Validators.required],
       locationLongitude: [null, Validators.required],
+      zoneId: [null, Validators.required],
     });
     this.updateStationForm = this.fb.group({
       id: [null, Validators.required],
       nameEn: [null, Validators.required],
       nameAr: [null, Validators.required],
-
       locationLatitude: [null, Validators.required],
       locationLongitude: [null, Validators.required],
+      zoneId: [null, Validators.required],
     });
   }
 
@@ -101,6 +104,7 @@ export class StationsComponent {
       nameAr: selectedStation.nameAr,
       locationLatitude: selectedStation.locationLatitude,
       locationLongitude: selectedStation.locationLatitude,
+      zoneId: selectedStation.zone.id,
     });
   }
   openAddModal(content: any) {
@@ -147,6 +151,10 @@ export class StationsComponent {
       },
     });
   }
-
+  getAllZones() {
+    this.stationsService.getAllZones().subscribe((res: any) => {
+      this.zones = res;
+    });
+  }
   checkboxEvent(event: any) {}
 }

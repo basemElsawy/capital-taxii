@@ -7,12 +7,25 @@
 * {
   font-family: "montserrat";
 }
+.vehicles-section {
+  height: 80vh;
+}
+
+.close-icon {
+  font-size: 20px;
+  color: darkred;
+}
+
+.success-icon {
+  font-size: 20px;
+  color: #24c18f;
+}
 .map-wrapper {
   border: 1px solid $primary-color;
   height: 300px;
 }
 .person-info {
-  width: 130px;
+  width: 200px;
 }
 .table-container {
   background-color: white !important;
@@ -37,9 +50,6 @@ thead tr {
   font-size: 14px !important;
 
   background-color: $primary-color !important;
-}
-.person-info img {
-  border-radius: 50%;
 }
 tbody tr {
   border: none !important;
@@ -88,6 +98,7 @@ tbody tr td {
 }
 tbody tr td {
   font-size: 12px;
+  padding-block: 15px;
 }
 // ::ng-deep .p-checkbox {
 //   padding-left: 14px;
@@ -96,11 +107,13 @@ tbody tr td {
   background-color: #24c18f2e;
   color: #24c18f;
   font-weight: bold;
-  * {
-    text-wrap: nowrap;
-  }
+  transform: translateY(-10px);
 }
 
+.not-available {
+  background-color: rgba(255, 0, 0, 0.2) !important;
+  color: red !important;
+}
 thead {
   position: sticky;
   top: -8px;
@@ -108,16 +121,7 @@ thead {
   right: 0;
 }
 .table-footer {
-  margin-top: 10px;
-}
-
-.vehicle-image {
-  width: 30px;
-
-  & img {
-    width: 100%;
-    aspect-ratio: 1;
-  }
+  justify-self: end;
 }
 .box-style {
   @include displayAlignment();
@@ -132,51 +136,41 @@ thead {
   background-color: $primary-color;
   color: white;
 }
-.driver-na {
-  background-color: rgba(255, 0, 0, 0.2);
-  color: red;
-}
-/* your-component.component.css */
-.info-window-content {
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  color: #333;
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 250px;
-  text-align: center;
-}
-.text {
-  text-align: left;
-}
-.driver-image {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 2px solid #ddd;
-}
-.driver-image img {
-  width: 100%;
-}
-.info-text p {
-  margin: 5px 0;
-  font-weight: normal;
+.drivers-section {
+  height: 85vh;
 }
 
-.info-text p strong {
-  font-weight: bold !important;
+.btn-success {
+  background-color: white;
+  color: $primary-color;
+  border: none;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+}
+.btn-success:hover {
+  background-color: white;
+  color: $primary-color;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-success:active {
+  background-color: white !important;
+  color: $primary-color !important;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2) !important;
+}
+.click-show-image {
+  font-size: 10px !important;
+}
 
-  color: #007bff !important;
+.form-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  & div {
+    width: 100%;
+  }
 }
-.first-heading-Ar {
-  border-radius: 0px 10px 10px 0px !important;
-}
-.second-heading-Ar {
-  border-radius: 10px 0px 0px 10px !important;
-}
-.ar-row th {
-  // text-align: right;
-  direction: rtl;
+/* Add this to your component's CSS file or global stylesheet */
+::ng-deep .custom-tooltip ::ng-deep .p-tooltip {
+  background-color: #ffcc00 !important; /* Change to your desired color */
+  color: #000; /* Optional: Change text color */
+  padding: 2px 6px !important;
 }

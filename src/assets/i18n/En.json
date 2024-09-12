@@ -16,6 +16,7 @@
       "stations": "Stations",
       "stationPrices": "Station Prices",
       "settings": "Settings",
+      "zones": "Zones",
       "shifts": "Shifts"
     }
   },
@@ -111,6 +112,8 @@
       "options": "Options",
       "status": "Status",
       "actionsButton": "Add New",
+      "zone": "Zone",
+
       "tableForm": {
         "formHeadline": "Add new Vehicle",
         "vehicleName": "Vehicle Name",
@@ -132,6 +135,7 @@
       "stationNameAr": "Station Name Ar",
       "locationLatitude": "Location Latitude",
       "locationLongitude": "Location Longitude",
+      "zone": "Zone",
       "options": "Options",
       "actionsButton": "Add New",
       "tableForm": {

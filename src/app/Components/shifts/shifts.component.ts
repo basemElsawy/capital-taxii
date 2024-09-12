@@ -32,7 +32,7 @@ export class ShiftsComponent implements OnInit {
   searchForOpenShifysForm!: FormGroup;
   searchForClosedShifysForm!: FormGroup;
   isLoading: boolean = false;
-  openShifts: any;
+  openShifts: any[] = [];
   closedShifts: any;
   singleShift: any;
   lang!: string;

@@ -41,10 +41,9 @@
               </div>
             </div>
           </form>
-          @if(openShifts){
+          @if(openShifts.length !==0){
           <div
-            class="table-container bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
-            style="height: 290px"
+            class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
           >
             <table class="w-100 table-content position-relative">
               <thead class="w-100">
@@ -91,8 +90,8 @@
                     >
                       <img
                         [src]="
-                          shift?.driver.user?.picture
-                            ? imageUrl + shift?.driver.user?.picture
+                          shift?.driver?.user?.picture
+                            ? imageUrl + shift?.driver?.user?.picture
                             : '../../../assets/Rectangle 28.png'
                         "
                         alt=""
@@ -101,10 +100,10 @@
                       />
                       <div class="text-container text-start">
                         <h6 class="m-0 p-0">
-                          {{ shift?.driver.user?.fullName }}
+                          {{ shift?.driver?.user?.fullName }}
                         </h6>
                         <p class="m-0 p-0">
-                          {{ shift?.driver.user?.phoneNumber }}
+                          {{ shift?.driver?.user?.phoneNumber }}
                         </p>
                       </div>
                     </div>
@@ -115,15 +114,15 @@
                     >
                       <div class="vehicle-image">
                         <img
-                          [src]="imageUrl + shift.driver.vehicle?.photo"
+                          [src]="imageUrl + shift?.vehicle[0]?.photo"
                           alt=""
                         />
                       </div>
                       <div>
                         <p>
                           {{
-                            shift?.vehicle?.vehicleName
-                              ? shift?.vehicle?.vehicleName
+                            shift?.vehicle[0]?.vehicleName
+                              ? shift?.vehicle[0]?.vehicleName
                               : "-"
                           }}
                         </p>
@@ -189,8 +188,7 @@
           </form>
           @if(closedShifts){
           <div
-            class="table-container bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
-            style="height: 290px"
+            class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
           >
             <table class="w-100 table-content position-relative">
               <thead class="w-100">
@@ -241,7 +239,7 @@
                       <img
                         [src]="
                           shift?.driver?.user?.picture
-                            ? imageUrl + shift?.driver.user?.picture
+                            ? imageUrl + shift?.driver?.user?.picture
                             : '../../../assets/Rectangle 28.png'
                         "
                         alt=""
@@ -274,19 +272,15 @@
                     >
                       <div class="vehicle-image">
                         <img
-                          [src]="
-                            shift?.vehicle?.photo
-                              ? imageUrl + shift?.vehicle?.photo
-                              : '../../../assets/carPlaceholder.webp'
-                          "
+                          [src]="imageUrl + shift?.vehicle[0]?.photo"
                           alt=""
                         />
                       </div>
                       <div>
                         <p>
                           {{
-                            shift?.vehicle?.vehicleName
-                              ? shift?.vehicle?.vehicleName
+                            shift?.vehicle[0]?.vehicleName
+                              ? shift?.vehicle[0]?.vehicleName
                               : "-"
                           }}
                         </p>
@@ -339,18 +333,18 @@
     <!-- <div class="row text-right">
       <img class="my-2 img-holder" src="../../../assets/newLogo.jpeg" />
     </div> -->
-    <h3>Mr: {{ singleShift?.driver.user?.fullName }} shift details</h3>
+    <h3>Mr: {{ singleShift?.driver?.user?.fullName }} shift details</h3>
     <table class="shift-report-table">
       <tr>
         <th>Name</th>
         <td>
-          {{ singleShift?.driver.user?.fullName }}
+          {{ singleShift?.driver?.user?.fullName }}
         </td>
       </tr>
       <tr>
         <th>PhoneNumber</th>
         <td>
-          {{ singleShift?.driver.user?.phoneNumber }}
+          {{ singleShift?.driver?.user?.phoneNumber }}
         </td>
       </tr>
       <!-- <tr>

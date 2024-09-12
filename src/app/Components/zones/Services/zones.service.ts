@@ -6,18 +6,14 @@ import { environment } from '../../../../environments/environment.development';
 @Injectable({
   providedIn: 'root',
 })
-export class StationsService {
+export class ZonesService {
   base_url = environment.base_url;
   constructor(private httpClient: HttpClient) {}
-  getAllStations() {
-    return this.httpClient.get(`${this.base_url}Station`);
+
+  addNewZone(zone: any) {
+    return this.httpClient.post(`${this.base_url}Zone/add-zone`, zone);
   }
-  addNewStation(station: any) {
-    return this.httpClient.post(`${this.base_url}Station`, station);
-  }
-  updateStation(station: any) {
-    return this.httpClient.put(`${this.base_url}Station`, station);
-  }
+
   getAllZones() {
     return this.httpClient.get(`${this.base_url}Zone/get-all-zones`);
   }

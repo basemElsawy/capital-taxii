@@ -270,6 +270,17 @@
             <p>{{ "sideNav.listItems.shifts" | translate }}</p>
           </div>
         </li>
+
+        <li
+          class="list-item"
+          [routerLink]="['/home', 'zones']"
+          routerLinkActive="active-item"
+        >
+          <div class="d-flex align-items-center justify-content-start gap-2">
+            <i class="fa-solid fa-location-crosshairs"></i>
+            <p>{{ "sideNav.listItems.zones" | translate }}</p>
+          </div>
+        </li>
         <li
           class="list-item"
           [routerLink]="['/home', 'settings']"

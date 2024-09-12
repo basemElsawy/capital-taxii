@@ -17,6 +17,7 @@
       "stations": "المحطات",
       "stationPrices": "تسعيرة المحطات",
       "settings": "الاعدادات",
+      "zones": "النطاقات",
       "shifts": "ورديات"
     }
   },
@@ -90,6 +91,7 @@
       "options": "خيارات",
       "status": "الحالة",
       "actionsButton": "اضافة عربة",
+      "zone": "النطاق",
       "tableForm": {
         "formHeadline": "اضافة عربة جديدة",
         "vehicleName": "اسم العربة",
@@ -113,6 +115,7 @@
       "locationLongitude": "خطوط طول المحطة",
       "options": "خيارات",
       "actionsButton": "اضافة محطة",
+      "zone": "النطاق",
       "tableForm": {
         "stationNamEn": "En اسم المحطة",
         "stationNameAr": "Ar اسم المحطة ",
