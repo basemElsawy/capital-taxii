@@ -92,6 +92,15 @@
         "status": "Status"
       }
     },
+    "zonesTable": {
+      "zoneNameEn": "Zone Name En",
+      "zoneNameAr": "Zone Name Ar",
+      "zoneDetails": "Zone Details",
+      "coordinatesY": "coordinatesY",
+      "coordinatesX": "coordinatesX",
+      "details": "Details",
+      "addnew": "Add New coordinates"
+    },
     "shiftTable": {
       "driver": "Driver",
       "status": "Status",
@@ -101,7 +110,8 @@
       "openDate": "Open Date",
       "fromDate": "From Date",
       "toDate": "To Date",
-      "search": "Search"
+      "search": "Search",
+      "shiftDetails": "Shift Details"
     },
     "vehiclesTable": {
       "carName": "Car Name",
@@ -111,6 +121,7 @@
       "vehicleStatus": "Vehicle Status",
       "options": "Options",
       "status": "Status",
+      "driverName": "Driver Name",
       "actionsButton": "Add New",
       "zone": "Zone",
 
@@ -199,6 +210,19 @@
   },
   "dashboard": {
     "topDrivers": "Top Drivers",
-    "dashboardTable": {}
+    "totalRevenue": "Total Revenue",
+    "totalTrips": "Total Trips",
+    "totalDrivers": "Total Drivers",
+    "totalAvailableDrivers": "Total Available Drivers",
+    "totalUnavailableDrivers": "Total unavailable Drivers",
+    "dashboardTable": {
+      "user": "User",
+      "startLocation": "Start Location",
+      "endLocation": "End Location",
+      "tripDistance": "Trip Distance",
+      "tripTime": "Trip Time",
+      "tripPrice": "Trip price",
+      "email": "Email"
+    }
   }
 }

@@ -46,6 +46,15 @@
       "selectNationality": "برجاء اختيار الجنسية",
       "PasswordDoesNotMatch": "عدم تطابق كلمة المرور"
     },
+    "zonesTable": {
+      "zoneNameEn": "En اسم النطاق",
+      "zoneNameAr": "Ar اسم النطاق",
+      "zoneDetails": "تفاصيل النطاق",
+      "coordinatesY": "Y احادثيات",
+      "coordinatesX": "X احادثيات",
+      "details": "التفاصيل",
+      "addnew": "اضافة احداثيات"
+    },
     "driversTable": {
       "user": "المستخدم",
       "email": "البريد",
@@ -55,6 +64,7 @@
       "options": "خيارات",
       "carComfort": "نوعية السيارة",
       "status": "الحالة",
+      "driverName": "اسم السائق",
       "tableMeta": {
         "optionsText": "جميع الرحلات"
       },
@@ -90,6 +100,7 @@
       "vehicleStatus": "حالة العربة",
       "options": "خيارات",
       "status": "الحالة",
+      "driverName": "اسم السائق",
       "actionsButton": "اضافة عربة",
       "zone": "النطاق",
       "tableForm": {
@@ -187,5 +198,22 @@
       "time": "الوقت"
     },
     "update": "تحديث"
+  },
+
+  "dashboard": {
+    "topDrivers": "افضل السائقين",
+    "totalRevenue": "مجموع الايرادات",
+    "totalTrips": "مجموع الرحلات",
+    "totalDrivers": "مجموع السائقين",
+    "totalAvailableDrivers": "السائقين المتاحين",
+    "totalUnavailableDrivers": "السائقين الغير متاحين",
+    "dashboardTable": {
+      "user": "المستخدم",
+      "startLocation": "مكان البدء",
+      "endLocation": "مكان الوصول",
+      "tripDistance": "مسافة الرحلة",
+      "tripTime": "وقت الرحلة",
+      "tripPrice": "سعر الرحلة"
+    }
   }
 }

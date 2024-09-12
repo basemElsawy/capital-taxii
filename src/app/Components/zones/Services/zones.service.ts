@@ -13,7 +13,19 @@ export class ZonesService {
   addNewZone(zone: any) {
     return this.httpClient.post(`${this.base_url}Zone/add-zone`, zone);
   }
-
+  getCurrentLocation() {
+    let geolocation = navigator.geolocation;
+    return new Promise((resolve, reject) => {
+      try {
+        navigator.geolocation.getCurrentPosition(
+          (position) => resolve(position),
+          (error) => reject(error)
+        );
+      } catch (err) {
+        reject(new Error('Geolocation is not supported in this browser'));
+      }
+    });
+  }
   getAllZones() {
     return this.httpClient.get(`${this.base_url}Zone/get-all-zones`);
   }

@@ -79,10 +79,13 @@ i {
   font-size: 20px;
 }
 
+.top-container {
+  height: 50vh;
+}
 .top-drivers {
-  min-height: 200px;
+  min-height: 300px;
   overflow-y: scroll;
-  max-height: 200px;
+  max-height: 300px;
   padding-block: 12px;
 }
 .top-drivers::-webkit-scrollbar {

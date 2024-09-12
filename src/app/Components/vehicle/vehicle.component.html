@@ -27,6 +27,9 @@
             <th>{{ "tables.vehiclesTable.modelYear" | translate }}</th>
             <th>{{ "tables.vehiclesTable.fuelType" | translate }}</th>
             <th>{{ "tables.vehiclesTable.carColor" | translate }}</th>
+            <th>
+              {{ "tables.vehiclesTable.driverName" | translate }}
+            </th>
 
             <th>{{ "tables.vehiclesTable.vehicleStatus" | translate }}</th>
             <th>{{ "tables.vehiclesTable.zone" | translate }}</th>
@@ -65,8 +68,20 @@
             </td>
             <td>{{ data?.res?.year }}</td>
             <td>{{ data?.res?.fuelType?.nameEn }}</td>
-            <td style="width: 200px" class="text-center">
-              {{ data?.res?.vehicleColor }}
+            <td class="text-center">
+              <div
+                class="w-100 d-flex align-items-center justify-content-center"
+              >
+                <div
+                  style="width: 20px; height: 20px; border-radius: 50%"
+                  [style.backgroundColor]="data?.res?.vehicleColor"
+                ></div>
+              </div>
+            </td>
+            <td class="text-center">
+              <div>
+                {{ "Ahmed saad" }}
+              </div>
             </td>
             <td style="width: 200px" class="text-center">
               {{ data?.res?.vehicleStatus?.nameEn }}

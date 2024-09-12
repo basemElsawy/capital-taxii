@@ -34,6 +34,12 @@ export class PriceService {
   updateKMPrice(body: any) {
     return this.http.put(this.baseUrl + 'KmPrice', body);
   }
+  updateTaxiCounterFees(body: any) {
+    return this.http.put(this.baseUrl + 'TripStartFees', body);
+  }
+  getTaxiCounterFees() {
+    return this.http.get(this.baseUrl + 'TripStartFees');
+  }
 
   getMinimumFares() {
     return this.http.get(this.baseUrl + 'MinimumFare');

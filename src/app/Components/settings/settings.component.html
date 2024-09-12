@@ -101,6 +101,38 @@
               </form>
             </div>
           </div>
+          <hr />
+          <div class="card">
+            <div class="card-header">
+              <h4>Taxi Counter Fees</h4>
+              <!-- <h4>{{ "settings.minimumFares.headline" | translate }}</h4> -->
+            </div>
+            <div class="card-body">
+              <form [formGroup]="taxiCounter">
+                <div class="row g-3 align-items-center">
+                  <div class="col-auto">
+                    <label for="inputPassword6" class="col-form-label">
+                      Taxi Counter Fees
+                      <!-- {{ "settings.minimumFares.kmPrice" | translate }} -->
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <input
+                      type="number"
+                      class="form-control form-group"
+                      formControlName="price"
+                    />
+                  </div>
+
+                  <div class="col-auto">
+                    <button class="btn btn-primary" (click)="taxiCounterFees()">
+                      {{ "settings.update" | translate }}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
 
           <hr />
           <div class="card">

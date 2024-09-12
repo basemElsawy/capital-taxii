@@ -33,6 +33,7 @@ export class SettingsComponent implements OnInit {
   requestDistanceLimit!: FormGroup;
   deductionsForm!: FormGroup;
   requestTimeLimitForm!: FormGroup;
+  taxiCounter!: FormGroup;
   DriverArrivalMinDistanceForm!: FormGroup;
   requestDistanceLimitId: any;
   requestTimeLimitId: any;
@@ -57,6 +58,7 @@ export class SettingsComponent implements OnInit {
     this.getAllMinimumFares();
     this.getAllDeductions();
     this.getDriverArrivalMinDistance();
+    this.getTaxiCounterFees();
     this.setLanguage();
   }
 
@@ -191,6 +193,11 @@ export class SettingsComponent implements OnInit {
       id: [null],
       price: [null, Validators.required],
     });
+    this.taxiCounter = this.fb.group({
+      id: [null],
+      price: [null, Validators.required],
+    });
+
     this.minimumFaresForm = this.fb.group({
       id: [null],
       minimumKm: [null, Validators.required],
@@ -291,6 +298,30 @@ export class SettingsComponent implements OnInit {
       error: (error: any) => {
         this.isLoading = false;
         console.log(error);
+      },
+    });
+  }
+
+  taxiCounterFees() {
+    let taxiCounterBody = {
+      ...this.taxiCounter.value,
+    };
+    this.priceService.updateTaxiCounterFees(taxiCounterBody).subscribe({
+      next: (res) => {},
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+  getTaxiCounterFees() {
+    console.log(this.taxiCounter.controls['price']);
+    this.priceService.getTaxiCounterFees().subscribe({
+      next: (res: any) => {
+        this.taxiCounter.controls['price'].setValue(res[0].price);
+        this.taxiCounter.controls['id'].setValue(res[0].id);
+      },
+      error: (err) => {
+        console.log(err);
       },
     });
   }

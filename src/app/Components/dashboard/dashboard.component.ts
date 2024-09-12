@@ -9,6 +9,8 @@ import { InProgressTripsComponent } from './in-progress-trips/in-progress-trips.
 import { environment } from '../../../environments/environment.development';
 import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 import { SharedTableComponent } from './shared-table/shared-table.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../../Core/Services/translation.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -21,6 +23,7 @@ import { SharedTableComponent } from './shared-table/shared-table.component';
     InProgressTripsComponent,
     SpinnerComponent,
     SharedTableComponent,
+    TranslateModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -38,7 +41,7 @@ export class DashboardComponent implements OnInit {
 
   choosenCardData: any = signal([]);
   setIsLoading: any = signal(true);
-
+  lang!: string;
   IsNewRequests: boolean = false;
   IsConfirmedRequests: boolean = false;
   IsCancledRequests: boolean = false;
@@ -46,11 +49,23 @@ export class DashboardComponent implements OnInit {
   IsInProgressTrips: boolean = false;
 
   dashboardData: any;
-  private dashboardService = inject(DashboardService);
-
+  constructor(
+    private dashboardService: DashboardService,
+    private translate: TranslateService,
+    private translation: TranslationService
+  ) {}
   ngOnInit(): void {
     this.getAllDashboardStatisticalData();
     this.getAllDrivers();
+  }
+
+  languageSetter() {
+    if (!this.lang) {
+      this.lang = this.translate.currentLang;
+    }
+    this.translation.getLanguage.subscribe((val: string) => {
+      this.lang = val;
+    });
   }
 
   getAllDashboardStatisticalData() {
@@ -69,6 +84,7 @@ export class DashboardComponent implements OnInit {
           totalrevenue: res.totalRevenue,
         };
 
+        console.log(res);
         res.tripsDetails.forEach((element: any) => {
           this.dashboardStatisticalData.push({
             count: element.count,

@@ -1,4 +1,13 @@
 <section class="vehicles-section">
+  <google-map [center]="center" [zoom]="zoom" height="300px" width="100%">
+    <map-polygon
+      [paths]="geometricalCoordinates"
+      [options]="options"
+    ></map-polygon>
+    <!-- (polygonClick)="getInfoWindow(polygon, $event, 1, 'poly')"
+    [paths]="polygon.coords"
+    [options]="options" -->
+  </google-map>
   <div
     class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative d-flex flex-column align-items-center justify-content-between"
   >
@@ -9,29 +18,41 @@
         (click)="openAddModal(content)"
         class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
       >
-        <span> Add New </span>
+        <span> {{ "tables.zonesTable.addnew" | translate }} </span>
 
         <i class="fa-solid fa-plus"></i>
       </button>
       <table class="w-100 table-content position-relative">
         <thead class="w-100">
-          <tr class="py-2 px-4 w-100">
-            <th class="first-heading">
-              <input type="checkbox" (change)="checkboxEvent($event)" />
+          <tr class="py-2 px-4 w-100 heading-row">
+            <th
+              class="first-heading"
+              [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
+            >
+              <input type="checkbox" />
             </th>
-            <th>Zone Name En</th>
-            <th>Zone Name Ar</th>
-            <th class="second-heading me-4">Details</th>
+            <th>{{ "tables.zonesTable.zoneNameEn" | translate }}</th>
+            <th>{{ "tables.zonesTable.zoneNameAr" | translate }}</th>
+            <th
+              class="second-heading me-4"
+              [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
+            >
+              {{ "tables.zonesTable.details" | translate }}
+            </th>
           </tr>
         </thead>
         @if(isLoading){
         <app-spinner></app-spinner>
         } @else {
         <tbody class="w-100">
-          @for(zone of zones; track zone) {
+          @for(zone of zones; track zone ; let idx= $index) {
           <tr class="w-100">
             <td>
-              <input type="checkbox" [checked]="zone.isChecked" />
+              <input
+                type="checkbox"
+                [checked]="zone.isChecked"
+                (change)="checkboxEvent($event, { idx, zone})"
+              />
             </td>
 
             <td>{{ zone.nameEn }}</td>
@@ -44,7 +65,7 @@
                 (click)="openZoneDetailsModal(content1, zone)"
                 class="btn btn-success d-flex align-items-center justify-content-center gap-2"
               >
-                <span> Zone details</span>
+                <span> {{ "tables.zonesTable.zoneDetails" | translate }}</span>
               </button>
             </td>
           </tr>
@@ -57,34 +78,50 @@
 </section>
 
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4>Add new zone</h4>
+  <div class="modal-header" [dir]="lang == 'Ar' ? 'rtl' : 'ltr'">
+    <h4>{{ "tables.zonesTable.addnew" | translate }}</h4>
   </div>
 
   <div class="modal-body">
     <form [formGroup]="addZoneForm">
-      <div class="form-wrapper">
+      <div class="form-wrapper" [ngClass]="{ 'ar-form': lang == 'Ar' }">
         <div class="col-md-4">
-          <label>Zone Name Ar</label>
+          <label>{{ "tables.zonesTable.zoneNameAr" | translate }}</label>
           <input type="text" class="form-control" formControlName="nameAr" />
         </div>
         <div class="col-md-4">
-          <label>Zone Name En</label>
+          <label>{{ "tables.zonesTable.zoneNameEn" | translate }}</label>
           <input type="text" class="form-control" formControlName="nameEn" />
         </div>
       </div>
-      <div formArrayName="geometry">
+      <div
+        formArrayName="geometry"
+        class="geo-wrapper"
+        [ngClass]="{ 'geo-ar': lang == 'Ar' }"
+      >
         <div
           *ngFor="let geometry of geometryArray.controls; let i = index"
           [formGroupName]="i"
           class="form-wrapper mt-3"
         >
           <div class="col-md-4">
-            <label>X Coordinate</label>
+            <label
+              [ngStyle]="{
+                'text-align': lang == 'Ar' ? 'right' : 'left',
+                width: '100%'
+              }"
+              >{{ "tables.zonesTable.coordinatesX" | translate }}</label
+            >
             <input type="number" class="form-control" formControlName="x" />
           </div>
           <div class="col-md-4">
-            <label>Y Coordinate</label>
+            <label
+              [ngStyle]="{
+                'text-align': lang == 'Ar' ? 'right' : 'left',
+                width: '100%'
+              }"
+              >{{ "tables.zonesTable.coordinatesY" | translate }}</label
+            >
             <input type="number" class="form-control" formControlName="y" />
           </div>
         </div>
@@ -108,18 +145,18 @@
 </ng-template>
 <ng-template #content1 let-modal>
   <div class="modal-header">
-    <h4>Zone details</h4>
+    <h4>{{ "tables.zonesTable.zoneDetails" | translate }}</h4>
   </div>
 
   <div class="modal-body">
     <form [formGroup]="addZoneForm">
       <div class="form-wrapper">
         <div class="col-md-4">
-          <label>Zone Name Ar</label>
+          <label>{{ "tables.zonesTable.zoneNameAr" | translate }}</label>
           <input type="text" class="form-control" formControlName="nameAr" />
         </div>
         <div class="col-md-4">
-          <label>Zone Name En</label>
+          <label>{{ "tables.zonesTable.zoneNameEn" | translate }}</label>
           <input type="text" class="form-control" formControlName="nameEn" />
         </div>
       </div>
@@ -130,11 +167,11 @@
           class="form-wrapper mt-3"
         >
           <div class="col-md-4">
-            <label>X Coordinate</label>
+            <label>{{ "tables.zonesTable.coordinatesX" | translate }}</label>
             <input type="number" class="form-control" formControlName="x" />
           </div>
           <div class="col-md-4">
-            <label>Y Coordinate</label>
+            <label>{{ "tables.zonesTable.coordinatesY" | translate }}</label>
             <input type="number" class="form-control" formControlName="y" />
           </div>
         </div>

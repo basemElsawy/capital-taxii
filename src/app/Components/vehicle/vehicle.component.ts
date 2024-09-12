@@ -136,6 +136,7 @@ export class VehicleComponent {
       next: (res: any) => {
         this.driversData = res;
         this.isLoading = false;
+        console.log(res);
       },
       complete: () => {},
       error: (err) => {

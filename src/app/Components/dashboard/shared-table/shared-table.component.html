@@ -5,14 +5,28 @@
   <table class="w-100 table-content position-relative">
     <thead class="w-100">
       <tr class="py-2 px-4 w-100">
-        <th class="first-heading">#</th>
-        <th>User</th>
-        <th>Email</th>
-        <th style="width: 160px">Start Location</th>
-        <th style="width: 160px">End Location</th>
-        <th>Trip distance</th>
-        <th>Trip time</th>
-        <th class="second-heading">Trip price</th>
+        <th
+          class="first-heading"
+          [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
+        >
+          #
+        </th>
+        <th>{{ "dashboard.dashboardTable.user" | translate }}</th>
+        <th>{{ "dashboard.dashboardTable.email" | translate }}</th>
+        <th style="width: 160px">
+          {{ "dashboard.dashboardTable.startLocation" | translate }}
+        </th>
+        <th style="width: 160px">
+          {{ "dashboard.dashboardTable.endLocation" | translate }}
+        </th>
+        <th>{{ "dashboard.dashboardTable.tripDistance" | translate }}</th>
+        <th>{{ "dashboard.dashboardTable.tripTime" | translate }}</th>
+        <th
+          class="second-heading"
+          [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
+        >
+          {{ "dashboard.dashboardTable.tripPrice" | translate }}
+        </th>
       </tr>
     </thead>
     <tbody>

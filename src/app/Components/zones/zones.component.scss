@@ -30,9 +30,14 @@
 .table-container {
   background-color: white !important;
   overflow-y: scroll;
+  max-height: 300px;
 }
 .table-content {
   overflow-y: scroll;
+}
+.heading-row {
+  position: sticky;
+  top: 10px;
 }
 table {
   border: none !important;
@@ -173,4 +178,27 @@ thead {
   background-color: #ffcc00 !important; /* Change to your desired color */
   color: #000; /* Optional: Change text color */
   padding: 2px 6px !important;
+}
+
+.first-heading-Ar {
+  border-radius: 0px 10px 10px 0px !important;
+}
+.second-heading-Ar {
+  border-radius: 10px 0px 0px 10px !important;
+}
+.ar-row th {
+  text-align: right;
+  direction: rtl;
+}
+.ar-form label {
+  width: 100%;
+  text-align: right;
+}
+.geo-Ar label {
+  width: 100%;
+  text-align: right;
+}
+
+label {
+  padding-bottom: 10px;
 }
