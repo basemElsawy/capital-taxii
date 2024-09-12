@@ -17,6 +17,8 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from '../../Core/interfaces/user.model';
 import { RatingModule } from 'primeng/rating';
 import { CalendarModule } from 'primeng/calendar';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../../Core/Services/translation.service';
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -26,6 +28,7 @@ import { CalendarModule } from 'primeng/calendar';
     ReactiveFormsModule,
     RatingModule,
     CalendarModule,
+    TranslateModule,
   ],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
@@ -36,18 +39,31 @@ export class UsersComponent implements OnInit {
   addUserForm!: FormGroup;
   public readonly imgUrl = environment.image;
   dateRangeForm!: FormGroup;
+  lang!: string;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private translation: TranslationService,
+    private translate: TranslateService
   ) {}
   ngOnInit() {
     this.initialiseAddUserForm();
     // this.dateFormInitializer();
 
     this.getAllAddedUsers();
+    this.languageSetter();
   }
+  languageSetter() {
+    if (!this.lang) {
+      this.lang = this.translate.currentLang;
+    }
+    this.translation.getLanguage.subscribe((val: string) => {
+      this.lang = val;
+    });
+  }
+
   dateFormInitializer() {
     this.dateRangeForm = new FormGroup({
       fromDateRange: new FormControl('', Validators.required),

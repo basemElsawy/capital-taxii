@@ -17,3 +17,13 @@ hr {
 /* .update-btn {
   margin-top: 38px !important;
 } */
+h4 {
+  font-size: 18px;
+  padding-block: 12px;
+  font-weight: bold;
+  margin: 0px !important;
+}
+label {
+  font-weight: normal;
+  font-size: 14px;
+}

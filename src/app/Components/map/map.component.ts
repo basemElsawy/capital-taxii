@@ -12,7 +12,7 @@ import { MapServiceService } from './map-service.service';
 import { VehicleService } from '../vehicle/Services/vehicle.service';
 import { environment } from '../../../environments/environment.development';
 import { env } from 'process';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 
 @Component({
@@ -25,6 +25,7 @@ import { TranslationService } from '../../Core/Services/translation.service';
     MapMarker,
     MapInfoWindow,
     MapAdvancedMarker,
+    TranslateModule,
   ],
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss',

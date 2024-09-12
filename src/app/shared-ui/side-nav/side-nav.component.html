@@ -1,4 +1,4 @@
-<section class="side-nav py-5" [ngClass]="{ 'side-nav-ar': lang == 'Ar' }">
+<section class="side-nav py-4" [ngClass]="{ 'side-nav-ar': lang == 'Ar' }">
   <div class="profile-image-container d-flex align-items-center gap-2 ms-2">
     <div class="profile-image">
       <img [src]="userImage" alt="Profile Picture" />
@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="w-100">
-    <p class="mb-3 px-3 menu-header">{{ "sideNav.mainMenu" | translate }}</p>
+    <p class="mb-1 px-3 menu-header">{{ "sideNav.mainMenu" | translate }}</p>
     <nav class="nav-wrapper">
       <ul
         class="list-container"
@@ -267,7 +267,7 @@
         >
           <div class="d-flex align-items-center justify-content-start gap-2">
             <i class="fa-solid fa-clipboard"></i>
-            <p>Shifts</p>
+            <p>{{ "sideNav.listItems.shifts" | translate }}</p>
           </div>
         </li>
 

@@ -174,3 +174,21 @@ thead {
   color: #000; /* Optional: Change text color */
   padding: 2px 6px !important;
 }
+
+.first-heading-Ar {
+  border-radius: 0px 10px 10px 0px !important;
+}
+.second-heading-Ar {
+  border-radius: 10px 0px 0px 10px !important;
+}
+.ar-row th {
+  // text-align: right;
+  direction: rtl;
+}
+.arabic-modal-form {
+  & label {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 5px;
+  }
+}

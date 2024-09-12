@@ -16,9 +16,11 @@
       "stations": "Stations",
       "stationPrices": "Station Prices",
       "settings": "Settings",
-      "zones": "Zones"
+      "zones": "Zones",
+      "shifts": "Shifts"
     }
   },
+
   "tables": {
     "clientsTable": {
       "client": "clients",
@@ -33,6 +35,28 @@
         "optionsText": "All Trips"
       }
     },
+    "usersTable": {
+      "user": "User",
+      "emailOrUsername": "E-mail or username",
+      "phoneNumber": "Phone number",
+      "gender": "Gender",
+      "birthday": "Birthday",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "selectNationality": "Please choose nationality",
+      "PasswordDoesNotMatch": "Password does not match."
+    },
+    "stationPricesTable": {
+      "fromStation": "From Station",
+      "toStation": "To Station",
+      "price": "Price",
+      "options": "options",
+      "metaText": {
+        "updateHeadline": "Update station Price",
+        "addHeadline": "Add  New Price"
+      }
+    },
+
     "driversTable": {
       "user": "User",
       "email": "Email",
@@ -94,6 +118,72 @@
         "vehicleServiceType": "Vehicle Service Type",
         "driverPhoto": "Driver photo"
       }
+    },
+    "stationsTable": {
+      "stationNameEn": "Station Name En",
+      "stationNameAr": "Station Name Ar",
+      "locationLatitude": "Location Latitude",
+      "locationLongitude": "Location Longitude",
+      "zone": "Zone",
+      "options": "Options",
+      "actionsButton": "Add New",
+      "tableForm": {
+        "stationNamEn": "Station Name En",
+        "stationNameAr": "Station Name Ar",
+        "locationLatitude": "Location Latitude",
+        "locationLongitude": "Location Longitude"
+      }
+    },
+    "liveMap": {
+      "driver": "Driver",
+      "vehicle": "Vehicle",
+      "client": "Client",
+      "orderedDate": "Ordered Date",
+      "startLocation": "Start Location",
+      "finishLocation": "Finish Location",
+      "totalAmount": "Total Amount",
+      "status": "Status"
+    },
+    "stationPrices": {
+      "fromStation": "From Station",
+      "toStation": "To Station",
+      "price": "price",
+      "options": "Options",
+      "metaText": {
+        "updateHeadline": "Update station price",
+        "addHeadline": "Add new station price"
+      }
     }
+  },
+  "settings": {
+    "kmPriceConfiguation": "Km Price Configuration",
+    "deductionConfiguration": "Deduction Configuration",
+    "kmUpdatePrice": {
+      "headline": "Km Update Price",
+      "kmPrice": "Km Price"
+    },
+    "minimumFares": {
+      "headline": "Minimum Fares",
+      "minimumFarePrice": "Minimum Fare Price",
+      "kmPrice": "Minimum Km",
+      "isKilometric": "Kilometric minimum fares"
+    },
+    "deductions": {
+      "headline": "Deductions"
+    },
+    "requestDistance": {
+      "headline": "Request Distance Limit",
+      "distanceLimit": "Distance Limit"
+    },
+    "driverArrivalMinDistance": {
+      "headline": "Driver Arrival Min Distance",
+      "minDistance": "Min Distance"
+    },
+    "requestTimesLimit": {
+      "headline": "Request time limit",
+      "price": "price",
+      "time": "Time"
+    },
+    "update": "update"
   }
 }
