@@ -18,7 +18,7 @@ import { RatingModule } from 'primeng/rating';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 @Component({
-  selector: 'app-users',
+  selector: 'app-clients',
   standalone: true,
   imports: [
     CommonModule,

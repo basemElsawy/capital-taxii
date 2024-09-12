@@ -14,7 +14,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 @Component({
-  selector: 'app-vehicle',
+  selector: 'app-stations',
   standalone: true,
   imports: [
     CommonModule,

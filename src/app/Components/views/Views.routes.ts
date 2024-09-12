@@ -10,6 +10,7 @@ import { authguardGuard } from '../guard-interceptor/auth.guard';
 import { ClientsComponent } from '../clients/clients.component';
 import { StationsPricesComponent } from '../stations-prices/stations-prices.component';
 import { StationsComponent } from '../stations/stations.component';
+import { ShiftsComponent } from '../shifts/shifts.component';
 export const routes: Routes = [
   {
     path: '',
@@ -52,6 +53,10 @@ export const routes: Routes = [
       {
         path: 'settings',
         component: SettingsComponent,
+      },
+      {
+        path: 'shifts',
+        component: ShiftsComponent,
       },
     ],
   },
