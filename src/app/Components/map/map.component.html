@@ -16,8 +16,8 @@
         <div class="info-window-content">
           <img
             [src]="
-              selectedDriver?.userInfo.image
-                ? imgUrl + selectedDriver?.userInfo.image
+              selectedDriver?.userInfo?.image
+                ? imgUrl + selectedDriver?.userInfo?.image
                 : '../../../assets/carjpg.jpg'
             "
             alt="Driver Image"
@@ -26,15 +26,15 @@
           />
           <div class="text">
             <p class="mt-2">
-              <strong>Driver Name:</strong> {{ selectedDriver?.userInfo.name }}
+              <strong>Driver Name:</strong> {{ selectedDriver?.userInfo?.name }}
             </p>
             <p class="mt-2">
               <strong>Phone Number</strong>
-              {{ selectedDriver?.userInfo.phoneNumber }}
+              {{ selectedDriver?.userInfo?.phoneNumber }}
             </p>
             <p class="mt-2">
               <strong>Vehicle Name:</strong>
-              {{ selectedDriver?.currentVehicle.vehicleName }}
+              {{ selectedDriver?.currentVehicle?.vehicleName }}
             </p>
           </div>
         </div>
