@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import {
   GoogleMapsModule,
   MapInfoWindow,
@@ -30,7 +30,7 @@ import { TranslationService } from '../../Core/Services/translation.service';
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss',
 })
-export class MapComponent {
+export class MapComponent implements OnInit, OnDestroy {
   @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
   center!: google.maps.LatLngLiteral;
   zoom = 8;
@@ -44,7 +44,13 @@ export class MapComponent {
   selectedProducts: any;
   selectedDriver: any = null; // To hold the selected driver data
   public readonly imgUrl = environment.image;
+  private intervalId: any;
 
+  event = {
+    target: {
+      checked: true,
+    },
+  };
   constructor(
     private vehicleServices: VehicleService,
     private mapService: MapServiceService,
@@ -53,11 +59,15 @@ export class MapComponent {
   ) {}
   ngOnInit(): void {
     this.getCurrentPosition();
-    // this.getAllDrivers();
     this.getDriversOnMap();
+
     this.languageSetter();
-    // setInterval(() => {
-    // }, 1000);
+
+    this.intervalId = setInterval(() => {
+      this.getDriversOnMap();
+
+      this.refreshDriverMarkers();
+    }, 5000);
   }
   // Function to handle mouseover event
   showDriverInfo(infoWindow: MapInfoWindow, marker: MapMarker, driver: any) {
@@ -129,53 +139,38 @@ export class MapComponent {
       this.driverMarkers.push(driverMarker);
       this.zoom = 16;
       this.center = driverMarker.coords;
-      return;
+    } else {
+      this.driverMarkers = this.driverMarkers.filter(
+        (marker) => marker.userInfo.name !== driverMarker.userInfo.name
+      );
+      this.zoom = 8;
     }
-    this.driverMarkers.splice(driver.id, 1);
-    this.zoom = 8;
 
-    return;
+    // Update the driver's checked state in allDrivers_Data
+    const drivers = this.allDrivers_Data().map((d: any) =>
+      d.driver.id === driver.driver.id
+        ? { ...d, isChecked: event.target.checked }
+        : d
+    );
+    this.allDrivers_Data.set(drivers);
   }
 
   getDriversOnMap() {
     this.mapService.getDriversOnTheMap().subscribe({
       next: (res: any): void => {
-        this.allDrivers_Data.set(
-          res.data.map((response: any) => ({ ...response, isChecked: false }))
-        );
+        const currentDrivers = this.allDrivers_Data();
+        // Merge the new data with existing to retain checked state
+        const updatedDrivers = res.data.map((response: any) => {
+          // Find existing driver by id
+          const existingDriver = currentDrivers.find(
+            (d: any) => d.driver.id === response.driver.id
+          );
+          // Preserve the `isChecked` state
+          const isChecked = existingDriver ? existingDriver.isChecked : false;
+          return { ...response, isChecked };
+        });
 
-        let mappedResponse = res.data.map(
-          (responseItem: any): DriversMarkers => {
-            const {
-              driver: {
-                id,
-                locationLongitude: lng,
-                locationLatitude: lat,
-                user,
-                fromLocation,
-                toLocation,
-              },
-            } = responseItem;
-
-            return {
-              id,
-              driverName: user.fullName || 'محمد صادق', // Use the name from the response or a fallback
-              fromLocation: fromLocation,
-              toLocation: toLocation,
-
-              driverTitle: 'كابتن سائق',
-              driverImage: user.picture || '../../../assets/unknown.png', // Use the picture from the response or a fallback
-              coords: { lat, lng },
-              icon: {
-                url: '../../../assets/locationIcon.png',
-                scaledSize: {
-                  width: 60,
-                  height: 60,
-                },
-              },
-            };
-          }
-        );
+        this.allDrivers_Data.set(updatedDrivers);
       },
       complete: () => {},
       error: (error: any) => {
@@ -183,7 +178,6 @@ export class MapComponent {
       },
     });
   }
-
   getCurrentPosition() {
     this.mapService
       .getCurrentLocation()
@@ -195,18 +189,22 @@ export class MapComponent {
       .catch((err) => console.log(err));
   }
   checkboxEvent(event: any) {
-    let isAllChecked = event.target.checked;
-    let driverMarker;
-    debugger;
+    const isChecked = event.target.checked;
 
-    if (event.target.checked) {
-      this.allDrivers_Data().forEach((item: any) => {
-        item.isChecked = true;
-        // console.log(item);
-        this.zoom = 8;
-        driverMarker = {
+    // Update all checkboxes based on the main checkbox state
+    const drivers = this.allDrivers_Data().map((item: any) => ({
+      ...item,
+      isChecked,
+    }));
+
+    this.allDrivers_Data.set(drivers);
+
+    if (isChecked) {
+      // Add markers for all drivers
+      drivers.forEach((item: any) => {
+        const driverMarker = {
           userInfo: {
-            name: item?.user.fullName,
+            name: item.user.fullName,
             status: item.driver.status,
             image: item.user.picture,
           },
@@ -225,14 +223,63 @@ export class MapComponent {
           },
         };
         this.driverMarkers.push(driverMarker);
-        console.log(this.driverMarkers);
       });
-      return;
-    }
-    this.allDrivers_Data().forEach((item: Drivers) => {
-      item.isChecked = false;
+    } else {
+      // Clear all markers
       this.driverMarkers = [];
+    }
+  }
+
+  refreshDriverMarkers() {
+    // This function will be called every 5 seconds
+    console.log('Refreshing driver markers...');
+
+    // Logic to refresh driver markers, preserving checked states
+    const drivers = this.allDrivers_Data().map((driver: any) => {
+      // Maintain current checked state
+      const isChecked = driver.isChecked;
+
+      if (isChecked) {
+        // Ensure markers are correctly updated if checked
+        const driverMarker = {
+          userInfo: {
+            name: driver.user.fullName,
+            status: driver.driver.status,
+            image: driver.user.picture,
+            phoneNumber: driver.user.phoneNumber,
+          },
+          currentVehicle: {
+            vehicleName: driver.currentVehicle.vehicleName,
+          },
+          coords: {
+            lat: driver.driver.locationLatitude,
+            lng: driver.driver.locationLongitude,
+          },
+          icon: {
+            url: driver.driver.status
+              ? '../../../assets/locationIcon.png'
+              : '../../../assets/Artboard.png',
+            scaledSize: {
+              width: 60,
+              height: 60,
+            },
+          },
+        };
+
+        if (
+          !this.driverMarkers.some(
+            (m) => m.userInfo.name === driverMarker.userInfo.name
+          )
+        ) {
+          this.driverMarkers.push(driverMarker);
+        }
+      }
+
+      return driver;
     });
+
+    // Update the signal
+    this.allDrivers_Data.set(drivers);
   }
 
   // selectedItem(item: any) {
@@ -260,5 +307,11 @@ export class MapComponent {
   }
   get allDrivers() {
     return this.allDrivers_Data();
+  }
+  ngOnDestroy() {
+    // Clear the interval when the component is destroyed to prevent memory leaks
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 }
