@@ -1,0 +1,269 @@
+<section class="vehicles-section">
+  <div
+    class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative d-flex flex-column align-items-center justify-content-between"
+  >
+    <div
+      class="w-100 p-2 my-2 d-flex align-items-start flex-column justify-content-start gap-2"
+    >
+      <button
+        (click)="openAddModal(content)"
+        class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
+      >
+        <span>
+          {{ "tables.pricesTable.metaText.addHeadline" | translate }}
+        </span>
+
+        <i class="fa-solid fa-plus"></i>
+      </button>
+      <table class="w-100 table-content position-relative">
+        <thead class="w-100">
+          <tr class="py-2 px-4 w-100">
+            <th
+              class="first-heading"
+              [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
+            >
+              {{
+                lang == "Ar"
+                  ? ("tables.pricesTable.tableNameAr" | translate)
+                  : ("tables.pricesTable.tableNameEn" | translate)
+              }}
+            </th>
+            <th>{{ "tables.pricesTable.startDate" | translate }}</th>
+            <th>
+              {{ "tables.pricesTable.endDate" | translate }}
+            </th>
+            <th
+              class="second-heading me-4"
+              [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
+            >
+              {{ "tables.pricesTable.options" | translate }}
+            </th>
+          </tr>
+        </thead>
+        @if(isLoading){
+        <app-spinner></app-spinner>
+        } @else {
+        <tbody class="w-100">
+          @for(tablePrice of tablePrices; track tablePrice) {
+          <tr class="w-100">
+            <td>
+              {{ lang == "En" ? tablePrice.nameEn : tablePrice.nameAr }}
+            </td>
+            <td>
+              {{ tablePrice.startDate }}
+            </td>
+            <td>{{ tablePrice.endDate }}</td>
+
+            <td class="d-flex align-items-start justify-content-center">
+              <button
+                tooltipPosition="top"
+                tooltipClass="custom-tooltip"
+                (click)="openUpdateTablePricesModal(content1, tablePrice)"
+                class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+              >
+                <span> {{ "tables.pricesTable.details" | translate }} </span>
+
+                <!-- <i class="fas fa-edit"></i> -->
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+        }
+      </table>
+    </div>
+  </div>
+</section>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 [ngClass]="{ 'text-end w-100': lang == 'Ar' }">
+      {{ "tables.stationPricesTable.metaText.addHeadline" | translate }}
+    </h4>
+  </div>
+
+  <div class="modal-body">
+    <form
+      [formGroup]="addTablePriceForm"
+      [ngClass]="{ 'ar-form': lang == 'Ar' }"
+    >
+      <div class="form-wrapper">
+        <div class="col-md-4">
+          <label>
+            {{ "tables.pricesTable.tableNameEn" | translate }}
+          </label>
+          <input
+            type="text"
+            class="form-group form-control"
+            formControlName="nameEn"
+          />
+        </div>
+        <div class="col-md-4">
+          <label>
+            {{ "tables.pricesTable.tableNameAr" | translate }}
+          </label>
+          <input
+            type="text"
+            class="form-group form-control"
+            formControlName="nameAr"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label> {{ "tables.pricesTable.startDate" | translate }} </label>
+          <input
+            type="date"
+            class="form-group form-control"
+            formControlName="startDate"
+          />
+        </div>
+        <div class="col-md-4">
+          <label> {{ "tables.pricesTable.endDate" | translate }} </label>
+          <input
+            type="date"
+            class="form-group form-control"
+            formControlName="endDate"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="addNewTablePrice()">Save</button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+<!-- update vehicle -->
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4 [ngClass]="{ 'text-end w-100': lang == 'Ar' }">
+      {{ "tables.pricesTable.metaText.updateHeadline" | translate }}
+    </h4>
+  </div>
+
+  <div class="modal-body">
+    <table
+      class="w-100 table-content position-relative"
+      style="border: 1px solid #333; border-radius: 4px"
+    >
+      <thead class="w-100">
+        <tr class="py-2 px-4 w-100">
+          <th
+            class="first-heading"
+            [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
+          >
+            {{
+              lang == "Ar"
+                ? ("tables.pricesTable.tableNameAr" | translate)
+                : ("tables.pricesTable.tableNameEn" | translate)
+            }}
+          </th>
+          <th>{{ "tables.pricesTable.startDate" | translate }}</th>
+          <th
+            class="second-heading me-4"
+            [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
+          >
+            {{ "tables.pricesTable.endDate" | translate }}
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="w-100">
+        <tr class="w-100">
+          <td>
+            {{
+              lang == "En"
+                ? selectedTablePrice.nameEn
+                : selectedTablePrice.nameAr
+            }}
+          </td>
+          <td>
+            {{ selectedTablePrice.startDate }}
+          </td>
+          <td>{{ selectedTablePrice.endDate }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <form
+      *ngIf="addTablePriceDetailsForm"
+      [formGroup]="addTablePriceDetailsForm"
+      class="mt-4"
+      [ngClass]="{ 'ar-form': lang == 'Ar' }"
+    >
+      <div formArrayName="kilometrePriceDetailsDtos">
+        <div
+          *ngFor="let detail of tableDetails?.controls; let i = index"
+          [formGroupName]="i"
+          class="form-wrapper"
+        >
+          <div class="col-md-4">
+            <label> {{ "tables.pricesTable.price" | translate }} </label>
+            <input
+              type="number"
+              class="number form-group form-control"
+              formControlName="price"
+            />
+          </div>
+          <div class="col-md-4">
+            <label>{{
+              "tables.pricesTable.vehicleServiceType" | translate
+            }}</label>
+            <select
+              formControlName="vehicleServiceTypeId"
+              class="form-control form-select form-group"
+            >
+              <option
+                *ngFor="let vehicleServiceType of vehicleServiceTypes"
+                [value]="vehicleServiceType.id"
+              >
+                {{
+                  lang == "Ar"
+                    ? vehicleServiceType.nameAr
+                    : vehicleServiceType.nameEn
+                }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-container d-flex justify-content-center mt-2 p-2">
+        <button
+          type="button"
+          class="btn btn-success mt-2"
+          (click)="addPriceDetails()"
+        >
+          Add
+        </button>
+      </div>
+    </form>
+    <hr />
+    <table class="custom-table mt-4">
+      <tr class="table-header">
+        <th>Price</th>
+        <th>Vehicle Service Type</th>
+      </tr>
+      @for(tablePriceDetails of tablePricesDetails; track tablePriceDetails){
+      <tr class="table-row">
+        <td>{{ tablePriceDetails.price }}</td>
+        <td>
+          {{
+            lang == "Ar"
+              ? tablePriceDetails.vehicleServiceType.nameAr
+              : tablePriceDetails.vehicleServiceType.nameEn
+          }}
+        </td>
+      </tr>
+      }
+    </table>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="addTablePriceDetails()">
+      Save
+    </button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>

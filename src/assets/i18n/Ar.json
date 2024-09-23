@@ -163,7 +163,21 @@
       "totalAmount": "سعر الرحلة",
       "status": "الحالة"
     },
-
+    "pricesTable": {
+      "tableNameEn": "اسم الجدول باللغة الانجليزية",
+      "tableNameAr": "اسم الجدول باللغة العربية",
+      "startDate": "تاريخ البداية",
+      "endDate": "تاريخ الانتهاء",
+      "options": "الخيارات",
+      "addnew": "اضافة جدول أسعار جديد",
+      "details": "التفاصيل",
+      "vehicleServiceType": "نوع الخدمة",
+      "price": "السعر",
+      "metaText": {
+        "updateHeadline": "اضافة تفاصيل لجدول أسعار ",
+        "addHeadline": "اضافة جدول أسعار"
+      }
+    },
     "shiftTable": {
       "driver": "السائق",
       "status": "الحالة",

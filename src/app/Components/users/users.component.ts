@@ -92,6 +92,24 @@ export class UsersComponent implements OnInit {
       roles: [null, Validators.required],
     });
   }
+  openAddModal(content: any) {
+    this.modalService.open(content, {
+      size: 'xl',
+      backdrop: 'static',
+      centered: true,
+      scrollable: true,
+    });
+  }
+  // openUpdateModal(content: any, selectedRole: any) {
+  //   this.choosedRoles = selectedRole;
+  //   this.setRoleDataInUpdateForm(selectedRole);
+  //   this.modalService.open(content, {
+  //     size: 'xl',
+  //     backdrop: 'static',
+  //     centered: true,
+  //     scrollable: true,
+  //   });
+  // }
   openUpdateModal(content: any, selectedUser: any) {
     this.userId = selectedUser.id;
     this.setRoleDataInUpdateForm(selectedUser);

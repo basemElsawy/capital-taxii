@@ -120,6 +120,21 @@
       "details": "Details",
       "addnew": "Add New coordinates"
     },
+    "pricesTable": {
+      "tableNameEn": "Table Name En",
+      "tableNameAr": "Table Name Ar",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "options": "Options",
+      "addnew": "Add New",
+      "details": "Details",
+      "vehicleServiceType": "vehicle Service Type",
+      "price": "Price",
+      "metaText": {
+        "updateHeadline": "Add price table details",
+        "addHeadline": "Add new price table"
+      }
+    },
     "shiftTable": {
       "driver": "Driver",
       "status": "Status",

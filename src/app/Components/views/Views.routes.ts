@@ -14,6 +14,7 @@ import { ShiftsComponent } from '../shifts/shifts.component';
 import { ZonesComponent } from '../zones/zones.component';
 import { PermissionsComponent } from '../permissions/permissions.component';
 import { RolesComponent } from '../roles/roles.component';
+import { TablePricesComponent } from '../table-prices/table-prices.component';
 export const routes: Routes = [
   {
     path: '',
@@ -72,6 +73,10 @@ export const routes: Routes = [
       {
         path: 'roles',
         component: RolesComponent,
+      },
+      {
+        path: 'tablePrices',
+        component: TablePricesComponent,
       },
     ],
   },
