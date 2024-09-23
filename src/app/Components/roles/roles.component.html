@@ -1,0 +1,172 @@
+<div
+  class="table-container bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
+  style="max-height: 510px"
+>
+  <div class="text-start my-2">
+    <button
+      (click)="openAddModal(content)"
+      class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
+    >
+      <span> {{ "tables.rolesTable.actionsButton" | translate }} </span>
+
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </div>
+  <table class="w-100 table-content position-relative">
+    <thead class="w-100">
+      <tr class="py-2 px-4 w-100">
+        <th
+          [ngClass]="{
+            'first-heading': lang == 'En',
+            'first-heading-Ar': lang == 'Ar'
+          }"
+          [ngStyle]="{
+            'text-align': lang == 'En' ? 'left' : 'right',
+            'padding-left': lang == 'En' ? ' 30px' : '0px',
+            'padding-right': lang == 'En' ? ' 0px' : '30px'
+          }"
+        >
+          {{ "tables.rolesTable.roleNameEn" | translate }}
+        </th>
+        <th>
+          {{ "tables.rolesTable.roleNameAr" | translate }}
+        </th>
+
+        <th
+          [ngClass]="{
+            'second-heading': lang == 'En',
+            'second-heading-Ar': lang == 'Ar'
+          }"
+          class="pe-5"
+        >
+          {{ "tables.rolesTable.options" | translate }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(role of roles; track role) {
+      <tr>
+        <td
+          class="person-info d-flex align-users-center justify-content-start gap-2 ps-4"
+        >
+          {{ role?.name }}
+        </td>
+        <td>{{ role?.nameAr }}</td>
+        <td class="d-flex align-items-start justify-content-center">
+          <button
+            pTooltip="Update station"
+            tooltipPosition="top"
+            tooltipClass="custom-tooltip"
+            (click)="openUpdateModal(content1, role)"
+            class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+          >
+            <!-- <span> Update vehicle </span> -->
+
+            <i class="fas fa-edit"></i>
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4>{{ "tables.permissionsTable.addTitleModal" | translate }}</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="addRolesForm">
+      <div class="row">
+        <div class="col-4">
+          <label>
+            {{ "tables.rolesTable.roleNameEn" | translate }}
+          </label>
+          <input
+            class="form-group form-control"
+            type="text"
+            formControlName="name"
+          />
+        </div>
+        <div class="col-4 mt-2">
+          <label>
+            {{ "tables.rolesTable.roleNameAr" | translate }}
+          </label>
+          <input
+            class="form-group form-control"
+            type="text"
+            formControlName="nameAr"
+          />
+        </div>
+
+        <div class="col-4 field mt-2">
+          <label style="display: block">
+            {{ "tables.rolesTable.permissions" | translate }}
+          </label>
+          <!-- [(ngModel)]="selectedPermissions" -->
+          <p-multiSelect
+            [options]="permissions"
+            formControlName="permissions"
+            [optionLabel]="lang == 'En' ? 'nameEN' : 'nameAR'"
+            optionValue="id"
+            appendTo="body"
+          ></p-multiSelect>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="addRole()">
+      <!-- [disabled]="addRolesForm.invalid" -->
+      Save
+    </button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4>Update station</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="updateRolesForm">
+      <div class="row">
+        <div class="col-4">
+          <label>{{ "tables.rolesTable.roleNameEn" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="text"
+            formControlName="name"
+          />
+        </div>
+        <div class="col-4 mt-2">
+          <label>{{ "tables.rolesTable.roleNameAr" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="text"
+            formControlName="nameAr"
+          />
+        </div>
+        <div class="col-4 field mt-2">
+          <label style="display: block">{{
+            "tables.rolesTable.permissions" | translate
+          }}</label>
+          <p-multiSelect
+            [options]="permissions"
+            formControlName="permissions"
+            [optionLabel]="lang == 'En' ? 'nameEN' : 'nameAR'"
+            optionValue="id"
+            appendTo="body"
+          ></p-multiSelect>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="updateRole()">Save</button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>

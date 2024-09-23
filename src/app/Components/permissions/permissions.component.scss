@@ -103,22 +103,3 @@ tbody tr td {
   text-align: right;
   direction: rtl;
 }
-::ng-deep .ui-multiselect-panel {
-  z-index: 1050; /* Adjust this value to be higher than your modal */
-}
-.modal {
-  z-index: 1040 !important;
-}
-.modal-body {
-  padding-bottom: 200px;
-}
-::ng-deep .p-multiselect {
-  width: 100%;
-  padding: 7px;
-}
-::ng-deep .p-ripple {
-  padding-block: 10px;
-}
-::ng-deep .p-overlay {
-  z-index: 1000000000000 !important;
-}

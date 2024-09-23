@@ -12,6 +12,8 @@ import { StationsPricesComponent } from '../stations-prices/stations-prices.comp
 import { StationsComponent } from '../stations/stations.component';
 import { ShiftsComponent } from '../shifts/shifts.component';
 import { ZonesComponent } from '../zones/zones.component';
+import { PermissionsComponent } from '../permissions/permissions.component';
+import { RolesComponent } from '../roles/roles.component';
 export const routes: Routes = [
   {
     path: '',
@@ -62,6 +64,14 @@ export const routes: Routes = [
       {
         path: 'zones',
         component: ZonesComponent,
+      },
+      {
+        path: 'permissions',
+        component: PermissionsComponent,
+      },
+      {
+        path: 'roles',
+        component: RolesComponent,
       },
     ],
   },

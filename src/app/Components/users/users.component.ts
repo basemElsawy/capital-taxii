@@ -19,6 +19,7 @@ import { RatingModule } from 'primeng/rating';
 import { CalendarModule } from 'primeng/calendar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
+import { MultiSelectModule } from 'primeng/multiselect';
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -29,6 +30,7 @@ import { TranslationService } from '../../Core/Services/translation.service';
     RatingModule,
     CalendarModule,
     TranslateModule,
+    MultiSelectModule,
   ],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
@@ -37,10 +39,13 @@ export class UsersComponent implements OnInit {
   users: any[] = [];
   nationalities: any[] = [];
   addUserForm!: FormGroup;
+  addRolesForm!: FormGroup;
   public readonly imgUrl = environment.image;
   dateRangeForm!: FormGroup;
   lang!: string;
-
+  roles: any;
+  selectedRoles: any;
+  userId: any;
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -51,7 +56,7 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.initialiseAddUserForm();
     // this.dateFormInitializer();
-
+    this.getAllRoles();
     this.getAllAddedUsers();
     this.languageSetter();
   }
@@ -83,8 +88,66 @@ export class UsersComponent implements OnInit {
       },
       { validators: passwordMatchValidator() }
     );
+    this.addRolesForm = this.fb.group({
+      roles: [null, Validators.required],
+    });
   }
+  openUpdateModal(content: any, selectedUser: any) {
+    this.userId = selectedUser.id;
+    this.setRoleDataInUpdateForm(selectedUser);
+    // this.userService
+    //   .updateRole(this.selectedRoles, selectedUser.id)
+    //   .subscribe(() => {});
+    this.modalService.open(content, {
+      size: 'xl',
+      backdrop: 'static',
+      centered: true,
+      scrollable: true,
+    });
+  }
+  setRoleDataInUpdateForm(selecteduser: any) {
+    this.userService.getUserById(selecteduser.id).subscribe((user: any) => {
+      const selectedRoles = user.roles.map((role: any) => role.name);
 
+      this.addRolesForm.patchValue({
+        roles: selectedRoles,
+      });
+
+      this.selectedRoles = selectedRoles;
+    });
+  }
+  updateUserRoles() {
+    let selectedRoleNames = this.addRolesForm.value.roles;
+
+    // Map the selected role names to the desired structure
+    let body = {
+      roles: selectedRoleNames.map((roleName: string) => {
+        return { name: roleName }; // Create an object for each role name
+      }),
+    };
+
+    this.userService.updateRole(body, this.userId).subscribe({
+      next: (res: any) => {
+        this.getAllRoles();
+        this.modalService.dismissAll();
+        this.addRolesForm.reset();
+        this.userId = 0;
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
+  getAllRoles(): void {
+    this.userService.getRoles().subscribe({
+      next: (res: any) => {
+        this.roles = res;
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
   getAllAddedUsers(): void {
     this.userService.getAllUsers().subscribe({
       next: (res: any) => {

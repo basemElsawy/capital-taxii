@@ -55,6 +55,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('expiryDate', decodedToken.exp);
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(res.user));
+        localStorage.setItem('roles', JSON.stringify(res.roles));
+
         this.toastr.success(
           `Welcome, ${res.user.fullName}!`,
           'Login Successful'

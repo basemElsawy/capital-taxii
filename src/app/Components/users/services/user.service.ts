@@ -16,11 +16,18 @@ export class UserService {
   updateUser(body: any) {
     return this.http.put(this.baseUrl + 'User/update', body);
   }
-
+  updateRole(roles: any, userId: any) {
+    return this.http.put(this.baseUrl + `User/update-roles/${userId}`, roles);
+  }
   getAllUsers() {
     return this.http.get(this.baseUrl + 'User/admins');
   }
-
+  getUserById(userId: number) {
+    return this.http.get(this.baseUrl + `User/${userId}`);
+  }
+  getRoles() {
+    return this.http.get(this.baseUrl + 'Role');
+  }
   getAllNationalities() {
     return this.http.get(this.baseUrl + 'Nationality');
   }

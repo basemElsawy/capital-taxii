@@ -39,10 +39,10 @@ tbody tr {
 
 thead tr {
   color: white;
-  text-align: center;
+  // text-align: center;
 }
 tbody tr td {
-  text-align: center;
+  // text-align: center;
   padding-block: 10px;
 }
 .text-container {
@@ -102,12 +102,6 @@ tbody tr td {
 .ar-row th {
   text-align: right;
   direction: rtl;
-}
-::ng-deep .ui-multiselect-panel {
-  z-index: 1050; /* Adjust this value to be higher than your modal */
-}
-.modal {
-  z-index: 1040 !important;
 }
 .modal-body {
   padding-bottom: 200px;

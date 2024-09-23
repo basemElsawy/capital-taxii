@@ -31,13 +31,16 @@
         <th>{{ "tables.usersTable.phoneNumber" | translate }}</th>
 
         <th>{{ "tables.usersTable.gender" | translate }}</th>
+        <th>
+          {{ "tables.usersTable.birthday" | translate }}
+        </th>
         <th
           [ngClass]="{
             'second-heading': lang == 'En',
             'second-heading-Ar': lang == 'Ar'
           }"
         >
-          {{ "tables.usersTable.birthday" | translate }}
+          {{ "tables.usersTable.options" | translate }}
         </th>
       </tr>
     </thead>
@@ -66,6 +69,19 @@
         <td>{{ user?.phoneNumber }}</td>
         <td>Male</td>
         <td>{{ user?.birthdate | date : "dd-MM-yyyy" }}</td>
+        <td class="d-flex align-items-start justify-content-center">
+          <button
+            pTooltip="Update station"
+            tooltipPosition="top"
+            tooltipClass="custom-tooltip"
+            (click)="openUpdateModal(content1, user)"
+            class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+          >
+            <!-- <span> Update vehicle </span> -->
+
+            <i class="fas fa-edit"></i>
+          </button>
+        </td>
       </tr>
       }
     </tbody>
@@ -168,6 +184,36 @@
     >
       Save
     </button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4>Add Roles</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="addRolesForm">
+      <div class="row">
+        <div class="col-4 field mt-2">
+          <label style="display: block">{{
+            "tables.usersTable.roles" | translate
+          }}</label>
+          <p-multiSelect
+            [options]="roles"
+            formControlName="roles"
+            [(ngModel)]="selectedRoles"
+            [optionLabel]="lang == 'En' ? 'name' : 'nameAr'"
+            optionValue="name"
+            appendTo="body"
+          ></p-multiSelect>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="updateUserRoles()">Save</button>
     <button class="btn btn-danger" (click)="closeModal()">Close</button>
   </div>
 </ng-template>

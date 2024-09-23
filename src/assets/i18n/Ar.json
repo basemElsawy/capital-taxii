@@ -18,7 +18,9 @@
       "stationPrices": "تسعيرة المحطات",
       "settings": "الاعدادات",
       "zones": "النطاقات",
-      "shifts": "ورديات"
+      "shifts": "ورديات",
+      "permissions": "الصلاحيات",
+      "roles": "المهام"
     }
   },
   "tables": {
@@ -44,7 +46,24 @@
       "password": "كلمة السر",
       "confirmPassword": "تاكيد كلمة المرور",
       "selectNationality": "برجاء اختيار الجنسية",
-      "PasswordDoesNotMatch": "عدم تطابق كلمة المرور"
+      "PasswordDoesNotMatch": "عدم تطابق كلمة المرور",
+      "options": "خيارات",
+      "roles": "المهام"
+    },
+    "permissionsTable": {
+      "permissionNameEn": "اسم الصلاحية باللغة الانجليزية",
+      "permissionNameAr": "اسم الصلاحية باللغة العربية",
+      "permissionUrl": "مسار الصلاحية",
+      "actionsButton": "اضافة صلاحية",
+      "addTitleModal": "اضافة صلاحية جديدة"
+    },
+    "rolesTable": {
+      "roleNameEn": "اسم المهمة باللغة الانجليزية",
+      "roleNameAr": "اسم المهمة باللغة العربية",
+      "permissions": "الصلاحيات",
+      "actionsButton": "اضافة مهمة",
+      "addTitleModal": "اضافة مهمة جديدة",
+      "options": "خيارات"
     },
     "zonesTable": {
       "zoneNameEn": "En اسم النطاق",

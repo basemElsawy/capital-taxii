@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 })
 export class SideNavComponent implements OnInit {
   userData!: User;
+  permissions: any;
   baseUrl = 'http://10.4.30.8:1222'; // Define the base URL for your image server
   lang!: string;
   constructor(
@@ -28,9 +29,30 @@ export class SideNavComponent implements OnInit {
   }
   getUserDataFromStorage() {
     const userJson = localStorage.getItem('user');
+    const userRolesData = localStorage.getItem('roles');
+
     if (userJson) {
       try {
         this.userData = JSON.parse(userJson) as User; // Parse and cast to User type
+      } catch (error) {
+        console.error('Failed to parse user data from localStorage', error);
+        // Handle parsing error or set a default value if necessary
+      }
+    } else {
+      console.warn('No user data found in localStorage');
+      // Handle the case where no user data is found
+    }
+    if (userRolesData) {
+      try {
+        let userRoles = JSON.parse(userRolesData);
+        this.permissions = [];
+
+        // Loop through each role and collect the permissions
+        userRoles.forEach((role: any) => {
+          role.permissions.forEach((permission: any) => {
+            this.permissions.push(permission); // Add each permission to the array
+          });
+        });
       } catch (error) {
         console.error('Failed to parse user data from localStorage', error);
         // Handle parsing error or set a default value if necessary

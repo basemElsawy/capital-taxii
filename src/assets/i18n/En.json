@@ -17,7 +17,9 @@
       "stationPrices": "Station Prices",
       "settings": "Settings",
       "zones": "Zones",
-      "shifts": "Shifts"
+      "shifts": "Shifts",
+      "permissions": "Permission",
+      "roles": "Roles"
     }
   },
 
@@ -44,7 +46,24 @@
       "password": "Password",
       "confirmPassword": "Confirm Password",
       "selectNationality": "Please choose nationality",
-      "PasswordDoesNotMatch": "Password does not match."
+      "PasswordDoesNotMatch": "Password does not match.",
+      "options": "options",
+      "roles": "Roles"
+    },
+    "permissionsTable": {
+      "permissionNameEn": "Permission English Name",
+      "permissionNameAr": "Permission Arabic Name",
+      "permissionUrl": "Permissin Url",
+      "actionsButton": "Add Permission",
+      "addTitleModal": "Add new permission"
+    },
+    "rolesTable": {
+      "roleNameEn": "Role English Name",
+      "roleNameAr": "Role Arabic Name",
+      "permissions": "Permission",
+      "actionsButton": "Add Role",
+      "addTitleModal": "Add new Role",
+      "options": "options"
     },
     "stationPricesTable": {
       "fromStation": "From Station",
