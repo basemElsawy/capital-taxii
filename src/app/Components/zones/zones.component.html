@@ -1,13 +1,7 @@
 <section class="vehicles-section">
   <google-map [center]="center" [zoom]="zoom" height="300px" width="100%">
-    <map-polygon
-      [paths]="geometricalCoordinates"
-      [options]="options"
-    ></map-polygon>
-    <!-- (polygonClick)="getInfoWindow(polygon, $event, 1, 'poly')"
-    [paths]="polygon.coords"
-    [options]="options" -->
   </google-map>
+
   <div
     class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative d-flex flex-column align-items-center justify-content-between"
   >
@@ -125,7 +119,7 @@
             <input type="number" class="form-control" formControlName="y" />
           </div>
         </div>
-        <div class="button-container d-flex justify-content-center mt-2 p-2">
+        <!-- <div class="button-container d-flex justify-content-center mt-2 p-2">
           <button
             type="button"
             class="btn btn-success mt-2"
@@ -133,7 +127,7 @@
           >
             Add
           </button>
-        </div>
+        </div> -->
       </div>
     </form>
   </div>
