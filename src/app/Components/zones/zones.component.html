@@ -1,5 +1,21 @@
 <section class="vehicles-section">
-  <google-map [center]="center" [zoom]="zoom" height="300px" width="100%">
+  <google-map
+    [center]="PolygonCenter ? PolygonCenter : center"
+    [zoom]="zoom"
+    height="300px"
+    width="100%"
+  >
+    <map-polygon
+      [paths]="polygonPaths"
+      [options]="{
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35
+      }"
+    >
+    </map-polygon>
   </google-map>
 
   <div
@@ -27,6 +43,9 @@
             </th>
             <th>{{ "tables.zonesTable.zoneNameEn" | translate }}</th>
             <th>{{ "tables.zonesTable.zoneNameAr" | translate }}</th>
+            <th>
+              {{ "tables.zonesTable.status" | translate }}
+            </th>
             <th
               class="second-heading me-4"
               [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
@@ -51,6 +70,8 @@
 
             <td>{{ zone.nameEn }}</td>
             <td>{{ zone.nameAr }}</td>
+
+            <td>{{ zone.status ? "مفعل" : "غير مفعل" }}</td>
 
             <td class="d-flex align-items-start justify-content-center">
               <button
@@ -86,6 +107,20 @@
         <div class="col-md-4">
           <label>{{ "tables.zonesTable.zoneNameEn" | translate }}</label>
           <input type="text" class="form-control" formControlName="nameEn" />
+        </div>
+        <div class="col-md-4">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              (change)="setChoosedStatus($event)"
+              id="flexCheckDefault"
+              formControlName="status"
+            />
+            <label class="form-check-label" for="flexCheckDefault">
+              {{ "tables.zonesTable.status" | translate }}
+            </label>
+          </div>
         </div>
       </div>
       <div
@@ -153,20 +188,20 @@
           <label>{{ "tables.zonesTable.zoneNameEn" | translate }}</label>
           <input type="text" class="form-control" formControlName="nameEn" />
         </div>
-      </div>
-      <div formArrayName="geometry">
-        <div
-          *ngFor="let geometry of geometryArray.controls; let i = index"
-          [formGroupName]="i"
-          class="form-wrapper mt-3"
-        >
-          <div class="col-md-4">
-            <label>{{ "tables.zonesTable.coordinatesX" | translate }}</label>
-            <input type="number" class="form-control" formControlName="x" />
-          </div>
-          <div class="col-md-4">
-            <label>{{ "tables.zonesTable.coordinatesY" | translate }}</label>
-            <input type="number" class="form-control" formControlName="y" />
+
+        <div class="col-md-4">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              (change)="setChoosedStatus($event)"
+              [checked]="checkedStatus"
+              id="flexCheckDefault"
+              formControlName="status"
+            />
+            <label class="form-check-label" for="flexCheckDefault">
+              {{ "tables.zonesTable.status" | translate }}
+            </label>
           </div>
         </div>
       </div>

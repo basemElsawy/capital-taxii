@@ -53,7 +53,8 @@
       "coordinatesY": "Y احادثيات",
       "coordinatesX": "X احادثيات",
       "details": "التفاصيل",
-      "addnew": "اضافة احداثيات"
+      "addnew": "اضافة احداثيات",
+      "status": "الحالة"
     },
     "driversTable": {
       "user": "المستخدم",
