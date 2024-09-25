@@ -44,6 +44,8 @@ declare var google: any;
 })
 export class ZonesComponent {
   checkedStatus: any;
+  isEdit: boolean = false;
+  isNew: boolean = false;
 
   @ViewChild(GoogleMap) mapInstance!: GoogleMap;
   addZoneForm!: FormGroup;
@@ -266,7 +268,7 @@ export class ZonesComponent {
   }
   checkboxEvent(event: any, item: any) {
     this.geometricalCoordinates = item.zone.geometry.map((geo: any) => {
-      return { lat: geo.y, lng: geo.x };
+      return { lat: geo.x, lng: geo.y };
     });
 
     console.log(this.geometricalCoordinates);

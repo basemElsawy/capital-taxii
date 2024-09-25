@@ -1,12 +1,7 @@
 <section class="vehicles-section">
-  <google-map
-    [center]="PolygonCenter ? PolygonCenter : center"
-    [zoom]="zoom"
-    height="300px"
-    width="100%"
-  >
+  <google-map [center]="center" [zoom]="zoom" height="300px" width="100%">
     <map-polygon
-      [paths]="polygonPaths"
+      [paths]="geometricalCoordinates"
       [options]="{
         strokeColor: '#FF0000',
         strokeOpacity: 0.8,
