@@ -27,3 +27,16 @@ label {
   font-weight: normal;
   font-size: 14px;
 }
+.nav-tabs {
+  position: sticky;
+  top: 0px;
+  z-index: 1000;
+  background-color: white;
+}
+.nav-tabs {
+  position: fixed;
+  top: 64px;
+  width: 75%;
+  z-index: 1000;
+  background-color: white;
+}
