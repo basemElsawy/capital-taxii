@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormArray,
@@ -15,11 +15,15 @@ import { ZonesService } from './Services/zones.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import {
+  GoogleMap,
   GoogleMapsModule,
   MapAdvancedMarker,
   MapInfoWindow,
   MapMarker,
 } from '@angular/google-maps';
+
+declare var google: any;
+
 @Component({
   selector: 'app-zones',
   standalone: true,
@@ -39,6 +43,11 @@ import {
   styleUrl: './zones.component.scss',
 })
 export class ZonesComponent {
+  checkedStatus: any;
+  isEdit: boolean = false;
+  isNew: boolean = false;
+
+  @ViewChild(GoogleMap) mapInstance!: GoogleMap;
   addZoneForm!: FormGroup;
   updateZoneForm!: FormGroup;
   choosedZone: any;
@@ -50,6 +59,9 @@ export class ZonesComponent {
   polygonData: any = [];
   geometricalCoordinates: google.maps.LatLngLiteral[] = [];
 
+  map: any;
+  drawingManager: any;
+
   options: google.maps.PolylineOptions = {
     strokeColor: '#F0944D',
     strokeWeight: 4,
@@ -59,8 +71,52 @@ export class ZonesComponent {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private translate: TranslateService,
-    private translation: TranslationService
+    private translation: TranslationService,
+    private zone: NgZone
   ) {}
+
+  ngAfterViewInit() {
+    this.initializeDrawingManager();
+  }
+
+  initializeDrawingManager() {
+    if (!this.mapInstance.googleMap) return;
+
+    const drawingManager = new google.maps.drawing.DrawingManager({
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
+      drawingControl: true,
+      drawingControlOptions: {
+        position: google.maps.ControlPosition.TOP_CENTER,
+        drawingModes: [google.maps.drawing.OverlayType.POLYGON],
+      },
+
+      circleOptions: {
+        fillColor: '#ffff00',
+        fillOpacity: 1,
+        strokeWeight: 5,
+        clickable: true,
+        editable: true,
+        zIndex: 1,
+      },
+    });
+
+    // Set the map on the DrawingManager instance
+    drawingManager.setMap(this.mapInstance.googleMap);
+
+    google.maps.event.addListener(
+      drawingManager,
+      'polygoncomplete',
+      (event: any) => {
+        this.handlePolygonComplete(event);
+      }
+    );
+  }
+
+  polygons: any[] = [];
+
+  updatePolygonCount() {
+    let polygonCount = this.polygons.length;
+  }
 
   ngOnInit(): void {
     this.initializeStationsForm();
@@ -93,33 +149,58 @@ export class ZonesComponent {
     this.addZoneForm = this.fb.group({
       nameEn: [null, Validators.required],
       nameAr: [null, Validators.required],
-      geometry: this.fb.array([this.createGeometryGroup()]),
+      status: [false, Validators.required],
+      geometry: this.fb.array([]),
     });
   }
-  // initializeUpdateZoneForm() {
-  //   this.updateZoneForm = this.fb.group({
-  //     nameEn: [null, Validators.required],
-  //     nameAr: [null, Validators.required],
-  //     geometry: this.fb.array([]), // Initialize with empty geometry array
-  //   });
-  // }
+
+  setChoosedStatus(ev: any) {
+    this.checkedStatus = ev.target.checked;
+  }
+
   get geometryArray(): FormArray {
     return this.addZoneForm.get('geometry') as FormArray;
   }
 
-  createGeometryGroup(x: number = 0, y: number = 0): FormGroup {
+  createGeometryGroup(x: number, y: number): FormGroup {
     return this.fb.group({
-      x: [x, Validators.required],
-      y: [y, Validators.required],
+      x: [x, Validators.required], //here is the lat
+      y: [y, Validators.required], //here is the lng
     });
   }
 
-  addGeometry() {
-    this.geometryArray.push(this.createGeometryGroup());
+  addGeometry(lat: number, lng: number) {
+    this.geometryArray.push(this.createGeometryGroup(lat, lng));
+    console.log(this.geometryArray);
   }
 
+  handlePolygonComplete(event: any) {
+    const vertices = event.getPath();
+    const coordinates: any[] = [];
+    vertices.forEach((vertex: any) => {
+      const lat = vertex.lat();
+      const lng = vertex.lng();
+
+      coordinates.push({ latitude: lat, longitude: lng });
+
+      this.addGeometry(lat, lng);
+    });
+
+    this.polygons.push(coordinates);
+    this.updatePolygonCount();
+  }
+  polygonPaths: google.maps.LatLngLiteral[] = [];
+  PolygonCenter!: google.maps.LatLngLiteral;
   openZoneDetailsModal(content: any, selectedZone: any) {
-    this.choosedZone = selectedZone;
+    this.polygonPaths = selectedZone.geometry.map((coord: any) => ({
+      lat: coord.x,
+      lng: coord.y,
+    }));
+
+    this.PolygonCenter = {
+      lat: this.polygonPaths[0].lat,
+      lng: this.polygonPaths[0].lng,
+    };
     this.setZoneDataDetailsForm(selectedZone);
     this.modalService.open(content, {
       size: 'xl',
@@ -130,35 +211,23 @@ export class ZonesComponent {
   }
 
   setZoneDataDetailsForm(selectedZone: any) {
-    // Reset the form and clear the geometry array
-    this.addZoneForm.reset();
-    this.geometryArray.clear();
-
-    // Set form values for name fields
+    this.checkedStatus = selectedZone.status;
     this.addZoneForm.patchValue({
       nameEn: selectedZone.nameEn,
       nameAr: selectedZone.nameAr,
+      status: this.checkedStatus,
     });
     this.addZoneForm.get('nameEn')?.disable();
     this.addZoneForm.get('nameAr')?.disable();
-    // Populate the geometry array with coordinates
-    if (selectedZone.geometry && selectedZone.geometry.length) {
-      selectedZone.geometry.forEach((coordinate: any) => {
-        const geometryGroup = this.createGeometryGroup(
-          coordinate.x,
-          coordinate.y
-        );
-        geometryGroup.disable(); // Disable geometry group
-        this.geometryArray.push(geometryGroup);
-      });
-    } else {
-      // Add a default geometry group if no coordinates are available
-      this.geometryArray.push(this.createGeometryGroup());
-    }
   }
   openAddModal(content: any) {
-    this.addZoneForm.reset(); // Reset the entire form
-    this.resetGeometry(); // Reset the geometry array specifically
+    if (!this.geometryArray.length) {
+      return;
+    }
+
+    // this.geometryArray.controls.forEach((element) => {
+    //   element.disable();
+    // });
     this.addZoneForm.get('nameEn')?.enable();
     this.addZoneForm.get('nameAr')?.enable();
     this.modalService.open(content, {
@@ -168,15 +237,15 @@ export class ZonesComponent {
       scrollable: true,
     });
   }
-  resetGeometry() {
-    this.geometryArray.clear(); // Clear all existing controls in the array
-    this.geometryArray.push(this.createGeometryGroup()); // Add one default geometry group
-  }
+
   closeModal() {
     this.modalService.dismissAll();
   }
 
   addZone() {
+    this.addZoneForm.patchValue({
+      status: this.checkedStatus,
+    });
     let body = this.addZoneForm.value;
     this.zonesService.addNewZone(body).subscribe({
       next: (res: any) => {
@@ -199,7 +268,7 @@ export class ZonesComponent {
   }
   checkboxEvent(event: any, item: any) {
     this.geometricalCoordinates = item.zone.geometry.map((geo: any) => {
-      return { lat: geo.y, lng: geo.x };
+      return { lat: geo.x, lng: geo.y };
     });
 
     console.log(this.geometricalCoordinates);

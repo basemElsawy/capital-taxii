@@ -118,7 +118,8 @@
       "coordinatesY": "coordinatesY",
       "coordinatesX": "coordinatesX",
       "details": "Details",
-      "addnew": "Add New coordinates"
+      "addnew": "Add New coordinates",
+      "status": "Status"
     },
     "pricesTable": {
       "tableNameEn": "Table Name En",
