@@ -247,7 +247,7 @@
     }
   },
   "settings": {
-    "kmPriceConfiguation": "Km Price Configuration",
+    "configuation": "Configuration",
     "deductionConfiguration": "Deduction Configuration",
     "kmUpdatePrice": {
       "headline": "Km Update Price",
@@ -259,8 +259,21 @@
       "kmPrice": "Minimum Km",
       "isKilometric": "Kilometric minimum fares"
     },
+    "driverCommition": {
+      "headline": "Driver Commition",
+      "tripsNumber": "Trips number",
+      "percentage": "Percentage",
+      "value": "Value",
+      "trip": "Trip",
+      "percent": "Percent",
+      "status": "Status"
+    },
+
     "deductions": {
       "headline": "Deductions"
+    },
+    "taxiCounterFees": {
+      "headline": "Taxi Counter Fees"
     },
     "requestDistance": {
       "headline": "Request Distance Limit",
@@ -283,6 +296,9 @@
     },
     "zone": {
       "headline": "Zones"
+    },
+    "vehicleServiceType": {
+      "headline": "Vehicle Service Type"
     },
     "update": "update"
   },

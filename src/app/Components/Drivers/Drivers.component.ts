@@ -2,13 +2,7 @@ import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { DriverDetails, Drivers, DriversMarkers } from '../map/IMap';
 import { CommonModule } from '@angular/common';
 import { DriversService } from './Services/drivers.service';
-import {
-  AllTripRequestData,
-  Coords,
-  IDrivers,
-  IRequestRoutes,
-} from './IDrivers';
-import { firstValueFrom } from 'rxjs';
+import { AllTripRequestData, Coords, IDrivers } from './IDrivers';
 import {
   FormBuilder,
   FormControl,
@@ -27,6 +21,7 @@ import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 import { CalendarModule } from 'primeng/calendar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-Drivers',
@@ -68,7 +63,8 @@ export class DriversComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NgbModal,
     private translate: TranslateService,
-    private trannslation: TranslationService
+    private trannslation: TranslationService,
+    private toastr: ToastrService
   ) {}
   ngOnInit(): void {
     this.getAllDrivers();

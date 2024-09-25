@@ -17,6 +17,7 @@ import { StationsPricesComponent } from '../stations-prices/stations-prices.comp
 import { CommonModule } from '@angular/common';
 import { TablePricesComponent } from '../table-prices/table-prices.component';
 import { ZonesComponent } from '../zones/zones.component';
+import { VehicleServiceTypeComponent } from '../vehicle-service-type/vehicle-service-type.component';
 @Component({
   selector: 'app-settings',
   standalone: true,
@@ -30,6 +31,7 @@ import { ZonesComponent } from '../zones/zones.component';
     StationsPricesComponent,
     TablePricesComponent,
     ZonesComponent,
+    VehicleServiceTypeComponent,
   ],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
@@ -37,6 +39,7 @@ import { ZonesComponent } from '../zones/zones.component';
 export class SettingsComponent implements OnInit {
   active = 1;
   kmPriceForm!: FormGroup;
+  driverCommitionForm!: FormGroup;
   minimumFaresForm!: FormGroup;
   requestDistanceLimit!: FormGroup;
   deductionsForm!: FormGroup;
@@ -49,6 +52,8 @@ export class SettingsComponent implements OnInit {
   lang!: string;
   kmPriceId: any;
   minimumKMId: any;
+  driverCommitionId: any;
+
   isLoading: boolean = false;
 
   constructor(
@@ -64,6 +69,7 @@ export class SettingsComponent implements OnInit {
     this.getAllRequestTimeLimits();
     this.getAllRequestsKMPrice();
     this.getAllMinimumFares();
+    this.getAllDriverCommitions();
     this.getAllDeductions();
     this.getDriverArrivalMinDistance();
     this.getTaxiCounterFees();
@@ -212,6 +218,15 @@ export class SettingsComponent implements OnInit {
       minimumFarePrice: [null, Validators.required],
       isKilometericMinimumFare: [null, Validators.required],
     });
+    this.driverCommitionForm = this.fb.group({
+      id: [null],
+      tripCount: [null, Validators.required],
+      percentage: [null, Validators.required],
+      value: [null, Validators.required],
+      isTrip: [null, Validators.required],
+      isPercentage: [null, Validators.required],
+      // isStatus: [null, Validators.required],
+    });
     this.requestDistanceLimit = this.fb.group({
       id: [null],
       distanceLimit: [null, Validators.required],
@@ -351,13 +366,46 @@ export class SettingsComponent implements OnInit {
       },
     });
   }
+  getAllDriverCommitions() {
+    this.priceService.getDriverCommition().subscribe({
+      next: (res: any) => {
+        this.driverCommitionId = res[0].id;
 
+        this.driverCommitionForm.patchValue({
+          id: this.driverCommitionId,
+          tripCount: res[0].tripCount,
+          percentage: res[0].percentage,
+          value: res[0].value,
+          isTrip: res[0].isTrip,
+          isPercentage: res[0].isPercentage,
+          // isStatus: res[0].isStatus,
+        });
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
   updateMiniFares() {
     this.isLoading = true;
     let requestBody = this.minimumFaresForm.value;
     this.priceService.updateMinimumFares(requestBody).subscribe({
       next: (res: any) => {
         this.getAllMinimumFares();
+        this.isLoading = false;
+      },
+      error: (error: any) => {
+        this.isLoading = false;
+        console.log(error);
+      },
+    });
+  }
+  updateDriverCommition() {
+    this.isLoading = true;
+    let requestBody = this.driverCommitionForm.value;
+    this.priceService.updateDriverCommition(requestBody).subscribe({
+      next: (res: any) => {
+        this.getAllDriverCommitions();
         this.isLoading = false;
       },
       error: (error: any) => {

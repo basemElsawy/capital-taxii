@@ -6,7 +6,7 @@
     <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
       <li [ngbNavItem]="1">
         <button ngbNavLink>
-          {{ "settings.kmPriceConfiguation" | translate }}
+          {{ "settings.configuation" | translate }}
         </button>
         <ng-template ngbNavContent>
           <div class="card cardkm">
@@ -104,16 +104,131 @@
           <hr />
           <div class="card">
             <div class="card-header">
-              <h4>Taxi Counter Fees</h4>
-              <!-- <h4>{{ "settings.minimumFares.headline" | translate }}</h4> -->
+              <h4>{{ "settings.driverCommition.headline" | translate }}</h4>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="driverCommitionForm">
+                <div class="row g-3 align-items-center">
+                  <div class="col-auto">
+                    <label for="inputPassword6" class="col-form-label">{{
+                      "settings.driverCommition.tripsNumber" | translate
+                    }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <input
+                      type="number"
+                      class="form-control form-group"
+                      formControlName="tripCount"
+                    />
+                  </div>
+                  <div class="col-auto">
+                    <label for="inputPassword6" class="col-form-label">
+                      {{ "settings.driverCommition.percentage" | translate }}
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="percentage"
+                    />
+                  </div>
+                  <div class="col-auto">
+                    <label class="col-form-label">{{
+                      "settings.driverCommition.value" | translate
+                    }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="value"
+                    />
+                  </div>
+                </div>
+                <div class="row g-3 align-items-center mt-2">
+                  <div class="col-auto">
+                    <label class="col-form-label">{{
+                      "settings.driverCommition.trip" | translate
+                    }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckChecked"
+                        formControlName="isTrip"
+                        [checked]="
+                          this.driverCommitionForm.controls['isTrip'].value
+                        "
+                      />
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <label class="col-form-label">{{
+                      "settings.driverCommition.percent" | translate
+                    }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckChecked"
+                        formControlName="isPercentage"
+                        [checked]="
+                          this.driverCommitionForm.controls['isPercentage']
+                            .value
+                        "
+                      />
+                    </div>
+                  </div>
+                  <!-- <div class="col-auto">
+                    <label class="col-form-label">{{
+                      "settings.driverCommition.status" | translate
+                    }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckChecked"
+                        formControlName="isStatus"
+                        [checked]="
+                          this.driverCommitionForm.controls['isStatus'].value
+                        "
+                      />
+                    </div>
+                  </div> -->
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button
+                    class="btn btn-primary"
+                    (click)="updateDriverCommition()"
+                  >
+                    {{ "settings.update" | translate }}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <hr />
+          <div class="card">
+            <div class="card-header">
+              <h4>{{ "settings.taxiCounterFees.headline" | translate }}</h4>
             </div>
             <div class="card-body">
               <form [formGroup]="taxiCounter">
                 <div class="row g-3 align-items-center">
                   <div class="col-auto">
                     <label for="inputPassword6" class="col-form-label">
-                      Taxi Counter Fees
-                      <!-- {{ "settings.minimumFares.kmPrice" | translate }} -->
+                      <!-- Taxi Counter Fees -->
+                      {{ "settings.taxiCounterFees.headline" | translate }}
                     </label>
                   </div>
                   <div class="col-auto">
@@ -379,6 +494,14 @@
         </button>
         <ng-template ngbNavContent>
           <app-zones></app-zones>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="6">
+        <button ngbNavLink>
+          {{ "settings.vehicleServiceType.headline" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <app-vehicle-service-type></app-vehicle-service-type>
         </ng-template>
       </li>
     </ul>

@@ -14,6 +14,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { PermissionsService } from './services/permissions.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -38,7 +39,8 @@ export class PermissionsComponent implements OnInit {
     private permissionsService: PermissionsService,
     private modalService: NgbModal,
     private translation: TranslationService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private toastr: ToastrService
   ) {}
   ngOnInit() {
     this.initialiseAddUserForm();

@@ -11,6 +11,7 @@ import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 import { SharedTableComponent } from './shared-table/shared-table.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -52,7 +53,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private dashboardService: DashboardService,
     private translate: TranslateService,
-    private translation: TranslationService
+    private translation: TranslationService,
+    private toastr: ToastrService
   ) {}
   ngOnInit(): void {
     this.getAllDashboardStatisticalData();

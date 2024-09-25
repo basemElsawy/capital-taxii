@@ -14,6 +14,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { PeakTimeService } from './Services/peak-time.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-stations-prices',
   standalone: true,
@@ -47,7 +48,8 @@ export class PeakTimeComponent {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private translate: TranslateService,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {

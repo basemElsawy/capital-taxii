@@ -7,13 +7,13 @@ import {
   MapAdvancedMarker,
 } from '@angular/google-maps';
 import { TableModule } from 'primeng/table';
-import { DriverDetails, Drivers, DriversMarkers } from './IMap';
+import { Drivers } from './IMap';
 import { MapServiceService } from './map-service.service';
 import { VehicleService } from '../vehicle/Services/vehicle.service';
 import { environment } from '../../../environments/environment.development';
-import { env } from 'process';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-map',
@@ -55,7 +55,8 @@ export class MapComponent implements OnInit, OnDestroy {
     private vehicleServices: VehicleService,
     private mapService: MapServiceService,
     private translate: TranslateService,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private toastr: ToastrService
   ) {}
   ngOnInit(): void {
     this.getCurrentPosition();

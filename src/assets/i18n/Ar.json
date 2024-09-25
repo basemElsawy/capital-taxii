@@ -236,7 +236,7 @@
     }
   },
   "settings": {
-    "kmPriceConfiguation": "اعدادات الاسعار الكيلومتريه",
+    "configuation": "الاعدادات",
     "deductionConfiguration": "اعدادات الخصومات",
     "kmUpdatePrice": {
       "headline": "سعر التجديث الكيلومتري",
@@ -248,8 +248,20 @@
       "minimumFarePrice": "الحد الادني لسعر الاجرة",
       "isKilometric": "الحد الأدنى لأسعار الكيلومترية"
     },
+    "driverCommition": {
+      "headline": "عمولة السائق",
+      "tripsNumber": "عدد الرحلات",
+      "percentage": "النسبة المئوية",
+      "value": "القيمة",
+      "trip": "رحلة",
+      "percent": "نسبة",
+      "status": "الحالة"
+    },
     "deductions": {
       "headline": "الخصومات"
+    },
+    "taxiCounterFees": {
+      "headline": "رسوم عداد التاكسي"
     },
     "requestDistance": {
       "headline": "طلب حد المسافة",
@@ -272,6 +284,9 @@
     },
     "zone": {
       "headline": "النطاقات"
+    },
+    "vehicleServiceType": {
+      "headline": "نوع خدمة السيارة"
     },
     "update": "تحديث"
   },

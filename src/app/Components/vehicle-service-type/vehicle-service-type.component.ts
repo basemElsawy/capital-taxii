@@ -15,7 +15,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { VehicleServiceTypeService } from './Services/vehicle-service-type.service';
 @Component({
-  selector: 'app-vehicle',
+  selector: 'app-vehicle-service-type',
   standalone: true,
   imports: [
     CommonModule,

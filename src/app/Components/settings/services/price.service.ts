@@ -44,9 +44,14 @@ export class PriceService {
   getMinimumFares() {
     return this.http.get(this.baseUrl + 'MinimumFare');
   }
-
+  getDriverCommition() {
+    return this.http.get(this.baseUrl + 'Commission');
+  }
   updateMinimumFares(body: any) {
     return this.http.put(this.baseUrl + 'MinimumFare', body);
+  }
+  updateDriverCommition(body: any) {
+    return this.http.put(this.baseUrl + 'Commission', body);
   }
 
   getDeductions() {
