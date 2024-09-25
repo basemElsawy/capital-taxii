@@ -1,0 +1,224 @@
+@import "../../../styles.scss";
+@mixin displayAlignment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+* {
+  font-family: "montserrat";
+}
+.vehicles-section {
+  height: 80vh;
+}
+
+.close-icon {
+  font-size: 20px;
+  color: darkred;
+}
+
+.success-icon {
+  font-size: 20px;
+  color: #24c18f;
+}
+.map-wrapper {
+  border: 1px solid $primary-color;
+  height: 300px;
+}
+.person-info {
+  width: 200px;
+}
+.table-container {
+  background-color: white !important;
+  overflow-y: scroll;
+}
+.table-content {
+  overflow-y: scroll;
+}
+table {
+  border: none !important;
+}
+thead {
+  // display: block;
+  border-radius: 10px;
+  overflow: hidden;
+}
+thead th {
+  padding: 12px;
+}
+thead tr {
+  padding: 10px;
+  font-size: 14px !important;
+
+  background-color: $primary-color !important;
+}
+tbody tr {
+  border: none !important;
+}
+thead tr {
+  color: white;
+  text-align: center;
+}
+tbody tr td {
+  text-align: center;
+  padding-block: 10px;
+}
+.text-container {
+  & h6 {
+    font-size: 14px;
+    margin-bottom: 3px !important;
+  }
+  & p {
+    font-size: 12px;
+    color: #90a0b7;
+  }
+}
+.first-heading {
+  border-radius: 10px 0px 0px 10px !important;
+}
+
+.second-heading {
+  border-radius: 0px 10px 10px 0px;
+}
+::ng-deep .p-datatable-thead th {
+  color: white;
+  padding: 10px;
+  background-color: $primary-color;
+  font-size: 14px;
+}
+::ng-deep .p-hidden-accessible {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+::ng-deep .p-datatable-tbody tr .p-checkbox {
+  padding-left: 10px !important;
+}
+::ng-deep .p-datatable-tbody tr td {
+  padding-block: 12px;
+}
+tbody tr td {
+  font-size: 12px;
+  padding-block: 15px;
+}
+// ::ng-deep .p-checkbox {
+//   padding-left: 14px;
+// }
+.income-styling {
+  background-color: #24c18f2e;
+  color: #24c18f;
+  font-weight: bold;
+  transform: translateY(-10px);
+}
+
+.not-available {
+  background-color: rgba(255, 0, 0, 0.2) !important;
+  color: red !important;
+}
+thead {
+  position: sticky;
+  top: -8px;
+  left: 0;
+  right: 0;
+}
+.table-footer {
+  justify-self: end;
+}
+.box-style {
+  @include displayAlignment();
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.15);
+  font-size: 12px;
+  cursor: pointer;
+}
+.active-page {
+  background-color: $primary-color;
+  color: white;
+}
+.drivers-section {
+  height: 85vh;
+}
+
+.btn-success {
+  background-color: white;
+  color: $primary-color;
+  border: none;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+}
+.btn-success:hover {
+  background-color: white;
+  color: $primary-color;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-success:active {
+  background-color: white !important;
+  color: $primary-color !important;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2) !important;
+}
+.click-show-image {
+  font-size: 10px !important;
+}
+
+.form-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  & div {
+    width: 100%;
+  }
+}
+/* Add this to your component's CSS file or global stylesheet */
+::ng-deep .custom-tooltip ::ng-deep .p-tooltip {
+  background-color: #ffcc00 !important; /* Change to your desired color */
+  color: #000; /* Optional: Change text color */
+  padding: 2px 6px !important;
+}
+
+.first-heading-Ar {
+  border-radius: 0px 10px 10px 0px !important;
+}
+.second-heading-Ar {
+  border-radius: 10px 0px 0px 10px !important;
+}
+.ar-row th {
+  // text-align: right;
+  direction: rtl;
+}
+.ar-form label {
+  width: 100%;
+  text-align: right;
+  margin-bottom: 10px;
+}
+.custom-table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.custom-table td,
+.custom-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.custom-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.custom-table tr:hover {
+  background-color: #ddd;
+}
+
+.custom-table th {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-align: left;
+  background-color: #326fd1;
+  color: white;
+}
+.edit-btn,
+.delete-btn {
+  width: fit-content;
+  margin-inline: auto;
+}

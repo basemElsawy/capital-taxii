@@ -149,10 +149,7 @@
     >
       <thead class="w-100">
         <tr class="py-2 px-4 w-100">
-          <th
-            class="first-heading"
-            [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
-          >
+          <th class="first-heading">
             {{
               lang == "Ar"
                 ? ("tables.pricesTable.tableNameAr" | translate)
@@ -160,10 +157,7 @@
             }}
           </th>
           <th>{{ "tables.pricesTable.startDate" | translate }}</th>
-          <th
-            class="second-heading me-4"
-            [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
-          >
+          <th class="second-heading me-4">
             {{ "tables.pricesTable.endDate" | translate }}
           </th>
         </tr>
@@ -242,17 +236,17 @@
     <hr />
     <table class="custom-table mt-4">
       <tr class="table-header">
-        <th>Price</th>
-        <th>Vehicle Service Type</th>
+        <th>{{ "tables.pricesTable.price" | translate }}</th>
+        <th>{{ "tables.pricesTable.vehicleServiceType" | translate }}</th>
       </tr>
       @for(tablePriceDetails of tablePricesDetails; track tablePriceDetails){
       <tr class="table-row">
-        <td>{{ tablePriceDetails.price }}</td>
+        <td>{{ tablePriceDetails?.price }}</td>
         <td>
           {{
             lang == "Ar"
-              ? tablePriceDetails.vehicleServiceType.nameAr
-              : tablePriceDetails.vehicleServiceType.nameEn
+              ? tablePriceDetails?.vehicleServiceType?.nameAr
+              : tablePriceDetails?.vehicleServiceType?.nameEn
           }}
         </td>
       </tr>

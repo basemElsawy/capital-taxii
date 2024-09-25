@@ -15,6 +15,8 @@ import { ZonesComponent } from '../zones/zones.component';
 import { PermissionsComponent } from '../permissions/permissions.component';
 import { RolesComponent } from '../roles/roles.component';
 import { TablePricesComponent } from '../table-prices/table-prices.component';
+import { VehicleServiceTypeComponent } from '../vehicle-service-type/vehicle-service-type.component';
+import { PeakTimeComponent } from '../peak-time/peak-time.component';
 export const routes: Routes = [
   {
     path: '',
@@ -77,6 +79,14 @@ export const routes: Routes = [
       {
         path: 'tablePrices',
         component: TablePricesComponent,
+      },
+      {
+        path: 'vehicleServiceType',
+        component: VehicleServiceTypeComponent,
+      },
+      {
+        path: 'peakTime',
+        component: PeakTimeComponent,
       },
     ],
   },

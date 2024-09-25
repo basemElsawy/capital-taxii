@@ -1,0 +1,249 @@
+<section class="vehicles-section">
+  <div
+    class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative d-flex flex-column align-items-center justify-content-between"
+  >
+    <div
+      [dir]="lang == 'Ar' ? 'rtl' : 'ltr'"
+      class="w-100 p-2 my-2 d-flex align-items-start flex-column justify-content-start gap-2"
+    >
+      <button
+        (click)="openAddModal(content)"
+        class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
+      >
+        <span>
+          {{ "tables.VehicleServiceTypeTable.actionsButton" | translate }}
+        </span>
+
+        <i class="fa-solid fa-plus"></i>
+      </button>
+      <table class="w-100 table-content position-relative">
+        <thead class="w-100">
+          <tr class="py-2 px-4 w-100" [ngClass]="{ 'ar-row': lang == 'Ar' }">
+            <th
+              class="first-heading"
+              [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
+              [ngStyle]="{ 'text-align': lang == 'Ar' ? 'right' : 'left' }"
+              style="width: 200px"
+            >
+              {{ "tables.VehicleServiceTypeTable.image" | translate }}
+            </th>
+            <th>
+              {{ "tables.VehicleServiceTypeTable.nameEn" | translate }}
+            </th>
+            <th>
+              {{ "tables.VehicleServiceTypeTable.nameAr" | translate }}
+            </th>
+            <th>
+              {{ "tables.VehicleServiceTypeTable.status" | translate }}
+            </th>
+            <th
+              class="second-heading me-4"
+              [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
+            >
+              {{ "tables.VehicleServiceTypeTable.options" | translate }}
+            </th>
+          </tr>
+        </thead>
+        @if(isLoading){
+        <app-spinner></app-spinner>
+        } @else {
+        <tbody class="w-100">
+          @for(vehicleServiceType of vehicleServiceTypes; track
+          vehicleServiceType) {
+          <tr class="w-100">
+            <td
+              class="person-info d-flex align-items-center justify-content-start gap-2"
+              style="padding-left: 20px"
+            >
+              <img
+                [src]="
+                  vehicleServiceType?.image
+                    ? imgUrl + vehicleServiceType?.image
+                    : '../../../assets/carjpg.jpg'
+                "
+                alt=""
+                height="40"
+                width="40"
+              />
+            </td>
+            <td>{{ vehicleServiceType?.nameEn }}</td>
+
+            <td>{{ vehicleServiceType?.nameAr }}</td>
+            <td>
+              {{
+                lang == "Ar"
+                  ? vehicleServiceType?.status
+                    ? "مفعل"
+                    : "غير مفعل"
+                  : vehicleServiceType?.status
+                  ? "Work"
+                  : "Not work"
+              }}
+            </td>
+
+            <td class="d-flex align-items-start justify-content-center">
+              <button
+                tooltipPosition="top"
+                tooltipClass="custom-tooltip"
+                (click)="openUpdateVehcleModal(content1, vehicleServiceType)"
+                class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+              >
+                <!-- <span> Update vehicle </span> -->
+
+                <i class="fas fa-edit"></i>
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+        }
+      </table>
+    </div>
+  </div>
+</section>
+
+<ng-template #content let-modal>
+  <div [dir]="lang == 'Ar' ? 'rtl' : 'ltr'" class="modal-header">
+    <h4>
+      {{ "tables.VehicleServiceTypeTable.metaText.addHeadline" | translate }}
+    </h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="addVehicleServiceTypeForm" class="">
+      <div class="form-wrapper">
+        <div class="col-md-4">
+          <label>
+            {{ "tables.VehicleServiceTypeTable.nameEn" | translate }}
+          </label>
+          <input
+            type="text"
+            class="form-group form-control"
+            formControlName="nameEn"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label>
+            {{ "tables.VehicleServiceTypeTable.nameAr" | translate }}
+          </label>
+          <input
+            type="text"
+            class="form-group form-control"
+            formControlName="nameAr"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label style="margin-bottom: 7px">
+            {{ "tables.VehicleServiceTypeTable.status" | translate }}
+          </label>
+          <select
+            formControlName="status"
+            class="form-control form-select form-group"
+          >
+            <option value="true">
+              {{ lang == "Ar" ? "مفعل" : "Work" }}
+            </option>
+            <option value="false">
+              {{ lang == "Ar" ? "غير مفعل" : "Not work" }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="formFile" class="form-label">
+              {{ "tables.VehicleServiceTypeTable.image" | translate }}
+            </label>
+            <input
+              class="form-control"
+              (change)="uploadPhoto($event)"
+              type="file"
+              id="formFile"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="addVehicleServiceType()">
+      Save
+    </button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+<!-- update vehicle -->
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4>Update vehicle</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="updateVehicleServiceTypeForm" class="">
+      <div class="form-wrapper">
+        <div class="col-md-4">
+          <label>
+            {{ "tables.VehicleServiceTypeTable.nameEn" | translate }}
+          </label>
+          <input
+            type="text"
+            class="form-group form-control"
+            formControlName="nameEn"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label>
+            {{ "tables.VehicleServiceTypeTable.nameAr" | translate }}
+          </label>
+          <input
+            type="text"
+            class="form-group form-control"
+            formControlName="nameAr"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label style="margin-bottom: 7px">
+            {{ "tables.VehicleServiceTypeTable.status" | translate }}
+          </label>
+          <select
+            formControlName="status"
+            class="form-control form-select form-group"
+          >
+            <option value="true">
+              {{ lang == "Ar" ? "مفعل" : "Work" }}
+            </option>
+            <option value="false">
+              {{ lang == "Ar" ? "غير مفعل" : "Not work" }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="formFile" class="form-label">
+              {{ "tables.VehicleServiceTypeTable.image" | translate }}
+            </label>
+            <input
+              class="form-control"
+              (change)="uploadPhoto($event)"
+              type="file"
+              id="formFile"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="updateVehicleServiceType()">
+      Save
+    </button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>

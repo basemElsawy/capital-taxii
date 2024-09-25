@@ -129,10 +129,45 @@
       "addnew": "Add New",
       "details": "Details",
       "vehicleServiceType": "vehicle Service Type",
+
       "price": "Price",
       "metaText": {
         "updateHeadline": "Add price table details",
         "addHeadline": "Add new price table"
+      }
+    },
+    "peakTime": {
+      "tableNameEn": "Name En",
+      "tableNameAr": "Name Ar",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "options": "Options",
+      "addnew": "Add New",
+      "details": "Details",
+      "status": "Status",
+      "peakTime": "Peak Time",
+      "price": "Price",
+      "edit": "Edit",
+      "delete": "Delete",
+      "metaText": {
+        "updateHeadline": "Details",
+        "addHeadline": "Add new"
+      }
+    },
+    "VehicleServiceTypeTable": {
+      "nameEn": " Name En",
+      "nameAr": " Name Ar",
+      "image": "Photo",
+      "status": "Status",
+      "options": "Options",
+      "addnew": "Add New",
+      "details": "Details",
+      "vehicleServiceType": "vehicle Service Type",
+      "actionsButton": "Add new",
+
+      "metaText": {
+        "updateHeadline": "Update Vehicle Service Type",
+        "addHeadline": "Add new Vehicle Service Type"
       }
     },
     "shiftTable": {
@@ -239,6 +274,15 @@
       "headline": "Request time limit",
       "price": "price",
       "time": "Time"
+    },
+    "tablePrice": {
+      "headline": "Price tables"
+    },
+    "stationPrices": {
+      "headline": "Station prices"
+    },
+    "zone": {
+      "headline": "Zones"
     },
     "update": "update"
   },

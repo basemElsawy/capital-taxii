@@ -13,15 +13,23 @@ import {
 import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
+import { StationsPricesComponent } from '../stations-prices/stations-prices.component';
+import { CommonModule } from '@angular/common';
+import { TablePricesComponent } from '../table-prices/table-prices.component';
+import { ZonesComponent } from '../zones/zones.component';
 @Component({
   selector: 'app-settings',
   standalone: true,
   imports: [
     NgbNavModule,
     FormsModule,
+    CommonModule,
     ReactiveFormsModule,
     SpinnerComponent,
     TranslateModule,
+    StationsPricesComponent,
+    TablePricesComponent,
+    ZonesComponent,
   ],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],

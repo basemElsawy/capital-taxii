@@ -21,7 +21,7 @@ import {
   MapMarker,
 } from '@angular/google-maps';
 @Component({
-  selector: 'app-stations',
+  selector: 'app-zones',
   standalone: true,
   imports: [
     CommonModule,

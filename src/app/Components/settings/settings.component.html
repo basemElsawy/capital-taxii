@@ -357,6 +357,30 @@
           <p>deduction config goes here</p>
         </ng-template>
       </li>
+      <li [ngbNavItem]="3">
+        <button ngbNavLink>
+          {{ "settings.tablePrice.headline" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <app-price-tables></app-price-tables>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="4">
+        <button ngbNavLink>
+          {{ "settings.stationPrices.headline" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <app-stations-prices></app-stations-prices>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="5">
+        <button ngbNavLink>
+          {{ "settings.zone.headline" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <app-zones></app-zones>
+        </ng-template>
+      </li>
     </ul>
 
     <div [ngbNavOutlet]="nav" class="mt-2"></div>

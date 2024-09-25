@@ -1,0 +1,281 @@
+<section class="vehicles-section">
+  <div
+    class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative d-flex flex-column align-items-center justify-content-between"
+  >
+    <div
+      class="w-100 p-2 my-2 d-flex align-items-start flex-column justify-content-start gap-2"
+    >
+      <!-- <button
+        (click)="openAddModal(content)"
+        class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
+      >
+        <span>
+          {{ "tables.pricesTable.metaText.addHeadline" | translate }}
+        </span>
+
+        <i class="fa-solid fa-plus"></i>
+      </button> -->
+      <table class="w-100 table-content position-relative">
+        <thead class="w-100">
+          <tr class="py-2 px-4 w-100">
+            <th
+              class="first-heading"
+              [ngClass]="{ 'first-heading-Ar': lang == 'Ar' }"
+            >
+              {{
+                lang == "Ar"
+                  ? ("tables.peakTime.tableNameAr" | translate)
+                  : ("tables.peakTime.tableNameEn" | translate)
+              }}
+            </th>
+            <th>
+              {{ "tables.peakTime.status" | translate }}
+            </th>
+            <th
+              class="second-heading me-4"
+              [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
+            >
+              {{ "tables.peakTime.options" | translate }}
+            </th>
+          </tr>
+        </thead>
+        @if(isLoading){
+        <app-spinner></app-spinner>
+        } @else {
+        <tbody class="w-100">
+          @for(WeekPeakTime of WeekPeakTimes; track WeekPeakTime) {
+          <tr class="w-100">
+            <td>
+              {{ lang == "En" ? WeekPeakTime.nameEn : WeekPeakTime.nameAr }}
+            </td>
+            <td>
+              <input
+                type="checkbox"
+                (change)="checkboxEvent(WeekPeakTime)"
+                [(ngModel)]="WeekPeakTime.status"
+              />
+            </td>
+
+            <td class="d-flex align-items-start justify-content-center">
+              <button
+                tooltipPosition="top"
+                tooltipClass="custom-tooltip"
+                (click)="openUpdateModal(content1, WeekPeakTime)"
+                class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+              >
+                <span> {{ "tables.peakTime.details" | translate }} </span>
+
+                <!-- <i class="fas fa-edit"></i> -->
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+        }
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- update vehicle -->
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4 [ngClass]="{ 'text-end w-100': lang == 'Ar' }">
+      {{ "tables.peakTime.metaText.updateHeadline" | translate }}
+    </h4>
+  </div>
+
+  <div class="modal-body">
+    <table
+      class="w-100 table-content position-relative"
+      style="border: 1px solid #333; border-radius: 4px"
+    >
+      <thead class="w-100">
+        <tr class="py-2 px-4 w-100">
+          <th class="first-heading">
+            {{
+              lang == "Ar"
+                ? ("tables.peakTime.tableNameAr" | translate)
+                : ("tables.peakTime.tableNameEn" | translate)
+            }}
+          </th>
+          <th>{{ "tables.peakTime.status" | translate }}</th>
+        </tr>
+      </thead>
+
+      <tbody class="w-100">
+        <tr class="w-100">
+          <td>
+            {{
+              lang == "En"
+                ? selectedPeakTimeTable.nameEn
+                : selectedPeakTimeTable.nameAr
+            }}
+          </td>
+          <td>
+            {{ selectedPeakTimeTable.status }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <form
+      *ngIf="addpeakTimeForm"
+      [formGroup]="addpeakTimeForm"
+      class="mt-4"
+      [ngClass]="{ 'ar-form': lang == 'Ar' }"
+    >
+      <div formArrayName="peakTime">
+        <div
+          *ngFor="let peakTime of peakTime?.controls; let i = index"
+          [formGroupName]="i"
+          class="form-wrapper"
+        >
+          <div class="col-md-4">
+            <label> {{ "tables.peakTime.startTime" | translate }} </label>
+            <input
+              type="time"
+              class="number form-group form-control"
+              formControlName="startTime"
+            />
+          </div>
+          <div class="col-md-4">
+            <label> {{ "tables.peakTime.endTime" | translate }} </label>
+            <input
+              type="time"
+              class="form-group form-control"
+              formControlName="endTime"
+            />
+          </div>
+          <div class="col-md-4">
+            <label> {{ "tables.peakTime.price" | translate }} </label>
+            <input
+              type="number"
+              class="form-group form-control"
+              formControlName="price"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="button-container d-flex justify-content-center mt-2 p-2">
+        <button
+          type="button"
+          class="btn btn-success mt-2"
+          (click)="addFormPeakTime()"
+        >
+          Add
+        </button>
+      </div>
+    </form>
+    <hr />
+    <table class="custom-table mt-4">
+      <tr class="table-header">
+        <th>{{ "tables.peakTime.startTime" | translate }}</th>
+        <th>{{ "tables.peakTime.endTime" | translate }}</th>
+        <th>{{ "tables.peakTime.price" | translate }}</th>
+        <th>{{ "tables.peakTime.edit" | translate }}</th>
+        <th>{{ "tables.peakTime.delete" | translate }}</th>
+      </tr>
+      @for(peakTimeForDay of peakTimesForDay; track peakTimeForDay){
+      <tr class="table-row">
+        <td>{{ peakTimeForDay?.startTime }}</td>
+        <td>{{ peakTimeForDay?.endTime }}</td>
+        <td>{{ peakTimeForDay?.price }}</td>
+
+        <td>
+          <div class="edit-btn">
+            <button
+              tooltipPosition="top"
+              tooltipClass="custom-tooltip"
+              (click)="openUpdatePeakTimeModal(content2, peakTimeForDay)"
+              class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+          </div>
+        </td>
+        <td>
+          <div class="delete-btn">
+            <button
+              tooltipPosition="top"
+              tooltipClass="custom-tooltip"
+              (click)="deletePeakTime(peakTimeForDay.id)"
+              class="btn btn-success d-flex align-items-center mx-2 justify-content-center gap-2"
+            >
+              <!-- <span> show drivers </span> -->
+
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      }
+    </table>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="addPeakTime()">Save</button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 [ngClass]="{ 'text-end w-100': lang == 'Ar' }">
+      {{ "tables.stationPricesTable.metaText.addHeadline" | translate }}
+    </h4>
+  </div>
+
+  <div class="modal-body">
+    <form
+      *ngIf="updatepeakTimeForm"
+      [formGroup]="updatepeakTimeForm"
+      class="mt-4"
+      [ngClass]="{ 'ar-form': lang == 'Ar' }"
+    >
+      <div>
+        <div class="form-wrapper card mt-4 p-4">
+          <div class="col-md-4">
+            <label> {{ "tables.peakTime.startTime" | translate }} </label>
+            <input
+              type="time"
+              class="number form-group form-control"
+              formControlName="startTime"
+            />
+          </div>
+          <div class="col-md-4">
+            <label> {{ "tables.peakTime.endTime" | translate }} </label>
+            <input
+              type="time"
+              class="form-group form-control"
+              formControlName="endTime"
+            />
+          </div>
+          <div class="col-md-4">
+            <label> {{ "tables.peakTime.price" | translate }} </label>
+            <input
+              type="number"
+              class="form-group form-control"
+              formControlName="price"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="button-container d-flex justify-content-center mt-2 p-2">
+        <button
+          type="button"
+          class="btn btn-success mt-2"
+          (click)="addUpdateFormPeakTime()"
+        >
+          Add
+        </button>
+      </div> -->
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="updatePeakTime()">Save</button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>

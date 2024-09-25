@@ -138,6 +138,22 @@
         "driverPhoto": "صورة السائق"
       }
     },
+    "VehicleServiceTypeTable": {
+      "nameEn": "الاسم باللغة الانجليزية",
+      "nameAr": "الاسم باللغة العربية",
+      "image": "الصورة",
+      "status": "الحالة",
+      "options": "خيارات",
+      "addnew": "اضافة جديد",
+      "details": "تفاصيل",
+      "actionsButton": "اضافة جديد",
+
+      "vehicleServiceType": "نوع خدمة السيارة",
+      "metaText": {
+        "updateHeadline": "تعديل علي نوع خدمة ",
+        "addHeadline": "اضافة نوع خدمة "
+      }
+    },
     "stationsTable": {
       "stationNameEn": "En اسم المحطة",
       "stationNameAr": "Ar اسم المحطة ",
@@ -176,6 +192,24 @@
       "metaText": {
         "updateHeadline": "اضافة تفاصيل لجدول أسعار ",
         "addHeadline": "اضافة جدول أسعار"
+      }
+    },
+    "peakTime": {
+      "tableNameEn": "الاسم باللغة الانجليزية",
+      "tableNameAr": "الاسم باللغة العربية",
+      "startTime": "وقت البدء",
+      "endTime": "وقت الانتهاء",
+      "options": "الخيارات",
+      "addnew": "اضافة جديد",
+      "details": "التفاصيل",
+      "status": "الحالة",
+      "peakTime": "وقت الذروة",
+      "price": "السعر",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "metaText": {
+        "updateHeadline": "التفاصيل ",
+        "addHeadline": "اضافة جديد"
       }
     },
     "shiftTable": {
@@ -229,6 +263,15 @@
       "headline": "طلب الحد الزمني",
       "price": "السعر",
       "time": "الوقت"
+    },
+    "tablePrice": {
+      "headline": "جداول الأسعار"
+    },
+    "stationPrices": {
+      "headline": "تسعيرة المحطات"
+    },
+    "zone": {
+      "headline": "النطاقات"
     },
     "update": "تحديث"
   },

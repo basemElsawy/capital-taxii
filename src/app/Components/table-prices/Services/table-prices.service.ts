@@ -15,12 +15,14 @@ export class TablePricesService {
   addNewTablePrice(tablePrice: any) {
     return this.httpClient.post(`${this.base_url}KilometrePrice`, tablePrice);
   }
-  getAllTablePricsDetails() {
-    return this.httpClient.get(`${this.base_url}KilometrePriceDetails`);
+  getAllTablePricsDetailsById(tablePriceId: any) {
+    return this.httpClient.get(
+      `${this.base_url}KilometrePriceDetails/get-kilometre-price-details-list/${tablePriceId}`
+    );
   }
   addTablePriceDetails(tablePriceDetails: any) {
     return this.httpClient.post(
-      `${this.base_url}KilometrePriceDetails`,
+      `${this.base_url}KilometrePriceDetails/add-kilometre-price-details-list`,
       tablePriceDetails
     );
   }

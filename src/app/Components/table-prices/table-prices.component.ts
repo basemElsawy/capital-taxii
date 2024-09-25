@@ -15,7 +15,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { TablePricesService } from './Services/table-prices.service';
 @Component({
-  selector: 'app-stations-prices',
+  selector: 'app-price-tables',
   standalone: true,
   imports: [
     CommonModule,
@@ -38,7 +38,7 @@ export class TablePricesComponent {
   isLoading: boolean = false;
   lang!: string;
   selectedTablePrice: any;
-  tablePricesDetails: any[] = [];
+  tablePricesDetails: any;
   vehicleServiceTypes: any[] = [];
   constructor(
     private tablePricesService: TablePricesService,
@@ -53,7 +53,6 @@ export class TablePricesComponent {
     this.initializeForm();
     this.getPricesTables();
     this.getAllVehicleServiceType();
-    this.getAllTablePricsDetails();
     this.addPriceDetails();
     // this.getStations();
 
@@ -101,10 +100,12 @@ export class TablePricesComponent {
     this.tableDetails.push(this.newPriceDetails());
   }
   openUpdateTablePricesModal(content: any, tablePrice: any) {
-    this.initializeForm(); // Initialize the form before opening the modal
+    this.initializeForm();
 
     // this.setStationDataInUpdateForm(tablePrice);
     this.selectedTablePrice = tablePrice;
+    this.tablePricesDetails = [];
+    this.getAllTablePricsDetailsById(this.selectedTablePrice.id);
     this.modalService.open(content, {
       size: 'xl',
       backdrop: 'static',
@@ -159,7 +160,8 @@ export class TablePricesComponent {
     };
     this.tablePricesService.addTablePriceDetails(body).subscribe({
       next: (res: any) => {
-        this.getAllTablePricsDetails();
+        debugger;
+        this.getAllTablePricsDetailsById(this.selectedTablePrice.id);
         this.modalService.dismissAll();
         this.addTablePriceDetailsForm.reset();
       },
@@ -168,10 +170,12 @@ export class TablePricesComponent {
       },
     });
   }
-  getAllTablePricsDetails() {
-    this.tablePricesService.getAllTablePricsDetails().subscribe((data: any) => {
-      this.tablePricesDetails = data;
-    });
+  getAllTablePricsDetailsById(tablePriceId: any) {
+    this.tablePricesService
+      .getAllTablePricsDetailsById(tablePriceId)
+      .subscribe((data: any) => {
+        this.tablePricesDetails = data[0].kilometrePriceDetails;
+      });
   }
   getAllVehicleServiceType() {
     this.tablePricesService
