@@ -1,0 +1,493 @@
+@if(isLoading){
+<app-spinner></app-spinner>
+}
+<div class="text-start my-2">
+  <button
+    (click)="openAddModal(content)"
+    class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
+  >
+    <span> {{ "tables.promoCodeTable.actionsButton" | translate }} </span>
+
+    <i class="fa-solid fa-plus"></i>
+  </button>
+</div>
+<section class="p-4">
+  <div>
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <button ngbNavLink>
+          {{ "tables.promoCodeTable.activePromoCode" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <table class="w-100 table-content position-relative">
+            <thead class="w-100">
+              <tr class="py-2 px-4 w-100">
+                <th
+                  [ngClass]="{
+                    'first-heading': lang == 'En',
+                    'first-heading-Ar': lang == 'Ar'
+                  }"
+                  [ngStyle]="{
+                    'text-align': lang == 'En' ? 'left' : 'right',
+                    'padding-left': lang == 'En' ? ' 30px' : '0px',
+                    'padding-right': lang == 'En' ? ' 0px' : '30px'
+                  }"
+                >
+                  {{ "tables.promoCodeTable.startDate" | translate }}
+                </th>
+                <th>
+                  {{ "tables.promoCodeTable.endDate" | translate }}
+                </th>
+
+                <th>
+                  {{ "tables.promoCodeTable.tripsNumber" | translate }}
+                </th>
+
+                <th>
+                  {{ "tables.promoCodeTable.percentage" | translate }}
+                </th>
+
+                <th>
+                  {{ "tables.promoCodeTable.value" | translate }}
+                </th>
+                <th>
+                  {{ "tables.promoCodeTable.numOfUsages" | translate }}
+                </th>
+                <th>
+                  {{ "tables.promoCodeTable.promoCodeValue" | translate }}
+                </th>
+                <th
+                  [ngClass]="{
+                    'second-heading': lang == 'En',
+                    'second-heading-Ar': lang == 'Ar'
+                  }"
+                >
+                  {{ "tables.promoCodeTable.options" | translate }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(activePromoCode of activePromoCodes; track activePromoCode) {
+              <tr>
+                <td
+                  class="person-info d-flex align-users-center justify-content-start gap-2 ps-3"
+                >
+                  {{ activePromoCode?.startDate }}
+                </td>
+                <td>{{ activePromoCode?.expiryDate }}</td>
+                <td>{{ activePromoCode?.numOfTrips }}</td>
+                <td>{{ activePromoCode?.percentage }} %</td>
+                <td>{{ activePromoCode?.value }}</td>
+                <td>{{ activePromoCode?.numOfUsages }}</td>
+                <td>{{ activePromoCode?.promoCodeValue }}</td>
+                <td class="d-flex align-items-start justify-content-center">
+                  <button
+                    pTooltip="Update promo code"
+                    tooltipPosition="top"
+                    tooltipClass="custom-tooltip"
+                    (click)="openUpdateModal(content1, activePromoCode)"
+                    class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+                  >
+                    <!-- <span> Update vehicle </span> -->
+
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <button ngbNavLink>
+          {{ "tables.promoCodeTable.inActivePromoCode" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <table class="w-100 table-content position-relative">
+            <thead class="w-100">
+              <tr class="py-2 px-4 w-100">
+                <th
+                  [ngClass]="{
+                    'first-heading': lang == 'En',
+                    'first-heading-Ar': lang == 'Ar'
+                  }"
+                  [ngStyle]="{
+                    'text-align': lang == 'En' ? 'left' : 'right',
+                    'padding-left': lang == 'En' ? ' 30px' : '0px',
+                    'padding-right': lang == 'En' ? ' 0px' : '30px'
+                  }"
+                >
+                  {{ "tables.promoCodeTable.startDate" | translate }}
+                </th>
+                <th>
+                  {{ "tables.promoCodeTable.endDate" | translate }}
+                </th>
+
+                <th>
+                  {{ "tables.promoCodeTable.tripsNumber" | translate }}
+                </th>
+
+                <th>
+                  {{ "tables.promoCodeTable.percentage" | translate }}
+                </th>
+
+                <th>
+                  {{ "tables.promoCodeTable.value" | translate }}
+                </th>
+                <th>
+                  {{ "tables.promoCodeTable.numOfUsages" | translate }}
+                </th>
+                <th>
+                  {{ "tables.promoCodeTable.promoCodeValue" | translate }}
+                </th>
+                <th
+                  [ngClass]="{
+                    'second-heading': lang == 'En',
+                    'second-heading-Ar': lang == 'Ar'
+                  }"
+                >
+                  {{ "tables.promoCodeTable.options" | translate }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(inActivePromoCode of inActivePromoCodes; track
+              inActivePromoCode) {
+              <tr>
+                <td
+                  class="person-info d-flex align-users-center justify-content-start gap-2 ps-3"
+                >
+                  {{ inActivePromoCode?.startDate }}
+                </td>
+                <td>{{ inActivePromoCode?.expiryDate }}</td>
+                <td>{{ inActivePromoCode?.numOfTrips }}</td>
+                <td>{{ inActivePromoCode?.percentage }} %</td>
+                <td>{{ inActivePromoCode?.value }}</td>
+                <td>{{ inActivePromoCode?.numOfUsages }}</td>
+                <td>{{ inActivePromoCode?.promoCodeValue }}</td>
+                <td class="d-flex align-items-start justify-content-center">
+                  <button
+                    pTooltip="Update promo code"
+                    tooltipPosition="top"
+                    tooltipClass="custom-tooltip"
+                    (click)="openUpdateModal(content1, inActivePromoCode)"
+                    class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+                  >
+                    <!-- <span> Update vehicle </span> -->
+
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <button ngbNavLink>
+          {{ "tables.promoCodeTable.expiryPromoCode" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <table class="w-100 table-content position-relative">
+            <thead class="w-100">
+              <tr class="py-2 px-4 w-100">
+                <th
+                  [ngClass]="{
+                    'first-heading': lang == 'En',
+                    'first-heading-Ar': lang == 'Ar'
+                  }"
+                  [ngStyle]="{
+                    'text-align': lang == 'En' ? 'left' : 'right',
+                    'padding-left': lang == 'En' ? ' 30px' : '0px',
+                    'padding-right': lang == 'En' ? ' 0px' : '30px'
+                  }"
+                >
+                  {{ "tables.promoCodeTable.startDate" | translate }}
+                </th>
+                <th>
+                  {{ "tables.promoCodeTable.endDate" | translate }}
+                </th>
+
+                <th>
+                  {{ "tables.promoCodeTable.tripsNumber" | translate }}
+                </th>
+
+                <th>
+                  {{ "tables.promoCodeTable.percentage" | translate }}
+                </th>
+
+                <th>
+                  {{ "tables.promoCodeTable.value" | translate }}
+                </th>
+                <th>
+                  {{ "tables.promoCodeTable.numOfUsages" | translate }}
+                </th>
+                <th>
+                  {{ "tables.promoCodeTable.promoCodeValue" | translate }}
+                </th>
+                <th
+                  [ngClass]="{
+                    'second-heading': lang == 'En',
+                    'second-heading-Ar': lang == 'Ar'
+                  }"
+                >
+                  {{ "tables.promoCodeTable.options" | translate }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(expiryPromoCode of expiryPromoCodes; track expiryPromoCode) {
+              <tr>
+                <td
+                  class="person-info d-flex align-users-center justify-content-start gap-2 ps-3"
+                >
+                  {{ expiryPromoCode?.startDate }}
+                </td>
+                <td>{{ expiryPromoCode?.expiryDate }}</td>
+                <td>{{ expiryPromoCode?.numOfTrips }}</td>
+                <td>{{ expiryPromoCode?.percentage }} %</td>
+                <td>{{ expiryPromoCode?.value }}</td>
+                <td>{{ expiryPromoCode?.numOfUsages }}</td>
+                <td>{{ expiryPromoCode?.promoCodeValue }}</td>
+                <td class="d-flex align-items-start justify-content-center">
+                  <button
+                    pTooltip="Update promo code"
+                    tooltipPosition="top"
+                    tooltipClass="custom-tooltip"
+                    (click)="openUpdateModal(content1, expiryPromoCode)"
+                    class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+                  >
+                    <!-- <span> Update vehicle </span> -->
+
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </div>
+</section>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4>{{ "tables.promoCodeTable.actionsButton" | translate }}</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="addPromoCodeForm">
+      <div class="row" [dir]="lang == 'En' ? 'ltr' : 'rtl'">
+        <div class="col-4">
+          <label>{{ "tables.promoCodeTable.value" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="number"
+            formControlName="value"
+          />
+        </div>
+
+        <div class="col-4 mt-2">
+          <label>{{ "tables.promoCodeTable.startDate" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="date"
+            formControlName="startDate"
+          />
+        </div>
+
+        <div class="col-4 mt-2">
+          <label>{{ "tables.promoCodeTable.endDate" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="date"
+            formControlName="expiryDate"
+          />
+        </div>
+
+        <div class="col-4 mt-2">
+          <label>{{ "tables.promoCodeTable.percentage" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="number"
+            formControlName="percentage"
+          />
+        </div>
+
+        <div class="col-4 mt-2">
+          <label>{{ "tables.promoCodeTable.numOfUsages" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="number"
+            formControlName="numOfUsages"
+          />
+        </div>
+
+        <div class="col-4 mt-2">
+          <label>{{ "tables.promoCodeTable.tripsNumber" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="number"
+            formControlName="numOfTrips"
+          />
+        </div>
+
+        <div class="col-4 mt-4">
+          <label class="mx-2">{{
+            "tables.promoCodeTable.isCompletedTrips" | translate
+          }}</label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            formControlName="isCompletedTrips"
+          />
+        </div>
+        <div class="col-4 mt-4">
+          <label class="mx-2">{{
+            "tables.promoCodeTable.isPercentage" | translate
+          }}</label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            formControlName="isPercentage"
+          />
+        </div>
+        <div class="col-4 mt-4">
+          <label class="mx-2">{{
+            "tables.promoCodeTable.active" | translate
+          }}</label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            formControlName="active"
+          />
+        </div>
+        <div class="col-12 mt-2">
+          <label>{{ "tables.promoCodeTable.note" | translate }}</label>
+          <textarea
+            class="form-group form-control"
+            formControlName="note"
+          ></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="addPromoCode()">Save</button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4>{{ "tables.promoCodeTable.metaText.updateHeadline" | translate }}</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="updatePromoCodeForm">
+      <div class="row" [dir]="lang == 'En' ? 'ltr' : 'rtl'">
+        <div class="col-4">
+          <label>{{ "tables.promoCodeTable.value" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="number"
+            formControlName="value"
+          />
+        </div>
+
+        <div class="col-4 mt-2">
+          <label>{{ "tables.promoCodeTable.startDate" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="date"
+            formControlName="startDate"
+          />
+        </div>
+
+        <div class="col-4 mt-2">
+          <label>{{ "tables.promoCodeTable.endDate" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="date"
+            formControlName="expiryDate"
+          />
+        </div>
+
+        <div class="col-4 mt-2">
+          <label>{{ "tables.promoCodeTable.percentage" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="number"
+            formControlName="percentage"
+          />
+        </div>
+
+        <div class="col-4 mt-2">
+          <label>{{ "tables.promoCodeTable.numOfUsages" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="number"
+            formControlName="numOfUsages"
+          />
+        </div>
+
+        <div class="col-4 mt-2">
+          <label>{{ "tables.promoCodeTable.tripsNumber" | translate }}</label>
+          <input
+            class="form-group form-control"
+            type="number"
+            formControlName="numOfTrips"
+          />
+        </div>
+
+        <div class="col-4 mt-4">
+          <label class="mx-2">{{
+            "tables.promoCodeTable.isCompletedTrips" | translate
+          }}</label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            formControlName="isCompletedTrips"
+          />
+        </div>
+        <div class="col-4 mt-4">
+          <label class="mx-2">{{
+            "tables.promoCodeTable.isPercentage" | translate
+          }}</label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            formControlName="isPercentage"
+          />
+        </div>
+        <div class="col-4 mt-4">
+          <label class="mx-2">{{
+            "tables.promoCodeTable.active" | translate
+          }}</label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            formControlName="active"
+          />
+        </div>
+        <div class="col-12 mt-2">
+          <label>{{ "tables.promoCodeTable.note" | translate }}</label>
+          <textarea
+            class="form-group form-control"
+            formControlName="note"
+          ></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="updatePromoCode()">Save</button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>

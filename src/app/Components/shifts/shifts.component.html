@@ -5,7 +5,9 @@
   <div>
     <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
       <li [ngbNavItem]="1">
-        <button ngbNavLink>Open shifts</button>
+        <button ngbNavLink>
+          {{ "tables.shiftTable.openShift" | translate }}
+        </button>
         <ng-template ngbNavContent>
           <div class="card-body mt-4"></div>
           <form [formGroup]="searchForOpenShifysForm">
@@ -147,7 +149,9 @@
         </ng-template>
       </li>
       <li [ngbNavItem]="2">
-        <button ngbNavLink>Closed shifts</button>
+        <button ngbNavLink>
+          {{ "tables.shiftTable.closeShift" | translate }}
+        </button>
         <ng-template ngbNavContent>
           <div class="card-body mt-4"></div>
           <form [formGroup]="searchForClosedShifysForm">

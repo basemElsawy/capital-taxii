@@ -5,6 +5,7 @@ import {
   MapInfoWindow,
   MapMarker,
   MapAdvancedMarker,
+  GoogleMap,
 } from '@angular/google-maps';
 import { TableModule } from 'primeng/table';
 import { Drivers } from './IMap';
@@ -32,6 +33,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class MapComponent implements OnInit, OnDestroy {
   @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
+  @ViewChild(GoogleMap) map!: GoogleMap; // Access to the Google Map instance
+
   center!: google.maps.LatLngLiteral;
   zoom = 8;
   driverMarkers: any[] = [];
@@ -110,6 +113,7 @@ export class MapComponent implements OnInit, OnDestroy {
   // geocodingReverse() {
   //   this.mapService.reverseGeoCoding()
   // }
+
   addMarkerOnMap(driver: any, event: any) {
     let driverMarker = {
       userInfo: {
@@ -138,13 +142,26 @@ export class MapComponent implements OnInit, OnDestroy {
 
     if (event.target.checked) {
       this.driverMarkers.push(driverMarker);
-      this.zoom = 16;
-      this.center = driverMarker.coords;
+
+      // If only one marker is selected, zoom into that marker
+      if (this.driverMarkers.length === 1) {
+        this.zoom = 16;
+        this.center = driverMarker.coords;
+      } else {
+        // Multiple markers selected, zoom out to show all markers
+        this.fitBoundsToMarkers();
+      }
     } else {
       this.driverMarkers = this.driverMarkers.filter(
         (marker) => marker.userInfo.name !== driverMarker.userInfo.name
       );
-      this.zoom = 8;
+
+      // If no marker is selected, zoom out completely
+      if (this.driverMarkers.length === 0) {
+        this.zoom = 8; // Default zoom level for showing all markers
+      } else {
+        this.fitBoundsToMarkers();
+      }
     }
 
     // Update the driver's checked state in allDrivers_Data
@@ -155,6 +172,65 @@ export class MapComponent implements OnInit, OnDestroy {
     );
     this.allDrivers_Data.set(drivers);
   }
+  fitBoundsToMarkers() {
+    if (this.driverMarkers.length > 0) {
+      const bounds = new google.maps.LatLngBounds();
+
+      this.driverMarkers.forEach((marker) => {
+        bounds.extend(
+          new google.maps.LatLng(marker.coords.lat, marker.coords.lng)
+        );
+      });
+
+      this.map.fitBounds(bounds);
+    }
+  }
+
+  // addMarkerOnMap(driver: any, event: any) {
+  //   let driverMarker = {
+  //     userInfo: {
+  //       name: driver.user.fullName,
+  //       status: driver.driver.status,
+  //       image: driver.user.picture,
+  //       phoneNumber: driver.user.phoneNumber,
+  //     },
+  //     currentVehicle: {
+  //       vehicleName: driver.currentVehicle.vehicleName,
+  //     },
+  //     coords: {
+  //       lat: driver.driver.locationLatitude,
+  //       lng: driver.driver.locationLongitude,
+  //     },
+  //     icon: {
+  //       url: driver.driver.status
+  //         ? '../../../assets/locationIcon.png'
+  //         : '../../../assets/Artboard.png',
+  //       scaledSize: {
+  //         width: 60,
+  //         height: 60,
+  //       },
+  //     },
+  //   };
+
+  //   if (event.target.checked) {
+  //     this.driverMarkers.push(driverMarker);
+  //     this.zoom = 16;
+  //     this.center = driverMarker.coords;
+  //   } else {
+  //     this.driverMarkers = this.driverMarkers.filter(
+  //       (marker) => marker.userInfo.name !== driverMarker.userInfo.name
+  //     );
+  //     this.zoom = 8;
+  //   }
+
+  //   // Update the driver's checked state in allDrivers_Data
+  //   const drivers = this.allDrivers_Data().map((d: any) =>
+  //     d.driver.id === driver.driver.id
+  //       ? { ...d, isChecked: event.target.checked }
+  //       : d
+  //   );
+  //   this.allDrivers_Data.set(drivers);
+  // }
 
   getDriversOnMap() {
     this.mapService.getDriversOnTheMap().subscribe({

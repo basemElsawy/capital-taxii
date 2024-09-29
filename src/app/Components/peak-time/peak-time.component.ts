@@ -16,7 +16,7 @@ import { TranslationService } from '../../Core/Services/translation.service';
 import { PeakTimeService } from './Services/peak-time.service';
 import { ToastrService } from 'ngx-toastr';
 @Component({
-  selector: 'app-stations-prices',
+  selector: 'app-peak-time',
   standalone: true,
   imports: [
     CommonModule,

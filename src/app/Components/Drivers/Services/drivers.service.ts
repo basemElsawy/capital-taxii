@@ -70,7 +70,12 @@ export class DriversService {
         })
       );
   }
-
+  deleteDriverById(driverId: number) {
+    return this.httpClient.put(
+      `${DriversApiEndpoints.deleteDriverEndpoint}/${driverId}`,
+      ''
+    );
+  }
   convertFileToBase64(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();

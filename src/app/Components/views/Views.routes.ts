@@ -17,6 +17,8 @@ import { RolesComponent } from '../roles/roles.component';
 import { TablePricesComponent } from '../table-prices/table-prices.component';
 import { VehicleServiceTypeComponent } from '../vehicle-service-type/vehicle-service-type.component';
 import { PeakTimeComponent } from '../peak-time/peak-time.component';
+import { ReportsComponent } from '../reports/reports.component';
+import { PromoCodeComponent } from '../promo-code/promo-code.component';
 export const routes: Routes = [
   {
     path: '',
@@ -87,6 +89,14 @@ export const routes: Routes = [
       {
         path: 'peakTime',
         component: PeakTimeComponent,
+      },
+      {
+        path: 'reports',
+        component: ReportsComponent,
+      },
+      {
+        path: 'promoCode',
+        component: PromoCodeComponent,
       },
     ],
   },

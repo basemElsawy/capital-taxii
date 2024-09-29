@@ -22,6 +22,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { ToastrService } from 'ngx-toastr';
+import { error } from 'console';
 
 @Component({
   selector: 'app-Drivers',
@@ -136,6 +137,17 @@ export class DriversComponent implements OnInit {
           console.log(err);
         },
       });
+  }
+  deleteDriver(driverId: number) {
+    this.driversService.deleteDriverById(driverId).subscribe({
+      next: () => {
+        this.getAllDrivers();
+        this.toastr.success('Driver Deleted Successfully');
+      },
+      error: (error: any) => {
+        this.toastr.error(error?.MesgAr || 'An error occurred');
+      },
+    });
   }
 
   onPageChange(page: number) {

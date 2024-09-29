@@ -50,6 +50,33 @@
       "options": "خيارات",
       "roles": "المهام"
     },
+
+    "promoCodeTable": {
+      "actionsButton": "إضافة كود خصم",
+      "addTitleModal": "إضافة كود خصم جديد",
+      "startDate": "تاريخ البداية",
+      "endDate": "تاريخ النهاية",
+      "tripsNumber": "عدد الرحلات",
+      "percentage": "النسبة المئوية",
+      "value": "القيمة",
+      "note": "ملاحظة",
+      "active": "مفعل",
+      "isCompletedTrips": "هل الرحلات مكتملة",
+      "numOfUsages": "عدد مرات الاستخدام",
+      "trip": "الرحلة",
+      "isPercentage": "هل هو نسبة مئوية",
+      "activePromoCode": "كود خصم مفعل",
+      "inActivePromoCode": "كود خصم غير مفعل",
+      "expiryPromoCode": "كود خصم منتهي الصلاحية",
+      "promoCodeValue": "كود الخصم",
+      "options": "خيارات",
+
+      "metaText": {
+        "updateHeadline": "تحديث كود الخصم",
+        "addHeadline": "إضافة كود خصم جديد"
+      }
+    },
+
     "permissionsTable": {
       "permissionNameEn": "اسم الصلاحية باللغة الانجليزية",
       "permissionNameAr": "اسم الصلاحية باللغة العربية",
@@ -84,6 +111,9 @@
       "options": "خيارات",
       "carComfort": "نوعية السيارة",
       "status": "الحالة",
+      "delete": "حذف",
+      "onDeleteSuccess": "تم الحذف بنجاح",
+
       "driverName": "اسم السائق",
       "tableMeta": {
         "optionsText": "جميع الرحلات"
@@ -223,7 +253,9 @@
       "fromDate": "من تاريخ",
       "toDate": "الي تاريخ",
       "shiftDetails": "تفاصيل الوردية",
-      "search": "بحث"
+      "search": "بحث",
+      "openShift": "الورديات المفتوحة",
+      "closeShift": "الورديات المغلقة"
     },
     "stationPricesTable": {
       "fromStation": "محطة البدء",
@@ -289,9 +321,20 @@
     "vehicleServiceType": {
       "headline": "نوع خدمة السيارة"
     },
+    "peakTime": {
+      "headline": "وقت الذروة"
+    },
     "update": "تحديث"
   },
-
+  "reports": {
+    "driverCommitionReport": "تقرير عمولة السائق",
+    "drivers": "السائقين",
+    "driverName": "اسم السائق",
+    "driverCommition": "عمولة السائق",
+    "total": "الاجمالي",
+    "reports": "التقارير",
+    "shifts": "الورديات"
+  },
   "dashboard": {
     "topDrivers": "افضل السائقين",
     "totalRevenue": "مجموع الايرادات",

@@ -50,6 +50,31 @@
       "options": "options",
       "roles": "Roles"
     },
+    "promoCodeTable": {
+      "actionsButton": "Add promo code",
+      "addTitleModal": "Add new promo code",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "tripsNumber": "Trips number",
+      "percentage": "Percentage",
+      "value": "Value",
+      "note": "Note",
+      "active": "Active",
+      "isCompletedTrips": "Is Completed Trips",
+      "numOfUsages": "Num Of Usages",
+      "trip": "Trip",
+      "isPercentage": "isPercentage",
+      "activePromoCode": "Active Promo Code",
+      "inActivePromoCode": "InActive Promo Code",
+      "expiryPromoCode": "Expiry Promo Code",
+      "promoCodeValue": "Promo Code Value",
+      "options": "Options",
+
+      "metaText": {
+        "updateHeadline": "Update Promo Code",
+        "addHeadline": "Add  New Promo Code"
+      }
+    },
     "permissionsTable": {
       "permissionNameEn": "Permission English Name",
       "permissionNameAr": "Permission Arabic Name",
@@ -85,6 +110,10 @@
       "options": "Options",
       "carComfort": "Car Comfort",
       "status": "Status",
+      "delete": "Delete",
+      "onDeleteSuccess": "Driver deleted successfully",
+      "driverName": "Driver Name",
+
       "tableMeta": {
         "optionsText": "All Trips"
       },
@@ -181,7 +210,9 @@
       "fromDate": "From Date",
       "toDate": "To Date",
       "search": "Search",
-      "shiftDetails": "Shift Details"
+      "shiftDetails": "Shift Details",
+      "openShift": "Open Shift",
+      "closeShift": "Close Shift"
     },
     "vehiclesTable": {
       "carName": "Car Name",
@@ -301,7 +332,19 @@
     "vehicleServiceType": {
       "headline": "Vehicle Service Type"
     },
+    "peakTime": {
+      "headline": "Peak Time"
+    },
     "update": "update"
+  },
+  "reports": {
+    "driverCommitionReport": "Driver Commition Report",
+    "drivers": "Drivers",
+    "driverName": "Driver Name",
+    "driverCommition": "Driver Commition",
+    "total": "Total",
+    "reports": "Reports",
+    "shifts": "Shifts"
   },
   "dashboard": {
     "topDrivers": "Top Drivers",

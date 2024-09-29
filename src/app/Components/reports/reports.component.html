@@ -1,0 +1,253 @@
+@if(isLoading){
+<app-spinner></app-spinner>
+}
+<section class="p-4">
+  <div>
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <button ngbNavLink>
+          {{ "reports.driverCommitionReport" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <div class="card-body mt-4"></div>
+          <form [formGroup]="searchDriversCommissionForm">
+            <div class="row g-3 align-items-center">
+              <div class="col-auto">
+                <label for="inputPassword6" class="col-form-label">{{
+                  "tables.shiftTable.fromDate" | translate
+                }}</label>
+              </div>
+              <div class="col-auto">
+                <input
+                  type="date"
+                  class="form-control form-group"
+                  formControlName="startDate"
+                />
+              </div>
+              <div class="col-auto">
+                <label for="inputPassword6" class="col-form-label">{{
+                  "tables.shiftTable.toDate" | translate
+                }}</label>
+              </div>
+              <div class="col-auto">
+                <input
+                  type="date"
+                  class="form-control"
+                  formControlName="endDate"
+                />
+              </div>
+              <div class="col-auto">
+                <label for="inputPassword6" class="col-form-label">{{
+                  "reports.drivers" | translate
+                }}</label>
+              </div>
+              <div class="col-auto">
+                <p-multiSelect
+                  [options]="drivers"
+                  formControlName="drivers"
+                  optionLabel="user.fullName"
+                  optionValue="id"
+                  appendTo="body"
+                  [virtualScroll]="true"
+                  [virtualScrollItemSize]="43"
+                ></p-multiSelect>
+              </div>
+              <div class="col-auto">
+                <button
+                  class="btn btn-primary"
+                  (click)="searchForsearchDriversCommission()"
+                >
+                  {{ "tables.shiftTable.search" | translate }}
+                </button>
+              </div>
+            </div>
+          </form>
+          @if(driversCommissionData.length > 0){
+          <div
+            class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
+          >
+            <table class="w-100 table-content position-relative">
+              <thead class="w-100">
+                <tr class="py-2 px-4 w-100">
+                  <th
+                    [ngStyle]="{
+                      'text-align': lang == 'Ar' ? 'right' : 'left'
+                    }"
+                    [ngClass]="{
+                      'first-heading pe-3': lang == 'En',
+                      'first-heading-Ar ps-3': lang == 'Ar'
+                    }"
+                  >
+                    {{ "reports.driverName" | translate }}
+                  </th>
+
+                  <th
+                    [ngClass]="{
+                      'second-heading': lang == 'En',
+                      'second-heading-Ar': lang == 'Ar'
+                    }"
+                  >
+                    {{ "reports.total" | translate }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="w-100">
+                @for(driversCommission of driversCommissionData; track
+                driversCommission) {
+                <tr class="w-100">
+                  <td>
+                    {{ driversCommission?.driverName }}
+                  </td>
+                  <td>
+                    {{
+                      driversCommission?.totalCommission
+                        ? driversCommission?.totalCommission
+                        : "--"
+                    }}
+                    LE
+                  </td>
+
+                  <td>
+                    <div
+                      class="route-details rounded-4 d-flex align-items-center justify-content-center"
+                    >
+                      <!-- <button
+                        class="btn"
+                        (click)="openShiftReportModal(shiftData, shift)"
+                      >
+                        {{ "tables.shiftTable.shiftDetails" | translate }}
+                      </button> -->
+                    </div>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          }
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <button ngbNavLink>
+          {{ "reports.shifts" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <app-shifts></app-shifts>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </div>
+</section>
+<!-- <ng-template #shiftData let-modal>
+  <div class="modal-header d-print-none">
+    <h5>Shift details</h5>
+  </div>
+  <div class="modal-body">
+    @if(closedShifts){
+ 
+    <h3>Mr: {{ singleShift?.driver?.user?.fullName }} shift details</h3>
+    <table class="shift-report-table">
+      <tr>
+        <th>Name</th>
+        <td>
+          {{ singleShift?.driver?.user?.fullName }}
+        </td>
+      </tr>
+      <tr>
+        <th>PhoneNumber</th>
+        <td>
+          {{ singleShift?.driver?.user?.phoneNumber }}
+        </td>
+      </tr>
+{ singleShift?.driver.user?.gender }}</td>
+      <tr>
+        <th>Shift open date</th>
+        <td>
+          {{ singleShift?.shiftOpenDate | date : "dd-MM-yyyy h:mm" }}
+        </td>
+      </tr>
+      <tr>
+        <th>Shift close date</th>
+        <td>
+          {{ singleShift?.shiftCloseDate | date : "dd-MM-yyyy h:mm" }}
+
+        </td>
+      </tr>
+    </table>
+
+    <h5 class="mb-2 mt-4">Vehicle Data</h5>
+
+    <table class="shift-report-table">
+      <tr>
+        <th>Vehicle Name</th>
+        <th>Model</th>
+        <th>Vehicle Type</th>
+ 
+      </tr>
+      @for(vehicleData of singleShift?.vehicle; track vehicleData){
+      <tr>
+        <td>{{ vehicleData?.vehicleName }}</td>
+        <td>
+          {{ vehicleData?.year }}
+        </td>
+        <td>{{ vehicleData?.vehicleType?.nameEn }}</td>
+ 
+      </tr>
+      }
+    </table>
+
+    <h5 class="mb-2 mt-4">Payment Method</h5>
+
+    <table class="shift-report-table">
+      <tr>
+        <th>#</th>
+        <th>Payment Method Name</th>
+        <th>Total Price</th>
+      </tr>
+      @for(paymentMethod of singleShift?.paymentMethod;let i=$index ;track
+      paymentMethod){
+      <tr>
+        <td>{{ i + 1 }}</td>
+        <td>{{ paymentMethod?.paymentMethodName }}</td>
+        <td>{{ paymentMethod?.totlaPrice }}</td>
+      </tr>
+      }
+    </table>
+    <h5 class="mb-2 mt-4">Payment Details</h5>
+    <table class="shift-report-table">
+      <tr>
+        <th class="custom-th">Total Gates Fees</th>
+        <td>{{ singleShift?.paymentDetails?.totalGatesFees }}</td>
+      </tr>
+      <tr>
+        <th class="custom-th">Total Gates Count</th>
+        <td>{{ singleShift?.paymentDetails?.totalGatesCount }}</td>
+      </tr>
+    </table>
+
+    <h5 class="mb-2 mt-4">Total</h5>
+
+    <table class="shift-report-table">
+      <tr>
+        <th class="custom-th">Total Trips</th>
+        <td>{{ singleShift?.totalTrip }}</td>
+      </tr>
+      <tr>
+        <th class="custom-th">Total Amount</th>
+        <td>{{ singleShift?.totalAmount }}</td>
+      </tr>
+    </table>
+
+    <div class="row d-print-none">
+      <div class="col-md-12 text-center">
+        <button class="btn btn-primary" (click)="print()">طباعة التقرير</button>
+      </div>
+    </div>
+    
+  </div>
+  <div class="modal-footer d-print-none">
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template> -->

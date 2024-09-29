@@ -27,6 +27,8 @@
           <th>{{ "tables.driversTable.email" | translate }}</th>
           <th>{{ "tables.driversTable.gender" | translate }}</th>
           <th>{{ "tables.driversTable.status" | translate }}</th>
+          <th>{{ "tables.driversTable.delete" | translate }}</th>
+
           <th
             class="second-heading pe-4"
             [ngClass]="{ 'second-heading-Ar': lang == 'Ar' }"
@@ -109,6 +111,20 @@
               <p class="px-2">
                 {{ data.res.status ? "available" : "N/A" }}
               </p>
+            </div>
+          </td>
+          <td>
+            <div class="delete-btn">
+              <button
+                tooltipPosition="top"
+                tooltipClass="custom-tooltip"
+                (click)="deleteDriver(data.res?.userId)"
+                class="btn btn-success d-flex align-items-center mx-2 justify-content-center gap-2"
+              >
+                <!-- <span> show drivers </span> -->
+
+                <i class="fa-solid fa-trash"></i>
+              </button>
             </div>
           </td>
           <td>

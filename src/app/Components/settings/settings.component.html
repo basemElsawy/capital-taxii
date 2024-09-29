@@ -464,14 +464,14 @@
           </div>
         </ng-template>
       </li>
-      <li [ngbNavItem]="2">
+      <!-- <li [ngbNavItem]="2">
         <button ngbNavLink>
           {{ "settings.deductionConfiguration" | translate }}
         </button>
         <ng-template ngbNavContent>
           <p>deduction config goes here</p>
         </ng-template>
-      </li>
+      </li> -->
       <li [ngbNavItem]="3">
         <button ngbNavLink>
           {{ "settings.tablePrice.headline" | translate }}
@@ -502,6 +502,14 @@
         </button>
         <ng-template ngbNavContent>
           <app-vehicle-service-type></app-vehicle-service-type>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="7">
+        <button ngbNavLink>
+          {{ "settings.peakTime.headline" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <app-peak-time></app-peak-time>
         </ng-template>
       </li>
     </ul>

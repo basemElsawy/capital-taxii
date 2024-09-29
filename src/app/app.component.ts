@@ -16,10 +16,10 @@ export class AppComponent {
     private translationService: TranslationService
   ) {
     translation.addLangs(['En', 'Ar']);
-    translation.setDefaultLang('Ar');
+    translation.setDefaultLang('En');
     let startingLang = translationService.startingLanguage();
     translation.use(startingLang);
-    translationService.setLanguage('Ar');
+    translationService.setLanguage('En');
   }
   ngOnInit() {
     this.translationService.setLanguage(this.translation.currentLang);

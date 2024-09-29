@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
 import { TablePricesComponent } from '../table-prices/table-prices.component';
 import { ZonesComponent } from '../zones/zones.component';
 import { VehicleServiceTypeComponent } from '../vehicle-service-type/vehicle-service-type.component';
+import { PeakTimeComponent } from '../peak-time/peak-time.component';
 @Component({
   selector: 'app-settings',
   standalone: true,
@@ -32,6 +33,7 @@ import { VehicleServiceTypeComponent } from '../vehicle-service-type/vehicle-ser
     TablePricesComponent,
     ZonesComponent,
     VehicleServiceTypeComponent,
+    PeakTimeComponent,
   ],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
