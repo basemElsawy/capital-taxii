@@ -1,0 +1,35 @@
+@if(isLoading){
+<app-spinner></app-spinner>
+}
+<section class="p-4">
+  <div>
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <button ngbNavLink>
+          {{ "tables.rolesTable.permissions" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <app-permissions></app-permissions>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <button ngbNavLink>
+          {{ "tables.usersTable.roles" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <app-roles></app-roles>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <button ngbNavLink>
+          {{ "tables.usersTable.users" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <app-users></app-users>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </div>
+</section>

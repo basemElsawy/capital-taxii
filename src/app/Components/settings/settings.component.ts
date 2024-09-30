@@ -19,6 +19,8 @@ import { TablePricesComponent } from '../table-prices/table-prices.component';
 import { ZonesComponent } from '../zones/zones.component';
 import { VehicleServiceTypeComponent } from '../vehicle-service-type/vehicle-service-type.component';
 import { PeakTimeComponent } from '../peak-time/peak-time.component';
+import { StationsComponent } from '../stations/stations.component';
+import { VehicleComponent } from '../vehicle/vehicle.component';
 @Component({
   selector: 'app-settings',
   standalone: true,
@@ -34,6 +36,8 @@ import { PeakTimeComponent } from '../peak-time/peak-time.component';
     ZonesComponent,
     VehicleServiceTypeComponent,
     PeakTimeComponent,
+    StationsComponent,
+    VehicleComponent,
   ],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],

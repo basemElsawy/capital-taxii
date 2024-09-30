@@ -1,6 +1,6 @@
 import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { DriverDetails, Drivers, DriversMarkers } from '../map/IMap';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { DriversService } from './Services/drivers.service';
 import { AllTripRequestData, Coords, IDrivers } from './IDrivers';
 import {
@@ -40,12 +40,13 @@ import { error } from 'console';
   ],
   templateUrl: './Drivers.component.html',
   styleUrls: ['./Drivers.component.scss'],
+  providers: [DatePipe],
 })
 export class DriversComponent implements OnInit {
   public readonly imgUrl = environment.image;
 
   dateRangeForm!: FormGroup;
-
+  updateDriverForm!: FormGroup;
   driversData: any = {};
   currentLocationAddress: string = '';
   coordsCollection: any[] = [];
@@ -65,7 +66,8 @@ export class DriversComponent implements OnInit {
     private modalService: NgbModal,
     private translate: TranslateService,
     private trannslation: TranslationService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private datePipe: DatePipe
   ) {}
   ngOnInit(): void {
     this.getAllDrivers();
@@ -87,6 +89,21 @@ export class DriversComponent implements OnInit {
 
   initAddUserForm(): void {
     this.addUserForm = this.fb.group(
+      {
+        email: [null],
+        username: [null, Validators.required],
+        fullName: [null, Validators.required],
+        phoneNumber: [null, Validators.required],
+        genderId: [null, Validators.required],
+        nationalityId: [null, Validators.required],
+        password: [null, Validators.required],
+        confirmPassword: [null, Validators.required],
+        birthDate: [null, Validators.required],
+        picture: [null, Validators.required],
+      },
+      { validators: passwordMatchValidator() }
+    );
+    this.updateDriverForm = this.fb.group(
       {
         email: [null],
         username: [null, Validators.required],
@@ -183,11 +200,40 @@ export class DriversComponent implements OnInit {
     }
     this.getAllNationalities();
   }
+  openUpdateModal(content: any, selectedDriver: any) {
+    this.getAllNationalities();
+
+    this.setDriverDataInUpdateForm(selectedDriver);
+    this.modalService.open(content, {
+      size: 'xl',
+      backdrop: 'static',
+      centered: true,
+      scrollable: true,
+    });
+  }
+  setDriverDataInUpdateForm(selectedDriver: any) {
+    debugger;
+    this.updateDriverForm.patchValue({
+      id: selectedDriver?.id,
+      email: selectedDriver?.email,
+      username: selectedDriver?.username,
+      fullName: selectedDriver?.fullName,
+      phoneNumber: selectedDriver?.phoneNumber,
+      genderId: selectedDriver?.genderId,
+      nationalityId: selectedDriver?.nationalityId,
+      password: selectedDriver?.password,
+      confirmPassword: selectedDriver?.confirmPassword,
+      birthDate: this.datePipe.transform(
+        selectedDriver?.birthdate,
+        'yyyy-MM-dd'
+      ),
+      picture: selectedDriver?.picture,
+    });
+  }
   getAllNationalities() {
     this.isLoading = true;
     this.driversService.getAllNationalities().subscribe({
       next: (res: any) => {
-        debugger;
         this.nationalities = res;
         this.isLoading = false;
       },
@@ -224,7 +270,20 @@ export class DriversComponent implements OnInit {
       },
     });
   }
-
+  updateDriver() {
+    let body = this.updateDriverForm.value;
+    this.driversService.updateDriver(body).subscribe({
+      next: () => {
+        this.modalService.dismissAll();
+        this.updateDriverForm.reset();
+        this.getAllDrivers();
+      },
+      error: (err: any) => {
+        console.error('Error updating promo code:', err);
+        // You can show an error toaster or log the error
+      },
+    });
+  }
   uploadPhoto(event: any) {
     this.driversService
       .convertFileToBase64(event.target.files[0])

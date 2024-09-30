@@ -48,7 +48,8 @@
       "selectNationality": "Please choose nationality",
       "PasswordDoesNotMatch": "Password does not match.",
       "options": "options",
-      "roles": "Roles"
+      "roles": "Roles",
+      "users": "Users"
     },
     "promoCodeTable": {
       "actionsButton": "Add promo code",
@@ -111,8 +112,10 @@
       "carComfort": "Car Comfort",
       "status": "Status",
       "delete": "Delete",
+      "edit": "Edit",
       "onDeleteSuccess": "Driver deleted successfully",
       "driverName": "Driver Name",
+      "addnew": "Update Driver",
 
       "tableMeta": {
         "optionsText": "All Trips"
@@ -335,6 +338,12 @@
     "peakTime": {
       "headline": "Peak Time"
     },
+    "vehicles": {
+      "headline": "Vehicles"
+    },
+    "stations": {
+      "headline": "Stations"
+    },
     "update": "update"
   },
   "reports": {
@@ -344,7 +353,11 @@
     "driverCommition": "Driver Commition",
     "total": "Total",
     "reports": "Reports",
-    "shifts": "Shifts"
+    "shifts": "Shifts",
+    "name": "Name",
+    "totalPrice": "Total Price",
+    "requestsPaymentMethod": "Payment Methods Report",
+    "requestsStatus": "Requests Status Report"
   },
   "dashboard": {
     "topDrivers": "Top Drivers",

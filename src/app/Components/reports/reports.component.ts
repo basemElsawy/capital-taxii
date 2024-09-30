@@ -48,8 +48,12 @@ export class ReportsComponent implements OnInit {
   active = 1;
   lang!: string;
   searchDriversCommissionForm!: FormGroup;
+  searchRequestsPaymentMethodForm!: FormGroup;
+  searchRequestsStatusForm!: FormGroup;
   isLoading: boolean = false;
   driversCommissionData: any[] = [];
+  RequestsStatusData: any[] = [];
+  RequestsPaymentMethodData: any[] = [];
   drivers: any[] = [];
   public readonly imageUrl = environment.image;
   pageSize: number = 10; // Number of drivers per page
@@ -69,6 +73,14 @@ export class ReportsComponent implements OnInit {
       startDate: new FormControl(null, Validators.required),
       endDate: new FormControl(null, Validators.required),
       drivers: new FormControl(null, Validators.required),
+    });
+    this.searchRequestsPaymentMethodForm = new FormGroup({
+      from: new FormControl(null, Validators.required),
+      to: new FormControl(null, Validators.required),
+    });
+    this.searchRequestsStatusForm = new FormGroup({
+      from: new FormControl(null, Validators.required),
+      to: new FormControl(null, Validators.required),
     });
     this.languageSetter();
   }
@@ -102,6 +114,21 @@ export class ReportsComponent implements OnInit {
       this.driversCommissionData = res;
     });
   }
+  searchRequestsPaymentMethod() {
+    let body = this.searchRequestsPaymentMethodForm.value;
+
+    this.reportsService.getRequestsPaymentMethod(body).subscribe((res: any) => {
+      this.RequestsPaymentMethodData = res.data;
+    });
+  }
+  searchRequestsStatus() {
+    let body = this.searchRequestsStatusForm.value;
+
+    this.reportsService.getRequestsStatus(body).subscribe((res: any) => {
+      this.RequestsStatusData = res.data;
+    });
+  }
+
   // openShiftReportModal(content: any, shift?: any) {
   //   this.modalService.open(content, {
   //     fullscreen: true,

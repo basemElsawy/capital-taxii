@@ -512,6 +512,22 @@
           <app-peak-time></app-peak-time>
         </ng-template>
       </li>
+      <li [ngbNavItem]="8">
+        <button ngbNavLink>
+          {{ "settings.stations.headline" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <app-stations></app-stations>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="9">
+        <button ngbNavLink>
+          {{ "settings.vehicles.headline" | translate }}
+        </button>
+        <ng-template ngbNavContent>
+          <app-vehicle></app-vehicle>
+        </ng-template>
+      </li>
     </ul>
 
     <div [ngbNavOutlet]="nav" class="mt-2"></div>

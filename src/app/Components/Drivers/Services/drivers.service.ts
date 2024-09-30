@@ -123,4 +123,10 @@ export class DriversService {
   addNewDriver(body: any) {
     return this.httpClient.post(DriversApiEndpoints.addDriverUser, body);
   }
+  updateDriver(driver: any) {
+    return this.httpClient.put(
+      DriversApiEndpoints.updateDriversEndpoint,
+      driver
+    );
+  }
 }

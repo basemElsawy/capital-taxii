@@ -20,7 +20,7 @@
       "zones": "النطاقات",
       "shifts": "ورديات",
       "permissions": "الصلاحيات",
-      "roles": "المهام"
+      "roles": "الوظائف"
     }
   },
   "tables": {
@@ -48,7 +48,8 @@
       "selectNationality": "برجاء اختيار الجنسية",
       "PasswordDoesNotMatch": "عدم تطابق كلمة المرور",
       "options": "خيارات",
-      "roles": "المهام"
+      "roles": "الوظائف",
+      "users": "المستخدمين"
     },
 
     "promoCodeTable": {
@@ -112,7 +113,9 @@
       "carComfort": "نوعية السيارة",
       "status": "الحالة",
       "delete": "حذف",
+      "edit": "تعديل",
       "onDeleteSuccess": "تم الحذف بنجاح",
+      "addnew": "تعديل بيانات السائق",
 
       "driverName": "اسم السائق",
       "tableMeta": {
@@ -324,6 +327,12 @@
     "peakTime": {
       "headline": "وقت الذروة"
     },
+    "vehicles": {
+      "headline": "المركبات"
+    },
+    "stations": {
+      "headline": "المحطات"
+    },
     "update": "تحديث"
   },
   "reports": {
@@ -333,7 +342,11 @@
     "driverCommition": "عمولة السائق",
     "total": "الاجمالي",
     "reports": "التقارير",
-    "shifts": "الورديات"
+    "shifts": "الورديات",
+    "name": "الاسم",
+    "totalPrice": "اجمالي السعر",
+    "requestsPaymentMethod": "تقرير طرق الدفع",
+    "requestsStatus": "تقرير حالة الطلبات"
   },
   "dashboard": {
     "topDrivers": "افضل السائقين",

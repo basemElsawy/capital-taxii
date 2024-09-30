@@ -16,7 +16,7 @@ import { TranslationService } from '../../Core/Services/translation.service';
 import { PermissionsService } from './services/permissions.service';
 import { ToastrService } from 'ngx-toastr';
 @Component({
-  selector: 'app-users',
+  selector: 'app-permissions',
   standalone: true,
   imports: [
     CommonModule,

@@ -46,11 +46,26 @@ export class SideNavComponent implements OnInit {
       try {
         let userRoles = JSON.parse(userRolesData);
         this.permissions = [];
-
+        const excludedUrls = [
+          '/home/permissions',
+          '/home/roles',
+          '/home/vehicleServiceType',
+          '/home/tablePrices',
+          '/home/stationsPrices',
+          '/home/users',
+          '/home/shifts',
+          '/home/zones',
+          '/home/peakTime',
+          '/home/stations',
+          '/home/vehicle',
+        ];
         // Loop through each role and collect the permissions
         userRoles.forEach((role: any) => {
           role.permissions.forEach((permission: any) => {
-            this.permissions.push(permission); // Add each permission to the array
+            // Check if the permission URL is not in the excluded URLs
+            if (!excludedUrls.includes(permission.url)) {
+              this.permissions.push(permission); // Add permission if the URL is not excluded
+            }
           });
         });
       } catch (error) {

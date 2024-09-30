@@ -19,6 +19,7 @@ import { VehicleServiceTypeComponent } from '../vehicle-service-type/vehicle-ser
 import { PeakTimeComponent } from '../peak-time/peak-time.component';
 import { ReportsComponent } from '../reports/reports.component';
 import { PromoCodeComponent } from '../promo-code/promo-code.component';
+import { UserManagementSystemComponent } from '../user-management-system/user-management-system.component';
 export const routes: Routes = [
   {
     path: '',
@@ -97,6 +98,10 @@ export const routes: Routes = [
       {
         path: 'promoCode',
         component: PromoCodeComponent,
+      },
+      {
+        path: 'userMangement',
+        component: UserManagementSystemComponent,
       },
     ],
   },
