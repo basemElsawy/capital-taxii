@@ -39,7 +39,8 @@
     },
     "usersTable": {
       "user": "المستخدم",
-      "emailOrUsername": "اسم المستخدم او البريد",
+      "emailOrUsername": "البريد الالكتروني",
+      "userName": "اسم المستخدم",
       "phoneNumber": "رقم التليفون",
       "gender": "النوع",
       "birthday": "يوم الميلاد",
@@ -49,7 +50,9 @@
       "PasswordDoesNotMatch": "عدم تطابق كلمة المرور",
       "options": "خيارات",
       "roles": "الوظائف",
-      "users": "المستخدمين"
+      "users": "المستخدمين",
+      "nationality": "الجنسية",
+      "addNew": "اضافة جديد"
     },
 
     "promoCodeTable": {

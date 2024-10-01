@@ -1,4 +1,4 @@
-@import "../../../styles.scss";
+// @import "../../../styles.scss";
 @mixin displayAlignment {
   display: flex;
   align-items: center;
@@ -31,7 +31,7 @@ thead tr {
   padding: 10px;
   font-size: 14px !important;
 
-  background-color: $primary-color !important;
+  background-color: #0053c6 !important;
 }
 tbody tr {
   border: none !important;
@@ -57,18 +57,18 @@ tbody tr td {
 }
 .btn-success {
   background-color: white;
-  color: $primary-color;
+  color: #0053c6;
   border: none;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
 }
 .btn-success:hover {
   background-color: white;
-  color: $primary-color;
+  color: #0053c6;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
 }
 .btn-success:active {
   background-color: white !important;
-  color: $primary-color !important;
+  color: #0053c6 !important;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2) !important;
 }
 .route-details {
@@ -76,12 +76,12 @@ tbody tr td {
     font-size: 12px;
     background-color: white !important;
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.15);
-    color: $primary-color;
+    color: #0053c6;
     opacity: 0.8;
     font-weight: 600;
 
     & :active {
-      border-color: $primary-color !important ;
+      border-color: #0053c6 !important ;
     }
   }
 }
@@ -109,9 +109,9 @@ tbody tr td {
 .modal {
   z-index: 1040 !important;
 }
-.modal-body {
-  padding-bottom: 200px;
-}
+// .modal-body {
+//   padding-bottom: 200px;
+// }
 ::ng-deep .p-multiselect {
   width: 100%;
   padding: 7px;

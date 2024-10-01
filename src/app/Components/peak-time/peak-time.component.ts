@@ -232,13 +232,17 @@ export class PeakTimeComponent {
     };
     this.peakTimeService.updatePeakTime(body).subscribe(() => {
       this.getAllWeekPeakTime();
-      this.modalService.dismissAll();
+      this.getpeakTimesForDayByDayId(this.selectedPeakTimeTable.id);
+
+      this.modalService.dismissAll('content1');
     });
   }
   deletePeakTime(PeakTimeId: number) {
     this.peakTimeService.deletePeakTimeById(PeakTimeId).subscribe(() => {
       this.getAllWeekPeakTime();
-      this.modalService.dismissAll();
+      this.getpeakTimesForDayByDayId(this.selectedPeakTimeTable.id);
+
+      // this.modalService.dismissAll();
     });
   }
   checkboxEvent(peakTimesForDay: any) {

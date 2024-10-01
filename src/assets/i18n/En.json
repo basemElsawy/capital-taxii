@@ -39,7 +39,8 @@
     },
     "usersTable": {
       "user": "User",
-      "emailOrUsername": "E-mail or username",
+      "emailOrUsername": "E-mail",
+      "userName": "User name",
       "phoneNumber": "Phone number",
       "gender": "Gender",
       "birthday": "Birthday",
@@ -49,7 +50,9 @@
       "PasswordDoesNotMatch": "Password does not match.",
       "options": "options",
       "roles": "Roles",
-      "users": "Users"
+      "users": "Users",
+      "nationality": "Nationality",
+      "addNew": "Add New"
     },
     "promoCodeTable": {
       "actionsButton": "Add promo code",

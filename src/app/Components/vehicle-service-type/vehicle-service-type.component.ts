@@ -110,9 +110,10 @@ export class VehicleServiceTypeComponent {
       nameEn: selectedVehicleServiceType?.nameEn,
       nameAr: selectedVehicleServiceType?.nameAr,
       status: selectedVehicleServiceType?.status,
-      image: this.updateVehicleServiceTypeForm.controls['image'].value
-        ? this.updateVehicleServiceTypeForm.controls['image'].value
-        : '',
+      // image: selectedVehicleServiceType?.image,
+      // image: this.updateVehicleServiceTypeForm.controls['image'].value
+      //   ? this.updateVehicleServiceTypeForm.controls['image'].value
+      //   : '',
     });
   }
   convertImageToBase64(imageUrl: string): void {
@@ -192,7 +193,12 @@ export class VehicleServiceTypeComponent {
   updateVehicleServiceType() {
     let updateVehicleBody = {
       ...this.updateVehicleServiceTypeForm.value,
-      status: this.updateVehicleServiceTypeForm.value.status === 'true',
+      status:
+        this.updateVehicleServiceTypeForm.value.status === 'true'
+          ? true
+          : this.updateVehicleServiceTypeForm.value.status === true
+          ? true
+          : false,
     };
     this.vehicleServiceTypeService
       .updateVehicleServiceType(updateVehicleBody)

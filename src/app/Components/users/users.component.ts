@@ -58,6 +58,7 @@ export class UsersComponent implements OnInit {
     // this.dateFormInitializer();
     this.getAllRoles();
     this.getAllAddedUsers();
+    this.getAllNationalities();
     this.languageSetter();
   }
   languageSetter() {
@@ -79,12 +80,15 @@ export class UsersComponent implements OnInit {
   initialiseAddUserForm() {
     this.addUserForm = this.fb.group(
       {
+        userName: [null, Validators.required],
         email: [null, [Validators.required, Validators.email]],
         password: [null, Validators.required],
         confirmPassword: [null, Validators.required],
         birthDate: [null, Validators.required],
         genderId: [null, Validators.required],
         nationalityId: [null, Validators.required],
+        roles: [null, Validators.required],
+        phoneNumber: [null, Validators.required],
       },
       { validators: passwordMatchValidator() }
     );
@@ -185,7 +189,18 @@ export class UsersComponent implements OnInit {
 
   addUser() {
     let addUserBody = this.addUserForm.value;
-    this.userService.addUser(addUserBody).subscribe({
+
+    let body = {
+      ...addUserBody,
+      RolesDto: {
+        roles: addUserBody.roles.map((roleName: string) => {
+          return { name: roleName }; // Transform roles to the required format
+        }),
+      },
+    };
+    delete body.roles;
+
+    this.userService.addUser(body).subscribe({
       next: (res: any) => {
         this.modalService.dismissAll();
         this.getAllAddedUsers();

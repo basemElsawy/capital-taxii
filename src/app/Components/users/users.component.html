@@ -7,7 +7,7 @@
       (click)="openAddModal(content)"
       class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
     >
-      <span> {{ "tables.rolesTable.actionsButton" | translate }} </span>
+      <span> {{ "tables.usersTable.addNew" | translate }} </span>
 
       <i class="fa-solid fa-plus"></i>
     </button>
@@ -73,7 +73,7 @@
         <td>{{ user?.birthdate | date : "dd-MM-yyyy" }}</td>
         <td class="d-flex align-items-start justify-content-center">
           <button
-            pTooltip="Update station"
+            pTooltip="Add Roles"
             tooltipPosition="top"
             tooltipClass="custom-tooltip"
             (click)="openUpdateModal(content1, user)"
@@ -92,12 +92,20 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4>Add new user</h4>
+    <h4>{{ "tables.usersTable.addNew" | translate }}</h4>
   </div>
 
   <div class="modal-body">
     <form [formGroup]="addUserForm">
       <div class="row">
+        <div class="col-md-4">
+          <label> {{ "tables.usersTable.userName" | translate }} </label>
+          <input
+            class="form-group form-control"
+            type="text"
+            formControlName="userName"
+          />
+        </div>
         <div class="col-md-4">
           <label> {{ "tables.usersTable.emailOrUsername" | translate }} </label>
           <input
@@ -110,8 +118,8 @@
           <label> {{ "tables.usersTable.phoneNumber" | translate }} </label>
           <input
             class="form-group form-control"
-            type="number"
-            formControlName="phone"
+            type="text"
+            formControlName="phoneNumber"
           />
         </div>
         <div class="col-md-4">
@@ -122,7 +130,7 @@
           </select>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 mt-3">
           <label> {{ "tables.usersTable.nationality" | translate }} </label>
           <select
             formControlName="nationalityId"
@@ -139,7 +147,7 @@
           </select>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 mt-3">
           <label> {{ "tables.usersTable.password" | translate }} </label>
 
           <input
@@ -149,7 +157,7 @@
           />
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 mt-3">
           <label> {{ "tables.usersTable.confirmPassword" | translate }} </label>
 
           <input
@@ -168,24 +176,31 @@
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 mt-3">
           <label>
             {{ "tables.usersTable.birthday" | translate }}
           </label>
           <input class="form-control" type="date" formControlName="birthDate" />
+        </div>
+        <div class="col-4 field mt-3">
+          <label style="display: block">{{
+            "tables.usersTable.roles" | translate
+          }}</label>
+          <p-multiSelect
+            [options]="roles"
+            formControlName="roles"
+            [(ngModel)]="selectedRoles"
+            [optionLabel]="lang == 'En' ? 'name' : 'nameAr'"
+            optionValue="name"
+            appendTo="body"
+          ></p-multiSelect>
         </div>
       </div>
     </form>
   </div>
 
   <div class="modal-footer">
-    <button
-      class="btn btn-success"
-      [disabled]="addUserForm.invalid"
-      (click)="addUser()"
-    >
-      Save
-    </button>
+    <button class="btn btn-success" (click)="addUser()">Save</button>
     <button class="btn btn-danger" (click)="closeModal()">Close</button>
   </div>
 </ng-template>
