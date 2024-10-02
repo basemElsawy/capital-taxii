@@ -39,6 +39,8 @@
     },
     "usersTable": {
       "user": "User",
+      "fullName": "Full Name",
+
       "emailOrUsername": "E-mail",
       "userName": "User name",
       "phoneNumber": "Phone number",
@@ -52,7 +54,8 @@
       "roles": "Roles",
       "users": "Users",
       "nationality": "Nationality",
-      "addNew": "Add New"
+      "addNew": "Add New",
+      "userPhoto": "User Photo"
     },
     "promoCodeTable": {
       "actionsButton": "Add promo code",

@@ -122,3 +122,8 @@ tbody tr td {
 ::ng-deep .p-overlay {
   z-index: 1000000000000 !important;
 }
+.delete-btn,
+.edit-btn {
+  width: fit-content;
+  margin-inline: auto;
+}

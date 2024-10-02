@@ -110,7 +110,7 @@ export class VehicleComponent {
       year: [null, Validators.required],
       photo: ['', Validators.required],
       vehicleColor: ['#FF7B00', Validators.required],
-      vehicleSpecificationId: [null, Validators.required],
+      // vehicleSpecificationId: [null, Validators.required],
       vehicleTypeId: [null, Validators.required],
       fuelTypeId: [null, Validators.required],
       vehicleOwnershipId: [null, Validators.required],
@@ -151,9 +151,7 @@ export class VehicleComponent {
     this.vehilcesService.getAllDrivers().subscribe({
       next: (res: any) => {
         this.isLoading = false;
-        this.Drivers = res.items.filter((driver: any) => {
-          return driver.user !== null;
-        });
+        this.Drivers = res;
       },
       error: (error: any) => {
         this.isLoading = false;
@@ -246,7 +244,7 @@ export class VehicleComponent {
         ? this.updateVehicleForm.controls['photo'].value
         : '',
       vehicleColor: selectedVehicle.vehicleColor,
-      vehicleSpecificationId: selectedVehicle.vehicleSpecification?.id,
+      // vehicleSpecificationId: selectedVehicle.vehicleSpecification?.id,
       vehicleTypeId: selectedVehicle.vehicleType?.id,
       fuelTypeId: selectedVehicle.fuelType?.id,
       vehicleOwnershipId: selectedVehicle.vehicleOwnership?.id,
@@ -356,6 +354,7 @@ export class VehicleComponent {
   }
 
   showVehicleDrivers(selectedVehicle: any, content: any) {
+    this.addDriverVehicleForm.reset();
     this.getAllVehicleDrivers(selectedVehicle.res.id);
     this.modalService.open(content, {
       size: 'xl',

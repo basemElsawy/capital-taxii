@@ -67,8 +67,7 @@ export class ReportsComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.setLanguage();
-    this.loadDriversForFirstThreePages(); // Call this function when the component is initialized
-
+    this.getAllDrivers();
     this.searchDriversCommissionForm = new FormGroup({
       startDate: new FormControl(null, Validators.required),
       endDate: new FormControl(null, Validators.required),
@@ -128,7 +127,19 @@ export class ReportsComponent implements OnInit {
       this.RequestsStatusData = res.data;
     });
   }
-
+  getAllDrivers() {
+    this.isLoading = true;
+    this.reportsService.getAllDrivers().subscribe({
+      next: (res: any) => {
+        this.isLoading = false;
+        this.drivers = res;
+      },
+      error: (error: any) => {
+        this.isLoading = false;
+        console.log(error);
+      },
+    });
+  }
   // openShiftReportModal(content: any, shift?: any) {
   //   this.modalService.open(content, {
   //     fullscreen: true,
@@ -147,30 +158,7 @@ export class ReportsComponent implements OnInit {
   //     this.drivers = res.items;
   //   });
   // }
-  loadDriversForFirstThreePages() {
-    const page1$ = this.getDriversByPage(1, this.pageSize); // Get drivers for page 1
-    const page2$ = this.getDriversByPage(2, this.pageSize); // Get drivers for page 2
 
-    // Execute all 3 requests in parallel and wait until all are complete
-    forkJoin([page1$, page2$]).subscribe(
-      (responses: any[]) => {
-        // Flatten the results and combine them into the `drivers` array
-        this.drivers = [...responses[0].items, ...responses[1].items];
-
-        // Optionally, set totalRecords from the first response if API provides total count
-        this.totalRecords = responses[0].totalCount;
-
-        console.log('All drivers loaded:', this.drivers); // Check the combined drivers data
-      },
-      (error) => {
-        console.error('Error loading drivers:', error);
-      }
-    );
-  }
-
-  getDriversByPage(page: number, size: number) {
-    return this.reportsService.getAllDrivers(page, size); // Fetch drivers for a specific page
-  }
   closeModal() {
     this.modalService.dismissAll();
   }

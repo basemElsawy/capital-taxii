@@ -6,6 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment.development';
 @Component({
   selector: 'app-side-nav',
   standalone: true,
@@ -16,7 +17,9 @@ import { CommonModule } from '@angular/common';
 export class SideNavComponent implements OnInit {
   userData!: User;
   permissions: any;
-  baseUrl = 'http://10.4.30.8:1222'; // Define the base URL for your image server
+  baseUrl = environment.base_url; // Define the base URL for your image server
+  imgUrl = environment.image; // Define the base URL for your image server
+
   lang!: string;
   constructor(
     private translationService: TranslationService,
@@ -89,7 +92,7 @@ export class SideNavComponent implements OnInit {
 
   getFullImageUrl(): string {
     if (this.userData?.picture) {
-      return `${this.baseUrl}${this.userData.picture}`;
+      return `${this.imgUrl}${this.userData.picture}`;
     }
     return '../../../assets/unknown.png'; // Return an empty string or a default image URL if picture is not available
   }

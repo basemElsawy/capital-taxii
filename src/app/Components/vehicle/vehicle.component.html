@@ -203,7 +203,7 @@
           />
         </div>
 
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
           <label>
             {{
               "tables.vehiclesTable.tableForm.vehicleSpecification" | translate
@@ -220,7 +220,7 @@
             </option>
             }
           </select>
-        </div>
+        </div> -->
 
         <div class="col-md-4">
           <label>
@@ -447,7 +447,7 @@
           /> -->
         </div>
 
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
           <label> vehicle specification </label>
           <select
             formControlName="vehicleSpecificationId"
@@ -460,7 +460,7 @@
             </option>
             }
           </select>
-        </div>
+        </div> -->
 
         <div class="col-md-4">
           <label> vehicle type </label>
@@ -631,9 +631,9 @@
         <div class="col-md-4">
           <label>Driver</label>
           <select class="form-select form-group" formControlName="driverId">
-            @for(driver of Drivers; track driver.id) {
-            <option [value]="driver?.id">
-              {{ driver?.user?.fullName }}
+            @for(driver of Drivers; track driver.driverId) {
+            <option [value]="driver?.driverId">
+              {{ driver?.user }}
             </option>
             }
           </select>

@@ -39,6 +39,7 @@
     },
     "usersTable": {
       "user": "المستخدم",
+      "fullName": "الاسم بالكامل",
       "emailOrUsername": "البريد الالكتروني",
       "userName": "اسم المستخدم",
       "phoneNumber": "رقم التليفون",
@@ -52,7 +53,8 @@
       "roles": "الوظائف",
       "users": "المستخدمين",
       "nationality": "الجنسية",
-      "addNew": "اضافة جديد"
+      "addNew": "اضافة جديد",
+      "userPhoto": "صورة المستخدم"
     },
 
     "promoCodeTable": {

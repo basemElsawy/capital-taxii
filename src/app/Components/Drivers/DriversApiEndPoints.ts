@@ -9,7 +9,6 @@ export class DriversApiEndpoints {
   static getAllDriversEndpoint: string =
     this.baseUrl + 'Driver/get-all-drivers';
   static updateDriversEndpoint: string = this.baseUrl + 'Driver/update-driver';
-  static deleteDriverEndpoint: string =
-    this.baseUrl + 'User/deactivate-user-Async';
+  static deleteDriverEndpoint: string = this.baseUrl + 'User/delete-user-async';
   static nationalitiesEndpoint: string = this.baseUrl + 'Nationality';
 }

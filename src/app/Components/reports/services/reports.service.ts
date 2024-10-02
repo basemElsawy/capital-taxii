@@ -23,9 +23,7 @@ export class ReportsService {
       `${this.baseUrl}RequestRoute/get-all-requests-request-status-by-date?from=${body.from}&to=${body.to}`
     );
   }
-  getAllDrivers(page: number, size: number) {
-    return this.http.get(
-      `${this.baseUrl}Driver/get-all-drivers?pageNumber=${page}&pageSize=${size}`
-    );
+  getAllDrivers() {
+    return this.http.get(`${this.baseUrl}Driver/get-all-drivers-only`);
   }
 }
