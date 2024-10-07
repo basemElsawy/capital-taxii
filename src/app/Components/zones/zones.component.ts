@@ -46,7 +46,6 @@ export class ZonesComponent {
   checkedStatus: any;
   isEdit: boolean = false;
   isNew: boolean = false;
-
   @ViewChild(GoogleMap) mapInstance!: GoogleMap;
   addZoneForm!: FormGroup;
   updateZoneForm!: FormGroup;
@@ -152,6 +151,11 @@ export class ZonesComponent {
       status: [false, Validators.required],
       geometry: this.fb.array([]),
     });
+    this.updateZoneForm = this.fb.group({
+      nameEn: [null, Validators.required],
+      nameAr: [null, Validators.required],
+      status: [false, Validators.required],
+    });
   }
 
   setChoosedStatus(ev: any) {
@@ -209,16 +213,17 @@ export class ZonesComponent {
       scrollable: true,
     });
   }
-
+  selectedZoneId: any;
   setZoneDataDetailsForm(selectedZone: any) {
+    this.selectedZoneId = selectedZone.id;
     this.checkedStatus = selectedZone.status;
-    this.addZoneForm.patchValue({
+    this.updateZoneForm.patchValue({
       nameEn: selectedZone.nameEn,
       nameAr: selectedZone.nameAr,
       status: this.checkedStatus,
     });
-    this.addZoneForm.get('nameEn')?.disable();
-    this.addZoneForm.get('nameAr')?.disable();
+    // this.addZoneForm.get('nameEn')?.disable();
+    // this.addZoneForm.get('nameAr')?.disable();
   }
   openAddModal(content: any) {
     if (!this.geometryArray.length) {
@@ -258,7 +263,25 @@ export class ZonesComponent {
       },
     });
   }
-
+  updateZone() {
+    this.updateZoneForm.patchValue({
+      status: this.checkedStatus,
+    });
+    let body = {
+      ...this.updateZoneForm.value,
+      id: this.selectedZoneId,
+    };
+    this.zonesService.updateZone(body).subscribe({
+      next: (res: any) => {
+        this.getAllZones();
+        this.modalService.dismissAll();
+        this.addZoneForm.reset();
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
   getAllZones() {
     this.zonesService.getAllZones().subscribe((res: any) => {
       this.zones = res.map((zone: any) => {

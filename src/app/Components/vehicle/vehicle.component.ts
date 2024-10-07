@@ -17,6 +17,8 @@ import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
+import { DropdownModule } from 'primeng/dropdown';
+
 @Component({
   selector: 'app-vehicle',
   standalone: true,
@@ -27,6 +29,7 @@ import { TranslationService } from '../../Core/Services/translation.service';
     SpinnerComponent,
     TooltipModule,
     TranslateModule,
+    DropdownModule,
   ],
   templateUrl: './vehicle.component.html',
   styleUrl: './vehicle.component.scss',
@@ -53,7 +56,7 @@ export class VehicleComponent {
   base64Image: string | undefined;
   lang!: string;
   zones: any[] = [];
-
+  selectedDriver: any;
   constructor(
     private vehilcesService: VehicleService,
     private modalService: NgbModal,

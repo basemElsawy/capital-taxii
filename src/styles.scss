@@ -6,6 +6,7 @@
 @import "ngx-toastr/toastr";
 
 @import "primeicons/primeicons.css";
+
 @font-face {
   font-family: almarai;
   src: url("./assets/fonts/Almarai/Almarai-Regular.ttf");
@@ -55,4 +56,7 @@ $accent-color: #f4f4f4;
 
 i {
   font-family: "Font Awesome 6 Free" !important;
+}
+label {
+  font-size: 14px !important;
 }

@@ -17,8 +17,7 @@
 .card-body {
   padding: 12px;
 }
-.card {
-}
+
 .color-section {
   position: absolute;
   height: 400px !important;
@@ -33,8 +32,7 @@
 .statistical-card .card-body {
   padding-left: 25px !important;
 }
-.card-body {
-}
+
 .statistical-text,
 .statistical-text-new {
   color: #abbbc2;
@@ -46,7 +44,7 @@
   font-size: 12px !important;
 }
 .driver-name {
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 5px !important;
 }
 .statistical-text-new {
@@ -54,7 +52,7 @@
 }
 .orders-number {
   * {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 .statistical-number {
@@ -77,6 +75,7 @@
 
 i {
   font-size: 20px;
+  // font-family: "Font Awesome 6 Free";
 }
 
 .top-container {
@@ -93,18 +92,11 @@ i {
   height: 50px !important;
   margin-block: 50px;
 }
-.top-drivers::-webkit-scrollbar-track {
-}
-
-.driver-img {
-}
 
 .currency {
   font-size: 14px;
 }
 
-.text-details {
-}
 .personal-image {
   width: 40px;
   height: 40px;
@@ -136,7 +128,7 @@ hr {
     margin-bottom: 3px !important;
   }
   & p {
-    font-size: 12px;
+    font-size: 14px;
     color: #90a0b7;
   }
 }
@@ -176,7 +168,7 @@ hr {
   background-color: #65b0f6;
 }
 .statistical-text {
-  font-size: 12px;
+  font-size: 14px;
 }
 .card-wrapper {
   display: flex;

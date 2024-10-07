@@ -630,13 +630,47 @@
       <div class="row">
         <div class="col-md-4">
           <label>Driver</label>
-          <select class="form-select form-group" formControlName="driverId">
+
+          <div class="card flex justify-content-center">
+            <p-dropdown
+              [options]="Drivers"
+              [(ngModel)]="selectedDriver"
+              optionLabel="user"
+              optionValue="driverId"
+              [filter]="true"
+              filterBy="user"
+              [showClear]="true"
+              placeholder="Select a Driver"
+              appendTo="body"
+              formControlName="driverId"
+            >
+              <ng-template pTemplate="selectedItem" let-selectedOption>
+                <div class="flex align-items-center gap-2">
+                  <div>{{ selectedOption.user }}</div>
+                </div>
+              </ng-template>
+              <ng-template let-driver pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                  <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="
+                      'flag flag-' + driver.driverId.toString().toLowerCase()
+                    "
+                    style="width: 18px"
+                  />
+                  <div>{{ driver.user }}</div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+
+          <!-- <select class="form-select form-group" formControlName="driverId">
             @for(driver of Drivers; track driver.driverId) {
             <option [value]="driver?.driverId">
               {{ driver?.user }}
             </option>
             }
-          </select>
+          </select> -->
         </div>
 
         <div class="col-md-4">

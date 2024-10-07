@@ -13,6 +13,9 @@ export class ZonesService {
   addNewZone(zone: any) {
     return this.httpClient.post(`${this.base_url}Zone/add-zone`, zone);
   }
+  updateZone(zone: any) {
+    return this.httpClient.put(`${this.base_url}Zone/update-zone-status`, zone);
+  }
   getCurrentLocation() {
     let geolocation = navigator.geolocation;
     return new Promise((resolve, reject) => {
