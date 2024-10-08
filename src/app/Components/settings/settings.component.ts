@@ -21,6 +21,7 @@ import { VehicleServiceTypeComponent } from '../vehicle-service-type/vehicle-ser
 import { PeakTimeComponent } from '../peak-time/peak-time.component';
 import { StationsComponent } from '../stations/stations.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-settings',
   standalone: true,
@@ -66,7 +67,8 @@ export class SettingsComponent implements OnInit {
     private priceService: PriceService,
     private fb: FormBuilder,
     private translate: TranslateService,
-    private translation: TranslationService
+    private translation: TranslationService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -162,7 +164,20 @@ export class SettingsComponent implements OnInit {
       },
       error: (error: any) => {
         this.isLoading = false;
-        console.log(error);
+
+        // Check the language and display the error message accordingly
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while updating the request distance limit';
+        } else if (this.lang === 'Ar') {
+          errorMessage =
+            error.MesgAr || 'حدث خطأ أثناء تحديث الحد الأدنى لمسافة الطلب';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
@@ -184,10 +199,23 @@ export class SettingsComponent implements OnInit {
       error: (error: any) => {
         this.isLoading = false;
 
-        console.log(error);
+        // Check the language and display the error message accordingly
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while updating the request time limit';
+        } else if (this.lang === 'Ar') {
+          errorMessage =
+            error.MesgAr || 'حدث خطأ أثناء تحديث الحد الزمني للطلب';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   updateSelectedDriverArrivalMinDistance() {
     this.isLoading = true;
     let requestId = this.DriverArrivalMinDistanceId;
@@ -204,10 +232,23 @@ export class SettingsComponent implements OnInit {
       error: (error: any) => {
         this.isLoading = false;
 
-        console.log(error);
+        // Check the language and display the error message accordingly
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while updating the driver arrival minimum distance';
+        } else if (this.lang === 'Ar') {
+          errorMessage =
+            error.MesgAr || 'حدث خطأ أثناء تحديث الحد الأدنى لوصول السائق';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   initialiseForm() {
     this.kmPriceForm = this.fb.group({
       id: [null],
@@ -302,6 +343,19 @@ export class SettingsComponent implements OnInit {
         error: (error: any) => {
           this.isLoading = false;
           console.error('Error updating deduction:', error);
+
+          // Check the language and display the error message accordingly
+          let errorMessage = '';
+          if (this.lang === 'En') {
+            errorMessage =
+              error.MesgEn?.non_field_errors?.[0] ||
+              'An error occurred while updating the deduction';
+          } else if (this.lang === 'Ar') {
+            errorMessage = error.MesgAr || 'حدث خطأ أثناء تحديث الخصم';
+          }
+
+          // Show error message in toastr
+          this.toastr.error(errorMessage, 'Error');
         },
       });
     } else {
@@ -323,10 +377,22 @@ export class SettingsComponent implements OnInit {
         this.getAllRequestsKMPrice();
         this.isLoading = false;
       },
-
       error: (error: any) => {
         this.isLoading = false;
-        console.log(error);
+        console.error('Error updating KM price:', error);
+
+        // Check the language and display the error message accordingly
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while updating the KM price';
+        } else if (this.lang === 'Ar') {
+          errorMessage = error.MesgAr || 'حدث خطأ أثناء تحديث سعر الكيلومتر';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
@@ -336,12 +402,28 @@ export class SettingsComponent implements OnInit {
       ...this.taxiCounter.value,
     };
     this.priceService.updateTaxiCounterFees(taxiCounterBody).subscribe({
-      next: (res) => {},
+      next: (res) => {
+        // Handle success if needed
+      },
       error: (err) => {
-        console.log(err);
+        console.error('Error updating taxi counter fees:', err);
+
+        // Check the language and display the error message accordingly
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            err.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while updating taxi counter fees';
+        } else if (this.lang === 'Ar') {
+          errorMessage = err.MesgAr || 'حدث خطأ أثناء تحديث رسوم العداد';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   getTaxiCounterFees() {
     console.log(this.taxiCounter.controls['price']);
     this.priceService.getTaxiCounterFees().subscribe({
@@ -402,10 +484,24 @@ export class SettingsComponent implements OnInit {
       },
       error: (error: any) => {
         this.isLoading = false;
-        console.log(error);
+        console.error('Error updating minimum fares:', error);
+
+        // Check the language and display the error message accordingly
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while updating minimum fares';
+        } else if (this.lang === 'Ar') {
+          errorMessage = error.MesgAr || 'حدث خطأ أثناء تحديث الأسعار الدنيا';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   updateDriverCommition() {
     this.isLoading = true;
     let requestBody = this.driverCommitionForm.value;
@@ -416,7 +512,20 @@ export class SettingsComponent implements OnInit {
       },
       error: (error: any) => {
         this.isLoading = false;
-        console.log(error);
+        console.error('Error updating driver commission:', error);
+
+        // Check the language and display the error message accordingly
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while updating driver commission';
+        } else if (this.lang === 'Ar') {
+          errorMessage = error.MesgAr || 'حدث خطأ أثناء تحديث عمولة السائق';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }

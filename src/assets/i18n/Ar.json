@@ -25,6 +25,7 @@
   },
   "tables": {
     "clientsTable": {
+      "name": "الاسم",
       "client": "العميل",
       "emailOrUsername": "اسم المستخدم او البريد",
       "phoneNumber": "رقم التليفون",
@@ -33,6 +34,8 @@
       "credit": "الأئتمان",
       "creditDetails": "تفاصيل الكارت",
       "options": "خيارات",
+      "showingAllClientsTrips": "عرض جميع رحلات العملاء",
+
       "tableMeta": {
         "optionsText": "جميع الرحلات"
       }
@@ -201,6 +204,8 @@
       "options": "خيارات",
       "actionsButton": "اضافة محطة",
       "zone": "النطاق",
+      "updateHeadline": "تعديل بيانات المحطة",
+
       "tableForm": {
         "stationNamEn": "En اسم المحطة",
         "stationNameAr": "Ar اسم المحطة ",
@@ -216,7 +221,8 @@
       "startLocation": "مكان البدء",
       "finishLocation": "مكان الوصول ",
       "totalAmount": "سعر الرحلة",
-      "status": "الحالة"
+      "status": "الحالة",
+      "requestStatus": "حالة الرحلة"
     },
     "pricesTable": {
       "tableNameEn": "اسم الجدول باللغة الانجليزية",
@@ -351,7 +357,14 @@
     "name": "الاسم",
     "totalPrice": "اجمالي السعر",
     "requestsPaymentMethod": "تقرير طرق الدفع",
-    "requestsStatus": "تقرير حالة الطلبات"
+    "requestsStatus": "تقرير حالة الطلبات",
+    "cash": {
+      "name": "طريقة الدفع",
+      "tax": "الضريبة",
+      "distance_price": "سعر المسافة",
+      "trip_start_fees": "رسوم بدء الرحلة",
+      "total_price": "السعر الإجمالي"
+    }
   },
   "dashboard": {
     "topDrivers": "افضل السائقين",

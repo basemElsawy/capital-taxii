@@ -189,10 +189,24 @@ export class PeakTimeComponent {
         this.getpeakTimesForDayByDayId(this.selectedPeakTimeTable.id);
       },
       error: (error: any) => {
-        console.log(error);
+        console.error('Error adding peak time:', error);
+
+        // Check the language and display the error message accordingly
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while adding peak time';
+        } else if (this.lang === 'Ar') {
+          errorMessage = error.MesgAr || 'حدث خطأ أثناء إضافة أوقات الذروة';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   addSecondsToTime(time: string): string | null {
     if (!time) {
       return null; // Return null if time is not provided

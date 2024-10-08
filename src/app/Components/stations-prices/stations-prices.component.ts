@@ -13,6 +13,7 @@ import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-stations-prices',
   standalone: true,
@@ -41,7 +42,8 @@ export class StationsPricesComponent {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private translate: TranslateService,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -118,10 +120,24 @@ export class StationsPricesComponent {
         this.addStationPriceForm.reset();
       },
       error: (error: any) => {
-        console.log(error);
+        console.error('Error adding station price:', error);
+
+        // Check the language and display the error message accordingly
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while adding the station price';
+        } else if (this.lang === 'Ar') {
+          errorMessage = error.MesgAr || 'حدث خطأ أثناء إضافة سعر المحطة';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   updateStationPrice() {
     let body = this.updateStationPriceForm.value;
     this.stationsService.updateStationPrice(body).subscribe({
@@ -131,10 +147,24 @@ export class StationsPricesComponent {
         this.updateStationPriceForm.reset();
       },
       error: (error: any) => {
-        console.log(error);
+        console.error('Error updating station price:', error);
+
+        // Check the language and display the error message accordingly
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while updating the station price';
+        } else if (this.lang === 'Ar') {
+          errorMessage = error.MesgAr || 'حدث خطأ أثناء تحديث سعر المحطة';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   getStations() {
     this.stationsService.getAllStations().subscribe((data: any) => {
       this.stations = data;

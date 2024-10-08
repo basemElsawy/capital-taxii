@@ -66,7 +66,7 @@
             class="route-details rounded-4 d-flex align-items-center justify-content-center"
           >
             <button class="btn" (click)="openAddModal(tripData, client?.id)">
-              Credit details
+              {{ "tables.clientsTable.creditDetails" | translate }}
             </button>
           </div>
         </td>
@@ -89,7 +89,7 @@
 </div>
 <ng-template #tripData let-modal>
   <div class="modal-header">
-    <h6>Credit details</h6>
+    <h6>{{ "tables.clientsTable.creditDetails" | translate }}</h6>
   </div>
 
   <div
@@ -180,7 +180,7 @@
 </ng-template>
 <ng-template #clientTripData let-modal>
   <div class="modal-header">
-    <h6>Showing All Clients Trips</h6>
+    <h6>{{ "tables.clientsTable.showingAllClientsTrips" | translate }}</h6>
   </div>
 
   <div

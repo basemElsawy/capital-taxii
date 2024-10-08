@@ -14,6 +14,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { VehicleServiceTypeService } from './Services/vehicle-service-type.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-vehicle-service-type',
   standalone: true,
@@ -45,7 +46,8 @@ export class VehicleServiceTypeComponent {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private translate: TranslateService,
-    private translation: TranslationService
+    private translation: TranslationService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -130,6 +132,7 @@ export class VehicleServiceTypeComponent {
   }
 
   openAddModal(content: any) {
+    this.addVehicleServiceTypeForm.reset();
     this.modalService.open(content, {
       size: 'xl',
       backdrop: 'static',
@@ -177,6 +180,7 @@ export class VehicleServiceTypeComponent {
       ...this.addVehicleServiceTypeForm.value,
       status: this.addVehicleServiceTypeForm.value.status === 'true',
     };
+
     this.vehicleServiceTypeService
       .addVehicleServiceType(addNewVehicleBody)
       .subscribe({
@@ -186,20 +190,33 @@ export class VehicleServiceTypeComponent {
           this.addVehicleServiceTypeForm.reset();
         },
         error: (error: any) => {
-          console.log(error);
+          console.error('Error adding vehicle service type:', error);
+
+          // Check the language and display the error message accordingly
+          let errorMessage = '';
+          if (this.lang === 'En') {
+            errorMessage =
+              error.MesgEn?.non_field_errors?.[0] ||
+              'An error occurred while adding the vehicle service type';
+          } else if (this.lang === 'Ar') {
+            errorMessage =
+              error.MesgAr || 'حدث خطأ أثناء إضافة نوع خدمة السيارة';
+          }
+
+          // Show error message in toastr
+          this.toastr.error(errorMessage, 'Error');
         },
       });
   }
+
   updateVehicleServiceType() {
     let updateVehicleBody = {
       ...this.updateVehicleServiceTypeForm.value,
       status:
-        this.updateVehicleServiceTypeForm.value.status === 'true'
-          ? true
-          : this.updateVehicleServiceTypeForm.value.status === true
-          ? true
-          : false,
+        this.updateVehicleServiceTypeForm.value.status === 'true' ||
+        this.updateVehicleServiceTypeForm.value.status === true,
     };
+
     this.vehicleServiceTypeService
       .updateVehicleServiceType(updateVehicleBody)
       .subscribe({
@@ -209,7 +226,21 @@ export class VehicleServiceTypeComponent {
           this.updateVehicleServiceTypeForm.reset();
         },
         error: (error: any) => {
-          console.log(error);
+          console.error('Error updating vehicle service type:', error);
+
+          // Check the language and display the error message accordingly
+          let errorMessage = '';
+          if (this.lang === 'En') {
+            errorMessage =
+              error.MesgEn?.non_field_errors?.[0] ||
+              'An error occurred while updating the vehicle service type';
+          } else if (this.lang === 'Ar') {
+            errorMessage =
+              error.MesgAr || 'حدث خطأ أثناء تحديث نوع خدمة السيارة';
+          }
+
+          // Show error message in toastr
+          this.toastr.error(errorMessage, 'Error');
         },
       });
   }

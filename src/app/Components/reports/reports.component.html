@@ -55,6 +55,7 @@
               <div class="col-auto">
                 <button
                   class="btn btn-primary"
+                  [disabled]="!searchDriversCommissionForm.valid"
                   (click)="searchForsearchDriversCommission()"
                 >
                   {{ "tables.shiftTable.search" | translate }}
@@ -159,7 +160,7 @@
               </div>
             </div>
           </form>
-          @if(driversCommissionData.length > 0){
+          @if(RequestsPaymentMethodData.length > 0){
           <div
             class="table-container h-100 bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
           >
@@ -175,8 +176,11 @@
                       'first-heading-Ar ps-3': lang == 'Ar'
                     }"
                   >
-                    {{ "reports.driverName" | translate }}
+                    {{ "reports.cash.name" | translate }}
                   </th>
+                  <th>{{ "reports.cash.tax" | translate }}</th>
+                  <th>{{ "reports.cash.distance_price" | translate }}</th>
+                  <th>{{ "reports.cash.trip_start_fees" | translate }}</th>
 
                   <th
                     [ngClass]="{
@@ -184,26 +188,49 @@
                       'second-heading-Ar': lang == 'Ar'
                     }"
                   >
-                    {{ "reports.total" | translate }}
+                    {{ "reports.cash.total_price" | translate }}
                   </th>
                 </tr>
               </thead>
               <tbody class="w-100">
-                @for(driversCommission of driversCommissionData; track
-                driversCommission) {
+                @for(RequestPaymentMethodData of RequestsPaymentMethodData;
+                track RequestPaymentMethodData) {
                 <tr class="w-100">
                   <td>
-                    {{ driversCommission?.driverName }}
+                    {{ RequestPaymentMethodData?.name }}
                   </td>
                   <td>
                     {{
-                      driversCommission?.totalCommission
-                        ? driversCommission?.totalCommission
+                      RequestPaymentMethodData?.tax
+                        ? RequestPaymentMethodData?.tax
                         : "--"
                     }}
                     LE
                   </td>
-
+                  <td>
+                    {{
+                      RequestPaymentMethodData?.distance_price
+                        ? RequestPaymentMethodData?.distance_price
+                        : "--"
+                    }}
+                    LE
+                  </td>
+                  <td>
+                    {{
+                      RequestPaymentMethodData?.trip_start_fees
+                        ? RequestPaymentMethodData?.trip_start_fees
+                        : "--"
+                    }}
+                    LE
+                  </td>
+                  <td>
+                    {{
+                      RequestPaymentMethodData?.total_price
+                        ? RequestPaymentMethodData?.total_price
+                        : "--"
+                    }}
+                    LE
+                  </td>
                   <td>
                     <div
                       class="route-details rounded-4 d-flex align-items-center justify-content-center"

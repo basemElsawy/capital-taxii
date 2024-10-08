@@ -23,6 +23,7 @@ import { environment } from '../../../environments/environment.development';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { forkJoin } from 'rxjs';
 import { ShiftsComponent } from '../shifts/shifts.component';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-reports',
   standalone: true,
@@ -63,7 +64,8 @@ export class ReportsComponent implements OnInit {
     private fb: FormBuilder,
     private translate: TranslateService,
     private translation: TranslationService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastr: ToastrService
   ) {}
   ngOnInit() {
     this.setLanguage();
@@ -109,23 +111,108 @@ export class ReportsComponent implements OnInit {
     const drivers = this.searchDriversCommissionForm.controls['drivers'].value;
     let body = { ids: drivers, startDate: fromDate, endDate: toDate };
 
-    this.reportsService.getDriversCommission(body).subscribe((res: any) => {
-      this.driversCommissionData = res;
+    this.reportsService.getDriversCommission(body).subscribe({
+      next: (res: any) => {
+        this.driversCommissionData = res;
+
+        // Check if the data is empty
+        if (
+          !this.driversCommissionData ||
+          this.driversCommissionData.length === 0
+        ) {
+          this.toastr.info('لا توجد بيانات', 'Information'); // No data message in Arabic
+        } else {
+          this.toastr.success(
+            'Drivers commission data fetched successfully!',
+            'Success'
+          );
+        }
+      },
+      error: (error: any) => {
+        console.error('Error fetching drivers commission:', error);
+        this.handleError(error);
+      },
     });
   }
+
   searchRequestsPaymentMethod() {
     let body = this.searchRequestsPaymentMethodForm.value;
 
-    this.reportsService.getRequestsPaymentMethod(body).subscribe((res: any) => {
-      this.RequestsPaymentMethodData = res.data;
+    this.reportsService.getRequestsPaymentMethod(body).subscribe({
+      next: (res: any) => {
+        this.RequestsPaymentMethodData = res.data;
+
+        // Check if the data is empty
+        if (
+          !this.RequestsPaymentMethodData ||
+          this.RequestsPaymentMethodData.length === 0
+        ) {
+          this.toastr.info('لا توجد بيانات', 'Information'); // No data message in Arabic
+        } else {
+          this.toastr.success(
+            'Payment method data fetched successfully!',
+            'Success'
+          );
+        }
+      },
+      error: (error: any) => {
+        console.error('Error fetching payment methods:', error);
+        this.handleError(error);
+      },
     });
   }
+
   searchRequestsStatus() {
     let body = this.searchRequestsStatusForm.value;
 
-    this.reportsService.getRequestsStatus(body).subscribe((res: any) => {
-      this.RequestsStatusData = res.data;
+    this.reportsService.getRequestsStatus(body).subscribe({
+      next: (res: any) => {
+        this.RequestsStatusData = res.data;
+
+        // Check if the data is empty
+        if (!this.RequestsStatusData || this.RequestsStatusData.length === 0) {
+          this.toastr.info('لا توجد بيانات', 'Information'); // No data message in Arabic
+        } else {
+          this.toastr.success(
+            'Requests status data fetched successfully!',
+            'Success'
+          );
+        }
+      },
+      error: (error: any) => {
+        console.error('Error fetching request status:', error);
+        this.handleError(error);
+      },
     });
+  }
+
+  // Reusing the handleError method from the previous implementation
+  private handleError(error: any) {
+    let errorMessage = '';
+
+    // Check if the error structure matches the expected format
+    if (error && error.error && error.error.isValid === false) {
+      const apiErrors = error.error.errors;
+
+      if (this.lang === 'En') {
+        errorMessage =
+          apiErrors.map((err: any) => err.errorEn).join(', ') ||
+          'An unexpected error occurred.';
+      } else if (this.lang === 'Ar') {
+        errorMessage =
+          apiErrors.map((err: any) => err.errorAr).join(', ') ||
+          'حدث خطأ غير متوقع.';
+      }
+    } else {
+      // Fallback error message
+      errorMessage =
+        this.lang === 'En'
+          ? 'An unexpected error occurred.'
+          : 'حدث خطأ غير متوقع.';
+    }
+
+    // Show the error message using Toastr
+    this.toastr.error(errorMessage, 'Error');
   }
   getAllDrivers() {
     this.isLoading = true;

@@ -14,6 +14,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { TablePricesService } from './Services/table-prices.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-price-tables',
   standalone: true,
@@ -45,7 +46,8 @@ export class TablePricesComponent {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private translate: TranslateService,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -148,7 +150,21 @@ export class TablePricesComponent {
         this.addTablePriceForm.reset();
       },
       error: (error: any) => {
-        console.log(error);
+        console.error('Error adding new table price:', error);
+
+        // Check the language and display the error message accordingly
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while adding the new table price';
+        } else if (this.lang === 'Ar') {
+          errorMessage =
+            error.MesgAr || 'حدث خطأ أثناء إضافة السعر الجديد للطاولة';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
@@ -160,16 +176,30 @@ export class TablePricesComponent {
     };
     this.tablePricesService.addTablePriceDetails(body).subscribe({
       next: (res: any) => {
-        debugger;
         this.getAllTablePricsDetailsById(this.selectedTablePrice.id);
         this.modalService.dismissAll();
         this.addTablePriceDetailsForm.reset();
       },
       error: (error: any) => {
-        console.log(error);
+        console.error('Error adding table price details:', error);
+
+        // Check the language and display the error message accordingly
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while adding table price details';
+        } else if (this.lang === 'Ar') {
+          errorMessage =
+            error.MesgAr || 'حدث خطأ أثناء إضافة تفاصيل سعر الطاولة';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   getAllTablePricsDetailsById(tablePriceId: any) {
     this.tablePricesService
       .getAllTablePricsDetailsById(tablePriceId)

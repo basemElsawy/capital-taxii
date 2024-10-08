@@ -260,16 +260,28 @@ export class DriversComponent implements OnInit {
       },
       complete: () => {
         this.isLoading = false;
-
         this.modalService.dismissAll();
       },
       error: (error: any) => {
         this.isLoading = false;
 
+        // Check the error response for the appropriate message
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] || 'An error occurred';
+        } else if (this.lang === 'Ar') {
+          errorMessage = error.MesgAr || 'حدث خطأ';
+        }
+
+        // Display the error in toastr
+        this.toastr.error(errorMessage, 'Error');
+
         console.log(error);
       },
     });
   }
+
   updateDriver() {
     let body = this.updateDriverForm.value;
     this.driversService.updateDriver(body).subscribe({
@@ -279,11 +291,24 @@ export class DriversComponent implements OnInit {
         this.getAllDrivers();
       },
       error: (err: any) => {
-        console.error('Error updating promo code:', err);
-        // You can show an error toaster or log the error
+        console.error('Error updating driver:', err);
+
+        // Check the language and display the error message accordingly
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            err.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while updating the driver';
+        } else if (this.lang === 'Ar') {
+          errorMessage = err.MesgAr || 'حدث خطأ أثناء تحديث السائق';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   uploadPhoto(event: any) {
     this.driversService
       .convertFileToBase64(event.target.files[0])

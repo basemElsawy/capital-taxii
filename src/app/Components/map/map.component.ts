@@ -115,12 +115,14 @@ export class MapComponent implements OnInit, OnDestroy {
   // }
 
   addMarkerOnMap(driver: any, event: any) {
+    debugger;
+
     let driverMarker = {
       userInfo: {
-        name: driver.user.fullName,
+        name: driver.driver.user.fullName,
         status: driver.driver.status,
-        image: driver.user.picture,
-        phoneNumber: driver.user.phoneNumber,
+        image: driver.driver.user.picture,
+        phoneNumber: driver.driver.user.phoneNumber,
       },
       currentVehicle: {
         vehicleName: driver.currentVehicle.vehicleName,
@@ -267,7 +269,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
   checkboxEvent(event: any) {
     const isChecked = event.target.checked;
-
+    debugger;
     // Update all checkboxes based on the main checkbox state
     const drivers = this.allDrivers_Data().map((item: any) => ({
       ...item,
@@ -320,10 +322,10 @@ export class MapComponent implements OnInit, OnDestroy {
         // Ensure markers are correctly updated if checked
         const driverMarker = {
           userInfo: {
-            name: driver.user.fullName,
+            name: driver.driver.user.fullName,
             status: driver.driver.status,
-            image: driver.user.picture,
-            phoneNumber: driver.user.phoneNumber,
+            image: driver.driver.user.picture,
+            phoneNumber: driver.driver.user.phoneNumber,
           },
           currentVehicle: {
             vehicleName: driver.currentVehicle.vehicleName,

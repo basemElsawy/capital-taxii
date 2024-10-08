@@ -65,7 +65,7 @@
             {{ "tables.liveMap.vehicle" | translate }}
           </th>
           <th
-            style="padding-left: 0px"
+            style="padding-left: 25px"
             [ngStyle]="{ 'text-align': lang === 'En' ? 'left' : 'right' }"
           >
             {{ "tables.liveMap.client" | translate }}
@@ -82,6 +82,9 @@
           </th>
           <th style="width: 150px">
             {{ "tables.liveMap.totalAmount" | translate }}
+          </th>
+          <th style="width: 150px">
+            {{ "tables.liveMap.requestStatus" | translate }}
           </th>
           <th
             class="second-heading"
@@ -147,11 +150,16 @@
             </div>
           </td>
           <td class="person-info">
-            <div class="d-flex align-items-center justify-content-start gap-2">
+            <div *ngIf="!driver?.customer">--</div>
+            <div
+              class="d-flex align-items-center justify-content-start gap-2"
+              *ngIf="driver?.customer"
+            >
               <img
+                *ngIf="driver?.customer?.picture"
                 [src]="
-                  driver?.user?.picture
-                    ? imageUrl + driver?.user?.picture
+                  driver?.customer?.picture
+                    ? imageUrl + driver?.customer?.picture
                     : '../../../assets/Rectangle 9.png'
                 "
                 alt=""
@@ -165,13 +173,13 @@
                   'text-start': lang == 'En'
                 }"
               >
-                <h6 class="m-0 p-0">{{ driver?.user?.fullName }}</h6>
-                <p class="m-0 p-0">{{ driver?.user?.phoneNumber }}</p>
+                <h6 class="m-0 p-0">{{ driver?.customer?.fullName }}</h6>
+                <p class="m-0 p-0">{{ driver?.customer?.phoneNumber }}</p>
               </div>
             </div>
           </td>
 
-          <td>{{ driver?.driver?.createdAt }}</td>
+          <td>{{ driver?.driver?.createdAt | date : "yyyy-MM-dd : hh:mm" }}</td>
           <td style="width: 200px" class="text-center ps-1">
             {{
               driver?.requestRoute?.fromLocationName
@@ -198,6 +206,18 @@
               </div>
             </div>
           </td>
+          <td>
+            <div class="income-styling px-3 w-75 m-auto py-2 rounded-4">
+              <div class="requestStatus text-wrap">
+                {{
+                  lang == "En"
+                    ? driver?.requestRoute?.requestStatus?.nameEn
+                    : driver?.requestRoute?.requestStatus?.nameAr
+                }}
+              </div>
+            </div>
+          </td>
+
           <td class="">
             <div
               class="income-styling px-2 w-100 m-auto py-2 rounded-4"

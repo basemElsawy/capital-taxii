@@ -18,6 +18,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { DropdownModule } from 'primeng/dropdown';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-vehicle',
@@ -62,7 +63,8 @@ export class VehicleComponent {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private translate: TranslateService,
-    private translation: TranslationService
+    private translation: TranslationService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -399,12 +401,26 @@ export class VehicleComponent {
         this.getAllVehicles();
         this.modalService.dismissAll();
         this.addVehicleForm.reset();
+        this.toastr.success('Vehicle added successfully!', 'Success'); // Show success message
       },
       error: (error: any) => {
-        console.log(error);
+        console.error('Error adding vehicle:', error);
+        debugger;
+        // Prepare error message based on the selected language
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          console.log(error);
+          errorMessage = error.error.error.errors[0].errorEn;
+        } else if (this.lang === 'Ar') {
+          errorMessage = error.errorerror.errors[0].errorAr;
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   updateVehicle() {
     let updateVehicleBody = this.updateVehicleForm.value;
     this.vehilcesService.updateVehicle(updateVehicleBody).subscribe({
@@ -412,12 +428,29 @@ export class VehicleComponent {
         this.getAllVehicles();
         this.modalService.dismissAll();
         this.updateVehicleForm.reset();
+        this.toastr.success('Vehicle updated successfully!', 'Success'); // Show success message
       },
       error: (error: any) => {
-        console.log(error);
+        console.error('Error updating vehicle:', error);
+
+        // Prepare error message based on the selected language
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage = errorMessage =
+            error.error.error.errors[0].errorEn ||
+            'An error occurred while updating the vehicle.';
+        } else if (this.lang === 'Ar') {
+          errorMessage = errorMessage =
+            error.error.error.errors[0].errorAr ||
+            'حدث خطأ أثناء تحديث المركبة.';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   addDriver() {
     this.addDriverVehicleForm.patchValue({
       vehicleId: this.choosedVehicle.res.id,
@@ -428,12 +461,29 @@ export class VehicleComponent {
         this.modalService.dismissAll();
         this.getAllVehicles();
         this.addDriverVehicleForm.reset();
+        this.toastr.success('Driver added successfully!', 'Success'); // Show success message
       },
       error: (error: any) => {
-        console.log(error);
+        console.error('Error adding driver:', error);
+
+        // Prepare error message based on the selected language
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage = errorMessage =
+            error.error.error.errors[0].errorEn ||
+            'An error occurred while adding the driver.';
+        } else if (this.lang === 'Ar') {
+          errorMessage = errorMessage =
+            error.error.error.errors[0].errorAr ||
+            'حدث خطأ أثناء إضافة السائق.';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   getAllZones() {
     this.vehilcesService.getAllZones().subscribe((res: any) => {
       this.zones = res;

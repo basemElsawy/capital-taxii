@@ -13,6 +13,7 @@ import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-stations',
   standalone: true,
@@ -41,7 +42,8 @@ export class StationsComponent {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private translate: TranslateService,
-    private translation: TranslationService
+    private translation: TranslationService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -132,12 +134,27 @@ export class StationsComponent {
         this.getStations();
         this.modalService.dismissAll();
         this.addStationForm.reset();
+        this.toastr.success('Station added successfully!', 'Success'); // Show success message
       },
       error: (error: any) => {
-        console.log(error);
+        console.error('Error adding station:', error);
+
+        // Prepare error message based on the selected language
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while adding the station.';
+        } else if (this.lang === 'Ar') {
+          errorMessage = error.MesgAr || 'حدث خطأ أثناء إضافة المحطة.';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   updateStation() {
     let body = this.updateStationForm.value;
     this.stationsService.updateStation(body).subscribe({
@@ -145,12 +162,27 @@ export class StationsComponent {
         this.getStations();
         this.modalService.dismissAll();
         this.updateStationForm.reset();
+        this.toastr.success('Station updated successfully!', 'Success'); // Show success message
       },
       error: (error: any) => {
-        console.log(error);
+        console.error('Error updating station:', error);
+
+        // Prepare error message based on the selected language
+        let errorMessage = '';
+        if (this.lang === 'En') {
+          errorMessage =
+            error.MesgEn?.non_field_errors?.[0] ||
+            'An error occurred while updating the station.';
+        } else if (this.lang === 'Ar') {
+          errorMessage = error.MesgAr || 'حدث خطأ أثناء تحديث المحطة.';
+        }
+
+        // Show error message in toastr
+        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
+
   getAllZones() {
     this.stationsService.getAllZones().subscribe((res: any) => {
       this.zones = res;

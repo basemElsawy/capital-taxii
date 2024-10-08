@@ -95,19 +95,6 @@ export class RolesComponent implements OnInit {
 
   checkboxEvent(ev: any) {}
 
-  addRole() {
-    let rolesBody = this.addRolesForm.value;
-    this.rolesService.addRole(rolesBody).subscribe({
-      next: (res: any) => {
-        this.modalService.dismissAll();
-        this.getAllRoles();
-        this.addRolesForm.reset();
-      },
-      error: (error: any) => {
-        console.log(error);
-      },
-    });
-  }
   getAllPermissions() {
     this.rolesService.getallPermissions().subscribe((res: any) => {
       this.permissions = res;
@@ -144,15 +131,55 @@ export class RolesComponent implements OnInit {
       scrollable: true,
     });
   }
+  addRole() {
+    const rolesBody = this.addRolesForm.value;
+    this.rolesService.addRole(rolesBody).subscribe({
+      next: (res: any) => {
+        this.modalService.dismissAll();
+        this.getAllRoles();
+        this.addRolesForm.reset();
+        this.toastr.success('Role added successfully!', 'Success'); // Success message
+      },
+      error: (error: any) => {
+        // Custom error message
+        const customErrorMessage =
+          this.lang === 'En'
+            ? 'Failed to add role. Please check your input.'
+            : 'فشل إضافة الدور. يرجى التحقق من مدخلاتك.';
+
+        // Check for specific error messages
+        const errorMessage =
+          error?.MesgEn?.non_field_errors?.[0] ||
+          error?.MesgAr ||
+          customErrorMessage;
+        this.toastr.error(errorMessage, 'Error'); // Show error toast
+        console.log(error);
+      },
+    });
+  }
+
   updateRole() {
-    let body = this.updateRolesForm.value;
+    const body = this.updateRolesForm.value;
     this.rolesService.updateRole(body).subscribe({
       next: (res: any) => {
         this.getAllRoles();
         this.modalService.dismissAll();
         this.updateRolesForm.reset();
+        this.toastr.success('Role updated successfully!', 'Success'); // Success message
       },
       error: (error: any) => {
+        // Custom error message
+        const customErrorMessage =
+          this.lang === 'En'
+            ? 'Failed to update role. Please check your input.'
+            : 'فشل تحديث الدور. يرجى التحقق من مدخلاتك.';
+
+        // Check for specific error messages
+        const errorMessage =
+          error?.MesgEn?.non_field_errors?.[0] ||
+          error?.MesgAr ||
+          customErrorMessage;
+        this.toastr.error(errorMessage, 'Error'); // Show error toast
         console.log(error);
       },
     });

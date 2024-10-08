@@ -23,6 +23,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { forkJoin } from 'rxjs';
 import { ShiftsComponent } from '../shifts/shifts.component';
 import { PromoCodeService } from './services/promo-code.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-promo-code',
   standalone: true,
@@ -59,7 +60,8 @@ export class PromoCodeComponent implements OnInit {
     private fb: FormBuilder,
     private translate: TranslateService,
     private translation: TranslationService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastr: ToastrService
   ) {}
   ngOnInit() {
     this.setLanguage();
@@ -148,7 +150,7 @@ export class PromoCodeComponent implements OnInit {
     });
   }
   addPromoCode() {
-    let promoCodeBody = this.addPromoCodeForm.value;
+    const promoCodeBody = this.addPromoCodeForm.value;
     this.promoCodeService.addPromoCode(promoCodeBody).subscribe({
       next: (res: any) => {
         this.modalService.dismissAll();
@@ -158,12 +160,25 @@ export class PromoCodeComponent implements OnInit {
         this.getAllExpiryPromoCodes();
       },
       error: (error: any) => {
+        // Custom error message
+        const customErrorMessage =
+          this.lang === 'En'
+            ? 'Failed to add promo code. Please check your input.'
+            : 'فشل إضافة كود الخصم. يرجى التحقق من مدخلاتك.';
+
+        // Check for specific error messages
+        const errorMessage =
+          error?.MesgEn?.non_field_errors?.[0] ||
+          error?.MesgAr ||
+          customErrorMessage;
+        this.toastr.error(errorMessage, 'Error'); // Show error toast
         console.log(error);
       },
     });
   }
+
   updatePromoCode() {
-    let body = this.updatePromoCodeForm.value;
+    const body = this.updatePromoCodeForm.value;
     this.promoCodeService.updatePromoCode(body).subscribe({
       next: () => {
         this.modalService.dismissAll();
@@ -173,12 +188,22 @@ export class PromoCodeComponent implements OnInit {
         this.getAllExpiryPromoCodes();
       },
       error: (err) => {
+        // Custom error message
+        const customErrorMessage =
+          this.lang === 'En'
+            ? 'Failed to update promo code. Please check your input.'
+            : 'فشل تحديث كود الخصم. يرجى التحقق من مدخلاتك.';
+
+        // Check for specific error messages
+        const errorMessage =
+          err?.MesgEn?.non_field_errors?.[0] ||
+          err?.MesgAr ||
+          customErrorMessage;
+        this.toastr.error(errorMessage, 'Error'); // Show error toast
         console.error('Error updating promo code:', err);
-        // You can show an error toaster or log the error
       },
     });
   }
-
   getAllActivePromoCodes() {
     this.promoCodeService.getActivePromoCodes().subscribe({
       next: (res: any) => {

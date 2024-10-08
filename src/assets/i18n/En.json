@@ -25,6 +25,8 @@
 
   "tables": {
     "clientsTable": {
+      "name": "Name",
+
       "client": "clients",
       "emailOrUsername": "E-mail or username",
       "phoneNumber": "Phone number",
@@ -33,6 +35,7 @@
       "credit": "Credit",
       "creditDetails": "Credit Details",
       "options": "Options",
+      "showingAllClientsTrips": "Showing All Clients Trips",
       "tableMeta": {
         "optionsText": "All Trips"
       }
@@ -259,6 +262,8 @@
       "zone": "Zone",
       "options": "Options",
       "actionsButton": "Add New",
+      "updateHeadline": "Update station",
+
       "tableForm": {
         "stationNamEn": "Station Name En",
         "stationNameAr": "Station Name Ar",
@@ -274,7 +279,8 @@
       "startLocation": "Start Location",
       "finishLocation": "Finish Location",
       "totalAmount": "Total Amount",
-      "status": "Status"
+      "status": "Status",
+      "requestStatus": "Request Status"
     },
     "stationPrices": {
       "fromStation": "From Station",
@@ -363,7 +369,14 @@
     "name": "Name",
     "totalPrice": "Total Price",
     "requestsPaymentMethod": "Payment Methods Report",
-    "requestsStatus": "Requests Status Report"
+    "requestsStatus": "Requests Status Report",
+    "cash": {
+      "name": "Payment Method",
+      "tax": "Tax",
+      "distance_price": "Distance Price",
+      "trip_start_fees": "Trip Start Fees",
+      "total_price": "Total Price"
+    }
   },
   "dashboard": {
     "topDrivers": "Top Drivers",

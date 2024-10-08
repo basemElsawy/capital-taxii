@@ -84,15 +84,28 @@ export class PermissionsComponent implements OnInit {
   checkboxEvent(ev: any) {}
 
   addPermission() {
-    let PermissionBody = this.addPermissionForm.value;
+    const PermissionBody = this.addPermissionForm.value;
     console.log(PermissionBody);
     this.permissionsService.addPermission(PermissionBody).subscribe({
       next: (res: any) => {
         this.modalService.dismissAll();
         this.getAllPermissions();
         this.addPermissionForm.reset();
+        this.toastr.success('Permission added successfully!', 'Success'); // Success message
       },
       error: (error: any) => {
+        // Custom error message
+        const customErrorMessage =
+          this.lang === 'En'
+            ? 'Failed to add permission. Please check your input.'
+            : 'فشل إضافة الصلاحية. يرجى التحقق من مدخلاتك.';
+
+        // Check for specific error messages
+        const errorMessage =
+          error?.MesgEn?.non_field_errors?.[0] ||
+          error?.MesgAr ||
+          customErrorMessage;
+        this.toastr.error(errorMessage, 'Error'); // Show error toast
         console.log(error);
       },
     });

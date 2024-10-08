@@ -196,31 +196,7 @@ export class UsersComponent implements OnInit {
       this.selectedRoles = selectedRoles;
     });
   }
-  updateUser() {
-    let updateUserBody = this.updateUserForm.value;
 
-    let body = {
-      ...updateUserBody,
-      RolesDto: {
-        roles: updateUserBody.roles.map((roleName: string) => {
-          return { name: roleName };
-        }),
-      },
-    };
-    delete body.roles;
-
-    this.userService.updateUser(body).subscribe({
-      next: (res: any) => {
-        this.getAllAddedUsers();
-        this.modalService.dismissAll();
-        this.updateUserForm.reset();
-        this.userId = 0;
-      },
-      error: (error: any) => {
-        console.log(error);
-      },
-    });
-  }
   getAllRoles(): void {
     this.userService.getRoles().subscribe({
       next: (res: any) => {
@@ -249,14 +225,14 @@ export class UsersComponent implements OnInit {
   checkboxEvent(ev: any) {}
 
   addUser() {
-    let addUserBody = this.addUserForm.value;
+    const addUserBody = this.addUserForm.value;
 
-    let body = {
+    const body = {
       ...addUserBody,
       RolesDto: {
-        roles: addUserBody.roles.map((roleName: string) => {
-          return { name: roleName }; // Transform roles to the required format
-        }),
+        roles: addUserBody.roles.map((roleName: string) => ({
+          name: roleName,
+        })), // Transform roles to the required format
       },
     };
     delete body.roles;
@@ -266,13 +242,64 @@ export class UsersComponent implements OnInit {
         this.modalService.dismissAll();
         this.getAllAddedUsers();
         this.addUserForm.reset();
+        this.toastr.success('User added successfully!', 'Success'); // Success message
       },
       error: (error: any) => {
+        // Custom error message
+        const customErrorMessage =
+          this.lang === 'En'
+            ? 'Failed to add user. Please check your input.'
+            : 'فشل إضافة المستخدم. يرجى التحقق من مدخلاتك.';
+
+        // Check for specific error messages
+        const errorMessage =
+          error?.MesgEn?.non_field_errors?.[0] ||
+          error?.MesgAr ||
+          customErrorMessage;
+        this.toastr.error(errorMessage, 'Error'); // Show error toast
         console.log(error);
       },
     });
   }
 
+  updateUser() {
+    const updateUserBody = this.updateUserForm.value;
+
+    const body = {
+      ...updateUserBody,
+      RolesDto: {
+        roles: updateUserBody.roles.map((roleName: string) => ({
+          name: roleName,
+        })), // Transform roles to the required format
+      },
+    };
+    delete body.roles;
+
+    this.userService.updateUser(body).subscribe({
+      next: (res: any) => {
+        this.getAllAddedUsers();
+        this.modalService.dismissAll();
+        this.updateUserForm.reset();
+        this.userId = 0;
+        this.toastr.success('User updated successfully!', 'Success'); // Success message
+      },
+      error: (error: any) => {
+        // Custom error message
+        const customErrorMessage =
+          this.lang === 'En'
+            ? 'Failed to update user. Please check your input.'
+            : 'فشل تحديث المستخدم. يرجى التحقق من مدخلاتك.';
+
+        // Check for specific error messages
+        const errorMessage =
+          error?.MesgEn?.non_field_errors?.[0] ||
+          error?.MesgAr ||
+          customErrorMessage;
+        this.toastr.error(errorMessage, 'Error'); // Show error toast
+        console.log(error);
+      },
+    });
+  }
   getAllNationalities() {
     this.userService.getAllNationalities().subscribe({
       next: (res: any) => {

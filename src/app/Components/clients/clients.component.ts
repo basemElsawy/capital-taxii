@@ -130,7 +130,11 @@ export class ClientsComponent implements OnInit {
             centered: true,
           });
         } else {
-          this.toastr.info('There is no credit details');
+          let errorMessage =
+            this.lang === 'En'
+              ? 'There is no credit details'
+              : 'لا توجد بيانات';
+          this.toastr.info(errorMessage);
         }
       });
   }
