@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
           'Login Successful'
         );
         this.isLoading = false;
-        this.router.navigateByUrl('/home/dashboard');
+        this.router.navigateByUrl('/home/welcome');
       },
       error: (error) => {
         this.isLoading = false;

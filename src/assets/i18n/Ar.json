@@ -344,7 +344,22 @@
     "stations": {
       "headline": "المحطات"
     },
-    "update": "تحديث"
+    "update": "تحديث",
+    "addRequest": {
+      "from": "من",
+      "to": "إلى",
+      "vehicleServiceType": "نوع خدمة المركبة",
+      "passengerName": "اسم الراكب",
+      "drivers": "السائقين",
+      "passengerPhone": "هاتف الراكب",
+      "options": "الخيارات",
+      "buttons": "حفظ",
+      "driverName": "اسم السائق",
+
+      "metaText": {
+        "addHeadline": "إضافة طلب"
+      }
+    }
   },
   "reports": {
     "driverCommitionReport": "تقرير عمولة السائق",

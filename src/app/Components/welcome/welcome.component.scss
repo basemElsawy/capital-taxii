@@ -1,0 +1,66 @@
+/* Fullscreen container */
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("https://source.unsplash.com/random/1920x1080") no-repeat center
+      center/cover;
+  color: #fff;
+  text-align: center;
+  font-family: "Arial", sans-serif;
+}
+
+/* Welcome message styling */
+.welcome-message h1 {
+  font-size: 3rem;
+  margin: 0;
+  animation: fadeInDown 1s ease-in-out;
+}
+
+.welcome-message p {
+  font-size: 1.5rem;
+  margin: 10px 0;
+  animation: fadeInUp 1.5s ease-in-out;
+}
+
+/* Button styling */
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

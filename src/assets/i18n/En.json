@@ -100,6 +100,19 @@
       "addTitleModal": "Add new Role",
       "options": "options"
     },
+    "addRequest": {
+      "from": "From",
+      "to": "To",
+      "vehicleServiceType": "Vehicle Service Type",
+      "passengerName": "Passenger Name",
+      "drivers": "Drivers",
+      "passengerPhone": "Passenger Phone",
+
+      "options": "options",
+      "metaText": {
+        "addHeadline": "Add Request "
+      }
+    },
     "stationPricesTable": {
       "fromStation": "From Station",
       "toStation": "To Station",
@@ -356,7 +369,22 @@
     "stations": {
       "headline": "Stations"
     },
-    "update": "update"
+    "update": "update",
+    "addRequest": {
+      "from": "From",
+      "to": "To",
+      "vehicleServiceType": "Vehicle Service Type",
+      "passengerName": "Passenger Name",
+      "drivers": "Drivers",
+      "driverName": "Driver Name",
+      "buttons": "Save",
+      "passengerPhone": "Passenger Phone",
+
+      "options": "options",
+      "metaText": {
+        "addHeadline": "Add Request "
+      }
+    }
   },
   "reports": {
     "driverCommitionReport": "Driver Commition Report",

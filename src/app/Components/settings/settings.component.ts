@@ -22,6 +22,7 @@ import { PeakTimeComponent } from '../peak-time/peak-time.component';
 import { StationsComponent } from '../stations/stations.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
 import { ToastrService } from 'ngx-toastr';
+import { AddRequestComponent } from '../add-request/add-request.component';
 @Component({
   selector: 'app-settings',
   standalone: true,
@@ -39,6 +40,7 @@ import { ToastrService } from 'ngx-toastr';
     PeakTimeComponent,
     StationsComponent,
     VehicleComponent,
+    AddRequestComponent,
   ],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],

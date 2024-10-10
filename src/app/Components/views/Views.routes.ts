@@ -20,6 +20,8 @@ import { PeakTimeComponent } from '../peak-time/peak-time.component';
 import { ReportsComponent } from '../reports/reports.component';
 import { PromoCodeComponent } from '../promo-code/promo-code.component';
 import { UserManagementSystemComponent } from '../user-management-system/user-management-system.component';
+import { AddRequestComponent } from '../add-request/add-request.component';
+import { WelcomeComponent } from '../welcome/welcome.component';
 export const routes: Routes = [
   {
     path: '',
@@ -102,6 +104,14 @@ export const routes: Routes = [
       {
         path: 'userMangement',
         component: UserManagementSystemComponent,
+      },
+      {
+        path: 'addTrip',
+        component: AddRequestComponent,
+      },
+      {
+        path: 'welcome',
+        component: WelcomeComponent,
       },
     ],
   },

@@ -1,0 +1,136 @@
+<div class="card cardkm">
+  <div class="card-body">
+    <form [formGroup]="requestForm">
+      <div class="container">
+        <form [formGroup]="requestForm">
+          <div class="row">
+            <div class="form-group col-4">
+              <label for="fromLocationName">
+                {{ "settings.addRequest.from" | translate }}
+              </label>
+              <div
+                *ngIf="
+                  requestForm.get('fromLocationName')?.invalid &&
+                  requestForm.get('fromLocationName')?.touched
+                "
+                class="text-danger"
+              >
+                *
+              </div>
+              <input
+                #fromInput
+                formControlName="fromLocationName"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group col-4">
+              <label for="toLocationName">
+                {{ "settings.addRequest.to" | translate }}
+              </label>
+              <div
+                *ngIf="
+                  requestForm.get('toLocationName')?.invalid &&
+                  requestForm.get('toLocationName')?.touched
+                "
+                class="text-danger"
+              >
+                *
+              </div>
+              <input
+                #toInput
+                formControlName="toLocationName"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group col-4">
+              <label for="vehicleServiceTypeId">
+                {{ "settings.addRequest.vehicleServiceType" | translate }}
+              </label>
+              <div
+                *ngIf="
+                  requestForm.get('vehicleServiceTypeId')?.invalid &&
+                  requestForm.get('vehicleServiceTypeId')?.touched
+                "
+                class="text-danger"
+              >
+                *
+              </div>
+              <select
+                formControlName="vehicleServiceTypeId"
+                (change)="onVehicleServiceTypeChange($event)"
+                class="form-control"
+              >
+                <option
+                  *ngFor="let type of vehicleServiceTypes"
+                  [value]="type.id"
+                >
+                  {{ lang === "En" ? type.nameEn : type.nameAr }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-4">
+              <label for="driverId">
+                {{ "settings.addRequest.driverName" | translate }}
+              </label>
+              <div
+                *ngIf="
+                  requestForm.get('driverId')?.invalid &&
+                  requestForm.get('driverId')?.touched
+                "
+                class="text-danger"
+              >
+                *
+              </div>
+              <select formControlName="driverId" class="form-control">
+                <option *ngFor="let driver of drivers" [value]="driver.id">
+                  {{
+                    driver?.driverFullName
+                      ? driver.driverFullName
+                      : driver.driverUserName
+                  }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-4">
+              <label for="customerName">
+                {{ "settings.addRequest.passengerName" | translate }}
+              </label>
+              <div
+                *ngIf="
+                  requestForm.get('customerName')?.invalid &&
+                  requestForm.get('customerName')?.touched
+                "
+                class="text-danger"
+              >
+                *
+              </div>
+              <input formControlName="customerName" class="form-control" />
+            </div>
+            <div class="form-group col-4">
+              <label for="customerPhone">
+                {{ "settings.addRequest.passengerPhone" | translate }}
+              </label>
+              <div
+                *ngIf="
+                  requestForm.get('customerPhone')?.invalid &&
+                  requestForm.get('customerPhone')?.touched
+                "
+                class="text-danger"
+              >
+                *
+              </div>
+              <input formControlName="customerPhone" class="form-control" />
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+              {{ "settings.addRequest.buttons" | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </form>
+  </div>
+</div>
