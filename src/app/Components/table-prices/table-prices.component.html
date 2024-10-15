@@ -234,24 +234,75 @@
       </div>
     </form>
     <hr />
-    <table class="custom-table mt-4">
-      <tr class="table-header">
-        <th>{{ "tables.pricesTable.price" | translate }}</th>
-        <th>{{ "tables.pricesTable.vehicleServiceType" | translate }}</th>
-      </tr>
-      @for(tablePriceDetails of tablePricesDetails; track tablePriceDetails){
-      <tr class="table-row">
-        <td>{{ tablePriceDetails?.price }}</td>
-        <td>
-          {{
-            lang == "Ar"
-              ? tablePriceDetails?.vehicleServiceType?.nameAr
-              : tablePriceDetails?.vehicleServiceType?.nameEn
-          }}
-        </td>
-      </tr>
-      }
-    </table>
+    <form [formGroup]="updateTablePriceDetailsForm">
+      <table class="custom-table mt-4">
+        <tr class="table-header">
+          <th>{{ "tables.pricesTable.price" | translate }}</th>
+          <th>{{ "tables.pricesTable.vehicleServiceType" | translate }}</th>
+          <th>{{ "tables.pricesTable.options" | translate }}</th>
+        </tr>
+        @for(tablePriceDetails of tablePricesDetails; track tablePriceDetails;
+        let i = $index){
+        <tr class="table-row">
+          <td *ngIf="!isPriceTableDetailsUpdated || editingIndex !== i">
+            {{ tablePriceDetails?.price }}
+          </td>
+          <td *ngIf="isPriceTableDetailsUpdated && editingIndex === i">
+            <input
+              type="number"
+              class="number form-group form-control w-50"
+              formControlName="price"
+            />
+          </td>
+          <td *ngIf="!isPriceTableDetailsUpdated || editingIndex !== i">
+            {{
+              lang == "Ar"
+                ? tablePriceDetails?.vehicleServiceType?.nameAr
+                : tablePriceDetails?.vehicleServiceType?.nameEn
+            }}
+          </td>
+          <td *ngIf="isPriceTableDetailsUpdated && editingIndex === i">
+            <select
+              formControlName="vehicleServiceTypeId"
+              class="form-control form-select form-group w-50"
+            >
+              <option
+                *ngFor="let vehicleServiceType of vehicleServiceTypes"
+                [value]="vehicleServiceType.id"
+              >
+                {{
+                  lang == "Ar"
+                    ? vehicleServiceType.nameAr
+                    : vehicleServiceType.nameEn
+                }}
+              </option>
+            </select>
+          </td>
+
+          <td class="d-flex align-items-start justify-content-start">
+            <button
+              tooltipPosition="top"
+              tooltipClass="custom-tooltip"
+              class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+              (click)="editPriceTableDetails(tablePriceDetails, i)"
+              *ngIf="!isPriceTableDetailsUpdated || editingIndex !== i"
+            >
+              <!-- <span> {{ "tables.pricesTable.details" | translate }} </span> -->
+
+              <i class="fas fa-edit"></i>
+            </button>
+            <button
+              class="btn btn-success"
+              (click)="updatePriceTableDetails(tablePriceDetails)"
+              *ngIf="isPriceTableDetailsUpdated && editingIndex === i"
+            >
+              Save
+            </button>
+          </td>
+        </tr>
+        }
+      </table>
+    </form>
   </div>
 
   <div class="modal-footer">

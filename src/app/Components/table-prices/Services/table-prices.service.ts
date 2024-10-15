@@ -29,9 +29,12 @@ export class TablePricesService {
   getAllVehicleServiceType() {
     return this.httpClient.get(`${this.base_url}VehicleServiceType`);
   }
-  // updateTablePrice(station: any) {
-  //   return this.httpClient.put(`${this.base_url}StationPrice`, station);
-  // }
+  updateTablePriceDetails(KilometrePriceDetails: any) {
+    return this.httpClient.put(
+      `${this.base_url}KilometrePriceDetails`,
+      KilometrePriceDetails
+    );
+  }
   // getAllStations() {
   //   return this.httpClient.get(`${this.base_url}Station`);
   // }

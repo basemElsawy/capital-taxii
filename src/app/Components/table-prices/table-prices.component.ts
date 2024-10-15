@@ -15,6 +15,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { TablePricesService } from './Services/table-prices.service';
 import { ToastrService } from 'ngx-toastr';
+import { error } from 'console';
 @Component({
   selector: 'app-price-tables',
   standalone: true,
@@ -34,6 +35,8 @@ export class TablePricesComponent {
   addTablePriceForm!: FormGroup;
   addTablePriceDetailsForm!: FormGroup;
   addDriverVehicleForm!: FormGroup;
+  updateTablePriceDetailsForm!: FormGroup;
+
   choosedStation: any;
   stations: any;
   isLoading: boolean = false;
@@ -41,6 +44,18 @@ export class TablePricesComponent {
   selectedTablePrice: any;
   tablePricesDetails: any;
   vehicleServiceTypes: any[] = [];
+  isPriceTableDetailsUpdated: boolean = false;
+  editingIndex!: number;
+  /*************  ✨ Codeium Command ⭐  *************/
+  /**
+   * @param tablePricesService The service that provides the table prices data.
+   * @param modalService The service that provides modal functionality.
+   * @param fb The form builder service.
+   * @param translate The translate service.
+   * @param translationService The translation service.
+   * @param toastr The toastr service.
+   */
+  /******  13bb8016-66c0-43cd-bff3-8a21de1a00d9  *******/
   constructor(
     private tablePricesService: TablePricesService,
     private modalService: NgbModal,
@@ -51,7 +66,7 @@ export class TablePricesComponent {
   ) {}
 
   ngOnInit(): void {
-    this.initializeStationsPricesForm();
+    this.initializeTablePriceForm();
     this.initializeForm();
     this.getPricesTables();
     this.getAllVehicleServiceType();
@@ -69,12 +84,16 @@ export class TablePricesComponent {
     });
   }
 
-  initializeStationsPricesForm() {
+  initializeTablePriceForm() {
     this.addTablePriceForm = this.fb.group({
       nameEn: [null, Validators.required],
       nameAr: [null, Validators.required],
       startDate: [null, Validators.required],
       endDate: [null, Validators.required],
+    });
+    this.updateTablePriceDetailsForm = this.fb.group({
+      price: [null],
+      vehicleServiceTypeId: [null],
     });
   }
   initializeForm() {
@@ -205,6 +224,7 @@ export class TablePricesComponent {
       .getAllTablePricsDetailsById(tablePriceId)
       .subscribe((data: any) => {
         this.tablePricesDetails = data[0].kilometrePriceDetails;
+        console.log(data);
       });
   }
   getAllVehicleServiceType() {
@@ -213,6 +233,36 @@ export class TablePricesComponent {
       .subscribe((data: any) => {
         this.vehicleServiceTypes = data;
       });
+  }
+  editPriceTableDetails(priceTableDetails: any, index: number) {
+    this.isPriceTableDetailsUpdated = true;
+    this.editingIndex = index;
+    this.updateTablePriceDetailsForm.controls['price'].setValue(
+      priceTableDetails.price
+    );
+    this.updateTablePriceDetailsForm.controls['vehicleServiceTypeId'].setValue(
+      priceTableDetails.vehicleServiceType.id
+    );
+  }
+  updatePriceTableDetails(tablePriceDetails: any) {
+    const body = {
+      id: tablePriceDetails?.id,
+      kilometrePriceId: tablePriceDetails.kilometrePrice?.id,
+      ...this.updateTablePriceDetailsForm.value,
+    };
+    this.tablePricesService.updateTablePriceDetails(body).subscribe(
+      () => {
+        this.getAllTablePricsDetailsById(tablePriceDetails.kilometrePrice?.id);
+        this.isPriceTableDetailsUpdated = false;
+      },
+      (error) => {
+        this.toastr.error(
+          this.lang === 'En'
+            ? 'An error occurred while updating the table price details'
+            : 'حدث خطأ أثناء تحديث تفاصيل سعر الجدول'
+        );
+      }
+    );
   }
   checkboxEvent(event: any) {}
 }
