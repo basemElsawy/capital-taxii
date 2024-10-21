@@ -38,6 +38,10 @@ export class ClientsService {
   getAllNationalities() {
     return this.http.get(this.baseUrl + 'Nationality');
   }
+
+  updateClient(body: any) {
+    return this.http.put(this.baseUrl + 'User/update', body);
+  }
   getOrdinalSuffix(day: number) {
     if (day > 3 && day < 21) return 'th';
     switch (day % 10) {

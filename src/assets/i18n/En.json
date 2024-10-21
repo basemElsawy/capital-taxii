@@ -26,6 +26,8 @@
   "tables": {
     "clientsTable": {
       "name": "Name",
+      "update": "update",
+      "updateuser": "Update user data",
 
       "client": "clients",
       "emailOrUsername": "E-mail or username",

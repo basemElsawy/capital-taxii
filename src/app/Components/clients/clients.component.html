@@ -38,6 +38,8 @@
         >
           {{ "tables.clientsTable.options" | translate }}
         </th>
+
+        <th>Edit</th>
       </tr>
     </thead>
     <tbody>
@@ -90,11 +92,28 @@
             </button>
           </div>
         </td>
+
+        <td>
+          <div class="edit-btn">
+            <button
+              pTooltip="Add Roles"
+              tooltipPosition="top"
+              tooltipClass="custom-tooltip"
+              (click)="updateUserData(updateModal, client)"
+              class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+            >
+              <!-- <span> Update vehicle </span> -->
+
+              <i class="fas fa-edit"></i>
+            </button>
+          </div>
+        </td>
       </tr>
       }
     </tbody>
   </table>
 </div>
+
 <ng-template #tripData let-modal>
   <div class="modal-header">
     <h6>{{ "tables.clientsTable.creditDetails" | translate }}</h6>
@@ -186,6 +205,7 @@
     <button class="btn btn-danger" (click)="closeModal()">Close</button>
   </div>
 </ng-template>
+
 <ng-template #clientTripData let-modal>
   <div class="modal-header">
     <h6>{{ "tables.clientsTable.showingAllClientsTrips" | translate }}</h6>
@@ -468,6 +488,106 @@
   </div>
 
   <div class="modal-footer">
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+
+<!-- here is the modal needed to update user-->
+<ng-template #updateModal let-modal>
+  <div class="modal-header">
+    <h6>{{ "tables.clientsTable.updateuser" | translate }}</h6>
+  </div>
+
+  <div class="modal-body">
+    <img class="img-new" [src]="getFullImageUrl()" src="client img" />
+
+    <form [formGroup]="updateUserForm">
+      <div class="row">
+        <div class="col-md-4">
+          <label> {{ "tables.usersTable.fullName" | translate }} </label>
+          <input
+            class="form-group form-control"
+            type="text"
+            formControlName="fullName"
+          />
+        </div>
+        <div class="col-md-4">
+          <label> {{ "tables.usersTable.userName" | translate }} </label>
+          <input
+            class="form-group form-control"
+            type="text"
+            formControlName="userName"
+          />
+        </div>
+        <div class="col-md-4">
+          <label> {{ "tables.usersTable.emailOrUsername" | translate }} </label>
+          <input class="form-control" type="text" formControlName="email" />
+        </div>
+        <div class="col-md-4 mt-3">
+          <label> {{ "tables.usersTable.phoneNumber" | translate }} </label>
+          <input
+            class="form-control"
+            type="text"
+            formControlName="phoneNumber"
+          />
+        </div>
+        <div class="col-md-4 mt-3">
+          <label> {{ "tables.usersTable.gender" | translate }} </label>
+          <select formControlName="genderId" class="form-select form-control">
+            <option [value]="1">Male</option>
+            <option [value]="2">Female</option>
+          </select>
+        </div>
+
+        <div class="col-md-4 mt-3">
+          <label> {{ "tables.usersTable.nationality" | translate }} </label>
+          <select
+            formControlName="nationalityId"
+            class="form-select form-control"
+          >
+            <option disabled selected value="null">
+              {{ "tables.usersTable.selectNationality" | translate }}
+            </option>
+            @for(nationality of nationalities; track nationality){
+            <option [value]="nationality.id">
+              {{ nationality.nameAr }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4 mt-3">
+          <label>
+            {{ "tables.usersTable.birthday" | translate }}
+          </label>
+          <input class="form-control" type="date" formControlName="birthDate" />
+        </div>
+        <div class="col-md-4 mt-3">
+          <div class="mb-3">
+            <label
+              class="w-100"
+              [ngClass]="{
+                'text-start': lang == 'En',
+                'text-end': lang == 'Ar'
+              }"
+              for="formFile"
+              class="form-label m-0 w-100"
+              >{{ "tables.usersTable.userPhoto" | translate }}</label
+            >
+            <input
+              class="form-control"
+              (change)="uploadPhotoOnUpdate($event)"
+              type="file"
+              id="formFile"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="updateUser()">Save</button>
     <button class="btn btn-danger" (click)="closeModal()">Close</button>
   </div>
 </ng-template>
