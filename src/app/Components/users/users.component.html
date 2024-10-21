@@ -2,7 +2,15 @@
   class="table-container bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
   style="max-height: 510px"
 >
-  <div class="text-start my-2">
+  <div class="text-start d-flex align-items-center justify-content-start my-2">
+    <div
+      class="search-input d-flex align-items-center justify-content-between gap-3 rounded-pill px-4 py-2 position-absolute"
+    >
+      <label class="search-icon" for="search-icon"
+        ><img src="../../../assets/search.png" width="12" height="12" alt=""
+      /></label>
+      <input type="text" id="search-icon" placeholder="search" />
+    </div>
     <button
       (click)="openAddModal(content)"
       class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"

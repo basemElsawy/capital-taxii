@@ -100,3 +100,25 @@ export interface IRequestRoutes {
   tripDistance: number | string | null;
   tripTime: number | string | null;
 }
+
+export interface IUserFormModel {
+  id: number;
+  email: string;
+  username: string;
+  fullName: string;
+  phoneNumber: string;
+  genderId: number;
+  nationalityId: number;
+  password: string;
+  confirmPassword: string;
+  birthDate: string;
+  picture: string;
+  rolesDto: {
+    roles: [];
+  };
+  firebaseToken: number | string;
+  locationLatitude: number;
+  locationLongitude: number;
+  isActive: boolean;
+  emailConfirmed: boolean;
+}

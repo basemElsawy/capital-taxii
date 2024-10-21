@@ -144,3 +144,22 @@ tbody tr td {
   text-align: right;
   direction: rtl;
 }
+.search-input {
+  background-color: white;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
+  margin-bottom: 15px;
+  input {
+    border: none !important;
+    outline: none !important;
+  }
+  input::placeholder {
+    opacity: 0.6;
+  }
+  img {
+    opacity: 0.3;
+  }
+}
+
+.search-icon {
+  cursor: pointer;
+}

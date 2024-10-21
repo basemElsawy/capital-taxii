@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  signal,
+  ViewChild,
+  WritableSignal,
+} from '@angular/core';
 import {
   GoogleMapsModule,
   MapInfoWindow,
@@ -42,10 +49,11 @@ export class MapComponent implements OnInit, OnDestroy {
   driverDetails = signal([]);
   testArray: string[] = ['1', '2', '3', '4'];
   // allDrivers: any[] = [];
-  allDrivers_Data: any = signal([]);
+  allDrivers_Data: WritableSignal<any> = signal([]);
   address: any;
   selectedProducts: any;
   selectedDriver: any = null; // To hold the selected driver data
+  modifiedData: WritableSignal<any[]> = signal([]);
   public readonly imgUrl = environment.image;
   private intervalId: any;
 
@@ -234,10 +242,35 @@ export class MapComponent implements OnInit, OnDestroy {
   //   this.allDrivers_Data.set(drivers);
   // }
 
+  searchInDrivers(event: any) {
+    let searchLength = event.target.value.length;
+    if (searchLength > 0) {
+      this.modifiedData.update((data: any[]) =>
+        this.allDrivers_Data().filter((filteredData: any) => {
+          let name = filteredData.driver.user.fullName;
+          console.log();
+          return (<string>event.target.value)
+            .toLowerCase()
+            .includes(name != null ? name.toLowerCase() : name);
+        })
+      );
+      if (!this.modifiedData().length) {
+        this.toastr.error('User Not Found');
+        this.modifiedData.set(this.allDrivers_Data());
+        return;
+      }
+      this.toastr.success('User Found');
+    } else {
+      this.toastr.error('No data found');
+      this.modifiedData.set(this.allDrivers_Data());
+    }
+  }
+
   getDriversOnMap() {
     this.mapService.getDriversOnTheMap().subscribe({
       next: (res: any): void => {
         const currentDrivers = this.allDrivers_Data();
+
         // Merge the new data with existing to retain checked state
         const updatedDrivers = res.data.map((response: any) => {
           // Find existing driver by id
@@ -249,7 +282,9 @@ export class MapComponent implements OnInit, OnDestroy {
           return { ...response, isChecked };
         });
 
+        console.log(updatedDrivers);
         this.allDrivers_Data.set(updatedDrivers);
+        this.modifiedData.set(updatedDrivers);
       },
       complete: () => {},
       error: (error: any) => {
@@ -269,7 +304,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
   checkboxEvent(event: any) {
     const isChecked = event.target.checked;
-    debugger;
+
     // Update all checkboxes based on the main checkbox state
     const drivers = this.allDrivers_Data().map((item: any) => ({
       ...item,
@@ -385,7 +420,7 @@ export class MapComponent implements OnInit, OnDestroy {
     return this.imgUrl;
   }
   get allDrivers() {
-    return this.allDrivers_Data();
+    return this.modifiedData();
   }
   ngOnDestroy() {
     // Clear the interval when the component is destroyed to prevent memory leaks

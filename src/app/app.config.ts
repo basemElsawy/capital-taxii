@@ -30,6 +30,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([tokenInterceptor]),
       withInterceptorsFromDi()
     ),
+
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {

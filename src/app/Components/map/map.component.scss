@@ -183,3 +183,23 @@ thead {
 .requestStatus {
   font-size: 12px;
 }
+
+.search-input {
+  z-index: 1000;
+  left: 50%;
+  top: 15px;
+  transform: translateX(-50%);
+  background-color: white;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
+  input {
+    border: none !important;
+    outline: none !important;
+  }
+  img {
+    opacity: 0.3;
+  }
+}
+
+.search-icon {
+  cursor: pointer;
+}

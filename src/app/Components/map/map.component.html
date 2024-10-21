@@ -1,5 +1,18 @@
 <section class="map-container">
-  <div class="map-wrapper mb-2 overflow-hidden rounded-4">
+  <div class="map-wrapper position-relative mb-2 overflow-hidden rounded-4">
+    <div
+      class="search-input d-flex align-items-center justify-content-between gap-3 rounded-pill px-4 py-2 position-absolute"
+    >
+      <label class="search-icon" for="search-icon"
+        ><img src="../../../assets/search.png" width="12" height="12" alt=""
+      /></label>
+      <input
+        type="text"
+        id="search-icon"
+        placeholder="search"
+        (change)="searchInDrivers($event)"
+      />
+    </div>
     <google-map [center]="center" [zoom]="zoom" height="300px" width="100%">
       <ng-container
         *ngFor="let driver of driverMarkers; trackBy: trackByDriverId"

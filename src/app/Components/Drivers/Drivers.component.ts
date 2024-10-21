@@ -2,7 +2,12 @@ import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { DriverDetails, Drivers, DriversMarkers } from '../map/IMap';
 import { CommonModule, DatePipe } from '@angular/common';
 import { DriversService } from './Services/drivers.service';
-import { AllTripRequestData, Coords, IDrivers } from './IDrivers';
+import {
+  AllTripRequestData,
+  Coords,
+  IDrivers,
+  IUserFormModel,
+} from './IDrivers';
 import {
   FormBuilder,
   FormControl,
@@ -47,7 +52,8 @@ export class DriversComponent implements OnInit {
 
   dateRangeForm!: FormGroup;
   updateDriverForm!: FormGroup;
-  driversData: any = {};
+  driversData: WritableSignal<any> = signal([]);
+  modifiedData: WritableSignal<any> = signal([]);
   currentLocationAddress: string = '';
   coordsCollection: any[] = [];
   isLoading: boolean = false;
@@ -136,9 +142,13 @@ export class DriversComponent implements OnInit {
       .subscribe({
         next: (res: any) => {
           if (Array.isArray(res)) {
-            this.driversData = res;
+            this.driversData.set(res);
+            this.modifiedData.set(res);
+            console.log(res);
           } else {
-            this.driversData = res.items;
+            this.driversData.set(res.items);
+            this.modifiedData.set(res.items);
+
             this.totalRecords = res.totalRecords;
             // this.driversData = res;
             // console.log(this.driversData);
@@ -172,8 +182,8 @@ export class DriversComponent implements OnInit {
     this.getAllDrivers();
   }
   addressExtractor() {
-    if (this.driversData?.length) {
-      this.driversData.forEach((item: any) => {
+    if (this.driversData()?.length) {
+      this.driversData().forEach((item: any) => {
         let coords: Coords = {
           lat: item.res.locationLatitude,
           lng: item.res.locationLongitude,
@@ -212,11 +222,11 @@ export class DriversComponent implements OnInit {
     });
   }
   setDriverDataInUpdateForm(selectedDriver: any) {
-    debugger;
+    console.log(selectedDriver);
     this.updateDriverForm.patchValue({
       id: selectedDriver?.id,
       email: selectedDriver?.email,
-      username: selectedDriver?.username,
+      username: selectedDriver?.userName,
       fullName: selectedDriver?.fullName,
       phoneNumber: selectedDriver?.phoneNumber,
       genderId: selectedDriver?.genderId,
@@ -255,6 +265,7 @@ export class DriversComponent implements OnInit {
     this.driversService.addNewDriver(requestBody).subscribe({
       next: (res: any) => {
         this.getAllDrivers();
+
         this.addUserForm.reset();
         this.isLoading = false;
       },
@@ -283,7 +294,20 @@ export class DriversComponent implements OnInit {
   }
 
   updateDriver() {
-    let body = this.updateDriverForm.value;
+    let body: IUserFormModel = {
+      id: JSON.parse(<string>localStorage.getItem('user')).id,
+      ...this.updateDriverForm.value,
+      rolesDto: {
+        roles: [],
+      },
+      firebaseToken: null,
+      locationLatitude: 0,
+      locationLongitude: 0,
+      isActive: null,
+      emailConfirmed: true,
+    };
+    console.log(body);
+
     this.driversService.updateDriver(body).subscribe({
       next: () => {
         this.modalService.dismissAll();
@@ -324,10 +348,33 @@ export class DriversComponent implements OnInit {
   }
 
   checkboxEvent(event: any) {
-    if (this.driversData.items.length) {
-      this.driversData.items.forEach((item: any) => {
+    if (this.driversData().items.length) {
+      this.driversData().items.forEach((item: any) => {
         item.isChecked = event.target.checked;
       });
+    }
+  }
+  searchInDrivers(event: any) {
+    let searchLength = event.target.value.length;
+    if (searchLength > 0) {
+      this.modifiedData.update((data: any[]) =>
+        this.driversData().filter((filteredData: any) => {
+          let name = filteredData.res.user.fullName;
+          console.log();
+          return (<string>event.target.value)
+            .toLowerCase()
+            .includes(name != null ? name.toLowerCase() : name);
+        })
+      );
+      if (!this.modifiedData().length) {
+        this.toastr.error('User Not Found');
+        this.modifiedData.set(this.driversData());
+        return;
+      }
+      this.toastr.success('User Found');
+    } else {
+      this.toastr.error('No data found');
+      this.modifiedData.set(this.driversData());
     }
   }
 
@@ -403,7 +450,9 @@ export class DriversComponent implements OnInit {
   get getTripDataToDisplay() {
     return this.tripDataToDisplay();
   }
-
+  get driversDetails() {
+    return this.modifiedData();
+  }
   getTripTimeFormate(tripTime: number): string {
     if (tripTime < 60) {
       return `${tripTime} Min`;

@@ -11,6 +11,8 @@ import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from '../../../shared-ui/spinner/spinner.component';
+import { firstValueFrom } from 'rxjs';
+import { error } from 'console';
 
 @Component({
   selector: 'app-login',
@@ -46,17 +48,18 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  doLogin(): void {
+  async doLogin(): Promise<void> {
     this.isLoading = true;
     let loginBody = this.loginForm.value;
+
     this.authService.makeLogin(loginBody).subscribe({
       next: (res: any) => {
+        console.log(res);
         let decodedToken = this.authService.tokenDecode(res.token);
         localStorage.setItem('expiryDate', decodedToken.exp);
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(res.user));
         localStorage.setItem('roles', JSON.stringify(res.roles));
-
         this.toastr.success(
           `Welcome, ${res.user.fullName}!`,
           'Login Successful'

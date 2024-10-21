@@ -162,7 +162,8 @@
         "email": "Email",
         "gender": "Gender",
         "carComfort": "Car Comfort",
-        "status": "Status"
+        "status": "Status",
+        "search": "Search"
       }
     },
     "zonesTable": {
