@@ -312,6 +312,7 @@ export class DriversComponent implements OnInit {
       next: () => {
         this.modalService.dismissAll();
         this.updateDriverForm.reset();
+        this.toastr.success('updated successfully');
         this.getAllDrivers();
       },
       error: (err: any) => {
