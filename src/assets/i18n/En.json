@@ -22,13 +22,16 @@
       "roles": "Roles"
     }
   },
+  "confirm delete driver": "Confirm delete driver",
+  "confirm text": "Are you sure you want to delete this driver?",
 
   "tables": {
     "clientsTable": {
       "name": "Name",
       "update": "update",
       "updateuser": "Update user data",
-
+      "email": "E-mail",
+      "username": "User name",
       "client": "clients",
       "emailOrUsername": "E-mail or username",
       "phoneNumber": "Phone number",
@@ -104,6 +107,8 @@
     },
     "addRequest": {
       "from": "From",
+      "buttons": "save",
+
       "to": "To",
       "vehicleServiceType": "Vehicle Service Type",
       "passengerName": "Passenger Name",

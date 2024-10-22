@@ -11,8 +11,15 @@ export class ErrorHandlerService {
     if (response && response.error.errors) {
       for (let field in response.error.errors) {
         if (response.error.errors.hasOwnProperty(field)) {
-          const fieldErrors = response.error.errors[field];
+          if (response.error.errors) {
+            if (lang == 'ar') {
+              errors.push(`خطأ: ${response.error.errors}`);
+            } else {
+              errors.push(response.error.errors);
+            }
+          }
 
+          const fieldErrors = response.error.errors[field];
           if (Array.isArray(fieldErrors)) {
             fieldErrors.forEach((errorMsg: string) => {
               if (lang === 'ar') {

@@ -30,10 +30,13 @@
         >
           {{ "tables.clientsTable.client" | translate }}
         </th>
-        <th>{{ "tables.clientsTable.emailOrUsername" | translate }}</th>
+        <th>
+          {{ "tables.clientsTable.username" | translate }}
+        </th>
+        <th>{{ "tables.clientsTable.email" | translate }}</th>
         <th>{{ "tables.clientsTable.phoneNumber" | translate }}</th>
 
-        <th>{{ "tables.clientsTable.gender" | translate }}</th>
+        <!-- <th>{{ "tables.clientsTable.gender" | translate }}</th> -->
         <th>{{ "tables.clientsTable.birthday" | translate }}</th>
         <th>{{ "tables.clientsTable.credit" | translate }}</th>
         <th>{{ "tables.clientsTable.creditDetails" | translate }}</th>
@@ -71,9 +74,12 @@
             <p class="m-0 p-0">{{ client.email }}</p>
           </div>
         </td>
+        <td>
+          {{ client.userName ? client.userName : "-" }}
+        </td>
         <td>{{ client.email }}</td>
         <td>{{ client.phoneNumber }}</td>
-        <td>Male</td>
+        <!-- <td>Male</td> -->
         <td>{{ client.birthdate | date : "dd-MM-yyyy" }}</td>
         <td>{{ client.credit }} LE</td>
         <td>

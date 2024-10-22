@@ -136,7 +136,7 @@
               <button
                 tooltipPosition="top"
                 tooltipClass="custom-tooltip"
-                (click)="deleteDriver(data.res?.userId)"
+                (click)="deleteContentModal(deleteConfirm, data)"
                 class="btn btn-success d-flex align-items-center mx-2 justify-content-center gap-2"
               >
                 <!-- <span> show drivers </span> -->
@@ -896,5 +896,38 @@
   <div class="modal-footer">
     <button class="btn btn-success" (click)="updateDriver()">Save</button>
     <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #deleteConfirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{ "confirm delete driver" | translate }}
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-warning">
+      <p class="text-center">
+        {{ "confirm text" | translate }}
+      </p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.close('Save click')"
+    >
+      الغاء
+    </button>
+    <button class="btn btn-success" (click)="deleteDriver()">
+      {{ "addRequest.buttons" | translate }}
+    </button>
   </div>
 </ng-template>

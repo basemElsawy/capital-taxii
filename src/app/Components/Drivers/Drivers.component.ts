@@ -171,25 +171,28 @@ export class DriversComponent implements OnInit {
         },
       });
   }
-  deleteDriver(driverId: number) {
-    this.driversService.deleteDriverById(driverId).subscribe({
-      next: () => {
-        this.toastr.success('Driver Deleted Successfully');
-        this.getAllDrivers();
-      },
-      error: (error: any) => {
-        this.errorMessages = this.errorHandlerService.getErrors(
-          error,
-          this.lang == 'en' ? 'en' : 'ar'
-        );
-        if (this.errorMessages.length) {
-          for (let error of this.errorMessages) {
-            this.toastr.error(error);
-            this.errorHandlerService.getErrors(error, this.lang);
+  deleteDriver() {
+    this.driversService
+      .deleteDriverById(this.singleDriver.res.userId)
+      .subscribe({
+        next: () => {
+          this.toastr.success('Driver Deleted Successfully');
+          this.getAllDrivers();
+          this.modalService.dismissAll();
+        },
+        error: (error: any) => {
+          this.errorMessages = this.errorHandlerService.getErrors(
+            error,
+            this.lang == 'en' ? 'en' : 'ar'
+          );
+          if (this.errorMessages.length) {
+            for (let error of this.errorMessages) {
+              this.toastr.error(error);
+              this.errorHandlerService.getErrors(error, this.lang);
+            }
           }
-        }
-      },
-    });
+        },
+      });
   }
 
   onPageChange(page: number) {
@@ -306,6 +309,16 @@ export class DriversComponent implements OnInit {
           }
         }
       },
+    });
+  }
+
+  deleteContentModal(content: any, selectedDriver: any) {
+    this.singleDriver = selectedDriver;
+    this.modalService.open(content, {
+      size: 'lg',
+      backdrop: 'static',
+      centered: true,
+      keyboard: false,
     });
   }
 
