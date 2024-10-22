@@ -109,7 +109,6 @@ export class TablePricesComponent {
       startDate: [null, Validators.required],
       endDate: [null, Validators.required],
     });
-    this.updatePriceTableForm.controls['startDate'].disable();
   }
   initializeForm() {
     this.addTablePriceDetailsForm = this.fb.group({
@@ -305,6 +304,20 @@ export class TablePricesComponent {
   }
 
   confirmUpdateTablePrice() {
+    debugger;
+    this.isLoading = true;
+    let body = this.updatePriceTableForm.value;
+    this.tablePricesService.updatePriceTable(body).subscribe({
+      next: (res: any) => {
+        debugger;
+        this.isLoading = false;
+        this.modalService.dismissAll();
+        this.getPricesTables();
+      },
+      error: (error: any) => {
+        this.isLoading = false;
+      },
+    });
     // this.tablePricesService
     //   .updateTablePrice(this.selectedTablePrice)
     //   .subscribe(() => {

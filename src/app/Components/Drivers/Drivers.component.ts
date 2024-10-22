@@ -126,6 +126,7 @@ export class DriversComponent implements OnInit {
         confirmPassword: [null],
         birthDate: [null, Validators.required],
         picture: [null, Validators.required],
+        isActive: [false, Validators.required],
       },
       { validators: passwordMatchValidator() }
     );
@@ -229,6 +230,7 @@ export class DriversComponent implements OnInit {
     this.getAllNationalities();
   }
   openUpdateModal(content: any, selectedDriver: any) {
+    debugger;
     this.getAllNationalities();
 
     this.setDriverDataInUpdateForm(selectedDriver);
@@ -240,6 +242,7 @@ export class DriversComponent implements OnInit {
     });
   }
   setDriverDataInUpdateForm(selectedDriver: any) {
+    debugger;
     this.singleDriver = selectedDriver;
     this.updateDriverForm.patchValue({
       id: selectedDriver?.id,
@@ -256,6 +259,7 @@ export class DriversComponent implements OnInit {
         'yyyy-MM-dd'
       ),
       picture: selectedDriver?.picture,
+      isActive: selectedDriver?.status,
     });
   }
   getAllNationalities() {
@@ -323,7 +327,8 @@ export class DriversComponent implements OnInit {
   }
 
   updateDriver() {
-    let body: IUserFormModel = {
+    debugger;
+    let body: any = {
       id: JSON.parse(<string>localStorage.getItem('user')).id,
       ...this.updateDriverForm.value,
       rolesDto: {

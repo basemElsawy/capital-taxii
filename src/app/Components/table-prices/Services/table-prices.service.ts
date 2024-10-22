@@ -35,6 +35,10 @@ export class TablePricesService {
       KilometrePriceDetails
     );
   }
+
+  updatePriceTable(body: any) {
+    return this.httpClient.put(`${this.base_url}KilometrePrice`, body);
+  }
   // getAllStations() {
   //   return this.httpClient.get(`${this.base_url}Station`);
   // }
