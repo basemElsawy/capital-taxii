@@ -55,6 +55,7 @@ export class VehicleComponent {
   choosedVehicle: any;
   isLoading: boolean = false;
   base64Image: string | undefined;
+  singleSelectedVehicle: any;
   lang!: string;
   zones: any[] = [];
   selectedDriver: any;
@@ -231,6 +232,7 @@ export class VehicleComponent {
     });
   }
   openUpdateVehcleModal(content: any, selectedVehicle: any) {
+    debugger;
     this.choosedVehicle = selectedVehicle;
     this.setVehcleDataInUpdateForm(selectedVehicle.res);
     this.modalService.open(content, {
@@ -245,17 +247,12 @@ export class VehicleComponent {
       id: selectedVehicle.id,
       vehicleName: selectedVehicle.vehicleName,
       year: selectedVehicle.year,
-      photo: this.updateVehicleForm.controls['photo'].value
-        ? this.updateVehicleForm.controls['photo'].value
-        : '',
+      photo: selectedVehicle.photo,
       vehicleColor: selectedVehicle.vehicleColor,
-      // vehicleSpecificationId: selectedVehicle.vehicleSpecification?.id,
       vehicleTypeId: selectedVehicle.vehicleType?.id,
       fuelTypeId: selectedVehicle.fuelType?.id,
       vehicleOwnershipId: selectedVehicle.vehicleOwnership?.id,
-      // vehicleLifeCycleId: selectedVehicle.vehicleLifeCycle?.id,
       vehicleStatusId: selectedVehicle.vehicleStatus?.id,
-      // vehicleFinancialId: selectedVehicle.vehicleFinancial?.id,
       vehicleBrandId: selectedVehicle.vehicleBrand?.id,
       vehicleBodyTypeId: selectedVehicle.vehicleBodyType?.id,
       vehicleServiceTypeId: selectedVehicle.vehicleServiceType?.id || 1,
@@ -419,6 +416,20 @@ export class VehicleComponent {
         this.toastr.error(errorMessage, 'Error');
       },
     });
+  }
+
+  getFullImageUrl(): string {
+    debugger;
+    if (this.choosedVehicle) {
+      return `${this.imgUrl}${this.choosedVehicle?.res?.photo}`;
+    }
+
+    // if (this.choosedVehicle?.user) {
+    //   return `${this.imgUrl}${this.singleClient.user.picture}`;
+    // } else if (this.singleClient) {
+    //   return `${this.imgUrl}${this.singleClient}`;
+    // }
+    return '../../../assets/unknown.png';
   }
 
   updateVehicle() {

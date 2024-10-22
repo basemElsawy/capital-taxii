@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   OnInit,
+  signal,
   ViewChild,
 } from '@angular/core';
 import {
@@ -40,6 +41,8 @@ import { SignalRService } from './services/signalR-service.service';
 })
 export class AddRequestComponent implements OnInit, AfterViewInit {
   requestForm!: FormGroup;
+  setIsLoading: any = signal(false);
+
   vehicleServiceTypes: any[] = [];
   drivers: any[] = [];
   lang!: string;
@@ -175,6 +178,7 @@ export class AddRequestComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
+    this.setIsLoading.set(true);
     if (this.requestForm.valid) {
       const formData = {
         fromLocationName: this.requestForm.value.fromLocationName,
@@ -197,6 +201,7 @@ export class AddRequestComponent implements OnInit, AfterViewInit {
       this.signalRService
         .sendTripData(formData)
         .then((responseMessage: any) => {
+          this.setIsLoading.set(false);
           // Display the message returned by the server
           console.log(responseMessage);
           if (responseMessage.isSuccess) {
@@ -209,6 +214,7 @@ export class AddRequestComponent implements OnInit, AfterViewInit {
           }
         })
         .catch((error) => {
+          this.setIsLoading.set(false);
           console.error('Error sending SignalR request:', error);
           this.toastr.error('Failed to send request via SignalR.');
         });

@@ -11,7 +11,7 @@ export class SignalRService {
 
   constructor() {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('http://10.1.4.204:1222/tripHub', {
+      .withUrl('https://taxi.acta.com.eg:4444/tripHub', {
         accessTokenFactory: () => localStorage.getItem('token') || '', // Attach token from localStorage
       })
       .withAutomaticReconnect() // Automatic reconnection if connection is lost

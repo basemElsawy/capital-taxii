@@ -1,5 +1,5 @@
 import { PriceService } from './services/price.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   FormArray,
@@ -46,6 +46,7 @@ import { AddRequestComponent } from '../add-request/add-request.component';
   styleUrls: ['./settings.component.css'],
 })
 export class SettingsComponent implements OnInit {
+  setIsLoading: any = signal(false);
   active = 1;
   kmPriceForm!: FormGroup;
   driverCommitionForm!: FormGroup;
@@ -97,8 +98,10 @@ export class SettingsComponent implements OnInit {
   }
 
   getAllRequestDistanceLimits() {
+    this.setIsLoading(true);
     this.priceService.getRequestLimitDistance().subscribe({
       next: (res: any) => {
+        this.setIsLoading(false);
         this.requestDistanceLimit.controls['distanceLimit'].setValue(
           res[0].distanceLimit
         );
@@ -106,19 +109,25 @@ export class SettingsComponent implements OnInit {
       },
 
       error: (error: any) => {
+        this.setIsLoading(false);
         console.log(error);
       },
     });
   }
   getAllRequestTimeLimits() {
+    this.setIsLoading(true);
     this.priceService.getRequestTimeLimit().subscribe({
       next: (res: any) => {
+        this.setIsLoading(false);
+
         this.requestTimeLimitForm.controls['time'].setValue(res[0].time);
         this.requestTimeLimitForm.controls['price'].setValue(res[0].price);
         this.requestTimeLimitId = res[0].id;
       },
 
       error: (error: any) => {
+        this.setIsLoading(false);
+
         console.log(error);
       },
     });
@@ -138,13 +147,19 @@ export class SettingsComponent implements OnInit {
     });
   }
   getAllRequestsKMPrice() {
+    this.setIsLoading(true);
+
     this.priceService.getKMPrice().subscribe({
       next: (res: any) => {
+        this.setIsLoading(false);
+
         this.kmPriceForm.controls['price'].setValue(res[0].price);
         this.kmPriceId = res[0].id;
       },
 
       error: (error: any) => {
+        this.setIsLoading(false);
+
         console.log(error);
       },
     });
@@ -440,8 +455,11 @@ export class SettingsComponent implements OnInit {
   }
 
   getAllMinimumFares() {
+    this.setIsLoading(true);
     this.priceService.getMinimumFares().subscribe({
       next: (res: any) => {
+        this.setIsLoading(false);
+
         this.minimumKMId = res[0].id;
 
         this.minimumFaresForm.patchValue({
@@ -452,13 +470,18 @@ export class SettingsComponent implements OnInit {
         });
       },
       error: (error: any) => {
+        this.setIsLoading(false);
+
         console.log(error);
       },
     });
   }
   getAllDriverCommitions() {
+    this.setIsLoading(true);
     this.priceService.getDriverCommition().subscribe({
       next: (res: any) => {
+        this.setIsLoading(false);
+
         this.driverCommitionId = res[0].id;
 
         this.driverCommitionForm.patchValue({
@@ -472,19 +495,26 @@ export class SettingsComponent implements OnInit {
         });
       },
       error: (error: any) => {
+        this.setIsLoading(false);
+
         console.log(error);
       },
     });
   }
   updateMiniFares() {
+    this.setIsLoading(true);
     this.isLoading = true;
     let requestBody = this.minimumFaresForm.value;
     this.priceService.updateMinimumFares(requestBody).subscribe({
       next: (res: any) => {
+        this.setIsLoading(false);
+
         this.getAllMinimumFares();
         this.isLoading = false;
       },
       error: (error: any) => {
+        this.setIsLoading(false);
+
         this.isLoading = false;
         console.error('Error updating minimum fares:', error);
 

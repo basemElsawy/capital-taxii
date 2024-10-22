@@ -21,6 +21,7 @@ import { UserService } from '../users/services/user.service';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ErrorHandlerService } from './services/error-handler.service';
 import { SearchFilterPipe } from '../../shared-ui/pipes/search-filter.pipe';
+import { SpinnerComponent } from '../../shared-ui/spinner/spinner.component';
 
 @Component({
   selector: 'app-clients',
@@ -35,11 +36,13 @@ import { SearchFilterPipe } from '../../shared-ui/pipes/search-filter.pipe';
     ReactiveFormsModule,
     TranslateModule,
     SearchFilterPipe,
+    SpinnerComponent,
   ],
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss'],
 })
 export class ClientsComponent implements OnInit {
+  setIsLoading: any = signal(true);
   clients: any[] = [];
   nationalities: any[] = [];
   errorMessages: string[] = [];
@@ -82,6 +85,7 @@ export class ClientsComponent implements OnInit {
     this.clientsService.getAllClients().subscribe({
       next: (res: any) => {
         this.clients = res;
+        this.setIsLoading.set(false);
       },
       error: (error: any) => {
         this.errorMessages = this.errorHandlerService.getErrors(
@@ -93,6 +97,7 @@ export class ClientsComponent implements OnInit {
             this.toastr.error(error);
           }
         }
+        this.setIsLoading.set(false);
       },
     });
   }

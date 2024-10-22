@@ -1,3 +1,6 @@
+@if(setIsLoading()){
+<app-spinner></app-spinner>
+} @else {
 <div
   class="table-container bg-white rounded-4 pb-3 p-2 shadow-sm position-relative"
   style="max-height: 510px"
@@ -124,6 +127,7 @@
     </tbody>
   </table>
 </div>
+}
 
 <ng-template #tripData let-modal>
   <div class="modal-header">

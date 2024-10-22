@@ -5,7 +5,7 @@
     <div
       class="w-100 p-2 my-2 d-flex align-items-start flex-column justify-content-start gap-2"
     >
-      <button
+      <!-- <button
         (click)="openAddModal(content)"
         class="btn btn-success px-3 d-flex align-items-center justify-content-center gap-2"
       >
@@ -14,7 +14,7 @@
         </span>
 
         <i class="fa-solid fa-plus"></i>
-      </button>
+      </button> -->
       <table class="w-100 table-content position-relative">
         <thead class="w-100">
           <tr class="py-2 px-4 w-100">
@@ -64,6 +64,15 @@
                 <span> {{ "tables.pricesTable.details" | translate }} </span>
 
                 <!-- <i class="fas fa-edit"></i> -->
+              </button>
+
+              <button
+                tooltipPosition="top"
+                tooltipClass="custom-tooltip"
+                (click)="editSelectedTablePrice(updateContent, tablePrice)"
+                class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+              >
+                <i class="fas fa-edit"></i>
               </button>
             </td>
           </tr>
@@ -307,6 +316,65 @@
 
   <div class="modal-footer">
     <button class="btn btn-success" (click)="addTablePriceDetails()">
+      Save
+    </button>
+    <button class="btn btn-danger" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>
+
+<!-- update selected price table-->
+<ng-template #updateContent let-modal>
+  <div class="modal-header">
+    <h4>Update selected price table</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="updatePriceTableForm">
+      <div class="form-wrapper">
+        <div class="col-md-4">
+          <label>
+            {{ "tables.pricesTable.tableNameEn" | translate }}
+          </label>
+          <input
+            type="text"
+            class="form-group form-control"
+            formControlName="nameEn"
+          />
+        </div>
+        <div class="col-md-4">
+          <label>
+            {{ "tables.pricesTable.tableNameAr" | translate }}
+          </label>
+          <input
+            type="text"
+            class="form-group form-control"
+            formControlName="nameAr"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label> {{ "tables.pricesTable.startDate" | translate }} </label>
+          <input
+            type="date"
+            class="form-group form-control"
+            formControlName="startDate"
+          />
+        </div>
+        <div class="col-md-4">
+          <label> {{ "tables.pricesTable.endDate" | translate }} </label>
+          <input
+            type="date"
+            class="form-group form-control"
+            formControlName="endDate"
+            [min]="todayDate"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="confirmUpdateTablePrice()">
       Save
     </button>
     <button class="btn btn-danger" (click)="closeModal()">Close</button>

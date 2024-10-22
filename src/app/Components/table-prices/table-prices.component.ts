@@ -15,7 +15,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { TablePricesService } from './Services/table-prices.service';
 import { ToastrService } from 'ngx-toastr';
-import { error } from 'console';
+import { error, table } from 'console';
 @Component({
   selector: 'app-price-tables',
   standalone: true,
@@ -45,8 +45,9 @@ export class TablePricesComponent {
   tablePricesDetails: any;
   vehicleServiceTypes: any[] = [];
   isPriceTableDetailsUpdated: boolean = false;
+  updatePriceTableForm!: FormGroup;
   editingIndex!: number;
-  /*************  ✨ Codeium Command ⭐  *************/
+  todayDate: any; /*************  ✨ Codeium Command ⭐  *************/
   /**
    * @param tablePricesService The service that provides the table prices data.
    * @param modalService The service that provides modal functionality.
@@ -63,7 +64,13 @@ export class TablePricesComponent {
     private translate: TranslateService,
     private translationService: TranslationService,
     private toastr: ToastrService
-  ) {}
+  ) {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+    this.todayDate = `${year}-${month}-${day}`;
+  }
 
   ngOnInit(): void {
     this.initializeTablePriceForm();
@@ -95,6 +102,14 @@ export class TablePricesComponent {
       price: [null],
       vehicleServiceTypeId: [null],
     });
+    this.updatePriceTableForm = this.fb.group({
+      id: [null, Validators.required],
+      nameEn: [null, Validators.required],
+      nameAr: [null, Validators.required],
+      startDate: [null, Validators.required],
+      endDate: [null, Validators.required],
+    });
+    this.updatePriceTableForm.controls['startDate'].disable();
   }
   initializeForm() {
     this.addTablePriceDetailsForm = this.fb.group({
@@ -265,4 +280,36 @@ export class TablePricesComponent {
     );
   }
   checkboxEvent(event: any) {}
+
+  editSelectedTablePrice(content: any, selectedTablePrice: any) {
+    debugger;
+    this.modalService.open(content, {
+      size: 'xl',
+      backdrop: 'static',
+      centered: true,
+      scrollable: true,
+    });
+    this.selectedTablePrice = selectedTablePrice;
+    this.setDataForSelectedPriceTable(selectedTablePrice);
+  }
+
+  setDataForSelectedPriceTable(priceTable: any) {
+    debugger;
+    this.updatePriceTableForm.patchValue({
+      id: priceTable.id,
+      startDate: priceTable.startDate,
+      endDate: priceTable.endDate,
+      nameAr: priceTable.nameAr,
+      nameEn: priceTable.nameEn,
+    });
+  }
+
+  confirmUpdateTablePrice() {
+    // this.tablePricesService
+    //   .updateTablePrice(this.selectedTablePrice)
+    //   .subscribe(() => {
+    //     this.getPricesTables();
+    //     this.modalService.dismissAll();
+    //   });
+  }
 }
