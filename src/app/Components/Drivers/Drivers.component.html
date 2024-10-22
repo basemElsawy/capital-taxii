@@ -724,6 +724,8 @@
   </div>
 
   <div class="modal-body">
+    <img class="img-new" [src]="getFullImageUrl()" src="client img" />
+
     <form [formGroup]="updateDriverForm">
       <div class="driver-form-wrapper" [dir]="lang == 'En' ? 'ltr' : 'rtl'">
         <div class="col-md-4 mb-3">

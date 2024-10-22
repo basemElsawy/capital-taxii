@@ -62,7 +62,6 @@ export class ClientsComponent implements OnInit {
     private translationService: TranslationService,
     private translate: TranslateService,
     private userService: UserService,
-    private datePipe: DatePipe,
     private errorHandlerService: ErrorHandlerService
   ) {}
   ngOnInit() {

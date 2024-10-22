@@ -25,6 +25,7 @@ import { ShiftsComponent } from '../shifts/shifts.component';
 import { PromoCodeService } from './services/promo-code.service';
 import { ToastrService } from 'ngx-toastr';
 import { SearchFilterPipe } from '../../shared-ui/pipes/search-filter.pipe';
+import { ErrorHandlerService } from '../clients/services/error-handler.service';
 @Component({
   selector: 'app-promo-code',
   standalone: true,
@@ -55,6 +56,7 @@ export class PromoCodeComponent implements OnInit {
   updatePromoCodeForm!: FormGroup;
   activePromoCodes: any[] = [];
   inActivePromoCodes: any[] = [];
+  errorMessages: string[] = [];
   expiryPromoCodes: any[] = [];
   searchInput: string = '';
   constructor(
@@ -63,7 +65,8 @@ export class PromoCodeComponent implements OnInit {
     private translate: TranslateService,
     private translation: TranslationService,
     private modalService: NgbModal,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private errorHandlerService: ErrorHandlerService
   ) {}
   ngOnInit() {
     this.setLanguage();
@@ -162,19 +165,29 @@ export class PromoCodeComponent implements OnInit {
         this.getAllExpiryPromoCodes();
       },
       error: (error: any) => {
+        this.errorMessages = this.errorHandlerService.getErrors(
+          error,
+          this.lang == 'en' ? 'en' : 'ar'
+        );
+        if (this.errorMessages.length) {
+          for (let error of this.errorMessages) {
+            this.toastr.error(error);
+            this.errorHandlerService.getErrors(error, this.lang);
+          }
+        }
         // Custom error message
-        const customErrorMessage =
-          this.lang === 'En'
-            ? 'Failed to add promo code. Please check your input.'
-            : 'فشل إضافة كود الخصم. يرجى التحقق من مدخلاتك.';
+        // const customErrorMessage =
+        //   this.lang === 'En'
+        //     ? 'Failed to add promo code. Please check your input.'
+        //     : 'فشل إضافة كود الخصم. يرجى التحقق من مدخلاتك.';
 
-        // Check for specific error messages
-        const errorMessage =
-          error?.MesgEn?.non_field_errors?.[0] ||
-          error?.MesgAr ||
-          customErrorMessage;
-        this.toastr.error(errorMessage, 'Error'); // Show error toast
-        console.log(error);
+        // // Check for specific error messages
+        // const errorMessage =
+        //   error?.MesgEn?.non_field_errors?.[0] ||
+        //   error?.MesgAr ||
+        //   customErrorMessage;
+        // this.toastr.error(errorMessage, 'Error'); // Show error toast
+        // console.log(error);
       },
     });
   }

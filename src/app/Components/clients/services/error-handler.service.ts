@@ -12,13 +12,30 @@ export class ErrorHandlerService {
       for (let field in response.error.errors) {
         if (response.error.errors.hasOwnProperty(field)) {
           const fieldErrors = response.error.errors[field];
-          fieldErrors.forEach((errorMsg: string) => {
-            if (lang === 'Ar') {
-              errors.push(`خطأ: ${errorMsg}`);
+
+          if (Array.isArray(fieldErrors)) {
+            fieldErrors.forEach((errorMsg: string) => {
+              if (lang === 'ar') {
+                errors.push(`خطأ: ${errorMsg}`);
+              } else {
+                errors.push(errorMsg);
+              }
+            });
+          } else if (typeof fieldErrors == 'object') {
+            if (lang == 'ar') {
+              errors.push(`خطأ: ${fieldErrors.errorAr}`);
             } else {
-              errors.push(errorMsg);
+              errors.push(`خطأ: ${fieldErrors.errorEn}`);
             }
-          });
+          } else {
+            fieldErrors.forEach((errorMsg: string) => {
+              if (lang === 'ar') {
+                errors.push(`خطأ: ${errorMsg}`);
+              } else {
+                errors.push(errorMsg);
+              }
+            });
+          }
         }
       }
     } else {

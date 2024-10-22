@@ -28,6 +28,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { ToastrService } from 'ngx-toastr';
 import { SearchFilterPipe } from '../../shared-ui/pipes/search-filter.pipe';
+import { ErrorHandlerService } from '../clients/services/error-handler.service';
 @Component({
   selector: 'app-Drivers',
   standalone: true,
@@ -49,6 +50,7 @@ import { SearchFilterPipe } from '../../shared-ui/pipes/search-filter.pipe';
   providers: [DatePipe],
 })
 export class DriversComponent implements OnInit {
+  errorMessages: string[] = [];
   public readonly imgUrl = environment.image;
   searchInput: string = '';
   dateRangeForm!: FormGroup;
@@ -63,7 +65,7 @@ export class DriversComponent implements OnInit {
   lang!: string;
   pageNumber: any = 1;
   totalRecords = 0;
-  singleDriver!: IDrivers;
+  singleDriver!: any;
   pageSize = 10;
   totalRouteTrips: AllTripRequestData[] = [];
   tripDataToDisplay: any = signal([]);
@@ -74,7 +76,8 @@ export class DriversComponent implements OnInit {
     private translate: TranslateService,
     private trannslation: TranslationService,
     private toastr: ToastrService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private errorHandlerService: ErrorHandlerService
   ) {}
   ngOnInit(): void {
     this.getAllDrivers();
@@ -171,11 +174,20 @@ export class DriversComponent implements OnInit {
   deleteDriver(driverId: number) {
     this.driversService.deleteDriverById(driverId).subscribe({
       next: () => {
-        this.getAllDrivers();
         this.toastr.success('Driver Deleted Successfully');
+        this.getAllDrivers();
       },
       error: (error: any) => {
-        this.toastr.error(error?.MesgAr || 'An error occurred');
+        this.errorMessages = this.errorHandlerService.getErrors(
+          error,
+          this.lang == 'en' ? 'en' : 'ar'
+        );
+        if (this.errorMessages.length) {
+          for (let error of this.errorMessages) {
+            this.toastr.error(error);
+            this.errorHandlerService.getErrors(error, this.lang);
+          }
+        }
       },
     });
   }
@@ -225,7 +237,7 @@ export class DriversComponent implements OnInit {
     });
   }
   setDriverDataInUpdateForm(selectedDriver: any) {
-    console.log(selectedDriver);
+    this.singleDriver = selectedDriver;
     this.updateDriverForm.patchValue({
       id: selectedDriver?.id,
       email: selectedDriver?.email,
@@ -275,23 +287,24 @@ export class DriversComponent implements OnInit {
       complete: () => {
         this.isLoading = false;
         this.modalService.dismissAll();
+        this.toastr.success(
+          this.lang == 'en'
+            ? 'A new driver added successfully'
+            : 'تمت اضافة سائق جديد بنجاح',
+          'Success'
+        );
       },
       error: (error: any) => {
-        this.isLoading = false;
-
-        // Check the error response for the appropriate message
-        let errorMessage = '';
-        if (this.lang === 'En') {
-          errorMessage =
-            error.MesgEn?.non_field_errors?.[0] || 'An error occurred';
-        } else if (this.lang === 'Ar') {
-          errorMessage = error.MesgAr || 'حدث خطأ';
+        this.errorMessages = this.errorHandlerService.getErrors(
+          error,
+          this.lang == 'en' ? 'en' : 'ar'
+        );
+        if (this.errorMessages.length) {
+          for (let error of this.errorMessages) {
+            this.toastr.error(error);
+            this.errorHandlerService.getErrors(error, this.lang);
+          }
         }
-
-        // Display the error in toastr
-        this.toastr.error(errorMessage, 'Error');
-
-        console.log(error);
       },
     });
   }
@@ -317,21 +330,17 @@ export class DriversComponent implements OnInit {
         this.updateDriverForm.reset();
         this.getAllDrivers();
       },
-      error: (err: any) => {
-        console.error('Error updating driver:', err);
-
-        // Check the language and display the error message accordingly
-        let errorMessage = '';
-        if (this.lang === 'En') {
-          errorMessage =
-            err.MesgEn?.non_field_errors?.[0] ||
-            'An error occurred while updating the driver';
-        } else if (this.lang === 'Ar') {
-          errorMessage = err.MesgAr || 'حدث خطأ أثناء تحديث السائق';
+      error: (error: any) => {
+        this.errorMessages = this.errorHandlerService.getErrors(
+          error,
+          this.lang == 'en' ? 'en' : 'ar'
+        );
+        if (this.errorMessages.length) {
+          for (let error of this.errorMessages) {
+            this.toastr.error(error);
+            this.errorHandlerService.getErrors(error, this.lang);
+          }
         }
-
-        // Show error message in toastr
-        this.toastr.error(errorMessage, 'Error');
       },
     });
   }
@@ -470,6 +479,7 @@ export class DriversComponent implements OnInit {
   get driversDetails() {
     return this.modifiedData();
   }
+
   getTripTimeFormate(tripTime: number): string {
     if (tripTime < 60) {
       return `${tripTime} Min`;
@@ -485,6 +495,8 @@ export class DriversComponent implements OnInit {
   getFullImageUrl(): string {
     if (this.singleDriver?.user?.picture) {
       return `${this.imgUrl}${this.singleDriver.user.picture}`;
+    } else if (this.singleDriver) {
+      return `${this.imgUrl}${this.singleDriver.picture}`;
     }
     return '../../../assets/unknown.png'; // Return an empty string or a default image URL if picture is not available
   }
