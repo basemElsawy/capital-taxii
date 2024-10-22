@@ -11,7 +11,12 @@
       <label class="search-icon" for="search-icon">
         <img src="../../../assets/search.png" width="12" height="12" alt="" />
       </label>
-      <input type="text" id="search-icon" placeholder="search" />
+      <input
+        [(ngModel)]="searchInput"
+        type="text"
+        id="search-icon"
+        placeholder="search"
+      />
     </div>
     <button
       (click)="openAddModal(content)"
@@ -51,7 +56,8 @@
       </tr>
     </thead>
     <tbody>
-      @for(permission of permissions; track permission) {
+      @for(permission of permissions | searchFilter : searchInput; track
+      permission) {
       <tr>
         <td
           class="person-info d-flex align-users-center justify-content-start gap-2 ps-5"
@@ -60,6 +66,10 @@
         </td>
         <td>{{ permission?.nameAR }}</td>
         <td>{{ permission?.url }}</td>
+      </tr>
+      }@empty{
+      <tr>
+        <td>No Data Found</td>
       </tr>
       }
     </tbody>

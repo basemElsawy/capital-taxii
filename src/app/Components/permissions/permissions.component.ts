@@ -15,6 +15,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { PermissionsService } from './services/permissions.service';
 import { ToastrService } from 'ngx-toastr';
+import { SearchFilterPipe } from '../../shared-ui/pipes/search-filter.pipe';
 @Component({
   selector: 'app-permissions',
   standalone: true,
@@ -25,6 +26,8 @@ import { ToastrService } from 'ngx-toastr';
     RatingModule,
     CalendarModule,
     TranslateModule,
+    FormsModule,
+    SearchFilterPipe,
   ],
   templateUrl: './permissions.component.html',
   styleUrls: ['./permissions.component.scss'],
@@ -33,7 +36,7 @@ export class PermissionsComponent implements OnInit {
   permissions: any[] = [];
   addPermissionForm!: FormGroup;
   lang!: string;
-
+  searchInput: string = '';
   constructor(
     private fb: FormBuilder,
     private permissionsService: PermissionsService,

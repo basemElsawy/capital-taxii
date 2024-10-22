@@ -27,8 +27,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { ToastrService } from 'ngx-toastr';
-import { error } from 'console';
-
+import { SearchFilterPipe } from '../../shared-ui/pipes/search-filter.pipe';
 @Component({
   selector: 'app-Drivers',
   standalone: true,
@@ -42,6 +41,8 @@ import { error } from 'console';
     ReactiveFormsModule,
     RatingModule,
     TranslateModule,
+    SearchFilterPipe,
+    FormsModule,
   ],
   templateUrl: './Drivers.component.html',
   styleUrls: ['./Drivers.component.scss'],
@@ -49,7 +50,7 @@ import { error } from 'console';
 })
 export class DriversComponent implements OnInit {
   public readonly imgUrl = environment.image;
-
+  searchInput: string = '';
   dateRangeForm!: FormGroup;
   updateDriverForm!: FormGroup;
   driversData: WritableSignal<any> = signal([]);
@@ -111,14 +112,15 @@ export class DriversComponent implements OnInit {
     );
     this.updateDriverForm = this.fb.group(
       {
+        id: [null, Validators.required],
         email: [null],
         username: [null, Validators.required],
         fullName: [null, Validators.required],
         phoneNumber: [null, Validators.required],
         genderId: [null, Validators.required],
         nationalityId: [null, Validators.required],
-        password: [null, Validators.required],
-        confirmPassword: [null, Validators.required],
+        password: [null],
+        confirmPassword: [null],
         birthDate: [null, Validators.required],
         picture: [null, Validators.required],
       },
@@ -146,6 +148,7 @@ export class DriversComponent implements OnInit {
             this.modifiedData.set(res);
             console.log(res);
           } else {
+            console.log(res);
             this.driversData.set(res.items);
             this.modifiedData.set(res.items);
 
@@ -300,19 +303,18 @@ export class DriversComponent implements OnInit {
       rolesDto: {
         roles: [],
       },
-      firebaseToken: null,
-      locationLatitude: 0,
-      locationLongitude: 0,
-      isActive: null,
-      emailConfirmed: true,
     };
-    console.log(body);
+    let requestBody: any = {};
+    for (let [key, value] of Object.entries(body)) {
+      if (body[key] != null && body[key] != undefined && body[key] != '') {
+        requestBody[key] = value;
+      }
+    }
 
-    this.driversService.updateDriver(body).subscribe({
+    this.driversService.updateDriver(requestBody).subscribe({
       next: () => {
         this.modalService.dismissAll();
         this.updateDriverForm.reset();
-        this.toastr.success('updated successfully');
         this.getAllDrivers();
       },
       error: (err: any) => {
@@ -332,6 +334,20 @@ export class DriversComponent implements OnInit {
         this.toastr.error(errorMessage, 'Error');
       },
     });
+  }
+
+  updateUserImage(event: any) {
+    this.driversService
+      .convertFileToBase64(event.target.files[0])
+      .then((res) => {
+        this.updateDriverForm.controls['picture'].setValue(res);
+        let cleanedBase64Image = this.driversService.processImage(
+          this.updateDriverForm.controls['picture'].value
+        );
+
+        this.updateDriverForm.controls['picture'].setValue(cleanedBase64Image);
+      })
+      .finally(() => {});
   }
 
   uploadPhoto(event: any) {

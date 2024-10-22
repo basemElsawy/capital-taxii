@@ -16,6 +16,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { RolesService } from './services/roles.service';
 import { ToastrService } from 'ngx-toastr';
+import { SearchFilterPipe } from '../../shared-ui/pipes/search-filter.pipe';
 @Component({
   selector: 'app-roles',
   standalone: true,
@@ -27,6 +28,8 @@ import { ToastrService } from 'ngx-toastr';
     CalendarModule,
     TranslateModule,
     MultiSelectModule,
+    SearchFilterPipe,
+    FormsModule,
   ],
   templateUrl: './roles.component.html',
   styleUrls: ['./roles.component.scss'],
@@ -39,7 +42,7 @@ export class RolesComponent implements OnInit {
   selectedPermissions: any[] = [];
   choosedRoles: any;
   updateRolesForm!: FormGroup;
-
+  searchInput: string = '';
   constructor(
     private fb: FormBuilder,
     private rolesService: RolesService,

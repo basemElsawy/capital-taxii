@@ -24,6 +24,7 @@ import { forkJoin } from 'rxjs';
 import { ShiftsComponent } from '../shifts/shifts.component';
 import { PromoCodeService } from './services/promo-code.service';
 import { ToastrService } from 'ngx-toastr';
+import { SearchFilterPipe } from '../../shared-ui/pipes/search-filter.pipe';
 @Component({
   selector: 'app-promo-code',
   standalone: true,
@@ -41,6 +42,7 @@ import { ToastrService } from 'ngx-toastr';
     PeakTimeComponent,
     MultiSelectModule,
     ShiftsComponent,
+    SearchFilterPipe,
   ],
   templateUrl: './promo-code.component.html',
   styleUrls: ['./promo-code.component.scss'],
@@ -54,7 +56,7 @@ export class PromoCodeComponent implements OnInit {
   activePromoCodes: any[] = [];
   inActivePromoCodes: any[] = [];
   expiryPromoCodes: any[] = [];
-
+  searchInput: string = '';
   constructor(
     private promoCodeService: PromoCodeService,
     private fb: FormBuilder,

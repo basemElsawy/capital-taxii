@@ -9,7 +9,12 @@
       <label class="search-icon" for="search-icon"
         ><img src="../../../assets/search.png" width="12" height="12" alt=""
       /></label>
-      <input type="text" id="search-icon" placeholder="search" />
+      <input
+        type="text"
+        id="search-icon"
+        [(ngModel)]="searchInput"
+        placeholder="search"
+      />
     </div>
     <button
       (click)="openAddModal(content)"
@@ -57,7 +62,7 @@
       </tr>
     </thead>
     <tbody>
-      @for(user of users; track user) {
+      @for(user of users | searchFilter:searchInput; track user) {
       <tr>
         <td
           class="person-info d-flex align-users-center justify-content-start gap-2"
@@ -110,6 +115,10 @@
             </button>
           </div>
         </td>
+      </tr>
+      }@empty {
+      <tr>
+        <td>No Data Found</td>
       </tr>
       }
     </tbody>
@@ -264,7 +273,6 @@
   </div>
 
   <div class="modal-body">
-    <img class="img-new" [src]="getFullImageUrl()" src="client img" />
     <form [formGroup]="updateUserForm">
       <div class="row">
         <div class="col-md-4">

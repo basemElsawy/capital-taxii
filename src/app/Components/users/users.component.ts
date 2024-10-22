@@ -20,7 +20,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { ErrorHandlerService } from '../clients/services/error-handler.service';
+import { SearchFilterPipe } from '../../shared-ui/pipes/search-filter.pipe';
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -32,6 +32,8 @@ import { ErrorHandlerService } from '../clients/services/error-handler.service';
     CalendarModule,
     TranslateModule,
     MultiSelectModule,
+    FormsModule,
+    SearchFilterPipe,
   ],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
@@ -40,7 +42,6 @@ import { ErrorHandlerService } from '../clients/services/error-handler.service';
 export class UsersComponent implements OnInit {
   users: any[] = [];
   nationalities: any[] = [];
-  errorMessages: string[] = [];
   addUserForm!: FormGroup;
   updateUserForm!: FormGroup;
   public readonly imgUrl = environment.image;
@@ -48,6 +49,7 @@ export class UsersComponent implements OnInit {
   lang!: string;
   roles: any;
   selectedRoles: any;
+  searchInput: string = '';
   userId: any;
   constructor(
     private fb: FormBuilder,
@@ -56,8 +58,7 @@ export class UsersComponent implements OnInit {
     private translation: TranslationService,
     private translate: TranslateService,
     private datePipe: DatePipe,
-    private toastr: ToastrService,
-    private errorHandlerService: ErrorHandlerService
+    private toastr: ToastrService
   ) {}
   ngOnInit() {
     this.initialiseAddUserForm();
@@ -164,7 +165,6 @@ export class UsersComponent implements OnInit {
   //     scrollable: true,
   //   });
   // }
-  selectedUser: any;
   openUpdateModal(content: any, selectedUser: any) {
     this.userId = selectedUser.id;
     this.setDataInUpdateForm(selectedUser);
@@ -179,7 +179,6 @@ export class UsersComponent implements OnInit {
     });
   }
   setDataInUpdateForm(selecteduser: any) {
-    this.selectedUser = selecteduser.picture;
     this.userService.getUserById(selecteduser.id).subscribe((user: any) => {
       const selectedRoles = user.roles.map((role: any) => role.name);
 
@@ -200,15 +199,6 @@ export class UsersComponent implements OnInit {
 
       this.selectedRoles = selectedRoles;
     });
-  }
-
-  getFullImageUrl(): string {
-    if (this.selectedUser?.user) {
-      return `${this.imgUrl}${this.selectedUser.user.picture}`;
-    } else if (this.selectedUser) {
-      return `${this.imgUrl}${this.selectedUser}`;
-    }
-    return '../../../assets/unknown.png';
   }
 
   getAllRoles(): void {
@@ -298,28 +288,19 @@ export class UsersComponent implements OnInit {
         this.toastr.success('User updated successfully!', 'Success'); // Success message
       },
       error: (error: any) => {
-        this.errorMessages = this.errorHandlerService.getErrors(
-          error,
-          this.lang == 'en' ? 'en' : 'ar'
-        );
-        if (this.errorMessages.length) {
-          for (let error of this.errorMessages) {
-            this.toastr.error(error);
-          }
-        }
-        // // Custom error message
-        // const customErrorMessage =
-        //   this.lang === 'En'
-        //     ? 'Failed to update user. Please check your input.'
-        //     : 'فشل تحديث المستخدم. يرجى التحقق من مدخلاتك.';
+        // Custom error message
+        const customErrorMessage =
+          this.lang === 'En'
+            ? 'Failed to update user. Please check your input.'
+            : 'فشل تحديث المستخدم. يرجى التحقق من مدخلاتك.';
 
-        // // Check for specific error messages
-        // const errorMessage =
-        //   error?.MesgEn?.non_field_errors?.[0] ||
-        //   error?.MesgAr ||
-        //   customErrorMessage;
-        // this.toastr.error(errorMessage, 'Error'); // Show error toast
-        // console.log(error);
+        // Check for specific error messages
+        const errorMessage =
+          error?.MesgEn?.non_field_errors?.[0] ||
+          error?.MesgAr ||
+          customErrorMessage;
+        this.toastr.error(errorMessage, 'Error'); // Show error toast
+        console.log(error);
       },
     });
   }

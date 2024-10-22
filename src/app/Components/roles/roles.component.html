@@ -11,7 +11,12 @@
       <label class="search-icon" for="search-icon">
         <img src="../../../assets/search.png" width="12" height="12" alt="" />
       </label>
-      <input type="text" id="search-icon" placeholder="search" />
+      <input
+        type="text"
+        id="search-icon"
+        [(ngModel)]="searchInput"
+        placeholder="search"
+      />
     </div>
     <button
       (click)="openAddModal(content)"
@@ -54,7 +59,7 @@
       </tr>
     </thead>
     <tbody>
-      @for(role of roles; track role) {
+      @for(role of roles | searchFilter:searchInput; track role) {
       <tr>
         <td
           class="person-info d-flex align-users-center justify-content-start gap-2 ps-4"
@@ -75,6 +80,10 @@
             <i class="fas fa-edit"></i>
           </button>
         </td>
+      </tr>
+      } @empty {
+      <tr>
+        <td>No Data Found</td>
       </tr>
       }
     </tbody>

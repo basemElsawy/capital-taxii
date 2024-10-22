@@ -10,8 +10,9 @@
         type="text"
         id="search-icon"
         placeholder="search"
-        (change)="searchInDrivers($event)"
+        [(ngModel)]="searchInput"
       />
+      <!-- (change)="searchInDrivers($event)" -->
     </div>
     <google-map [center]="center" [zoom]="zoom" height="300px" width="100%">
       <ng-container
@@ -108,7 +109,7 @@
         </tr>
       </thead>
       <tbody class="w-100">
-        @for(driver of allDrivers; track driver) {
+        @for(driver of allDrivers | searchFilter: searchInput ; track driver) {
         <tr class="w-100">
           <td>
             <input

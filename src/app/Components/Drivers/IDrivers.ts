@@ -102,7 +102,7 @@ export interface IRequestRoutes {
 }
 
 export interface IUserFormModel {
-  id: number;
+  [id: string]: string | number | boolean | object;
   email: string;
   username: string;
   fullName: string;

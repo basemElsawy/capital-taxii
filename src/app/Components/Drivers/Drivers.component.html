@@ -12,8 +12,9 @@
         type="text"
         id="search-icon"
         placeholder="search"
-        (change)="searchInDrivers($event)"
+        [(ngModel)]="searchInput"
       />
+      <!-- (change)="searchInDrivers($event)" -->
     </div>
     <button
       (click)="openAddModal(content)"
@@ -58,7 +59,8 @@
       } @else {
 
       <tbody class="w-100">
-        @for(data of driversDetails; track data ;let idx= $index) {
+        @for(data of driversDetails | searchFilter : searchInput ; track data
+        ;let idx= $index) {
         <tr class="w-100">
           <td
             class="person-info d-flex align-items-center justify-content-start gap-2"
@@ -879,7 +881,7 @@
             >
             <input
               class="form-control"
-              (change)="uploadPhoto($event)"
+              (change)="updateUserImage($event)"
               type="file"
               id="formFile"
             />

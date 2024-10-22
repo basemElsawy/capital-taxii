@@ -22,6 +22,8 @@ import { environment } from '../../../environments/environment.development';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../Core/Services/translation.service';
 import { ToastrService } from 'ngx-toastr';
+import { SearchFilterPipe } from '../../shared-ui/pipes/search-filter.pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-map',
@@ -34,6 +36,8 @@ import { ToastrService } from 'ngx-toastr';
     MapInfoWindow,
     MapAdvancedMarker,
     TranslateModule,
+    SearchFilterPipe,
+    FormsModule,
   ],
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss',
@@ -41,7 +45,7 @@ import { ToastrService } from 'ngx-toastr';
 export class MapComponent implements OnInit, OnDestroy {
   @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
   @ViewChild(GoogleMap) map!: GoogleMap; // Access to the Google Map instance
-
+  searchInput: string = '';
   center!: google.maps.LatLngLiteral;
   zoom = 8;
   driverMarkers: any[] = [];
@@ -249,9 +253,9 @@ export class MapComponent implements OnInit, OnDestroy {
         this.allDrivers_Data().filter((filteredData: any) => {
           let name = filteredData.driver.user.fullName;
           console.log();
-          return (<string>event.target.value)
+          return (name != null ? name.toLowerCase() : name)
             .toLowerCase()
-            .includes(name != null ? name.toLowerCase() : name);
+            .includes(event.target.value);
         })
       );
       if (!this.modifiedData().length) {
