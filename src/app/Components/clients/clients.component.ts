@@ -20,6 +20,7 @@ import { TranslationService } from '../../Core/Services/translation.service';
 import { UserService } from '../users/services/user.service';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ErrorHandlerService } from './services/error-handler.service';
+import { SearchFilterPipe } from '../../shared-ui/pipes/search-filter.pipe';
 
 @Component({
   selector: 'app-clients',
@@ -33,6 +34,7 @@ import { ErrorHandlerService } from './services/error-handler.service';
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
+    SearchFilterPipe,
   ],
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss'],
@@ -51,7 +53,7 @@ export class ClientsComponent implements OnInit {
   singleCredit!: any;
   dateRangeForm!: FormGroup;
   tripDataToDisplay: any = signal([]);
-
+  searchInput: string = '';
   constructor(
     private fb: FormBuilder,
     private clientsService: ClientsService,
@@ -394,6 +396,7 @@ export class ClientsComponent implements OnInit {
         if (this.errorMessages.length) {
           for (let error of this.errorMessages) {
             this.toastr.error(error);
+            this.errorHandlerService.getErrors(error, this.lang);
           }
         }
       },

@@ -8,7 +8,12 @@
     <label class="search-icon" for="search-icon">
       <img src="../../../assets/search.png" width="12" height="12" alt="" />
     </label>
-    <input type="text" id="search-icon" placeholder="search" />
+    <input
+      type="text"
+      [(ngModel)]="searchInput"
+      id="search-icon"
+      placeholder="search"
+    />
   </div>
   <table class="w-100 table-content position-relative">
     <thead class="w-100">
@@ -43,7 +48,7 @@
       </tr>
     </thead>
     <tbody>
-      @for(client of clients; track client) {
+      @for(client of clients | searchFilter : searchInput; track client) {
       <tr>
         <td>
           <input type="checkbox" [checked]="client.isChecked" />
