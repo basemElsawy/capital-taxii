@@ -134,4 +134,8 @@ export class VehicleService {
   getAllZones() {
     return this.httpClient.get(`${this.base_url}Zone/get-all-zones`);
   }
+
+  updateDriverOnVehicle(body: any) {
+    return this.httpClient.put(`${this.base_url}DriverVehicle`, body);
+  }
 }

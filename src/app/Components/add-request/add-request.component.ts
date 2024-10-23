@@ -202,7 +202,6 @@ export class AddRequestComponent implements OnInit, AfterViewInit {
         .sendTripData(formData)
         .then((responseMessage: any) => {
           this.setIsLoading.set(false);
-          // Display the message returned by the server
           console.log(responseMessage);
           if (responseMessage.isSuccess) {
             this.toastr.success(

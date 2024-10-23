@@ -36,11 +36,13 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './vehicle.component.scss',
 })
 export class VehicleComponent {
+  selectedDriverVehicle: any;
   public readonly imgUrl = environment.image;
   driversData: any[] = [];
   addVehicleForm!: FormGroup;
   updateVehicleForm!: FormGroup;
   addDriverVehicleForm!: FormGroup;
+  updateDriverVehicleForm!: FormGroup;
   nationalities: any[] = [];
   vehicleSpecifications: any[] = [];
   vehicleTypes: any[] = [];
@@ -129,6 +131,13 @@ export class VehicleComponent {
       zoneId: [null, Validators.required],
     });
     this.addDriverVehicleForm = this.fb.group({
+      startDate: [null, Validators.required],
+      expiryDate: [null, Validators.required],
+      driverId: [null, Validators.required],
+      vehicleId: [null, Validators.required],
+    });
+    this.updateDriverVehicleForm = this.fb.group({
+      id: [null, Validators.required],
       startDate: [null, Validators.required],
       expiryDate: [null, Validators.required],
       driverId: [null, Validators.required],
@@ -232,7 +241,6 @@ export class VehicleComponent {
     });
   }
   openUpdateVehcleModal(content: any, selectedVehicle: any) {
-    debugger;
     this.choosedVehicle = selectedVehicle;
     this.setVehcleDataInUpdateForm(selectedVehicle.res);
     this.modalService.open(content, {
@@ -242,6 +250,7 @@ export class VehicleComponent {
       scrollable: true,
     });
   }
+
   setVehcleDataInUpdateForm(selectedVehicle: any) {
     this.updateVehicleForm.patchValue({
       id: selectedVehicle.id,
@@ -259,6 +268,7 @@ export class VehicleComponent {
       zoneId: selectedVehicle.zone.id,
     });
   }
+
   convertImageToBase64(imageUrl: string): void {
     this.vehilcesService
       .getImageAsBase64(imageUrl)
@@ -501,4 +511,32 @@ export class VehicleComponent {
     });
   }
   checkboxEvent(event: any) {}
+
+  openUpdateModal(updateDriverContent: any, vehicleDriver: any) {
+    debugger;
+    this.selectedDriverVehicle = vehicleDriver;
+    this.modalService.open(updateDriverContent, {
+      size: 'xl',
+      backdrop: 'static',
+      keyboard: false,
+    });
+    this.setDriverVehicleUpdateForm(vehicleDriver);
+  }
+
+  setDriverVehicleUpdateForm(selectedDriver: any) {
+    debugger;
+    this.updateDriverVehicleForm.patchValue({
+      id: selectedDriver.id,
+    });
+  }
+
+  confirmUpdateDriverVehicle() {
+    const body = {};
+    this.vehilcesService.updateDriverOnVehicle(body).subscribe({
+      next: (res: any) => {},
+      error: (error: any) => {
+        //error logic goes here
+      },
+    });
+  }
 }
