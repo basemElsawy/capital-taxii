@@ -230,7 +230,6 @@ export class DriversComponent implements OnInit {
     this.getAllNationalities();
   }
   openUpdateModal(content: any, selectedDriver: any) {
-    debugger;
     this.getAllNationalities();
 
     this.setDriverDataInUpdateForm(selectedDriver);
@@ -242,7 +241,6 @@ export class DriversComponent implements OnInit {
     });
   }
   setDriverDataInUpdateForm(selectedDriver: any) {
-    debugger;
     this.singleDriver = selectedDriver;
     this.updateDriverForm.patchValue({
       id: selectedDriver?.id,
@@ -327,7 +325,6 @@ export class DriversComponent implements OnInit {
   }
 
   updateDriver() {
-    debugger;
     let body: any = {
       id: JSON.parse(<string>localStorage.getItem('user')).id,
       ...this.updateDriverForm.value,

@@ -2,7 +2,7 @@ import { map } from 'rxjs';
 import { Component } from '@angular/core';
 import { DriversService } from '../Drivers/Services/drivers.service';
 import { VehicleService } from './Services/vehicle.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   FormBuilder,
   FormControl,
@@ -34,6 +34,7 @@ import { ToastrService } from 'ngx-toastr';
   ],
   templateUrl: './vehicle.component.html',
   styleUrl: './vehicle.component.scss',
+  providers: [DatePipe],
 })
 export class VehicleComponent {
   selectedDriverVehicle: any;
@@ -61,13 +62,17 @@ export class VehicleComponent {
   lang!: string;
   zones: any[] = [];
   selectedDriver: any;
+  isEditDriverVehicleUpdated: boolean = false;
+  editingIndex!: number;
+  vehicleId!: number;
   constructor(
     private vehilcesService: VehicleService,
     private modalService: NgbModal,
     private fb: FormBuilder,
     private translate: TranslateService,
     private translation: TranslationService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -283,6 +288,7 @@ export class VehicleComponent {
   }
   //here is the function needed to get all added drivers on the selected vehicle
   getAllVehicleDrivers(selectedVehicleId: any) {
+    this.vehicleDrivers = [];
     this.vehilcesService.getVehicleDetails(selectedVehicleId).subscribe({
       next: (res: any) => {
         this.vehicleDrivers = res.data.drivers;
@@ -366,7 +372,10 @@ export class VehicleComponent {
   }
 
   showVehicleDrivers(selectedVehicle: any, content: any) {
+    this.isEditDriverVehicleUpdated = false;
+
     this.addDriverVehicleForm.reset();
+    this.vehicleId = selectedVehicle.res.id;
     this.getAllVehicleDrivers(selectedVehicle.res.id);
     this.modalService.open(content, {
       size: 'xl',
@@ -412,7 +421,6 @@ export class VehicleComponent {
       },
       error: (error: any) => {
         console.error('Error adding vehicle:', error);
-        debugger;
         // Prepare error message based on the selected language
         let errorMessage = '';
         if (this.lang === 'En') {
@@ -429,7 +437,6 @@ export class VehicleComponent {
   }
 
   getFullImageUrl(): string {
-    debugger;
     if (this.choosedVehicle) {
       return `${this.imgUrl}${this.choosedVehicle?.res?.photo}`;
     }
@@ -511,31 +518,64 @@ export class VehicleComponent {
     });
   }
   checkboxEvent(event: any) {}
-
-  openUpdateModal(updateDriverContent: any, vehicleDriver: any) {
-    debugger;
-    this.selectedDriverVehicle = vehicleDriver;
-    this.modalService.open(updateDriverContent, {
-      size: 'xl',
-      backdrop: 'static',
-      keyboard: false,
-    });
-    this.setDriverVehicleUpdateForm(vehicleDriver);
+  editDriverVehicle(driverVehicle: any, index: number) {
+    this.isEditDriverVehicleUpdated = true;
+    this.editingIndex = index;
+    this.setDriverVehicleUpdateForm(driverVehicle);
   }
+  // openUpdateModal(updateDriverContent: any, vehicleDriver: any) {
+  //   this.selectedDriverVehicle = vehicleDriver;
+  //   this.modalService.open(updateDriverContent, {
+  //     size: 'xl',
+  //     backdrop: 'static',
+  //     keyboard: false,
+  //   });
+  //   this.setDriverVehicleUpdateForm(vehicleDriver);
+  // }
 
   setDriverVehicleUpdateForm(selectedDriver: any) {
-    debugger;
+    this.selectedDriver = selectedDriver.driver.userId;
+    // this.updateDriverVehicleForm.controls['startDate'].setValue(
+    //   selectedDriver.startDate
+    // );
+    // this.updateDriverVehicleForm.controls['expiryDate'].setValue(
+    //   selectedDriver.expiryDate
+    // );
+    // this.updateDriverVehicleForm.controls['driverId'].setValue(
+    //   selectedDriver.driver.id
+    // );
+    // this.updateDriverVehicleForm.controls['id'].setValue(
+    //   selectedDriver.driver.id
+    // );
+    // this.updateDriverVehicleForm.controls['vehicleId'].setValue(this.vehicleId);
     this.updateDriverVehicleForm.patchValue({
       id: selectedDriver.id,
+      startDate: this.datePipe.transform(
+        selectedDriver.startDate,
+        'yyyy-MM-dd'
+      ),
+      expiryDate: this.datePipe.transform(
+        selectedDriver.expiryDate,
+        'yyyy-MM-dd'
+      ),
+      driverId: selectedDriver.driver.id,
+      vehicleId: this.vehicleId,
     });
   }
 
   confirmUpdateDriverVehicle() {
-    const body = {};
+    const body = this.updateDriverVehicleForm.value;
     this.vehilcesService.updateDriverOnVehicle(body).subscribe({
-      next: (res: any) => {},
+      next: (res: any) => {
+        this.isEditDriverVehicleUpdated = false;
+        this.getAllVehicleDrivers(body.vehicleId);
+      },
       error: (error: any) => {
-        //error logic goes here
+        this.toastr.error(
+          this.lang === 'En'
+            ? 'An error occurred while updating the table price details'
+            : 'حدث خطأ أثناء تحديث بيانات السائق'
+        );
       },
     });
   }

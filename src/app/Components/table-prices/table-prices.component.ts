@@ -281,7 +281,6 @@ export class TablePricesComponent {
   checkboxEvent(event: any) {}
 
   editSelectedTablePrice(content: any, selectedTablePrice: any) {
-    debugger;
     this.modalService.open(content, {
       size: 'xl',
       backdrop: 'static',
@@ -293,7 +292,6 @@ export class TablePricesComponent {
   }
 
   setDataForSelectedPriceTable(priceTable: any) {
-    debugger;
     this.updatePriceTableForm.patchValue({
       id: priceTable.id,
       startDate: priceTable.startDate,
@@ -304,12 +302,10 @@ export class TablePricesComponent {
   }
 
   confirmUpdateTablePrice() {
-    debugger;
     this.isLoading = true;
     let body = this.updatePriceTableForm.value;
     this.tablePricesService.updatePriceTable(body).subscribe({
       next: (res: any) => {
-        debugger;
         this.isLoading = false;
         this.modalService.dismissAll();
         this.getPricesTables();

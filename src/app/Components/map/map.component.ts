@@ -127,8 +127,6 @@ export class MapComponent implements OnInit, OnDestroy {
   // }
 
   addMarkerOnMap(driver: any, event: any) {
-    debugger;
-
     let driverMarker = {
       userInfo: {
         name: driver.driver.user.fullName,

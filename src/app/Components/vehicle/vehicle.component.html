@@ -703,106 +703,168 @@
 <!-- here is the modal needed to show all added drivers on the selected vehicles-->
 <ng-template #drivers let-modal>
   <div class="modal-body">
-    <table class="w-100 table-content position-relative">
-      <thead class="w-100">
-        <tr class="py-2 px-4 w-100">
-          <th class="first-heading">#</th>
-          <th class="text-start">Name</th>
-          <th>Email</th>
-          <th>Gender</th>
-          <th>Phone</th>
-          <th>Status</th>
-          <th>Total amount</th>
-          <th>Total count</th>
-          <th>Start date</th>
-          <th>End date</th>
-          <th>Edit</th>
-        </tr>
-      </thead>
-      <tbody class="w-100">
-        @for(data of vehicleDrivers; track data; let i = $index) {
-        <tr class="w-100">
-          <td>
-            {{ i + 1 }}
-          </td>
-          <td
-            class="person-info d-flex align-items-center justify-content-start gap-2"
-          >
-            <img
-              [src]="
-                data.driver.user.picture
-                  ? imgUrl + data.driver.user.picture
-                  : '../../../assets/unknown.png'
-              "
-              alt=""
-              height="40"
-              width="40"
-            />
-            <div class="text-container text-start">
-              <h6 class="m-0 p-0 fw-bold">{{ data.driver.user.fullName }}</h6>
-              <!-- <a href="#" class="click-show-image">Show Image</a> -->
-            </div>
-          </td>
-          <td>
-            {{ data.driver.user.email }}
-          </td>
-          <td>
-            {{ data.driver.user.genderId == 1 ? "Male" : "Female" }}
-          </td>
-          <td>
-            {{ data.driver.user.phoneNumber }}
-          </td>
-          <td>
-            @if(data.driver.status == false) {
-            <i class="fa-solid fa-circle-xmark close-icon"></i>
-            } @else {
-            <i class="fa-solid fa-check success-icon"></i>
-            }
-          </td>
-          <td>
-            {{ data.driver.totalAmount ? data.driver.totalAmount : "-" }}
-          </td>
-          <td>
-            {{ data.driver.totalCount ? data.driver.totalCount : "-" }}
-          </td>
-          <td>
-            {{ data.startDate | date : "dd-MM-yyyy" }}
-          </td>
+    <form [formGroup]="updateDriverVehicleForm">
+      <table class="w-100 table-content position-relative">
+        <thead class="w-100">
+          <tr class="py-2 px-4 w-100">
+            <th class="first-heading">#</th>
+            <th class="text-start">Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Total amount</th>
+            <th>Total count</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody class="w-100">
+          @for(data of vehicleDrivers; track data; let i = $index) {
+          <tr class="w-100">
+            <td>
+              {{ i + 1 }}
+            </td>
+            <td
+              class="person-info d-flex align-items-center justify-content-start gap-2"
+            >
+              <img
+                [src]="
+                  data.driver.user.picture
+                    ? imgUrl + data.driver.user.picture
+                    : '../../../assets/unknown.png'
+                "
+                alt=""
+                height="40"
+                width="40"
+              />
+              <div class="text-container text-start">
+                <h6 class="m-0 p-0 fw-bold">{{ data.driver.user.fullName }}</h6>
+                <!-- <a href="#" class="click-show-image">Show Image</a> -->
+              </div>
+            </td>
+            <!-- <td *ngIf="isEditDriverVehicleUpdated && editingIndex === i">
+              <div class="card flex justify-content-center w-75">
+                <p-dropdown
+                  [options]="Drivers"
+                  [(ngModel)]="selectedDriver"
+                  optionLabel="user"
+                  optionValue="driverId"
+                  [filter]="true"
+                  filterBy="user"
+                  [showClear]="true"
+                  placeholder="Select a Driver"
+                  appendTo="body"
+                  formControlName="driverId"
+                >
+                  <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div class="flex align-items-center gap-2">
+                      <div>{{ selectedOption.user }}</div>
+                    </div>
+                  </ng-template>
+                  <ng-template let-driver pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                      <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="
+                          'flag flag-' +
+                          driver.driverId.toString().toLowerCase()
+                        "
+                        style="width: 18px"
+                      />
+                      <div>{{ driver.user }}</div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+              </div>
+            </td> -->
+            <td>
+              {{ data.driver.user.email }}
+            </td>
+            <td>
+              {{ data.driver.user.genderId == 1 ? "Male" : "Female" }}
+            </td>
+            <td>
+              {{ data.driver.user.phoneNumber }}
+            </td>
+            <td>
+              @if(data.driver.status == false) {
+              <i class="fa-solid fa-circle-xmark close-icon"></i>
+              } @else {
+              <i class="fa-solid fa-check success-icon"></i>
+              }
+            </td>
+            <td>
+              {{ data.driver.totalAmount ? data.driver.totalAmount : "-" }}
+            </td>
+            <td>
+              {{ data.driver.totalCount ? data.driver.totalCount : "-" }}
+            </td>
+            <td *ngIf="!isEditDriverVehicleUpdated || editingIndex !== i">
+              {{ data.startDate | date : "dd-MM-yyyy" }}
+            </td>
+            <td *ngIf="isEditDriverVehicleUpdated && editingIndex === i">
+              <input
+                type="date"
+                class="form-group form-control w-75"
+                formControlName="startDate"
+              />
+            </td>
 
-          <td>
-            {{ data.expiryDate | date : "dd-MM-yyyy" }}
-          </td>
+            <td *ngIf="!isEditDriverVehicleUpdated || editingIndex !== i">
+              {{ data.expiryDate | date : "dd-MM-yyyy" }}
+            </td>
+            <td *ngIf="isEditDriverVehicleUpdated && editingIndex === i">
+              <input
+                type="date"
+                class="form-group form-control w-75"
+                formControlName="expiryDate"
+              />
+            </td>
 
-          <td>
-            <div class="edit-btn">
-              <button
-                tooltipPosition="top"
-                tooltipClass="custom-tooltip"
-                (click)="openUpdateModal(updateDriverVehicle, data)"
-                class="btn btn-success d-flex align-items-center justify-content-center gap-2"
-              >
-                <!-- <span> Update vehicle </span> -->
+            <td>
+              <div class="edit-btn">
+                <button
+                  tooltipPosition="top"
+                  tooltipClass="custom-tooltip"
+                  (click)="editDriverVehicle(data, i)"
+                  *ngIf="!isEditDriverVehicleUpdated || editingIndex !== i"
+                  class="btn btn-success d-flex align-items-center justify-content-center gap-2"
+                >
+                  <!-- <span> Update vehicle </span> -->
 
-                <i class="fas fa-edit"></i>
-              </button>
-            </div>
-          </td>
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button
+                  class="btn btn-success"
+                  (click)="confirmUpdateDriverVehicle()"
+                  *ngIf="isEditDriverVehicleUpdated && editingIndex === i"
+                >
+                  Save
+                </button>
+              </div>
+            </td>
 
-          <!-- <td style="width: 200px" class="text-center"></td>
+            <!-- <td style="width: 200px" class="text-center"></td>
           <td style="width: 200px" class="text-center"></td> -->
-        </tr>
-        }
-      </tbody>
-    </table>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </form>
   </div>
 
   <div class="modal-footer">
+    <button class="btn btn-success" (click)="confirmUpdateDriverVehicle()">
+      Save
+    </button>
     <button class="btn btn-danger" (click)="closeModal()">Close</button>
   </div>
 </ng-template>
 
 <!-- here is the modal needed to update the selected driver placed on the vehicle-->
-<ng-template #updateDriverVehicle let-modal>
+<!-- <ng-template #updateDriverVehicle let-modal>
   <div class="modal-header">
     <h4>Update driver vehicle</h4>
   </div>
@@ -873,4 +935,4 @@
     </button>
     <button class="btn btn-danger" (click)="closeModal()">Close</button>
   </div>
-</ng-template>
+</ng-template> -->
